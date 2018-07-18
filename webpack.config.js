@@ -26,6 +26,16 @@ Encore
 
     // uncomment for legacy applications that require $/jQuery as a global variable
     //.autoProvidejQuery()
+
+    .createSharedEntry('vendor', [
+        'jquery',
+        'bootstrap',
+        'moment',
+        'eonasdan-bootstrap-datetimepicker',
+        'bootbox',
+        'bootstrap-timepicker',
+        'admin-lte'
+    ])
 ;
 
 module.exports = Encore.getWebpackConfig();

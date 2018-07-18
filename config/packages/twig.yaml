@@ -1,4 +1,13 @@
+parameters:
+    locale: en
+    site_name: 'Aqualife System'
+    short_site_name: 'Aqualife System'
+
 twig:
     paths: ['%kernel.project_dir%/templates']
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+
+    globals:
+        site_name: '%site_name%'
+        short_site_name: '%short_site_name%'

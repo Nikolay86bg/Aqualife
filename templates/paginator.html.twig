@@ -1,0 +1,45 @@
+{% if paginator.canpaginate %}
+    {% set route = app.request.attributes.get('_route') %}
+    {% set params = app.request.attributes.get('_route_params')|merge(app.request.query.all) %}
+    <div class = "col-md-7 col-sm-12 col-xs-12">
+        <ul class="pagination">
+            <li {{ ((paginator.page == 1) ? 'class="disabled"') }}>
+                <a href="{{ url(route, params|merge({ page: (((paginator.page - 1) < 1) ? 1 : (paginator.page - 1)) })) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% set last = paginator.page + 7 %}
+            {% set first = paginator.page - 7 %}
+            {% if first <= 0  %}
+                {% set first = 1 %}
+                {% if 14 < paginator.totalpagescount %}
+                    {% set last = 14 %}
+                {% else %}
+                    {% set last = paginator.totalpagescount %}
+                {% endif %}
+            {% endif %}
+            {% if last > paginator.totalpagescount %}
+                {% set last = paginator.totalpagescount %}
+                {% if paginator.totalpagescount -14 > 1 %}
+                    {% set first = paginator.totalpagescount -14 %}
+                {% else %}
+                    {% set first = 1 %}
+                {% endif %}
+            {% endif %}
+
+            {% for index in first..last %}
+                <li {{ ((paginator.page == index) ? 'class="active bg-olive"') }}>
+                    <a href="{{ url(route, params|merge({ page: index })) }}">
+                    {{ index }} <span class="sr-only">(current)</span></span>
+                    </a>
+                </li>
+            {% endfor %}
+            <li {{ ((paginator.page == paginator.totalpagescount) ? 'class="disabled"') }}>
+                <a href="{{ url(route, params|merge({ page: (((paginator.page + 1) <= paginator.totalpagescount) ? (paginator.page + 1) : paginator.page) })) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endif %}
+
