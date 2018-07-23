@@ -142,9 +142,11 @@
                         <div class="pull-left">
                             <a href="#" class="btn btn-default btn-flat">Profile</a>
                         </div>
+                        {% if is_granted('ROLE_USER') %}
                         <div class="pull-right">
-                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                            <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Sign out</a>
                         </div>
+                        {% endif %}
                     </li>
                 </ul>
             </li>
