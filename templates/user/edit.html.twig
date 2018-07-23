@@ -1,0 +1,121 @@
+{% extends 'layout.html.twig' %}
+
+    {% block content %}
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    <small>
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                        Edit Profile <span> - {{ user }} </span>
+                    </small>
+                </h2>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="col-md-7 col-sm-6 col-xs-12">
+
+                {% for label, messages in app.flashes(['success', 'error']) %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                <div class="x_content">
+                    {{ form_start(edit_form) }}
+                    {{ form_widget(edit_form) }}
+                    <div class="form-group">
+                        <button id="send" type="submit" class="btn bg-green">Submit</button>
+                    </div>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+
+            <div class="col-md-5 col-sm-6 col-xs-12">
+                <div class="col-md-12 box-details col-xs-12">
+                    <div class="well box-view col-xs-12">
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="left col-xs-12 no-margin-top">
+                                <h4>{{ user }} </h4>
+                                <ul class="list-unstyled" id="curently_edited_pos_data_list">
+                                    <li>
+                                        <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                        User Id:
+                                        <span class="accent_data">{{ user.id }}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-text-width" aria-hidden="true"></i>
+                                        Username:
+                                        <span class="accent_data">{% if user.username %}{{ user.username }}{% else %} - {% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                        Is Active:
+                                        <span class="accent_data">{% if user.isActive %}Yes{% else %}No{% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-text-width" aria-hidden="true"></i>
+                                        Email:
+                                        <span class="accent_data">{% if user.email %}{{ user.email }}{% else %} - {% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-text-width" aria-hidden="true"></i>
+                                        First Name:
+                                        <span class="accent_data">{% if user.firstName %}{{ user.firstName }}{% else %} - {% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-text-width" aria-hidden="true"></i>
+                                        Last Name:
+                                        <span class="accent_data">{% if user.lastName %}{{ user.lastName }}{% else %} - {% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-files-o" aria-hidden="true"></i>
+                                        Roles:
+                                        <span class="accent_data">{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        Parent:
+                                        <span class="accent_data">{% if user.parent %}{{ user.parent }}{% else %} - {% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                        Timezone:
+                                        <span class="accent_data">{% if user.timezone %}{{ user.timezone }}{% else %} - {% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        Created At:
+                                        <span class="accent_data">{% if user.createdAt %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        Updated At:
+                                        <span class="accent_data">{% if user.updatedAt %}{{ user.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        Off Work From:
+                                        <span class="accent_data">{% if user.offWorkFrom is not null %}{{ user.offWorkFrom|date('Y-m-d') }}{% endif %}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        Off Work Until:
+                                        <span class="accent_data">{% if user.offWorkUntil is not null %}{{ user.offWorkUntil|date('Y-m-d') }}{% endif %}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 bottom text-center">
+                            <div class="col-xs-12 col-sm-6 emphasis">
+                            </div>
+                            <div class="col-xs-12 col-sm-6 emphasis">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

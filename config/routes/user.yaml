@@ -1,0 +1,33 @@
+user_change_password:
+    path: /change-password
+    controller: App\Controller\UserController:changePassword
+
+user_index:
+    path:     /
+    controller: App\Controller\UserController::index
+    methods:  GET
+
+user_show:
+    path:     /{id}/show
+    controller: App\Controller\UserController::show
+    methods:  GET
+
+user_new:
+    path:     /new
+    controller: App\Controller\UserController::new
+    methods:  [GET, POST]
+
+user_edit:
+    path:     /{id}/edit
+    controller: App\Controller\UserController::edit
+    methods:  [GET, POST]
+
+user_delete:
+    path:     /{id}/delete
+    controller: App\Controller\UserController::delete
+    methods:  DELETE
+
+user_profile:
+    path:     /profile
+    controller: App\Controller\UserController:profile
+    methods:  [GET, POST]

@@ -1,36 +1,63 @@
 security:
+    # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
-
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        App\Entity\User:
+            algorithm: bcrypt
 
     providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
+        user_provider:
+            id: App\Security\User\UserProvider
+
+    role_hierarchy:
+        ROLE_TL: [ROLE_USER]
+        ROLE_SUPERVISOR: [ROLE_TL]
+        ROLE_MANAGER: [ROLE_SUPERVISOR]
+        ROLE_OPERATIONS_MANAGER: [ROLE_MANAGER]
+        ROLE_DIRECTOR: [ROLE_MANAGER]
+        ROLE_ADMIN: [ROLE_ALLOWED_TO_SWITCH, ROLE_DIRECTOR]
 
     firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         main:
             pattern: ^/
+            anonymous: true
+            switch_user: true
             form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
+                login_path: security_login
+                check_path: security_login_check
+                use_referer: true
+
+#            logout_on_user_change: true
+            logout:
+                path: security_logout
+                target: app_homepage
+
+            guard:
+                provider: user_provider
+                entry_point: App\Security\FormAuthenticator
+                authenticators:
+                    - App\Security\FormAuthenticator
 
             remember_me:
-                secret:   '%kernel.secret%'
-                lifetime: 604800 # 1 week in seconds
-                path:     /
-                # by default, the feature is enabled by checking a
-                # checkbox in the login form (see below), uncomment the
-                # following line to always enable it.
-                #always_remember_me: true
+                  secret: '%env(APP_SECRET)%'
+                  lifetime: 604800 # 1 week in seconds
+                  path: /
 
-            logout:       true
-            anonymous:    true
+#                  Полето на формата което се генерира
+#                  remember_me_parameter: !php/const App\Form\LoginType::REMEMBER_ME_FIELD
+
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # https://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # https://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/user/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
+

@@ -1,0 +1,11 @@
+security_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+security_login_check:
+    path: /login-check
+    controller: App\Controller\Security::loginCheck
+
+security_logout:
+    path: /logout
+    controller: App\Controller\Security::logout
