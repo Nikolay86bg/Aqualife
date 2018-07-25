@@ -76,20 +76,20 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             $queryBuilder->setParameter('name', $form->get('name')->getData().'%');
         }
 
-        if (null !== $form->get('department')->getData()) {
-            $queryBuilder->andWhere('user.department = :department');
-            $queryBuilder->setParameter('department', $form->get('department')->getData());
-        }
+//        if (null !== $form->get('department')->getData()) {
+//            $queryBuilder->andWhere('user.department = :department');
+//            $queryBuilder->setParameter('department', $form->get('department')->getData());
+//        }
 
         if (null !== $form->get('status')->getData()) {
             $queryBuilder->andWhere('user.isActive = :status');
             $queryBuilder->setParameter('status', $form->get('status')->getData());
         }
 
-        if (null !== $form->get('position')->getData()) {
-            $queryBuilder->andWhere('user.position = :position');
-            $queryBuilder->setParameter('position', $form->get('position')->getData());
-        }
+//        if (null !== $form->get('position')->getData()) {
+//            $queryBuilder->andWhere('user.position = :position');
+//            $queryBuilder->setParameter('position', $form->get('position')->getData());
+//        }
 
         if (null !== $form->get('report_to')->getData()) {
             $queryBuilder->andWhere('user.parent = :parent');
@@ -114,17 +114,17 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
                     $sortBy = 'user.email';
                     break;
 
-                case 'department' == $sort:
-                    $sortBy = 'department.name ';
-                    break;
+//                case 'department' == $sort:
+//                    $sortBy = 'department.name ';
+//                    break;
 
                 case 'reportTo' == $sort:
                     $sortBy = 'parent.firstName';
                     break;
 
-                case 'position' == $sort:
-                    $sortBy = 'position.name';
-                    break;
+//                case 'position' == $sort:
+//                    $sortBy = 'position.name';
+//                    break;
 
                 case 'createdAt' == $sort:
                     $sortBy = 'user.createdAt';
