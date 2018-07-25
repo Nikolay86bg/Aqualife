@@ -707,45 +707,45 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
         return $this->children;
     }
 
-    /**
-     * @param Department $department
-     *
-     * @return User
-     */
-    public function setDepartment($department)
-    {
-        $this->department = $department;
+//    /**
+//     * @param Department $department
+//     *
+//     * @return User
+//     */
+//    public function setDepartment($department)
+//    {
+//        $this->department = $department;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return Department
+//     */
+//    public function getDepartment()
+//    {
+//        return $this->department;
+//    }
 
-        return $this;
-    }
-
-    /**
-     * @return Department
-     */
-    public function getDepartment()
-    {
-        return $this->department;
-    }
-
-    /**
-     * @param Position $position
-     *
-     * @return User
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * @return Position
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
+//    /**
+//     * @param Position $position
+//     *
+//     * @return User
+//     */
+//    public function setPosition($position)
+//    {
+//        $this->position = $position;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return Position
+//     */
+//    public function getPosition()
+//    {
+//        return $this->position;
+//    }
 
     /**
      * @param Mistake[] $mistakes
@@ -1019,37 +1019,37 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
         return $this->accountEventChange;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getOffWorkFrom()
-    {
-        return $this->offWorkFrom;
-    }
-
-    /**
-     * @param \DateTime $offWorkFrom
-     */
-    public function setOffWorkFrom($offWorkFrom)
-    {
-        $this->offWorkFrom = $offWorkFrom;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getOffWorkUntil()
-    {
-        return $this->offWorkUntil;
-    }
-
-    /**
-     * @param \DateTime $offWorkUntil
-     */
-    public function setOffWorkUntil($offWorkUntil)
-    {
-        $this->offWorkUntil = $offWorkUntil;
-    }
+//    /**
+//     * @return \DateTime
+//     */
+//    public function getOffWorkFrom()
+//    {
+//        return $this->offWorkFrom;
+//    }
+//
+//    /**
+//     * @param \DateTime $offWorkFrom
+//     */
+//    public function setOffWorkFrom($offWorkFrom)
+//    {
+//        $this->offWorkFrom = $offWorkFrom;
+//    }
+//
+//    /**
+//     * @return \DateTime
+//     */
+//    public function getOffWorkUntil()
+//    {
+//        return $this->offWorkUntil;
+//    }
+//
+//    /**
+//     * @param \DateTime $offWorkUntil
+//     */
+//    public function setOffWorkUntil($offWorkUntil)
+//    {
+//        $this->offWorkUntil = $offWorkUntil;
+//    }
 
     /**
      * @return ShowPasswordLog[]

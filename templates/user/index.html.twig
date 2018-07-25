@@ -60,13 +60,13 @@
                         {% endif %}
 
 
-                        {% if params.order is defined and params.sort == 'department' and params.order == 'DESC' %}
-                            <th><a href = "{{ url(route, params|merge({sort:'department',order:'ASC'})) }}">Department <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                        {% elseif params.order is defined and params.sort == 'department' and params.order == 'ASC' %}
-                            <th><a href = "{{ url(route, params|merge({sort:'department', order:'DESC'})) }}">Department <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                        {% else %}
-                            <th><a href = "{{ url(route, params|merge({sort:'department',order:'ASC'})) }}">Department <i class="fa fa-fw fa-sort"></i></a></th>
-                        {% endif %}
+                        {#{% if params.order is defined and params.sort == 'department' and params.order == 'DESC' %}#}
+                            {#<th><a href = "{{ url(route, params|merge({sort:'department',order:'ASC'})) }}">Department <i class="fa fa-fw fa-sort-asc"></i></a></th>#}
+                        {#{% elseif params.order is defined and params.sort == 'department' and params.order == 'ASC' %}#}
+                            {#<th><a href = "{{ url(route, params|merge({sort:'department', order:'DESC'})) }}">Department <i class="fa fa-fw fa-sort-desc"></i></a></th>#}
+                        {#{% else %}#}
+                            {#<th><a href = "{{ url(route, params|merge({sort:'department',order:'ASC'})) }}">Department <i class="fa fa-fw fa-sort"></i></a></th>#}
+                        {#{% endif %}#}
 
 
                         {% if params.order is defined and params.sort == 'reportTo' and params.order == 'DESC' %}
@@ -78,13 +78,13 @@
                         {% endif %}
 
 
-                        {% if params.order is defined and params.sort == 'position' and params.order == 'DESC' %}
-                            <th><a href = "{{ url(route, params|merge({sort:'position',order:'ASC'})) }}">Position <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                        {% elseif params.order is defined and params.sort == 'position' and params.order == 'ASC' %}
-                            <th><a href = "{{ url(route, params|merge({sort:'position', order:'DESC'})) }}">Position <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                        {% else %}
-                            <th><a href = "{{ url(route, params|merge({sort:'position',order:'ASC'})) }}">Position <i class="fa fa-fw fa-sort"></i></a></th>
-                        {% endif %}
+                        {#{% if params.order is defined and params.sort == 'position' and params.order == 'DESC' %}#}
+                            {#<th><a href = "{{ url(route, params|merge({sort:'position',order:'ASC'})) }}">Position <i class="fa fa-fw fa-sort-asc"></i></a></th>#}
+                        {#{% elseif params.order is defined and params.sort == 'position' and params.order == 'ASC' %}#}
+                            {#<th><a href = "{{ url(route, params|merge({sort:'position', order:'DESC'})) }}">Position <i class="fa fa-fw fa-sort-desc"></i></a></th>#}
+                        {#{% else %}#}
+                            {#<th><a href = "{{ url(route, params|merge({sort:'position',order:'ASC'})) }}">Position <i class="fa fa-fw fa-sort"></i></a></th>#}
+                        {#{% endif %}#}
 
                         <th>Is Active</th>
 
@@ -119,9 +119,9 @@
                                 <td>{{ user }}</td>
                                 <td>{{ user.username }}</td>
                                 <td>{{ user.email }}</td>
-                                <td>{{ user.department }}</td>
+                                {#<td>{{ user.department }}</td>#}
                                 <td>{% if user.parent %}{{ user.parent.firstName }} {{ user.parent.lastName }}{% endif %}</td>
-                                <td>{{ user.position }}</td>
+                                {#<td>{{ user.position }}</td>#}
                                 <td>{% if user.isActive %}Yes{% else %}No{% endif %}</td>
                                 <td>{% if user.createdAt %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                 <td>{% if user.updatedAt %}{{ user.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>

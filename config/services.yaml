@@ -27,5 +27,15 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    App\Doctrine\Listener\HashPasswordListener:
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    App\Doctrine\Listener\TimestampableEntityListener:
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -6,7 +6,7 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Department;
+//use App\Entity\Department;
 use App\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
@@ -74,33 +74,36 @@ class UserVoter extends Voter
             //1 = current user don't have permissions || -1 = current user have permissions
             //AND if current user department is in MANAGERS_DEPARTMENT_PERMISSIONS
             if (
-                1 === $this->roleHierarchyVoter->vote($token, $user, $user->getRoles()) ||
-                !in_array($subject->getDepartment()->getName(), USER::MANAGERS_DEPARTMENT_PERMISSIONS[$user->getDepartment()->getName()], true)
+                1 === $this->roleHierarchyVoter->vote($token, $user, $user->getRoles())
+//                ||
+//                !in_array($subject->getDepartment()->getName(), USER::MANAGERS_DEPARTMENT_PERMISSIONS[$user->getDepartment()->getName()], true)
             ) {
                 return false;
             }
         }
 
-        switch ($user->getDepartment()->getId()) {
-            case Department::QUALITY_ASSURANCE_DEPARTMENT:
-                return $this->getQAAccess($user, $attribute);
-            case Department::ADVERTISING_DEPARTMENT:
-                return $this->getAdvertisingAccess($user, $attribute);
-            case Department::TECHNICAL_SUPPORT_DEPARTMENT:
-                return $this->getTechnicalSupportAccess($user, $attribute);
-            case Department::LINK_BUILDING_DEPARTMENT:
-                return $this->getLBAccess($user, $attribute);
-            case Department::WEB_DESIGN_DEPARTMENT:
-                return $this->getWebDesignAccess($user, $attribute);
-            case Department::CONTENT_WRITING_DEPARTMENT:
-                return $this->getContentWritingAccess($user, $attribute);
-            case Department::TRAINING_DEPARTMENT:
-                return $this->getTrainingAccess($user, $attribute);
-            case Department::REPORTING_DEPARTMENT:
-                return $this->getQAAccess($user, $attribute);
-            default:
-                return false;
-        }
+        return true;
+
+//        switch ($user->getDepartment()->getId()) {
+//            case Department::QUALITY_ASSURANCE_DEPARTMENT:
+//                return $this->getQAAccess($user, $attribute);
+//            case Department::ADVERTISING_DEPARTMENT:
+//                return $this->getAdvertisingAccess($user, $attribute);
+//            case Department::TECHNICAL_SUPPORT_DEPARTMENT:
+//                return $this->getTechnicalSupportAccess($user, $attribute);
+//            case Department::LINK_BUILDING_DEPARTMENT:
+//                return $this->getLBAccess($user, $attribute);
+//            case Department::WEB_DESIGN_DEPARTMENT:
+//                return $this->getWebDesignAccess($user, $attribute);
+//            case Department::CONTENT_WRITING_DEPARTMENT:
+//                return $this->getContentWritingAccess($user, $attribute);
+//            case Department::TRAINING_DEPARTMENT:
+//                return $this->getTrainingAccess($user, $attribute);
+//            case Department::REPORTING_DEPARTMENT:
+//                return $this->getQAAccess($user, $attribute);
+//            default:
+//                return false;
+//        }
     }
 
     /**

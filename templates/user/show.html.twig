@@ -74,16 +74,7 @@
                                     Updated At:
                                     <span class="accent_data">{% if user.updatedAt %}{{ user.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</span>
                                 </li>
-                                <li>
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    Off Work From:
-                                    <span class="accent_data">{% if user.offWorkFrom is not null %}{{ user.offWorkFrom|date('Y-m-d') }}{% endif %}</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                    Off Work Until:
-                                    <span class="accent_data">{% if user.offWorkUntil is not null %}{{ user.offWorkUntil|date('Y-m-d') }}{% endif %}</span>
-                                </li>
+
                             </ul>
                         </div>
                         <div class="right col-xs-5 text-center">

@@ -65,9 +65,9 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function getListQuery(Form $form, $sort = null, $order = null)
     {
         $queryBuilder = $this->createQueryBuilder('user');
-        $queryBuilder->join('user.department', 'department');
+//        $queryBuilder->join('user.department', 'department');
         $queryBuilder->leftJoin('user.parent', 'parent');
-        $queryBuilder->leftJoin('user.position', 'position');
+//        $queryBuilder->leftJoin('user.position', 'position');
 
         if (null !== $form->get('name')->getData()) {
             $queryBuilder->andWhere('user.firstName LIKE :name');

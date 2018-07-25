@@ -97,9 +97,9 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if ($form->get('position')->getData()) {
-                $user->setRoles($this->getRole($form->get('position')->getData()));
-            }
+//            if ($form->get('position')->getData()) {
+//                $user->setRoles($this->getRole($form->get('position')->getData()));
+//            }
             $em->persist($user);
             $em->flush();
 
