@@ -1,8 +1,8 @@
 {% if paginator.canpaginate %}
     {% set route = app.request.attributes.get('_route') %}
     {% set params = app.request.attributes.get('_route_params')|merge(app.request.query.all) %}
-    <div class = "col-md-7 col-sm-12 col-xs-12">
-        <ul class="pagination">
+    <div class = "box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
             <li {{ ((paginator.page == 1) ? 'class="disabled"') }}>
                 <a href="{{ url(route, params|merge({ page: (((paginator.page - 1) < 1) ? 1 : (paginator.page - 1)) })) }}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>

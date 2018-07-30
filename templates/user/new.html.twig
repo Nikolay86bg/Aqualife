@@ -1,27 +1,46 @@
     {% extends 'layout.html.twig' %}
 
+    {% block content_header %}
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add User
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url('user_index') }}"><i class="fa fa-dashboard"></i> Users</a></li>
+            <li class="active">Add</li>
+        </ol>
+    </section>
+    {% endblock %}
+
     {% block content %}
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>
-                <small>
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    Add User
-                </small>
-            </h2>
-            <div class="clearfix"></div>
+
+    <div class="col-md-12 col-sm-6 col-xs-12">
+        <div class="box box-primary">
+
+            {% for label, messages in app.flashes(['success', 'error']) %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+
+                <div class="x_content">
+                    {{ form_start(form) }}
+                    <div class="box-body">
+                        {{ form_widget(form) }}
+                        <div class="box-footer">
+                            <button id="send" type="submit" class="btn btn-primary">Submit</button>
+                            <a href="{{ path('user_index') }}" class="btn bg-blue">Cancel</a>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+
         </div>
 
-        <div class="col-md-7 col-sm-6 col-xs-12">
-            <div class="x_content">
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <div class="form-group">
-                    <button id="send" type="submit" class="btn bg-green">Submit</button>
-                    <a href="{{ path('user_index') }}" class="btn bg-blue">Cancel</a>
-                </div>
-                {{ form_end(form) }}
-            </div>
-        </div>
     </div>
     {% endblock %}

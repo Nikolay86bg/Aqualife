@@ -24,10 +24,17 @@ class UserProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
+            ->add('username', null, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('plainPassword', PasswordType::class, [
                 'required' => false,
                 'label' => 'Password',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('timezone', ChoiceType::class, [
                 'choices' => [
@@ -36,10 +43,25 @@ class UserProfileType extends AbstractType
                     'New York' => 'America/New_York',
                     'PHL' => 'Asia/Manila',
                 ],
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
-            ->add('email')
-            ->add('firstName')
-            ->add('lastName');
+            ->add('email',null, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('firstName',null, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('lastName',null, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ]);
     }
 
     /**
