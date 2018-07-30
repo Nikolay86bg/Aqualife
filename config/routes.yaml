@@ -10,6 +10,10 @@ app_security:
     resource: "routes/security.yaml"
     prefix:   /user
 
+app_account:
+    resource: "routes/account.yaml"
+    prefix:   /account
+
 app_homepage:
     path: /
     controller: App\Controller\DefaultController::index

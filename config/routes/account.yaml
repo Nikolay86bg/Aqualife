@@ -1,0 +1,25 @@
+account_index:
+    path:     /
+    controller: App\Controller\AccountController::index
+    methods:  GET
+
+account_show:
+    path:     /{id}/show
+    controller: App\Controller\AccountController::show
+    methods:  GET
+
+account_new:
+    path:     /new
+    controller: App\Controller\AccountController::new
+    methods:  [GET, POST]
+
+account_edit:
+    path:     /{id}/edit
+    controller: App\Controller\AccountController::edit
+    methods:  [GET, POST]
+
+account_delete:
+    path:     /{id}/delete
+    controller: App\Controller\AccountController::delete
+    methods:  DELETE
+

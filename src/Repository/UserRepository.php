@@ -6,8 +6,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Department;
-use App\Entity\Position;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;

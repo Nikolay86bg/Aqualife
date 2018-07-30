@@ -1,9 +1,5 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
-
 namespace App\Controller;
 
 use App\Doctrine\ORM\Tools\Pagination\Paginator;
