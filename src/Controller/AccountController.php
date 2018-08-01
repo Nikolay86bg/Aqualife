@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Account;
 use App\Form\AccountFilterType;
+use App\Form\AccountType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\Intl\Intl;
 
 /**
  * Class AccountController
@@ -40,10 +43,76 @@ class AccountController extends Controller
         $accounts = (new Paginator($accounts))
             ->setEntityManager($this->getDoctrine()->getManager())
             ->paginate($request->query->get('page'));
+        $countries = Intl::getRegionBundle()->getCountryNames();
 
         return $this->render('account/index.html.twig', [
 //            'filter' => $filter->createView(),
             'accounts' => $accounts,
+            'countries' => $countries,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response.
+     */
+    public function new(Request $request)
+    {
+//        $this->denyAccessUnlessGranted(UserVoter::USER_ADD_ROLE);
+
+        $account = new Account();
+        $form = $this->createForm(AccountType::class, $account);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($account);
+            $em->flush();
+
+            return $this->redirectToRoute('account_show', ['id' => $account->getId()]);
+        }
+
+        return $this->render('account/new.html.twig', [
+            'account' => $account,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @param Account $account
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function show(Account $account)
+    {
+//        $this->denyAccessUnlessGranted(UserVoter::USER_VIEW_ROLE, $user);
+
+        $countries = Intl::getRegionBundle()->getCountryNames();
+
+        return $this->render('account/show.html.twig', [
+            'account' => $account,
+            'countries' => $countries,
+        ]);
+    }
+
+    public function edit(Request $request, Account $account)
+    {
+//        $this->denyAccessUnlessGranted(UserVoter::USER_EDIT_ROLE, $user);
+
+        $editForm = $this->createForm(AccountType::class, $account);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->flush();
+
+            return $this->redirectToRoute('account_show', ['id' => $account->getId()]);
+        }
+
+        return $this->render('account/edit.html.twig', [
+            'account' => $account,
+            'edit_form' => $editForm->createView(),
         ]);
     }
 }

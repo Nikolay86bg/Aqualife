@@ -37,29 +37,25 @@ class AccountRepository extends ServiceEntityRepository
 
         if (null !== $sort && null !== $order) {
             switch ($sort) {
-                case 'userId' == $sort:
+                case 'id' == $sort:
                     $sortBy = 'account.id';
                     break;
 
-                case 'user' == $sort:
-                    $sortBy = 'account.firstName';
+                case 'name' == $sort:
+                    $sortBy = 'account.name';
                     break;
 
-                case 'username' == $sort:
-                    $sortBy = 'account.username';
+                case 'agent' == $sort:
+                    $sortBy = 'account.agent';
                     break;
 
-                case 'email' == $sort:
-                    $sortBy = 'account.email';
+                case 'sport' == $sort:
+                    $sortBy = 'account.sport';
                     break;
 
 
-                case 'createdAt' == $sort:
-                    $sortBy = 'account.createdAt';
-                    break;
-
-                case 'updatedAt' == $sort:
-                    $sortBy = 'account.updatedAt';
+                case 'country' == $sort:
+                    $sortBy = 'account.country';
                     break;
 
                 default:
