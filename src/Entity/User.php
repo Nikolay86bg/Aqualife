@@ -27,12 +27,13 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     use TimestampableEntityTrait;
 
     const ROLE_USER = 'ROLE_USER';
-    const ROLE_TL = 'ROLE_TL';
-    const ROLE_SUPERVISOR = 'ROLE_SUPERVISOR';
+//    const ROLE_TL = 'ROLE_TL';
+//    const ROLE_SUPERVISOR = 'ROLE_SUPERVISOR';
     const ROLE_MANAGER = 'ROLE_MANAGER';
-    const ROLE_OPERATIONS_MANAGER = 'ROLE_OPERATIONS_MANAGER';
-    const ROLE_DIRECTOR = 'ROLE_DIRECTOR';
+//    const ROLE_OPERATIONS_MANAGER = 'ROLE_OPERATIONS_MANAGER';
+//    const ROLE_DIRECTOR = 'ROLE_DIRECTOR';
     const ROLE_ADMIN = 'ROLE_ADMIN';
+
 
     /**
      * Managers can edit and add users from this departments
@@ -116,19 +117,19 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
      */
     private $email;
 
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="children")
-     */
-    private $parent;
+//    /**
+//     * @var User
+//     *
+//     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="children")
+//     */
+//    private $parent;
 
-    /**
-     * @var User[]
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="parent")
-     */
-    private $children;
+//    /**
+//     * @var User[]
+//     *
+//     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="parent")
+//     */
+//    private $children;
 
     /**
      * @var string
@@ -150,6 +151,31 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
      * @ORM\Column(name="roles", type="array")
      */
     private $roles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="position", type="string", length=255)
+     */
+    private $position;
+
+    /**
+     * @return string
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param string $position
+     */
+    public function setPosition(string $position): void
+    {
+        $this->position = $position;
+    }
+
+
 
 //    /**
 //     * @var Department
@@ -235,12 +261,12 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
 //     */
 //    private $comments;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="timezone", type="string", length=255, options={"default": "Europe/Sofia"})
-     */
-    private $timezone;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="timezone", type="string", length=255, options={"default": "Europe/Sofia"})
+//     */
+//    private $timezone;
 
 //    /**
 //     * @var DisputeEvaluationEventMistakeWeight[]
@@ -325,38 +351,38 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
 //     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="completedBy")
 //     */
 //    private $taskCompletedBy;
-
-    /**
-     * @return QnqReport[]
-     */
-    public function getQnqReports()
-    {
-        return $this->qnqReports;
-    }
-
-    /**
-     * @return Account[]
-     */
-    public function getAccount()
-    {
-        return $this->account;
-    }
-
-    /**
-     * @param Account[] $account
-     */
-    public function setAccount(array $account)
-    {
-        $this->account = $account;
-    }
-
-    /**
-     * @param QnqReport[] $qnqReports
-     */
-    public function setQnqReports(array $qnqReports)
-    {
-        $this->qnqReports = $qnqReports;
-    }
+//
+//    /**
+//     * @return QnqReport[]
+//     */
+//    public function getQnqReports()
+//    {
+//        return $this->qnqReports;
+//    }
+//
+//    /**
+//     * @return Account[]
+//     */
+//    public function getAccount()
+//    {
+//        return $this->account;
+//    }
+//
+//    /**
+//     * @param Account[] $account
+//     */
+//    public function setAccount(array $account)
+//    {
+//        $this->account = $account;
+//    }
+//
+//    /**
+//     * @param QnqReport[] $qnqReports
+//     */
+//    public function setQnqReports(array $qnqReports)
+//    {
+//        $this->qnqReports = $qnqReports;
+//    }
 
     /**
      * User constructor.
@@ -364,10 +390,10 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
-        $this->parameterTypes = new ArrayCollection();
-        $this->holidays = new ArrayCollection();
-        $this->tasks = new ArrayCollection();
-        $this->accountEventChange = new ArrayCollection();
+//        $this->parameterTypes = new ArrayCollection();
+//        $this->holidays = new ArrayCollection();
+//        $this->tasks = new ArrayCollection();
+//        $this->accountEventChange = new ArrayCollection();
         $this->showPasswordLog = new ArrayCollection();
     }
 
@@ -514,29 +540,29 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
         return $this->email;
     }
 
-    /**
-     * Set parent.
-     *
-     * @param User $parent
-     *
-     * @return User
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Get parent.
-     *
-     * @return User
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
+//    /**
+//     * Set parent.
+//     *
+//     * @param User $parent
+//     *
+//     * @return User
+//     */
+//    public function setParent($parent)
+//    {
+//        $this->parent = $parent;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get parent.
+//     *
+//     * @return User
+//     */
+//    public function getParent()
+//    {
+//        return $this->parent;
+//    }
 
     /**
      * Set `irstName.
@@ -686,26 +712,26 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     {
         return $this->getId() === $user->getId();
     }
-
-    /**
-     * @param User[] $children
-     *
-     * @return User
-     */
-    public function setChildren($children)
-    {
-        $this->children = $children;
-
-        return $this;
-    }
-
-    /**
-     * @return User[]
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
+//
+//    /**
+//     * @param User[] $children
+//     *
+//     * @return User
+//     */
+//    public function setChildren($children)
+//    {
+//        $this->children = $children;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return User[]
+//     */
+//    public function getChildren()
+//    {
+//        return $this->children;
+//    }
 
 //    /**
 //     * @param Department $department
@@ -746,278 +772,278 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
 //    {
 //        return $this->position;
 //    }
+//
+//    /**
+//     * @param Mistake[] $mistakes
+//     *
+//     * @return User
+//     */
+//    public function setMistakes($mistakes)
+//    {
+//        $this->mistakes = $mistakes;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return Mistake[]
+//     */
+//    public function getMistakes()
+//    {
+//        return $this->mistakes;
+//    }
+//
+//    /**
+//     * @param EventMistakeWeight[] $eventMistakeWeights
+//     *
+//     * @return User
+//     */
+//    public function setEventMistakeWeights($eventMistakeWeights)
+//    {
+//        $this->eventMistakeWeights = $eventMistakeWeights;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return EventMistakeWeight[]
+//     */
+//    public function getEventMistakeWeights()
+//    {
+//        return $this->eventMistakeWeights;
+//    }
+//
+//    /**
+//     * @param Account[] $accounts
+//     *
+//     * @return User
+//     */
+//    public function setAccounts($accounts)
+//    {
+//        $this->accounts = $accounts;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return Account[]
+//     */
+//    public function getAccounts()
+//    {
+//        return $this->accounts;
+//    }
+//
+//    /**
+//     * @param AccountEvent[] $accountEventsCreated
+//     *
+//     * @return User
+//     */
+//    public function setAccountEventsCreated($accountEventsCreated)
+//    {
+//        $this->accountEventsCreated = $accountEventsCreated;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return AccountEvent[]
+//     */
+//    public function getAccountEventsCreated()
+//    {
+//        return $this->accountEventsCreated;
+//    }
+//
+//    /**
+//     * @param AccountEvent[] $accountEventsAssigned
+//     *
+//     * @return User
+//     */
+//    public function setAccountEventsAssigned($accountEventsAssigned)
+//    {
+//        $this->accountEventsAssigned = $accountEventsAssigned;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return AccountEvent[]
+//     */
+//    public function getAccountEventsAssigned()
+//    {
+//        return $this->accountEventsAssigned;
+//    }
+//
+//    /**
+//     * @param AccountEvent[] $accountEventsClosed
+//     *
+//     * @return User
+//     */
+//    public function setAccountEventsClosed($accountEventsClosed)
+//    {
+//        $this->accountEventsClosed = $accountEventsClosed;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return AccountEvent[]
+//     */
+//    public function getAccountEventsClosed()
+//    {
+//        return $this->accountEventsClosed;
+//    }
+//
+//    /**
+//     * @param $evaluations
+//     *
+//     * @return User
+//     */
+//    public function setEvaluations($evaluations)
+//    {
+//        $this->evaluations = $evaluations;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return Evaluation[]
+//     */
+//    public function getEvaluations()
+//    {
+//        return $this->evaluations;
+//    }
+//
+//    /**
+//     * @param Dispute[] $disputes
+//     *
+//     * @return User
+//     */
+//    public function setDisputes($disputes)
+//    {
+//        $this->disputes = $disputes;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return Dispute[]
+//     */
+//    public function getDisputes()
+//    {
+//        return $this->disputes;
+//    }
+//
+//    /**
+//     * @param Comment[] $comments
+//     *
+//     * @return User
+//     */
+//    public function setComments($comments)
+//    {
+//        $this->comments = $comments;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return Comment[]
+//     */
+//    public function getComments()
+//    {
+//        return $this->comments;
+//    }
+//
+//    /**
+//     * @param string $timezone
+//     *
+//     * @return User
+//     */
+//    public function setTimezone($timezone)
+//    {
+//        $this->timezone = $timezone;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return string
+//     */
+//    public function getTimezone()
+//    {
+//        return $this->timezone;
+//    }
 
-    /**
-     * @param Mistake[] $mistakes
-     *
-     * @return User
-     */
-    public function setMistakes($mistakes)
-    {
-        $this->mistakes = $mistakes;
-
-        return $this;
-    }
-
-    /**
-     * @return Mistake[]
-     */
-    public function getMistakes()
-    {
-        return $this->mistakes;
-    }
-
-    /**
-     * @param EventMistakeWeight[] $eventMistakeWeights
-     *
-     * @return User
-     */
-    public function setEventMistakeWeights($eventMistakeWeights)
-    {
-        $this->eventMistakeWeights = $eventMistakeWeights;
-
-        return $this;
-    }
-
-    /**
-     * @return EventMistakeWeight[]
-     */
-    public function getEventMistakeWeights()
-    {
-        return $this->eventMistakeWeights;
-    }
-
-    /**
-     * @param Account[] $accounts
-     *
-     * @return User
-     */
-    public function setAccounts($accounts)
-    {
-        $this->accounts = $accounts;
-
-        return $this;
-    }
-
-    /**
-     * @return Account[]
-     */
-    public function getAccounts()
-    {
-        return $this->accounts;
-    }
-
-    /**
-     * @param AccountEvent[] $accountEventsCreated
-     *
-     * @return User
-     */
-    public function setAccountEventsCreated($accountEventsCreated)
-    {
-        $this->accountEventsCreated = $accountEventsCreated;
-
-        return $this;
-    }
-
-    /**
-     * @return AccountEvent[]
-     */
-    public function getAccountEventsCreated()
-    {
-        return $this->accountEventsCreated;
-    }
-
-    /**
-     * @param AccountEvent[] $accountEventsAssigned
-     *
-     * @return User
-     */
-    public function setAccountEventsAssigned($accountEventsAssigned)
-    {
-        $this->accountEventsAssigned = $accountEventsAssigned;
-
-        return $this;
-    }
-
-    /**
-     * @return AccountEvent[]
-     */
-    public function getAccountEventsAssigned()
-    {
-        return $this->accountEventsAssigned;
-    }
-
-    /**
-     * @param AccountEvent[] $accountEventsClosed
-     *
-     * @return User
-     */
-    public function setAccountEventsClosed($accountEventsClosed)
-    {
-        $this->accountEventsClosed = $accountEventsClosed;
-
-        return $this;
-    }
-
-    /**
-     * @return AccountEvent[]
-     */
-    public function getAccountEventsClosed()
-    {
-        return $this->accountEventsClosed;
-    }
-
-    /**
-     * @param $evaluations
-     *
-     * @return User
-     */
-    public function setEvaluations($evaluations)
-    {
-        $this->evaluations = $evaluations;
-
-        return $this;
-    }
-
-    /**
-     * @return Evaluation[]
-     */
-    public function getEvaluations()
-    {
-        return $this->evaluations;
-    }
-
-    /**
-     * @param Dispute[] $disputes
-     *
-     * @return User
-     */
-    public function setDisputes($disputes)
-    {
-        $this->disputes = $disputes;
-
-        return $this;
-    }
-
-    /**
-     * @return Dispute[]
-     */
-    public function getDisputes()
-    {
-        return $this->disputes;
-    }
-
-    /**
-     * @param Comment[] $comments
-     *
-     * @return User
-     */
-    public function setComments($comments)
-    {
-        $this->comments = $comments;
-
-        return $this;
-    }
-
-    /**
-     * @return Comment[]
-     */
-    public function getComments()
-    {
-        return $this->comments;
-    }
-
-    /**
-     * @param string $timezone
-     *
-     * @return User
-     */
-    public function setTimezone($timezone)
-    {
-        $this->timezone = $timezone;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTimezone()
-    {
-        return $this->timezone;
-    }
-
-    /**
-     * @param DisputeEvaluationEventMistakeWeight[] $disputeEvaluationEventMistakeWeights
-     *
-     * @return User
-     */
-    public function setDisputeEvaluationEventMistakeWeights($disputeEvaluationEventMistakeWeights)
-    {
-        $this->disputeEvaluationEventMistakeWeights = $disputeEvaluationEventMistakeWeights;
-
-        return $this;
-    }
-
-    /**
-     * @return DisputeEvaluationEventMistakeWeight[]
-     */
-    public function getDisputeEvaluationEventMistakeWeights()
-    {
-        return $this->disputeEvaluationEventMistakeWeights;
-    }
-
-    /**
-     * @param AccountEventWorkTime[] $accountEventWorkTimes
-     *
-     * @return User
-     */
-    public function setAccountEventWorkTimes($accountEventWorkTimes)
-    {
-        $this->accountEventWorkTimes = $accountEventWorkTimes;
-
-        return $this;
-    }
-
-    /**
-     * @return AccountEventWorkTime[]
-     */
-    public function getAccountEventWorkTimes()
-    {
-        return $this->accountEventWorkTimes;
-    }
-
-    /**
-     * @return ParameterType[]
-     */
-    public function getParameterTypes()
-    {
-        return $this->parameterTypes;
-    }
-
-    /**
-     * @return Holiday[]
-     */
-    public function getHolidays()
-    {
-        return $this->holidays;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTasks()
-    {
-        return $this->tasks;
-    }
-
-    /**
-     * @return AccountEventChange[]
-     */
-    public function getAccountEventChange()
-    {
-        return $this->accountEventChange;
-    }
+//    /**
+//     * @param DisputeEvaluationEventMistakeWeight[] $disputeEvaluationEventMistakeWeights
+//     *
+//     * @return User
+//     */
+//    public function setDisputeEvaluationEventMistakeWeights($disputeEvaluationEventMistakeWeights)
+//    {
+//        $this->disputeEvaluationEventMistakeWeights = $disputeEvaluationEventMistakeWeights;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return DisputeEvaluationEventMistakeWeight[]
+//     */
+//    public function getDisputeEvaluationEventMistakeWeights()
+//    {
+//        return $this->disputeEvaluationEventMistakeWeights;
+//    }
+//
+//    /**
+//     * @param AccountEventWorkTime[] $accountEventWorkTimes
+//     *
+//     * @return User
+//     */
+//    public function setAccountEventWorkTimes($accountEventWorkTimes)
+//    {
+//        $this->accountEventWorkTimes = $accountEventWorkTimes;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return AccountEventWorkTime[]
+//     */
+//    public function getAccountEventWorkTimes()
+//    {
+//        return $this->accountEventWorkTimes;
+//    }
+//
+//    /**
+//     * @return ParameterType[]
+//     */
+//    public function getParameterTypes()
+//    {
+//        return $this->parameterTypes;
+//    }
+//
+//    /**
+//     * @return Holiday[]
+//     */
+//    public function getHolidays()
+//    {
+//        return $this->holidays;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getTasks()
+//    {
+//        return $this->tasks;
+//    }
+//
+//    /**
+//     * @return AccountEventChange[]
+//     */
+//    public function getAccountEventChange()
+//    {
+//        return $this->accountEventChange;
+//    }
 
 //    /**
 //     * @return \DateTime
@@ -1067,19 +1093,19 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
         $this->showPasswordLog = $showPasswordLog;
     }
 
-    /**
-     * @return Task
-     */
-    public function getTaskCompletedBy()
-    {
-        return $this->taskCompletedBy;
-    }
-
-    /**
-     * @param Task $taskCompletedBy
-     */
-    public function setTaskCompletedBy($taskCompletedBy)
-    {
-        $this->taskCompletedBy = $taskCompletedBy;
-    }
+//    /**
+//     * @return Task
+//     */
+//    public function getTaskCompletedBy()
+//    {
+//        return $this->taskCompletedBy;
+//    }
+//
+//    /**
+//     * @param Task $taskCompletedBy
+//     */
+//    public function setTaskCompletedBy($taskCompletedBy)
+//    {
+//        $this->taskCompletedBy = $taskCompletedBy;
+//    }
 }

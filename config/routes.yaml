@@ -14,6 +14,14 @@ app_account:
     resource: "routes/account.yaml"
     prefix:   /account
 
+app_query:
+    resource: "routes/query.yaml"
+    prefix:   /query
+
+app_facility:
+    resource: "routes/facility.yaml"
+    prefix:   /facility
+
 app_homepage:
     path: /
     controller: App\Controller\DefaultController::index

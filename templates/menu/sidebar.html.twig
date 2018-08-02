@@ -24,6 +24,7 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
+        {% if (is_granted(constant('App\\Security\\Voter\\UserVoter::USER_MENU_ROLE'))) %}
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-users"></i> <span>Users</span>
@@ -38,6 +39,19 @@
         </li>
         <li class="treeview">
             <a href="#">
+                <i class="fa fa-users"></i> <span>Facility</span>
+                <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="active"><a href="{{ url('facility_index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                <li><a href="{{ url('facility_new') }}"><i class="fa fa-circle-o"></i>Add</a></li>
+            </ul>
+        </li>
+        {% endif %}
+        <li class="treeview">
+            <a href="#">
                 <i class="fa fa-briefcase"></i> <span>Accounts</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -48,6 +62,20 @@
                 <li><a href="{{ url('account_new') }}"><i class="fa fa-circle-o"></i>Add</a></li>
             </ul>
         </li>
+        {% if (is_granted(constant('App\\Security\\Voter\\QueryVoter::MENU_ROLE'))) %}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-briefcase"></i> <span>Query</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="active"><a href="{{ url('query_index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+                <li><a href="{{ url('query_new') }}"><i class="fa fa-circle-o"></i>Add</a></li>
+            </ul>
+        </li>
+        {% endif %}
 
     </ul>
 </section>

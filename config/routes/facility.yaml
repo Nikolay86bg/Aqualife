@@ -1,0 +1,20 @@
+facility_index:
+    path:     /
+    controller: App\Controller\FacilityController::index
+    methods:  GET
+
+facility_show:
+    path:     /{id}/show
+    controller: App\Controller\FacilityController::show
+    methods:  GET
+
+facility_new:
+    path:     /new
+    controller: App\Controller\FacilityController::new
+    methods:  [GET, POST]
+
+facility_edit:
+    path:     /{id}/edit
+    controller: App\Controller\FacilityController::edit
+    methods:  [GET, POST]
+

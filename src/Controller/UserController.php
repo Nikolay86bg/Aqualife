@@ -23,33 +23,6 @@ class UserController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function changePassword(Request $request)
-    {
-        $form = $this->createForm(UserPasswordType::class);
-        $form->handleRequest($request);
-
-        if (($form->isSubmitted()) && ($form->isValid())) {
-            $user = $this->getUser();
-            $user->setPlainPassword($form->get('plainPassword')->getData());
-
-            $this->getDoctrine()->getManager()->flush($user);
-
-            return $this->redirectToRoute('app_homepage');
-        }
-
-        return $this->render(
-            'user/change_password.html.twig',
-            [
-                'form' => $form->createView(),
-            ]
-        );
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function index(Request $request)
     {
         $this->denyAccessUnlessGranted(UserVoter::USER_LIST_ROLE);
@@ -93,9 +66,9 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-//            if ($form->get('position')->getData()) {
-//                $user->setRoles($this->getRole($form->get('position')->getData()));
-//            }
+            if ($form->get('position')->getData()) {
+                $user->setRoles([$form->get('position')->getData()]);
+            }
             $em->persist($user);
             $em->flush();
 
@@ -168,10 +141,11 @@ class UserController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-//            if ($editForm->get('position')->getData()) {
-//                $user->setRoles($this->getRole($editForm->get('position')->getData()));
-//                $em->persist($user);
-//            }
+
+            if ($editForm->get('position')->getData()) {
+                $user->setRoles([$editForm->get('position')->getData()]);
+                $em->persist($user);
+            }
 
             $em->flush();
 
@@ -223,27 +197,30 @@ class UserController extends Controller
     }
 
     /**
-     * @param Position $position
+     * @param Request $request
      *
-     * @return array
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function getRole(Position $position)
+    public function changePassword(Request $request)
     {
-        switch ($position->getName()) {
-            case 'Administrator':
-                return [USER::ROLE_ADMIN];
-            case 'Team Leader':
-                return [USER::ROLE_TL];
-            case 'Supervisor':
-                return [USER::ROLE_SUPERVISOR];
-            case 'Manager':
-                return [USER::ROLE_MANAGER];
-            case 'Operations Manager':
-                return [USER::ROLE_OPERATIONS_MANAGER];
-            case 'Director':
-                return [USER::ROLE_DIRECTOR];
-            default:
-                return [USER::ROLE_USER];
+        $form = $this->createForm(UserPasswordType::class);
+        $form->handleRequest($request);
+
+        if (($form->isSubmitted()) && ($form->isValid())) {
+            $user = $this->getUser();
+            $user->setPlainPassword($form->get('plainPassword')->getData());
+
+            $this->getDoctrine()->getManager()->flush($user);
+
+            return $this->redirectToRoute('app_homepage');
         }
+
+        return $this->render(
+            'user/change_password.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
+
 }

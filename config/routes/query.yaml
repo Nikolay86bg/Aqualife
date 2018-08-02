@@ -1,0 +1,20 @@
+query_index:
+    path:     /
+    controller: App\Controller\QueryController::index
+    methods:  GET
+
+query_show:
+    path:     /{id}/show
+    controller: App\Controller\QueryController::show
+    methods:  GET
+
+query_new:
+    path:     /new
+    controller: App\Controller\QueryController::new
+    methods:  [GET, POST]
+
+query_edit:
+    path:     /{id}/edit
+    controller: App\Controller\QueryController::edit
+    methods:  [GET, POST]
+

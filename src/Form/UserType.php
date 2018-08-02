@@ -51,17 +51,17 @@ class UserType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('timezone', ChoiceType::class, [
-                'choices' => [
-                    'Coordinated Universal Time' => 'UTC',
-                    'Bulgaria' => 'Europe/Sofia',
-                    'New York' => 'America/New_York',
-                    'PHL' => 'Asia/Manila',
-                ],
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
+//            ->add('timezone', ChoiceType::class, [
+//                'choices' => [
+//                    'Coordinated Universal Time' => 'UTC',
+//                    'Bulgaria' => 'Europe/Sofia',
+//                    'New York' => 'America/New_York',
+//                    'PHL' => 'Asia/Manila',
+//                ],
+//                'attr' => [
+//                    'class' => 'form-control'
+//                ]
+//            ])
             ->add('email',null, [
                 'attr' => [
                     'class' => 'form-control'
@@ -77,15 +77,25 @@ class UserType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('parent', EntityType::class, [
-                'label' => 'Parent:',
-                'required' => false,
-                'placeholder' => '- NOBODY -',
-                'class' => User::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.username', 'ASC');
-                },
+//            ->add('parent', EntityType::class, [
+//                'label' => 'Parent:',
+//                'required' => false,
+//                'placeholder' => '- NOBODY -',
+//                'class' => User::class,
+//                'query_builder' => function (EntityRepository $er) {
+//                    return $er->createQueryBuilder('u')
+//                        ->orderBy('u.username', 'ASC');
+//                },
+//                'attr' => [
+//                    'class' => 'form-control'
+//                ]
+//            ])
+            ->add('position', ChoiceType::class, [
+                'choices' => [
+                    'User' => User::ROLE_USER,
+                    'Manager' => User::ROLE_MANAGER,
+                    'Admin' => User::ROLE_ADMIN,
+                ],
                 'attr' => [
                     'class' => 'form-control'
                 ]
@@ -146,7 +156,8 @@ class UserType extends AbstractType
             ->add('isActive',null, [
                 'attr' => [
                     'class' => 'checkbox'
-                ]
+                ],
+                'data' => true,
             ])
 //            ->add('offWorkFrom', DatePickerType::class, [
 //                'label' => 'Off Work From:',

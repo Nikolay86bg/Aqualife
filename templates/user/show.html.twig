@@ -68,16 +68,6 @@
                                 <span class="accent_data">{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</span>
                             </li>
                             <li>
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                Parent:
-                                <span class="accent_data">{% if user.parent %}{{ user.parent }}{% else %} - {% endif %}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                Timezone:
-                                <span class="accent_data">{% if user.timezone %}{{ user.timezone }}{% else %} - {% endif %}</span>
-                            </li>
-                            <li>
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                 Created At:
                                 <span class="accent_data">{% if user.createdAt %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</span>

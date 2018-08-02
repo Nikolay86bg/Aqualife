@@ -64,7 +64,6 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('user');
 //        $queryBuilder->join('user.department', 'department');
-        $queryBuilder->leftJoin('user.parent', 'parent');
 //        $queryBuilder->leftJoin('user.position', 'position');
 
         if (null !== $form->get('name')->getData()) {
@@ -88,11 +87,6 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 //            $queryBuilder->andWhere('user.position = :position');
 //            $queryBuilder->setParameter('position', $form->get('position')->getData());
 //        }
-
-        if (null !== $form->get('report_to')->getData()) {
-            $queryBuilder->andWhere('user.parent = :parent');
-            $queryBuilder->setParameter('parent', $form->get('report_to')->getData());
-        }
 
         if (null !== $sort && null !== $order) {
             switch ($sort) {

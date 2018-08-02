@@ -1,0 +1,68 @@
+{% extends 'layout.html.twig' %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Facility <span> - {{ facility.name }} </span>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url('facility_index') }}"><i class="fa fa-dashboard"></i> Facilities</a></li>
+            <li class="active">Show</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+        <div class="col-md-12 col-sm-6 col-xs-12">
+            <div class="box box-primary">
+
+                {% for label, messages in app.flashes(['success', 'error']) %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                <div class="x_content">
+                    <div class="box-body">
+
+                        <h4>{{ facility.name }} </h4>
+                        <ul class="list-unstyled" id="curently_edited_pos_data_list">
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Id:
+                                <span class="accent_data">{{ facility.id }}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Name:
+                                <span class="accent_data">{% if facility.name %}{{ facility.name }}{% else %} - {% endif %}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Total Parts:
+                                <span class="accent_data">{% if facility.totalParts %}{{ facility.totalParts }}{% else %} - {% endif %}</span>
+                            </li>
+
+                        </ul>
+
+                        <div class="box-footer">
+                            <div>
+                                <a href="{{ path('facility_index') }}" class="btn bg-green">
+                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> Back to the list</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-5 col-sm-6 col-xs-12">
+
+{% endblock %}

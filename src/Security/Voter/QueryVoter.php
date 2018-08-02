@@ -6,7 +6,6 @@
 
 namespace App\Security\Voter;
 
-//use App\Entity\Department;
 use App\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
@@ -15,14 +14,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Role\RoleHierarchy;
 
-class UserVoter extends Voter
+class QueryVoter extends Voter
 {
-    const USER_VIEW_ROLE = 'USER_VIEW_ROLE'.__CLASS__;
-    const USER_EDIT_ROLE = 'USER_EDIT_ROLE'.__CLASS__;
-    const USER_ADD_ROLE = 'USER_ADD_ROLE'.__CLASS__;
-    const USER_LIST_ROLE = 'USER_LIST_ROLE'.__CLASS__;
-    const USER_DELETE_ROLE = 'USER_DELETE_ROLE'.__CLASS__;
-    const USER_MENU_ROLE = 'USER_MENU_ROLE'.__CLASS__;
+    const MENU_ROLE = 'QUERY_MENU_ROLE'.__CLASS__;
 
     /**
      * @var RoleHierarchyVoter
@@ -43,12 +37,7 @@ class UserVoter extends Voter
     {
         // if the attribute isn't one we support, return false
         if (!in_array($attribute, [
-            self::USER_VIEW_ROLE,
-            self::USER_EDIT_ROLE,
-            self::USER_ADD_ROLE,
-            self::USER_LIST_ROLE,
-            self::USER_DELETE_ROLE,
-            self::USER_MENU_ROLE,
+            self::MENU_ROLE,
         ], true)) {
             return false;
         }
@@ -71,8 +60,8 @@ class UserVoter extends Voter
         }
 
         switch ($attribute) {
-            case self::USER_MENU_ROLE:
-                return $this->getUserMenuPermission($user, $attribute);
+            case self::MENU_ROLE:
+                return $this->getMenuPermission($user, $attribute);
             default:
                 return false;
         }
@@ -84,9 +73,9 @@ class UserVoter extends Voter
      *
      * @return bool
      */
-    private function getUserMenuPermission(User $user, $attribute)
+    private function getMenuPermission(User $user, $attribute)
     {
-        return in_array(User::ROLE_ADMIN, $user->getRoles(), true);
+        return in_array(User::ROLE_MANAGER, $user->getRoles(), true);
     }
 
     /**

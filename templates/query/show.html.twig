@@ -1,0 +1,87 @@
+{% extends 'layout.html.twig' %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Query <span> - {{ query.name }} </span>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> Queries</a></li>
+            <li class="active">Show Query</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+        <div class="col-md-12 col-sm-6 col-xs-12">
+            <div class="box box-primary">
+
+                {% for label, messages in app.flashes(['success', 'error']) %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                <div class="x_content">
+                    <div class="box-body">
+
+                        <h4>{{ query.name }} </h4>
+                        <ul class="list-unstyled" id="curently_edited_pos_data_list">
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Id:
+                                <span class="accent_data">{{ query.id }}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Name:
+                                <span class="accent_data">{% if query.name %}{{ query.name }}{% else %} - {% endif %}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Manager:
+                                <span class="accent_data">{% if query.manager %}{{ query.manager }}{% else %} - {% endif %}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Sport:
+                                <span class="accent_data">{% if query.sport %}{{ query.sport }}{% else %} - {% endif %}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Country:
+                                <span class="accent_data">{% if query.country %}{{ countries[query.country] }}{% else %} - {% endif %}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Arrival:
+                                <span class="accent_data">{% if query.dateOfArrival %}{{ query.dateOfArrival|date('Y-m-d H:i') }}{% else %} - {% endif %}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Departure:
+                                <span class="accent_data">{% if query.dateOfDeparture %}{{ query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</span>
+                            </li>
+                        </ul>
+
+                        <div class="box-footer">
+                            <div>
+                                <a href="{{ path('query_index') }}" class="btn bg-green">
+                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> Back to the list</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-5 col-sm-6 col-xs-12">
+
+{% endblock %}
