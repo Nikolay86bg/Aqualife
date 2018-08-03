@@ -11,6 +11,38 @@ use Doctrine\ORM\Mapping as ORM;
 class Facility
 {
 
+    const TYPE_POOL = 0;
+    const TYPE_HALL = 1;
+    const TYPE_FOOTBALL_PLAYGROUND = 2;
+
+    const TYPES = [
+        self::TYPE_POOL => "Pool",
+        self::TYPE_HALL => "Hall",
+        self::TYPE_FOOTBALL_PLAYGROUND => "Football Playground",
+    ];
+
+    const PARTS = [
+        self::TYPE_POOL => [
+            "0" => "1 lane",
+            "1" => "2 lanes",
+            "2" => "3 lanes",
+            "3" => "4 lanes",
+            "4" => "5 lanes",
+            "5" => "6 lanes",
+            "6" => "7 lanes",
+            "7" => "8 lanes",
+        ],
+        self::TYPE_HALL => [
+            '0' => "All",
+            '1' => "1/2 hall",
+            '2' => "1/3 hall",
+        ],
+        self::TYPE_FOOTBALL_PLAYGROUND => [
+            '0' => "All"
+        ]
+    ];
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,9 +58,14 @@ class Facility
     /**
      * @ORM\Column(type="integer")
      */
-    private $totalParts;
+    private $type;
 
-
+    /**
+     * @var Schedule[]
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="facility")
+     */
+    private $schedules;
 
 
     public function getId()
@@ -55,18 +92,27 @@ class Facility
     /**
      * @return mixed
      */
-    public function getTotalParts()
+    public function getType()
     {
-        return $this->totalParts;
+        return $this->type;
     }
 
     /**
-     * @param mixed $totalParts
+     * @param mixed $type
      */
-    public function setTotalParts($totalParts): void
+    public function setType($type)
     {
-        $this->totalParts = $totalParts;
+        $this->type = $type;
     }
+
+    /**
+     * @return Schedule[]
+     */
+    public function getSchedules()
+    {
+        return $this->schedules;
+    }
+
 
 
 

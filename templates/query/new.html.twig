@@ -15,55 +15,118 @@
 
     {% block content %}
 
-    <div class="col-md-12 col-sm-6 col-xs-12">
-        <div class="box box-primary">
-
-            {% for label, messages in app.flashes(['success', 'error']) %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }} alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-
-
-                <div class="x_content">
-                    {{ form_start(form) }}
-                    <div class="box-body">
-                        {{ form_widget(form) }}
-
-                        <div class="form-group">
-                            <label>Arrival - Departure:</label>
-
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-clock-o"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" name="datetimes">
-                            </div>
-                            <!-- /.input group -->
-                        </div>
-                        <div class="box-footer">
-                            <button id="send" type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{ path('query_index') }}" class="btn bg-blue">Cancel</a>
-                        </div>
-                    </div>
-                    {{ form_end(form) }}
+        {{ form_start(form) }}
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Customer</h3>
                 </div>
 
+
+                {% for label, messages in app.flashes(['success', 'error']) %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                    <div class="x_content">
+
+                        <div class="box-body">
+                            {{ form_widget(form) }}
+
+                            <div class="form-group">
+                                <label>Arrival - Departure:</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" name="datetimes" autocomplete="off">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <div class="box-footer">
+                                <button id="send" type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ path('query_index') }}" class="btn bg-blue">Cancel</a>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Schedule</h3>
+                </div>
+
+                <div class="box-body">
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            {% for key,facility in facilities %}
+                            <li class="{% if key == 0 %}active{% endif %}"><a href="#tab_{{ key }}" data-toggle="tab" aria-expanded="true">{{ facility.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        <div class="tab-content">
+                            {% for key,facility in facilities %}
+                            <div class="tab-pane {% if key == 0 %}active{% endif %}" id="tab_{{ key }}">
+
+                                <table class="table table-bordered">
+                                    <tbody><tr>
+                                        <th>Date</th>
+                                        <th>Time From</th>
+                                        <th>Time To</th>
+                                        <th>Parts</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control pull-right datepicker" name="facilities[{{ key }}][date]"></td>
+                                        <td>
+                                            <div class="input-group" style="max-width: 100px;">
+                                                <input type="text" class="form-control timepicker" name="facilities[{{ key }}][timeFrom]">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group" style="max-width: 100px;">
+                                                <input type="text" class="form-control timepicker" name="facilities[{{ key }}][timeTo]">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" name="facilities[{{ key }}][part]">
+                                                {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
+                                                    <option value="{{ partKey }}">{{ part }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+
+                </div>
+            </div>
         </div>
 
-    </div>
+        {{ form_end(form) }}
     {% endblock %}
 
     {% block javascripts %}
         {{ parent() }}
-
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
         <script>
             $(function() {
@@ -78,7 +141,24 @@
                         format: 'DD/MM/YYYY HH:mm'
                     }
                 });
+
+                $('.datepicker').datepicker({
+                    startDate: "today",
+                    setDate: new Date(),
+                    format: 'dd/mm/yyyy',
+                    orientation: "bottom auto",
+                    autoclose: true,
+                    todayHighlight: true
+                });
+
+                $('.timepicker').timepicker({
+                    showMeridian: false,
+                });
+
             });
+
+
         </script>
+
 
     {% endblock %}

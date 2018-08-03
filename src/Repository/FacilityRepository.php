@@ -44,8 +44,8 @@ class FacilityRepository extends ServiceEntityRepository
                     $sortBy = 'facility.name';
                     break;
 
-                case 'totalParts' == $sort:
-                    $sortBy = 'facility.totalParts';
+                case 'type' == $sort:
+                    $sortBy = 'facility.type';
                     break;
 
                 default:

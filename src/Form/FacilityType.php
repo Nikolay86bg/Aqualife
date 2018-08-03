@@ -6,6 +6,7 @@
 
 namespace App\Form;
 
+use App\Entity\Facility;
 use App\Entity\Query;
 use App\Form\Type\DatePickerType;
 use Symfony\Component\Form\AbstractType;
@@ -39,10 +40,14 @@ class FacilityType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('totalParts', null, [
+            ->add('type', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => "Number of total parts that facility can be devided"
+                ],
+                'choices' => [
+                    Facility::TYPES[Facility::TYPE_POOL] => Facility::TYPE_POOL,
+                    Facility::TYPES[Facility::TYPE_HALL] => Facility::TYPE_HALL,
+                    Facility::TYPES[Facility::TYPE_FOOTBALL_PLAYGROUND] => Facility::TYPE_FOOTBALL_PLAYGROUND,
                 ]
             ])
         ;

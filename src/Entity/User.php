@@ -159,6 +159,14 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
      */
     private $position;
 
+
+    /**
+     * @var Query[]
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Query", mappedBy="createdBy")
+     */
+    private $queries;
+
     /**
      * @return string
      */
@@ -174,6 +182,24 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     {
         $this->position = $position;
     }
+
+    /**
+     * @return Query[]
+     */
+    public function getQueries()
+    {
+        return $this->queries;
+    }
+
+    /**
+     * @param Query[] $queries
+     */
+    public function setQueries(array $queries)
+    {
+        $this->queries = $queries;
+    }
+
+
 
 
 

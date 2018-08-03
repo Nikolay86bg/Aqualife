@@ -44,8 +44,8 @@
                             </li>
                             <li>
                                 <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                Total Parts:
-                                <span class="accent_data">{% if facility.totalParts %}{{ facility.totalParts }}{% else %} - {% endif %}</span>
+                                Type:
+                                <span class="accent_data">{% if facility.type %}{{ constant('App\\Entity\\Facility::TYPES')[facility.type] }}{% else %} - {% endif %}</span>
                             </li>
 
                         </ul>

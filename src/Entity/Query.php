@@ -72,11 +72,34 @@ class Query
     private $approved = 0;
 
     /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="queries")
+     */
+    private $createdBy;
+
+    /**
      * @var integer
      *
      * @ORM\Column(type="integer")
      */
     private $hotel;
+
+    /**
+     * @return User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param User $createdBy
+     */
+    public function setCreatedBy(User $createdBy)
+    {
+        $this->createdBy = $createdBy;
+    }
 
 
     public function getId()

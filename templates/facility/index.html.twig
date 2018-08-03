@@ -43,12 +43,12 @@
                                  <th><a href = "{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i class="fa fa-fw fa-sort"></i></a></th>
                              {% endif %}
 
-                             {% if params.order is defined and params.sort == 'totalParts' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'totalParts',order:'ASC'})) }}">Total Parts <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'totalParts' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'totalParts', order:'DESC'})) }}">Total Parts <i class="fa fa-fw fa-sort-desc"></i></a></th>
+                             {% if params.order is defined and params.sort == 'type' and params.order == 'DESC' %}
+                                 <th><a href = "{{ url(route, params|merge({sort:'type',order:'ASC'})) }}">Type <i class="fa fa-fw fa-sort-asc"></i></a></th>
+                             {% elseif params.order is defined and params.sort == 'type' and params.order == 'ASC' %}
+                                 <th><a href = "{{ url(route, params|merge({sort:'type', order:'DESC'})) }}">Type <i class="fa fa-fw fa-sort-desc"></i></a></th>
                              {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'totalParts',order:'ASC'})) }}">Total Parts <i class="fa fa-fw fa-sort"></i></a></th>
+                                 <th><a href = "{{ url(route, params|merge({sort:'type',order:'ASC'})) }}">Type <i class="fa fa-fw fa-sort"></i></a></th>
                              {% endif %}
 
 
@@ -64,7 +64,7 @@
                                          <a href="{{ path('facility_show', { 'id': facility.id }) }}">{{ facility.id }}</a>
                                      </td>
                                      <td>{{ facility.name }}</td>
-                                     <td>{{ facility.totalParts }}</td>
+                                     <td>{{ constant('App\\Entity\\Facility::TYPES')[facility.type] }}</td>
                                      <td class="actions">
                                          <a href="{{ path('facility_show', { 'id': facility.id }) }}" class="btn-sm bg-orange no-wrap">
                                              <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> View</span>

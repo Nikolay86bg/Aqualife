@@ -62,15 +62,20 @@ class QueryController extends Controller
     public function new(Request $request)
     {
 //        $this->denyAccessUnlessGranted(UserVoter::USER_ADD_ROLE);
+        $em = $this->getDoctrine()->getManager();
 
         $query = new Query();
         $form = $this->createForm(QueryType::class, $query);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
+            dump($request->request->all());
+            exit;
+
             $dates = explode(' - ',$request->get('datetimes'));
 
+            $query->setCreatedBy($this->getUser());
             $query->setDateOfArrival((\DateTime::createFromFormat("d/m/Y H:i",$dates[0])));
             $query->setDateOfDeparture((\DateTime::createFromFormat("d/m/Y H:i",$dates[1])));
 
@@ -80,9 +85,12 @@ class QueryController extends Controller
             return $this->redirectToRoute('query_show', ['id' => $query->getId()]);
         }
 
+        $facilities = $em->getRepository('App:Facility')->findAll();
+
         return $this->render('query/new.html.twig', [
             'query' => $query,
             'form' => $form->createView(),
+            'facilities' => $facilities,
         ]);
     }
 

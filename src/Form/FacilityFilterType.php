@@ -37,11 +37,11 @@ class FacilityFilterType extends AbstractType
                     'placeholder' => 'Name',
                 ],
             ])
-            ->add('totalParts', TextType::class, [
+            ->add('type', TextType::class, [
                 'required' => false,
-                'label' => 'Total Parts:',
+                'label' => 'Type:',
                 'attr' => [
-                    'placeholder' => 'Total Parts',
+                    'placeholder' => 'Type',
                 ],
             ])
         ;
