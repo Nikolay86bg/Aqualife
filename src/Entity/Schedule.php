@@ -61,6 +61,13 @@ class Schedule
     private $note;
 
     /**
+     * @var Account
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Account", inversedBy="schedules")
+     */
+    private $account;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -163,6 +170,23 @@ class Schedule
     {
         $this->note = $note;
     }
+
+    /**
+     * @return Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+
+    /**
+     * @param Account $account
+     */
+    public function setAccount(Account $account)
+    {
+        $this->account = $account;
+    }
+
 
 
 }

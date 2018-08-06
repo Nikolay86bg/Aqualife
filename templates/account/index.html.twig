@@ -43,12 +43,12 @@
                                  <th><a href = "{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i class="fa fa-fw fa-sort"></i></a></th>
                              {% endif %}
 
-                             {% if params.order is defined and params.sort == 'agent' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'agent',order:'ASC'})) }}">Agent <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'agent' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'agent', order:'DESC'})) }}">Agent <i class="fa fa-fw fa-sort-desc"></i></a></th>
+                             {% if params.order is defined and params.sort == 'manager' and params.order == 'DESC' %}
+                                 <th><a href = "{{ url(route, params|merge({sort:'manager',order:'ASC'})) }}">Manager <i class="fa fa-fw fa-sort-asc"></i></a></th>
+                             {% elseif params.order is defined and params.sort == 'manager' and params.order == 'ASC' %}
+                                 <th><a href = "{{ url(route, params|merge({sort:'manager', order:'DESC'})) }}">Manager <i class="fa fa-fw fa-sort-desc"></i></a></th>
                              {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'agent',order:'ASC'})) }}">Agent <i class="fa fa-fw fa-sort"></i></a></th>
+                                 <th><a href = "{{ url(route, params|merge({sort:'manager',order:'ASC'})) }}">Manager <i class="fa fa-fw fa-sort"></i></a></th>
                              {% endif %}
 
                              {% if params.order is defined and params.sort == 'sport' and params.order == 'DESC' %}
@@ -80,7 +80,7 @@
                                          <a href="{{ path('user_show', { 'id': account.id }) }}">{{ account.id }}</a>
                                      </td>
                                      <td>{{ account.name }}</td>
-                                     <td>{{ account.agent }}</td>
+                                     <td>{{ account.manager }}</td>
                                      <td>{{ account.sport }}</td>
                                      <td>{{ countries[account.country] }}</td>
                                      <td class="actions">

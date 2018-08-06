@@ -25,7 +25,7 @@ class Account
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $agent;
+    private $manager;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -36,6 +36,20 @@ class Account
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $country;
+
+    /**
+     * @var Query[]
+     *
+     * * @ORM\OneToMany(targetEntity="App\Entity\Query", mappedBy="account")
+     */
+    private $queries;
+
+    /**
+     * @var Schedule[]
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Schedule", mappedBy="account")
+     */
+    private $schedules;
 
     public function getId()
     {
@@ -50,18 +64,6 @@ class Account
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getAgent(): ?string
-    {
-        return $this->agent;
-    }
-
-    public function setAgent(string $agent): self
-    {
-        $this->agent = $agent;
 
         return $this;
     }
@@ -89,4 +91,56 @@ class Account
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * @param mixed $manager
+     */
+    public function setManager($manager): void
+    {
+        $this->manager = $manager;
+    }
+
+    /**
+     * @return Query[]
+     */
+    public function getQueries()
+    {
+        return $this->queries;
+    }
+
+    /**
+     * @param Query[] $queries
+     */
+    public function setQueries(array $queries)
+    {
+        $this->queries = $queries;
+    }
+
+    /**
+     * @return Schedule[]
+     */
+    public function getSchedules()
+    {
+        return $this->schedules;
+    }
+
+    /**
+     * @param Schedule[] $schedules
+     */
+    public function setSchedules(array $schedules)
+    {
+        $this->schedules = $schedules;
+    }
+
+
+
+
 }

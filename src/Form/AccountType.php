@@ -36,7 +36,7 @@ class AccountType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('agent',null, [
+            ->add('manager',null, [
                 'attr' => [
                     'class' => 'form-control'
                 ]

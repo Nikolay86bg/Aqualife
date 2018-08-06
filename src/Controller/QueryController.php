@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Account;
+use App\Entity\Facility;
 use App\Entity\Query;
-use App\Form\AccountFilterType;
+use App\Entity\Schedule;
 use App\Form\AccountType;
 use App\Form\QueryFilterType;
-use App\Form\QueryType;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -59,27 +60,54 @@ class QueryController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response.
      */
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     */
     public function new(Request $request)
     {
 //        $this->denyAccessUnlessGranted(UserVoter::USER_ADD_ROLE);
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $query = new Query();
-        $form = $this->createForm(QueryType::class, $query);
+        $account = new Account();
+        $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($account);
 
-            dump($request->request->all());
-            exit;
+            foreach ($request->get('facilities') as $facilityId => $facility) {
+                $facilityReference = $em->getReference(Facility::class, $facilityId);
 
-            $dates = explode(' - ',$request->get('datetimes'));
+                foreach ($facility['date'] as $key => $value) {
+                    if (!empty($value)) {
+                        $schedule = new Schedule();
+                        $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
+                        $schedule->setFacility($facilityReference);
+                        $schedule->setParts($facility['part'][$key]);
+                        $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['timeFrom'][$key]));
+                        $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['timeTo'][$key]));
+                        $schedule->setAccount($account);
 
+                        $em->persist($schedule);
+                    }
+                }
+            }
+
+            $dates = explode(' - ', $request->get('datetimes'));
+
+            $query = new Query();
+
+            $query->setAccount($account);
+            $query->setHotel($request->get('hotel'));
             $query->setCreatedBy($this->getUser());
-            $query->setDateOfArrival((\DateTime::createFromFormat("d/m/Y H:i",$dates[0])));
-            $query->setDateOfDeparture((\DateTime::createFromFormat("d/m/Y H:i",$dates[1])));
+            $query->setDateOfArrival((\DateTime::createFromFormat("d/m/Y H:i", $dates[0])));
+            $query->setDateOfDeparture((\DateTime::createFromFormat("d/m/Y H:i", $dates[1])));
 
             $em->persist($query);
+
             $em->flush();
 
             return $this->redirectToRoute('query_show', ['id' => $query->getId()]);
@@ -88,7 +116,7 @@ class QueryController extends Controller
         $facilities = $em->getRepository('App:Facility')->findAll();
 
         return $this->render('query/new.html.twig', [
-            'query' => $query,
+            'account' => $account,
             'form' => $form->createView(),
             'facilities' => $facilities,
         ]);

@@ -31,24 +31,11 @@ class Query
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var Account
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Account", inversedBy="queries")
      */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $manager;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sport;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $country;
+    private $account;
 
     /**
     * @var \DateTime
@@ -105,58 +92,6 @@ class Query
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSport(): ?string
-    {
-        return $this->sport;
-    }
-
-    public function setSport(?string $sport): self
-    {
-        $this->sport = $sport;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getManager()
-    {
-        return $this->manager;
-    }
-
-    /**
-     * @param mixed $manager
-     */
-    public function setManager($manager): void
-    {
-        $this->manager = $manager;
     }
 
     /**
@@ -223,7 +158,21 @@ class Query
         $this->hotel = $hotel;
     }
 
+    /**
+     * @return Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
 
+    /**
+     * @param Account $account
+     */
+    public function setAccount(Account $account)
+    {
+        $this->account = $account;
+    }
 
 
 }

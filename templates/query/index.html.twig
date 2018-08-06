@@ -91,14 +91,15 @@
                          <tbody>
                          {% if queries|length > 0%}
                              {% for query in queries %}
+                                 {% if query.account %}
                                  <tr>
                                      <td>
                                          <a href="{{ path('query_show', { 'id': query.id }) }}">{{ query.id }}</a>
                                      </td>
-                                     <td>{{ query.name }}</td>
-                                     <td>{{ query.manager }}</td>
-                                     <td>{{ query.sport }}</td>
-                                     <td>{{ countries[query.country] }}</td>
+                                     <td>{{ query.account.name }}</td>
+                                     <td>{{ query.account.manager }}</td>
+                                     <td>{{ query.account.sport }}</td>
+                                     <td>{{ countries[query.account.country] }}</td>
                                      <td>{{ query.dateOfArrival|date('Y-m-d H:i') }}</td>
                                      <td>{{ query.dateOfDeparture|date('Y-m-d H:i') }}</td>
                                      <td class="actions">
@@ -107,6 +108,7 @@
                                          </a>
                                      </td>
                                  </tr>
+                                 {% endif %}
                              {% endfor %}
                          {% endif %}
                          </tbody>

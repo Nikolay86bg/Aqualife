@@ -1,16 +1,16 @@
-    {% extends 'layout.html.twig' %}
+{% extends 'layout.html.twig' %}
 
     {% block content_header %}
-    <section class="content-header">
-        <h1>
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-            Create Query
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> Queries</a></li>
-            <li class="active">Create</li>
-        </ol>
-    </section>
+        <section class="content-header">
+            <h1>
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                Create Query
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> Queries</a></li>
+                <li class="active">Create</li>
+            </ol>
+        </section>
     {% endblock %}
 
     {% block content %}
@@ -32,29 +32,38 @@
                     {% endfor %}
                 {% endfor %}
 
-                    <div class="x_content">
+                <div class="x_content">
 
-                        <div class="box-body">
-                            {{ form_widget(form) }}
+                    <div class="box-body">
+                        {{ form_widget(form) }}
 
-                            <div class="form-group">
-                                <label>Arrival - Departure:</label>
-
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                    <input type="text" class="form-control pull-right" name="datetimes" autocomplete="off">
-                                </div>
-                                <!-- /.input group -->
-                            </div>
-                            <div class="box-footer">
-                                <button id="send" type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ path('query_index') }}" class="btn bg-blue">Cancel</a>
-                            </div>
+                        <div class="form-group">
+                            <label>Hotel:</label>
+                            <select class="form-control" name="hotel">
+                                {% for hotelId, hotel in constant('App\\Entity\\Query::HOTELS') %}
+                                    <option value="{{ hotelId }}">{{ hotel }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
 
+                        <div class="form-group">
+                            <label>Arrival - Departure:</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" name="datetimes" autocomplete="off">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <div class="box-footer">
+                            <button id="send" type="submit" class="btn btn-primary">Submit</button>
+                            <a href="{{ path('query_index') }}" class="btn bg-blue">Cancel</a>
+                        </div>
                     </div>
+
+                </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -68,51 +77,61 @@
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             {% for key,facility in facilities %}
-                            <li class="{% if key == 0 %}active{% endif %}"><a href="#tab_{{ key }}" data-toggle="tab" aria-expanded="true">{{ facility.name }}</a></li>
+                                <li class="{% if key == 0 %}active{% endif %}">
+                                    <a href="#tab_{{ facility.id }}"
+                                       data-toggle="tab"
+                                       aria-expanded="true">{{ facility.name }}</a>
+                                </li>
                             {% endfor %}
                         </ul>
                         <div class="tab-content">
                             {% for key,facility in facilities %}
-                            <div class="tab-pane {% if key == 0 %}active{% endif %}" id="tab_{{ key }}">
+                                <div class="tab-pane {% if key == 0 %}active{% endif %}" id="tab_{{ facility.id }}">
 
-                                <table class="table table-bordered">
-                                    <tbody><tr>
-                                        <th>Date</th>
-                                        <th>Time From</th>
-                                        <th>Time To</th>
-                                        <th>Parts</th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control pull-right datepicker" name="facilities[{{ key }}][date]"></td>
-                                        <td>
-                                            <div class="input-group" style="max-width: 100px;">
-                                                <input type="text" class="form-control timepicker" name="facilities[{{ key }}][timeFrom]">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-clock-o"></i>
+                                    <table class="table table-bordered table{{ facility.id }}">
+                                        <tbody>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time From</th>
+                                            <th>Time To</th>
+                                            <th>Parts</th>
+                                        </tr>
+                                        <tr class="row_to_copy{{ facility.id }}">
+                                            <td><input type="text" class="form-control pull-right datepicker"
+                                                       name="facilities[{{ facility.id }}][date][]"></td>
+                                            <td>
+                                                <div class="input-group" style="max-width: 100px;">
+                                                    <input type="text" class="form-control timepicker"
+                                                           name="facilities[{{ facility.id }}][timeFrom][]">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group" style="max-width: 100px;">
-                                                <input type="text" class="form-control timepicker" name="facilities[{{ key }}][timeTo]">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-clock-o"></i>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="max-width: 100px;">
+                                                    <input type="text" class="form-control timepicker"
+                                                           name="facilities[{{ facility.id }}][timeTo][]">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <select class="form-control" name="facilities[{{ key }}][part]">
-                                                {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
-                                                    <option value="{{ partKey }}">{{ part }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <select class="form-control" name="facilities[{{ facility.id }}][part][]">
+                                                    {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
+                                                        <option value="{{ partKey }}">{{ part }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <span class="btn btn-sm bg-info add-date" id="{{ facility.id }}">Add Date</span>
+                                    </div>
 
-                                    </tbody>
-                                </table>
-
-                            </div>
+                                </div>
                             {% endfor %}
                         </div>
                         <!-- /.tab-content -->
@@ -129,7 +148,7 @@
         {{ parent() }}
 
         <script>
-            $(function() {
+            function setDateTimePickers() {
                 $('input[name="datetimes"]').daterangepicker({
                     timePicker: true,
                     timePicker24Hour: true,
@@ -154,7 +173,19 @@
                 $('.timepicker').timepicker({
                     showMeridian: false,
                 });
+            }
 
+            $(function () {
+                setDateTimePickers();
+            });
+
+            $('.add-date').on("click", function () {
+                var row = $('.row_to_copy' + this.id);
+                var clone = row.clone(); // copy children too
+                clone.removeClass(); // change id or other attributes/contents
+                row.parent().append(clone); // add new row to end of table
+
+                setDateTimePickers();
             });
 
 
