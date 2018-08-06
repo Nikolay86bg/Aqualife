@@ -41,32 +41,32 @@
                                 <li>
                                     <i class="fa fa-asterisk" aria-hidden="true"></i>
                                     Name:
-                                    <span class="accent_data">{% if query.account.name %}{{ query.account.name }}{% else %} - {% endif %}</span>
+                                    <span class="accent_data">{% if query.account.name is defined %}{{ query.account.name }}{% else %} - {% endif %}</span>
                                 </li>
                                 <li>
                                     <i class="fa fa-asterisk" aria-hidden="true"></i>
                                     Manager:
-                                    <span class="accent_data">{% if query.account.manager %}{{ query.account.manager }}{% else %} - {% endif %}</span>
+                                    <span class="accent_data">{% if query.account.manager is defined %}{{ query.account.manager }}{% else %} - {% endif %}</span>
                                 </li>
                                 <li>
                                     <i class="fa fa-asterisk" aria-hidden="true"></i>
                                     Sport:
-                                    <span class="accent_data">{% if query.account.sport %}{{ query.account.sport }}{% else %} - {% endif %}</span>
+                                    <span class="accent_data">{% if query.account.sport is defined %}{{ query.account.sport }}{% else %} - {% endif %}</span>
                                 </li>
                                 <li>
                                     <i class="fa fa-asterisk" aria-hidden="true"></i>
                                     Country:
-                                    <span class="accent_data">{% if query.account.country %}{{ countries[query.account.country] }}{% else %} - {% endif %}</span>
+                                    <span class="accent_data">{% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}</span>
                                 </li>
                                 <li>
                                     <i class="fa fa-asterisk" aria-hidden="true"></i>
                                     Arrival:
-                                    <span class="accent_data">{% if query.dateOfArrival %}{{ query.dateOfArrival|date('Y-m-d H:i') }}{% else %} - {% endif %}</span>
+                                    <span class="accent_data">{% if query.dateOfArrival is defined %}{{ query.dateOfArrival|date('Y-m-d H:i') }}{% else %} - {% endif %}</span>
                                 </li>
                                 <li>
                                     <i class="fa fa-asterisk" aria-hidden="true"></i>
                                     Departure:
-                                    <span class="accent_data">{% if query.dateOfDeparture %}{{ query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</span>
+                                    <span class="accent_data">{% if query.dateOfDeparture is defined %}{{ query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</span>
                                 </li>
                             </ul>
                         {% endif %}

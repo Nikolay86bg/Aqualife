@@ -40,12 +40,12 @@
                             <li>
                                 <i class="fa fa-asterisk" aria-hidden="true"></i>
                                 Name:
-                                <span class="accent_data">{% if facility.name %}{{ facility.name }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if facility.name is defined %}{{ facility.name }}{% else %} - {% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-asterisk" aria-hidden="true"></i>
                                 Type:
-                                <span class="accent_data">{% if facility.type %}{{ constant('App\\Entity\\Facility::TYPES')[facility.type] }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if facility.type is defined %}{{ constant('App\\Entity\\Facility::TYPES')[facility.type] }}{% else %} - {% endif %}</span>
                             </li>
 
                         </ul>

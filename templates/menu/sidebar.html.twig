@@ -39,7 +39,7 @@
         </li>
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-users"></i> <span>Facility</span>
+                <i class="fa fa-soccer-ball-o"></i> <span>Facility</span>
                 <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
@@ -49,10 +49,9 @@
                 <li><a href="{{ url('facility_new') }}"><i class="fa fa-circle-o"></i>Add</a></li>
             </ul>
         </li>
-        {% endif %}
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-briefcase"></i> <span>Accounts</span>
+                <i class="fa fa-user"></i> <span>Accounts</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -62,10 +61,22 @@
                 <li><a href="{{ url('account_new') }}"><i class="fa fa-circle-o"></i>Add</a></li>
             </ul>
         </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-calendar"></i> <span>Schedule</span>
+            <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="active"><a href="{{ url('schedule_index') }}"><i class="fa fa-circle-o"></i> List</a></li>
+            </ul>
+        </li>
+        {% endif %}
         {% if (is_granted(constant('App\\Security\\Voter\\QueryVoter::MENU_ROLE'))) %}
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-briefcase"></i> <span>Query</span>
+                <i class="fa fa-envelope"></i> <span>Query</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

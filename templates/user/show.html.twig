@@ -40,42 +40,42 @@
                             <li>
                                 <i class="fa fa-text-width" aria-hidden="true"></i>
                                 Username:
-                                <span class="accent_data">{% if user.username %}{{ user.username }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if user.username is defined %}{{ user.username }}{% else %} - {% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-check" aria-hidden="true"></i>
                                 Is Active:
-                                <span class="accent_data">{% if user.isActive %}Yes{% else %}No{% endif %}</span>
+                                <span class="accent_data">{% if user.isActive is defined %}Yes{% else %}No{% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-text-width" aria-hidden="true"></i>
                                 Email:
-                                <span class="accent_data">{% if user.email %}{{ user.email }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if user.email is defined %}{{ user.email }}{% else %} - {% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-text-width" aria-hidden="true"></i>
                                 First Name:
-                                <span class="accent_data">{% if user.firstName %}{{ user.firstName }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if user.firstName is defined %}{{ user.firstName }}{% else %} - {% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-text-width" aria-hidden="true"></i>
                                 Last Name:
-                                <span class="accent_data">{% if user.lastName %}{{ user.lastName }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if user.lastName is defined %}{{ user.lastName }}{% else %} - {% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-files-o" aria-hidden="true"></i>
                                 Roles:
-                                <span class="accent_data">{% if user.roles %}{{ user.roles|join(', ') }}{% endif %}</span>
+                                <span class="accent_data">{% if user.roles is defined %}{{ user.roles|join(', ') }}{% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                 Created At:
-                                <span class="accent_data">{% if user.createdAt %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</span>
+                                <span class="accent_data">{% if user.createdAt is defined %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                 Updated At:
-                                <span class="accent_data">{% if user.updatedAt %}{{ user.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</span>
+                                <span class="accent_data">{% if user.updatedAt is defined %}{{ user.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</span>
                             </li>
 
                         </ul>

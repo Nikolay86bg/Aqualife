@@ -1,0 +1,25 @@
+schedule_index:
+    path:     /
+    controller: App\Controller\ScheduleController::index
+    methods:  GET
+
+schedule_show:
+    path:     /{id}/show
+    controller: App\Controller\ScheduleController::show
+    methods:  GET
+
+schedule_new:
+    path:     /new
+    controller: App\Controller\ScheduleController::new
+    methods:  [GET, POST]
+
+schedule_edit:
+    path:     /{id}/edit
+    controller: App\Controller\ScheduleController::edit
+    methods:  [GET, POST]
+
+schedule_delete:
+    path:     /{id}/delete
+    controller: App\Controller\ScheduleController::delete
+    methods:  DELETE
+

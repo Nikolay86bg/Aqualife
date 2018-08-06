@@ -22,6 +22,11 @@ app_facility:
     resource: "routes/facility.yaml"
     prefix:   /facility
 
+app_schedule:
+    resource: "routes/schedule.yaml"
+    prefix:   /schedule
+
+
 app_homepage:
     path: /
     controller: App\Controller\DefaultController::index

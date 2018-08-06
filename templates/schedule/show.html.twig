@@ -1,0 +1,82 @@
+{% extends 'layout.html.twig' %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Account <span> - {{ account.name }} </span>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url('account_index') }}"><i class="fa fa-dashboard"></i> Accounts</a></li>
+            <li class="active">Show Account</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+        <div class="col-md-12 col-sm-6 col-xs-12">
+            <div class="box box-primary">
+
+                {% for label, messages in app.flashes(['success', 'error']) %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                <div class="x_content">
+                    <div class="box-body">
+
+                        <h4>{{ account.name }} </h4>
+                        <ul class="list-unstyled" id="curently_edited_pos_data_list">
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Account Id:
+                                <span class="accent_data">{{ account.id }}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Name:
+                                <span class="accent_data">{% if account.name is defined %}{{ account.name }}{% else %} - {% endif %}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Manager:
+                                <span class="accent_data">{% if account.manager is defined %}{{ account.manager }}{% else %} - {% endif %}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Sport:
+                                <span class="accent_data">{% if account.sport is defined %}{{ account.sport }}{% else %} - {% endif %}</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-asterisk" aria-hidden="true"></i>
+                                Country:
+                                <span class="accent_data">{% if account.country is defined %}{{ countries[account.country] }}{% else %} - {% endif %}</span>
+                            </li>
+                        </ul>
+
+                        <div class="box-footer">
+                            <div>
+                                <a href="{{ path('account_index') }}" class="btn bg-green">
+                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> Back to the list</span>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="{{ path('account_edit', { 'id': account.id }) }}" class="btn bg-orange">
+                                    <i class="fa fa-pencil"></i><span class="hidden-xs hidden-sm"> Edit</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-5 col-sm-6 col-xs-12">
+
+{% endblock %}

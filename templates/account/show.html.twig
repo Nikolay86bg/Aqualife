@@ -40,22 +40,22 @@
                             <li>
                                 <i class="fa fa-asterisk" aria-hidden="true"></i>
                                 Name:
-                                <span class="accent_data">{% if account.name %}{{ account.name }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if account.name is defined %}{{ account.name }}{% else %} - {% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-asterisk" aria-hidden="true"></i>
                                 Manager:
-                                <span class="accent_data">{% if account.manager %}{{ account.manager }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if account.manager is defined %}{{ account.manager }}{% else %} - {% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-asterisk" aria-hidden="true"></i>
                                 Sport:
-                                <span class="accent_data">{% if account.sport %}{{ account.sport }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if account.sport is defined %}{{ account.sport }}{% else %} - {% endif %}</span>
                             </li>
                             <li>
                                 <i class="fa fa-asterisk" aria-hidden="true"></i>
                                 Country:
-                                <span class="accent_data">{% if account.country %}{{ countries[account.country] }}{% else %} - {% endif %}</span>
+                                <span class="accent_data">{% if account.country is defined %}{{ countries[account.country] }}{% else %} - {% endif %}</span>
                             </li>
                         </ul>
 

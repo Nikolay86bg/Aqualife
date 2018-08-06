@@ -26,37 +26,37 @@ class ScheduleRepository extends ServiceEntityRepository
      * @param null $order
      * @return \Doctrine\ORM\Query
      */
-//    public function getListQuery(Form $form, $sort = null, $order = null)
-//    {
-//        $queryBuilder = $this->createQueryBuilder('facility');
-//
+    public function getListQuery(Form $form, $sort = null, $order = null)
+    {
+        $queryBuilder = $this->createQueryBuilder('schedule');
+
 //        if (null !== $form->get('name')->getData()) {
 //            $queryBuilder->andWhere('facility.name LIKE :name');
 //            $queryBuilder->setParameter('name', $form->get('name')->getData().'%');
 //        }
-//
-//        if (null !== $sort && null !== $order) {
-//            switch ($sort) {
-//                case 'id' == $sort:
-//                    $sortBy = 'facility.id';
-//                    break;
-//
-//                case 'name' == $sort:
-//                    $sortBy = 'facility.name';
-//                    break;
-//
-//                case 'type' == $sort:
-//                    $sortBy = 'facility.type';
-//                    break;
-//
-//                default:
-//
-//                    $queryBuilder->orderBy('facility.id');
-//            }
-//
-//            $queryBuilder->orderBy($sortBy, $order);
-//        }
-//
-//        return $queryBuilder->getQuery();
-//    }
+
+        if (null !== $sort && null !== $order) {
+            switch ($sort) {
+                case 'id' == $sort:
+                    $sortBy = 'schedule.id';
+                    break;
+
+                case 'timeFrom' == $sort:
+                    $sortBy = 'schedule.timeFrom';
+                    break;
+
+                case 'timeTo' == $sort:
+                    $sortBy = 'schedule.timeTo';
+                    break;
+
+                default:
+
+                    $queryBuilder->orderBy('schedule.id');
+            }
+
+            $queryBuilder->orderBy($sortBy, $order);
+        }
+
+        return $queryBuilder->getQuery();
+    }
 }
