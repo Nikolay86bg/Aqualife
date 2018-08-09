@@ -67,7 +67,16 @@ class Facility
      */
     private $schedules;
 
+    /**
+     * @return mixed
+     */
+    public function __toString() {
+        return $this->name;
+    }
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;

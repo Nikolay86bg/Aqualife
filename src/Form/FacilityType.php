@@ -47,7 +47,7 @@ class FacilityType extends AbstractType
                 'choices' => [
                     Facility::TYPES[Facility::TYPE_POOL] => Facility::TYPE_POOL,
                     Facility::TYPES[Facility::TYPE_HALL] => Facility::TYPE_HALL,
-                    Facility::TYPES[Facility::TYPE_FOOTBALL_PLAYGROUND] => Facility::TYPE_FOOTBALL_PLAYGROUND,
+                    Facility::TYPES[Facility::TYPE_FOOTBALL_PLAYGROUND] => Facility::TYPE_FOOTBALL_PLAYGROUND
                 ]
             ])
         ;

@@ -38,11 +38,6 @@ class ScheduleController extends Controller
         $sort = null;
         $order = null;
 
-        if (!empty($request->get('sort')) && !empty($request->get('order'))) {
-            $sort = $request->get('sort');
-            $order = $request->get('order');
-        }
-
         $schedule = $entityManager->getRepository('App:Schedule')->getListQuery($filter, $sort, $order);
 
         $schedule = (new Paginator($schedule))
@@ -50,7 +45,7 @@ class ScheduleController extends Controller
             ->paginate($request->query->get('page'));
 
         return $this->render('schedule/index.html.twig', [
-//            'filter' => $filter->createView(),
+            'filter' => $filter->createView(),
             'schedule' => $schedule,
         ]);
     }

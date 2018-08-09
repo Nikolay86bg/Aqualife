@@ -6,16 +6,13 @@
 
 namespace App\Form;
 
-use App\Entity\Department;
-use App\Entity\Position;
-use App\Entity\User;
+use App\Entity\Facility;
+use App\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 /**
  * Class AccountFilterType.
@@ -28,35 +25,31 @@ class ScheduleFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //TODO
         $builder
-            ->add('name', TextType::class, [
-                'required' => false,
-                'label' => 'Name:',
+            ->add('from', DatePickerType::class, [
+                'label' => 'From:',
                 'attr' => [
-                    'placeholder' => 'Name',
+                    'placeholder' => 'From Date',
+                    'class' => 'form-control'
                 ],
+                'data' => new \DateTime(),
             ])
-            ->add('agent', TextType::class, [
-                'required' => false,
-                'label' => 'Agent:',
+            ->add('to', DatePickerType::class, [
+                'label' => 'Until:',
                 'attr' => [
-                    'placeholder' => 'Agent',
+                    'placeholder' => 'To Date',
+                    'class' => 'form-control'
                 ],
+                'data' => new \DateTime(),
             ])
-            ->add('sport', TextType::class, [
+            ->add('facility', EntityType::class, [
                 'required' => false,
-                'label' => 'Sport:',
+                'label' => 'Facility:',
                 'attr' => [
-                    'placeholder' => 'Sport',
+                    'placeholder' => 'Facility',
+                    'class' => 'form-control'
                 ],
-            ])
-            ->add('country', CountryType::class, [
-                'required' => false,
-                'label' => 'Country:',
-                'attr' => [
-                    'placeholder' => 'Country',
-                ],
+                'class' => Facility::class
             ])
         ;
     }
