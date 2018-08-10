@@ -22,10 +22,11 @@ use Symfony\Component\Intl\Intl;
  */
 class ScheduleController extends Controller
 {
+
     /**
-     * @Route("/query", name="query")
-     *
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function index(Request $request)
     {
@@ -38,15 +39,24 @@ class ScheduleController extends Controller
         $sort = null;
         $order = null;
 
-        $schedule = $entityManager->getRepository('App:Schedule')->getListQuery($filter, $sort, $order);
+        $schedule = $entityManager->getRepository('App:Schedule')->getListQuery($filter, $sort, $order)->getResult();
 
-        $schedule = (new Paginator($schedule))
-            ->setEntityManager($this->getDoctrine()->getManager())
-            ->paginate($request->query->get('page'));
+        $schedule = $entityManager->getRepository('App:Schedule')->orderByDate($schedule);
+
+        dump($schedule);
+
+//        $period = $entityManager->getRepository('App:Schedule')->getDatesBetween(
+//            $filter->get('from')->getData(),
+//            $filter->get('to')->getData()
+//        );
+
+        $facility = $entityManager->getRepository('App:Facility')->findOneBy(['id' => $request->get('facility')]);
 
         return $this->render('schedule/index.html.twig', [
             'filter' => $filter->createView(),
-            'schedule' => $schedule,
+            'schedules' => $schedule,
+//            'period' => $period,
+            'facility' => $facility
         ]);
     }
 

@@ -30,7 +30,7 @@ class ScheduleFilterType extends AbstractType
                 'label' => 'From:',
                 'attr' => [
                     'placeholder' => 'From Date',
-                    'class' => 'form-control'
+                    'class' => 'form-control datepicker'
                 ],
                 'data' => new \DateTime(),
             ])
@@ -38,7 +38,7 @@ class ScheduleFilterType extends AbstractType
                 'label' => 'Until:',
                 'attr' => [
                     'placeholder' => 'To Date',
-                    'class' => 'form-control'
+                    'class' => 'form-control datepicker'
                 ],
                 'data' => new \DateTime(),
             ])

@@ -16,11 +16,13 @@ class Query
     const HOTEL1 = 0;
     const HOTEL2 = 1;
     const HOTEL3 = 2;
+    const HOTEL4 = 3;
 
     const HOTELS = [
-        self::HOTEL1 => "Hotel 1",
-        self::HOTEL2 => "Hotel 2",
-        self::HOTEL3 => "Hotel 3",
+        self::HOTEL1 => "Sport",
+        self::HOTEL2 => "Active",
+        self::HOTEL3 => "Aqualife",
+        self::HOTEL4 => "Tower"
     ];
 
     /**

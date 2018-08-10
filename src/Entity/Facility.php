@@ -14,11 +14,15 @@ class Facility
     const TYPE_POOL = 0;
     const TYPE_HALL = 1;
     const TYPE_FOOTBALL_PLAYGROUND = 2;
+    const TYPE_COURT = 3;
+    const TYPE_STAGE = 4;
 
     const TYPES = [
-        self::TYPE_POOL => "Pool",
-        self::TYPE_HALL => "Hall",
+        self::TYPE_POOL => "Swimming Pool",
+        self::TYPE_HALL => "Sport Hall",
         self::TYPE_FOOTBALL_PLAYGROUND => "Football Playground",
+        self::TYPE_COURT => "Court",
+        self::TYPE_COURT => "Stage",
     ];
 
     const PARTS = [
@@ -34,10 +38,17 @@ class Facility
         ],
         self::TYPE_HALL => [
             '0' => "All",
-            '1' => "1/2 hall",
-            '2' => "1/3 hall",
+            '1' => "1/2",
+            '2' => "1/3",
         ],
         self::TYPE_FOOTBALL_PLAYGROUND => [
+            '0' => "All",
+            '1' => "1/2",
+        ],
+        self::TYPE_COURT => [
+            '0' => "All"
+        ],
+        self::TYPE_STAGE => [
             '0' => "All"
         ]
     ];
