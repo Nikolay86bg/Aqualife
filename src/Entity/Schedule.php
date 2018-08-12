@@ -78,7 +78,7 @@ class Schedule
     /**
      * @return Facility
      */
-    public function getFacility(): Facility
+    public function getFacility()
     {
         return $this->facility;
     }
@@ -86,7 +86,7 @@ class Schedule
     /**
      * @param Facility $facility
      */
-    public function setFacility(Facility $facility): void
+    public function setFacility(Facility $facility)
     {
         $this->facility = $facility;
     }
@@ -94,7 +94,7 @@ class Schedule
     /**
      * @return \DateTime
      */
-    public function getDate(): \DateTime
+    public function getDate()
     {
         return $this->date;
     }
@@ -102,7 +102,7 @@ class Schedule
     /**
      * @param \DateTime $date
      */
-    public function setDate(\DateTime $date): void
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
     }
@@ -110,7 +110,7 @@ class Schedule
     /**
      * @return \DateTime
      */
-    public function getTimeFrom(): \DateTime
+    public function getTimeFrom()
     {
         return $this->timeFrom;
     }
@@ -118,7 +118,7 @@ class Schedule
     /**
      * @param \DateTime $timeFrom
      */
-    public function setTimeFrom(\DateTime $timeFrom): void
+    public function setTimeFrom(\DateTime $timeFrom)
     {
         $this->timeFrom = $timeFrom;
     }
@@ -126,7 +126,7 @@ class Schedule
     /**
      * @return \DateTime
      */
-    public function getTimeTo(): \DateTime
+    public function getTimeTo()
     {
         return $this->timeTo;
     }
@@ -134,7 +134,7 @@ class Schedule
     /**
      * @param \DateTime $timeTo
      */
-    public function setTimeTo(\DateTime $timeTo): void
+    public function setTimeTo(\DateTime $timeTo)
     {
         $this->timeTo = $timeTo;
     }
@@ -142,7 +142,7 @@ class Schedule
     /**
      * @return int
      */
-    public function getParts(): int
+    public function getParts()
     {
         return $this->parts;
     }
@@ -150,7 +150,7 @@ class Schedule
     /**
      * @param int $parts
      */
-    public function setParts(int $parts): void
+    public function setParts(int $parts)
     {
         $this->parts = $parts;
     }
@@ -158,7 +158,7 @@ class Schedule
     /**
      * @return string
      */
-    public function getNote(): string
+    public function getNote()
     {
         return $this->note;
     }
@@ -166,7 +166,7 @@ class Schedule
     /**
      * @param string $note
      */
-    public function setNote(string $note): void
+    public function setNote(string $note)
     {
         $this->note = $note;
     }
@@ -186,7 +186,6 @@ class Schedule
     {
         $this->account = $account;
     }
-
 
 
 }

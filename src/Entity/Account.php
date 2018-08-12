@@ -56,36 +56,36 @@ class Account
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name)
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getSport(): ?string
+    public function getSport()
     {
         return $this->sport;
     }
 
-    public function setSport(?string $sport): self
+    public function setSport($sport)
     {
         $this->sport = $sport;
 
         return $this;
     }
 
-    public function getCountry(): ?string
+    public function getCountry()
     {
         return $this->country;
     }
 
-    public function setCountry(?string $country): self
+    public function setCountry($country)
     {
         $this->country = $country;
 
@@ -103,7 +103,7 @@ class Account
     /**
      * @param mixed $manager
      */
-    public function setManager($manager): void
+    public function setManager($manager)
     {
         $this->manager = $manager;
     }
@@ -140,6 +140,21 @@ class Account
         $this->schedules = $schedules;
     }
 
+    public function isSetPool()
+    {
+        $return = [];
+        if($schedules = $this->getSchedules()){
+            /** @var Schedule $schedule */
+            foreach($schedules as $schedule){
+                if($schedule->getFacility()->getType() == Facility::TYPE_POOL){
+                    $return[$schedule->getId()]['date'] = $schedule->getDate();
+                    $return[$schedule->getId()]['lanes'] = $schedule->getParts();
+                }
+            }
+        }
+
+        return $return;
+    }
 
 
 

@@ -158,4 +158,12 @@ class QueryController extends Controller
             'edit_form' => $editForm->createView(),
         ]);
     }
+
+    public function reject(Query $query)
+    {
+        $query->setStatus(Query::STATUS_REJECTED);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('query_index');
+    }
 }

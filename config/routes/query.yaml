@@ -18,3 +18,8 @@ query_edit:
     controller: App\Controller\QueryController::edit
     methods:  [GET, POST]
 
+query_reject:
+    path:     /{id}/reject
+    controller: App\Controller\QueryController::reject
+    methods:  [GET, POST]
+

@@ -104,7 +104,7 @@ class Facility
     /**
      * @param mixed $name
      */
-    public function setName($name): void
+    public function setName($name)
     {
         $this->name = $name;
     }

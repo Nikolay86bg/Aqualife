@@ -25,6 +25,16 @@ class Query
         self::HOTEL4 => "Tower"
     ];
 
+    const STATUS_IN_PROGRESS = 0;
+    const STATUS_ACCEPTED = 1;
+    const STATUS_REJECTED = 2;
+
+    const STATUSES = [
+      self::STATUS_IN_PROGRESS => 'In Progress',
+      self::STATUS_ACCEPTED => 'Accepted',
+      self::STATUS_REJECTED => 'Rejected',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -54,11 +64,11 @@ class Query
     private $dateOfDeparture;
 
     /**
-     * @var bool
+     * @var integer
      *
-     * @ORM\Column(name="approved", type="boolean", options={"default": 0})
+     * @ORM\Column(name="status", type="integer", options={"default": 0})
      */
-    private $approved = 0;
+    private $status = self::STATUS_IN_PROGRESS;
 
     /**
      * @var User
@@ -107,7 +117,7 @@ class Query
     /**
      * @param \DateTime $dateOfArrival
      */
-    public function setDateOfArrival(\DateTime $dateOfArrival): void
+    public function setDateOfArrival(\DateTime $dateOfArrival)
     {
         $this->dateOfArrival = $dateOfArrival;
     }
@@ -123,25 +133,9 @@ class Query
     /**
      * @param \DateTime $dateOfDeparture
      */
-    public function setDateOfDeparture(\DateTime $dateOfDeparture): void
+    public function setDateOfDeparture(\DateTime $dateOfDeparture)
     {
         $this->dateOfDeparture = $dateOfDeparture;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isApproved()
-    {
-        return $this->approved;
-    }
-
-    /**
-     * @param bool $approved
-     */
-    public function setApproved(bool $approved)
-    {
-        $this->approved = $approved;
     }
 
     /**
@@ -175,6 +169,23 @@ class Query
     {
         $this->account = $account;
     }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
 
 
 }

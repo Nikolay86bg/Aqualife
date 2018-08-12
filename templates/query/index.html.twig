@@ -26,14 +26,6 @@
                              {% set params = app.request.attributes.get('_route_params')|merge(app.request.query.all) %}
 
 
-                             {% if params.order is defined and params.sort == 'id' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'id',order:'ASC'})) }}">Query Id <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'id' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'id', order:'DESC'})) }}">Query Id <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'id',order:'ASC'})) }}">Query Id <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
 
                              {% if params.order is defined and params.sort == 'name' and params.order == 'DESC' %}
                                  <th><a href = "{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i class="fa fa-fw fa-sort-asc"></i></a></th>
@@ -41,14 +33,6 @@
                                  <th><a href = "{{ url(route, params|merge({sort:'name', order:'DESC'})) }}">Name <i class="fa fa-fw fa-sort-desc"></i></a></th>
                              {% else %}
                                  <th><a href = "{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
-                             {% if params.order is defined and params.sort == 'manager' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'manager',order:'ASC'})) }}">Manager <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'manager' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'manager', order:'DESC'})) }}">Manager <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'manager',order:'ASC'})) }}">Manager <i class="fa fa-fw fa-sort"></i></a></th>
                              {% endif %}
 
                              {% if params.order is defined and params.sort == 'sport' and params.order == 'DESC' %}
@@ -83,6 +67,14 @@
                                  <th><a href = "{{ url(route, params|merge({sort:'departure',order:'ASC'})) }}">Departure <i class="fa fa-fw fa-sort"></i></a></th>
                              {% endif %}
 
+                             {% if params.order is defined and params.sort == 'status' and params.order == 'DESC' %}
+                                 <th><a href = "{{ url(route, params|merge({sort:'status',order:'ASC'})) }}">Status <i class="fa fa-fw fa-sort-asc"></i></a></th>
+                             {% elseif params.order is defined and params.sort == 'status' and params.order == 'ASC' %}
+                                 <th><a href = "{{ url(route, params|merge({sort:'status', order:'DESC'})) }}">Status <i class="fa fa-fw fa-sort-desc"></i></a></th>
+                             {% else %}
+                                 <th><a href = "{{ url(route, params|merge({sort:'status',order:'ASC'})) }}">Status <i class="fa fa-fw fa-sort"></i></a></th>
+                             {% endif %}
+
 
                              <th>Manage</th>
 
@@ -93,19 +85,26 @@
                              {% for query in queries %}
                                  {% if query.account %}
                                  <tr>
-                                     <td>
-                                         <a href="{{ path('query_show', { 'id': query.id }) }}">{{ query.id }}</a>
-                                     </td>
                                      <td>{{ query.account.name }}</td>
-                                     <td>{{ query.account.manager }}</td>
                                      <td>{{ query.account.sport }}</td>
                                      <td>{{ countries[query.account.country] }}</td>
                                      <td>{{ query.dateOfArrival|date('Y-m-d H:i') }}</td>
                                      <td>{{ query.dateOfDeparture|date('Y-m-d H:i') }}</td>
+                                     <td>{{ constant('App\\Entity\\Query::STATUSES')[query.status] }}</td>
                                      <td class="actions">
                                          <a href="{{ path('query_show', { 'id': query.id }) }}" class="btn-sm bg-orange no-wrap">
                                              <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> View</span>
                                          </a>
+
+                                         {% if query.status == constant('App\\Entity\\Query::STATUS_IN_PROGRESS') %}
+                                         <a href="#" class="btn-sm bg-success no-wrap" data-toggle="modal" data-target="#modal-default{{ query.id }}">
+                                             <i class="fa fa-check"></i><span class="hidden-xs hidden-sm"> Accept</span>
+                                         </a>
+
+                                         <a href="{{ path('query_reject', { 'id': query.id }) }}" class="btn-sm bg-danger no-wrap">
+                                             <i class="fa fa-close"></i><span class="hidden-xs hidden-sm"> Reject</span>
+                                         </a>
+                                         {% endif %}
                                      </td>
                                  </tr>
                                  {% endif %}
@@ -119,5 +118,67 @@
              </div>
          </div>
      </div>
+
+
+{% if queries|length > 0%}
+    {% for query in queries %}
+
+    <div class="modal fade" id="modal-default{{ query.id }}" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Accept</h4>
+                </div>
+                <div class="modal-body">
+                    {% set schedule = query.account.isSetPool() %}
+                    {% if schedule %}
+                        <p>Please choose which lanes?</p>
+                        {{ dump(schedule) }}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Total lanes</th>
+                                    <th>Lane Numbers</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for day in schedule %}
+                                <tr>
+                                    <td>{{ day['date']|date('Y-m-d') }}</td>
+                                    <td>{{ day['lanes'] }}</td>
+                                    <td>
+                                        <select multiple="" class="form-control">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                    <p>Are you sure?</p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    {% endfor %}
+{% endif %}
 
  {% endblock %}

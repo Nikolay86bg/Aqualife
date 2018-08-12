@@ -52,6 +52,10 @@ class QueryRepository extends ServiceEntityRepository
                     $sortBy = 'query.sport';
                     break;
 
+                case 'status' == $sort:
+                    $sortBy = 'query.status';
+                    break;
+
                 case 'country' == $sort:
                     $sortBy = 'query.country';
                     break;
