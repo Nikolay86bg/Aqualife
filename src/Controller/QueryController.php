@@ -42,6 +42,9 @@ class QueryController extends Controller
             $order = $request->get('order');
         }
 
+        //Todo
+        $reservedLanes = $entityManager->getRepository('App:Schedule')->getReservedLanes($filter);
+
         $queries = $entityManager->getRepository('App:Query')->getListQuery($filter, $sort, $order);
 
         $queries = (new Paginator($queries))
@@ -159,10 +162,38 @@ class QueryController extends Controller
         ]);
     }
 
+    /**
+     * @param Query $query
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function reject(Query $query)
     {
         $query->setStatus(Query::STATUS_REJECTED);
         $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('query_index');
+    }
+
+    /**
+     * @param Request $request
+     * @param Query $query
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function accept(Request $request, Query $query)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query->setStatus(Query::STATUS_ACCEPTED);
+
+        if($request->request->has('lanes')){
+            foreach($request->request->get('lanes') as $scheduleId => $lanes){
+                $schedule = $em->getRepository('App:Schedule')->findOneBy([
+                    'id' => $scheduleId
+                ]);
+                $schedule->setLanes(serialize($lanes));
+            }
+        }
+
+        $em->flush();
 
         return $this->redirectToRoute('query_index');
     }

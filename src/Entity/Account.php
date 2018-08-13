@@ -140,22 +140,27 @@ class Account
         $this->schedules = $schedules;
     }
 
+    /**
+     * Get schedules information for pool query
+     *
+     * @return array
+     */
     public function isSetPool()
     {
         $return = [];
-        if($schedules = $this->getSchedules()){
+        if ($schedules = $this->getSchedules()) {
             /** @var Schedule $schedule */
-            foreach($schedules as $schedule){
-                if($schedule->getFacility()->getType() == Facility::TYPE_POOL){
+            foreach ($schedules as $schedule) {
+                if ($schedule->getFacility()->getType() == Facility::TYPE_POOL) {
                     $return[$schedule->getId()]['date'] = $schedule->getDate();
                     $return[$schedule->getId()]['lanes'] = $schedule->getParts();
+                    $return[$schedule->getId()]['pool'] = $schedule->getFacility()->getName();
                 }
             }
         }
 
         return $return;
     }
-
 
 
 }

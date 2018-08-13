@@ -56,9 +56,9 @@ class Schedule
     /**
      * @var string
      *
-     * @ORM\Column(name="note", type="string", nullable=true)
+     * @ORM\Column(name="lanes", type="string", nullable=true)
      */
-    private $note;
+    private $lanes;
 
     /**
      * @var Account
@@ -156,22 +156,6 @@ class Schedule
     }
 
     /**
-     * @return string
-     */
-    public function getNote()
-    {
-        return $this->note;
-    }
-
-    /**
-     * @param string $note
-     */
-    public function setNote(string $note)
-    {
-        $this->note = $note;
-    }
-
-    /**
      * @return Account
      */
     public function getAccount()
@@ -185,6 +169,22 @@ class Schedule
     public function setAccount(Account $account)
     {
         $this->account = $account;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanes()
+    {
+        return $this->lanes;
+    }
+
+    /**
+     * @param string $lanes
+     */
+    public function setLanes(string $lanes)
+    {
+        $this->lanes = $lanes;
     }
 
 

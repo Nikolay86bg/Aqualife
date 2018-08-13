@@ -100,4 +100,14 @@ class ScheduleRepository extends ServiceEntityRepository
 
         return $periodArray;
     }
+
+    public function getReservedLanes(Form $form)
+    {
+        $queryBuilder = $this->createQueryBuilder('schedule');
+
+        //Accepted queries
+        //Days in future
+
+        return $queryBuilder->getQuery()->getArrayResult();
+    }
 }

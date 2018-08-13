@@ -12,173 +12,231 @@
     {% endblock %}
 
 {% block content %}
-     <div class="col-md-12 col-sm-6 col-xs-12">
-         <div class="box box-primary">
+    <div class="col-md-12 col-sm-6 col-xs-12">
+        <div class="box box-primary">
 
-             <div class="x_content">
-                 {#{% include 'user/filter.html.twig' %}#}
-                 <div class="box-body">
+            <div class="x_content">
+                {#{% include 'user/filter.html.twig' %}#}
+                <div class="box-body">
 
-                     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap table-hover" cellspacing="0">
-                         <thead>
-                         <tr>
-                             {% set route = app.request.attributes.get('_route') %}
-                             {% set params = app.request.attributes.get('_route_params')|merge(app.request.query.all) %}
-
-
-
-                             {% if params.order is defined and params.sort == 'name' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'name' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'name', order:'DESC'})) }}">Name <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
-                             {% if params.order is defined and params.sort == 'sport' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'sport',order:'ASC'})) }}">Sport <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'sport' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'sport', order:'DESC'})) }}">Sport <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'sport',order:'ASC'})) }}">Sport <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
-                             {% if params.order is defined and params.sort == 'country' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'country',order:'ASC'})) }}">Country <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'country' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'country', order:'DESC'})) }}">Country <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'country',order:'ASC'})) }}">Country <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
-                             {% if params.order is defined and params.sort == 'arrival' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'arrival',order:'ASC'})) }}">Arrival <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'arrival' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'arrival', order:'DESC'})) }}">Arrival <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'arrival',order:'ASC'})) }}">Arrival <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
-                             {% if params.order is defined and params.sort == 'departure' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'departure',order:'ASC'})) }}">Departure <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'departure' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'departure', order:'DESC'})) }}">Departure <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'departure',order:'ASC'})) }}">Departure <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
-                             {% if params.order is defined and params.sort == 'status' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'status',order:'ASC'})) }}">Status <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'status' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'status', order:'DESC'})) }}">Status <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'status',order:'ASC'})) }}">Status <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
+                    <table id="datatable-responsive"
+                           class="table table-striped table-bordered dt-responsive nowrap table-hover" cellspacing="0">
+                        <thead>
+                        <tr>
+                            {% set route = app.request.attributes.get('_route') %}
+                            {% set params = app.request.attributes.get('_route_params')|merge(app.request.query.all) %}
 
 
-                             <th>Manage</th>
 
-                         </tr>
-                         </thead>
-                         <tbody>
-                         {% if queries|length > 0%}
-                             {% for query in queries %}
-                                 {% if query.account %}
-                                 <tr>
-                                     <td>{{ query.account.name }}</td>
-                                     <td>{{ query.account.sport }}</td>
-                                     <td>{{ countries[query.account.country] }}</td>
-                                     <td>{{ query.dateOfArrival|date('Y-m-d H:i') }}</td>
-                                     <td>{{ query.dateOfDeparture|date('Y-m-d H:i') }}</td>
-                                     <td>{{ constant('App\\Entity\\Query::STATUSES')[query.status] }}</td>
-                                     <td class="actions">
-                                         <a href="{{ path('query_show', { 'id': query.id }) }}" class="btn-sm bg-orange no-wrap">
-                                             <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> View</span>
-                                         </a>
+                            {% if params.order is defined and params.sort == 'name' and params.order == 'DESC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i
+                                                class="fa fa-fw fa-sort-asc"></i></a></th>
+                            {% elseif params.order is defined and params.sort == 'name' and params.order == 'ASC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'name', order:'DESC'})) }}">Name <i
+                                                class="fa fa-fw fa-sort-desc"></i></a></th>
+                            {% else %}
+                                <th><a href="{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i
+                                                class="fa fa-fw fa-sort"></i></a></th>
+                            {% endif %}
 
-                                         {% if query.status == constant('App\\Entity\\Query::STATUS_IN_PROGRESS') %}
-                                         <a href="#" class="btn-sm bg-success no-wrap" data-toggle="modal" data-target="#modal-default{{ query.id }}">
-                                             <i class="fa fa-check"></i><span class="hidden-xs hidden-sm"> Accept</span>
-                                         </a>
+                            {% if params.order is defined and params.sort == 'sport' and params.order == 'DESC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'sport',order:'ASC'})) }}">Sport <i
+                                                class="fa fa-fw fa-sort-asc"></i></a></th>
+                            {% elseif params.order is defined and params.sort == 'sport' and params.order == 'ASC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'sport', order:'DESC'})) }}">Sport <i
+                                                class="fa fa-fw fa-sort-desc"></i></a></th>
+                            {% else %}
+                                <th><a href="{{ url(route, params|merge({sort:'sport',order:'ASC'})) }}">Sport <i
+                                                class="fa fa-fw fa-sort"></i></a></th>
+                            {% endif %}
 
-                                         <a href="{{ path('query_reject', { 'id': query.id }) }}" class="btn-sm bg-danger no-wrap">
-                                             <i class="fa fa-close"></i><span class="hidden-xs hidden-sm"> Reject</span>
-                                         </a>
-                                         {% endif %}
-                                     </td>
-                                 </tr>
-                                 {% endif %}
-                             {% endfor %}
-                         {% endif %}
-                         </tbody>
-                     </table>
-                 </div>
+                            {% if params.order is defined and params.sort == 'country' and params.order == 'DESC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'country',order:'ASC'})) }}">Country <i
+                                                class="fa fa-fw fa-sort-asc"></i></a></th>
+                            {% elseif params.order is defined and params.sort == 'country' and params.order == 'ASC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'country', order:'DESC'})) }}">Country <i
+                                                class="fa fa-fw fa-sort-desc"></i></a></th>
+                            {% else %}
+                                <th><a href="{{ url(route, params|merge({sort:'country',order:'ASC'})) }}">Country <i
+                                                class="fa fa-fw fa-sort"></i></a></th>
+                            {% endif %}
 
-                 {% include 'paginator.html.twig' with { 'paginator': queries } only %}
-             </div>
-         </div>
-     </div>
+                            {% if params.order is defined and params.sort == 'arrival' and params.order == 'DESC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'arrival',order:'ASC'})) }}">Arrival <i
+                                                class="fa fa-fw fa-sort-asc"></i></a></th>
+                            {% elseif params.order is defined and params.sort == 'arrival' and params.order == 'ASC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'arrival', order:'DESC'})) }}">Arrival <i
+                                                class="fa fa-fw fa-sort-desc"></i></a></th>
+                            {% else %}
+                                <th><a href="{{ url(route, params|merge({sort:'arrival',order:'ASC'})) }}">Arrival <i
+                                                class="fa fa-fw fa-sort"></i></a></th>
+                            {% endif %}
+
+                            {% if params.order is defined and params.sort == 'departure' and params.order == 'DESC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'departure',order:'ASC'})) }}">Departure
+                                        <i class="fa fa-fw fa-sort-asc"></i></a></th>
+                            {% elseif params.order is defined and params.sort == 'departure' and params.order == 'ASC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'departure', order:'DESC'})) }}">Departure
+                                        <i class="fa fa-fw fa-sort-desc"></i></a></th>
+                            {% else %}
+                                <th><a href="{{ url(route, params|merge({sort:'departure',order:'ASC'})) }}">Departure
+                                        <i class="fa fa-fw fa-sort"></i></a></th>
+                            {% endif %}
+
+                            {% if params.order is defined and params.sort == 'status' and params.order == 'DESC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'status',order:'ASC'})) }}">Status <i
+                                                class="fa fa-fw fa-sort-asc"></i></a></th>
+                            {% elseif params.order is defined and params.sort == 'status' and params.order == 'ASC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'status', order:'DESC'})) }}">Status <i
+                                                class="fa fa-fw fa-sort-desc"></i></a></th>
+                            {% else %}
+                                <th><a href="{{ url(route, params|merge({sort:'status',order:'ASC'})) }}">Status <i
+                                                class="fa fa-fw fa-sort"></i></a></th>
+                            {% endif %}
 
 
-{% if queries|length > 0%}
-    {% for query in queries %}
+                            <th>Manage</th>
 
-    <div class="modal fade" id="modal-default{{ query.id }}" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Accept</h4>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if queries|length > 0 %}
+                            {% for query in queries %}
+                                {% if query.account %}
+                                    <tr>
+                                        <td>{{ query.account.name }}</td>
+                                        <td>{{ query.account.sport }}</td>
+                                        <td>{{ countries[query.account.country] }}</td>
+                                        <td>{{ query.dateOfArrival|date('Y-m-d H:i') }}</td>
+                                        <td>{{ query.dateOfDeparture|date('Y-m-d H:i') }}</td>
+                                        <td>{{ constant('App\\Entity\\Query::STATUSES')[query.status] }}</td>
+                                        <td class="actions">
+                                            <a href="{{ path('query_show', { 'id': query.id }) }}"
+                                               class="btn-sm bg-orange no-wrap">
+                                                <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> View</span>
+                                            </a>
+
+                                            {% if query.status == constant('App\\Entity\\Query::STATUS_IN_PROGRESS') %}
+                                                <a href="#" class="btn-sm bg-success no-wrap" data-toggle="modal"
+                                                   data-target="#modal-default{{ query.id }}">
+                                                    <i class="fa fa-check"></i><span
+                                                            class="hidden-xs hidden-sm"> Accept</span>
+                                                </a>
+
+                                                <a href="{{ path('query_reject', { 'id': query.id }) }}"
+                                                   class="btn-sm bg-danger no-wrap">
+                                                    <i class="fa fa-close"></i><span
+                                                            class="hidden-xs hidden-sm"> Reject</span>
+                                                </a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
                 </div>
-                <div class="modal-body">
-                    {% set schedule = query.account.isSetPool() %}
-                    {% if schedule %}
-                        <p>Please choose which lanes?</p>
-                        {{ dump(schedule) }}
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Total lanes</th>
-                                    <th>Lane Numbers</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for day in schedule %}
-                                <tr>
-                                    <td>{{ day['date']|date('Y-m-d') }}</td>
-                                    <td>{{ day['lanes'] }}</td>
-                                    <td>
-                                        <select multiple="" class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                    <p>Are you sure?</p>
-                    {% endif %}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+
+                {% include 'paginator.html.twig' with { 'paginator': queries } only %}
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    {% endfor %}
-{% endif %}
 
- {% endblock %}
+
+    {% if queries|length > 0 %}
+        {% for query in queries %}
+            {% if query.status == constant('App\\Entity\\Query::STATUS_IN_PROGRESS') %}
+
+            <div class="modal fade" id="modal-default{{ query.id }}" style="display: none;">
+                <div class="modal-dialog">
+                    <form method="post" action="{{ url('query_accept', { 'id': query.id }) }}">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">Accept</h4>
+                        </div>
+                        <div class="modal-body">
+                            {% set schedule = query.account.isSetPool() %}
+                            {% if schedule %}
+                                <p>Please choose pool lanes?</p>
+                                {{ dump(schedule) }}
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Pool</th>
+                                        <th>Total lanes</th>
+                                        <th>Lane Numbers</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for scheduleId, day in schedule %}
+                                        <tr>
+                                            <td>{{ day['date']|date('Y-m-d') }}</td>
+                                            <td>{{ day['pool'] }}</td>
+                                            <td>{{ constant('App\\Entity\\Facility::PARTS')[0][day['lanes']]  }}</td>
+                                            <td>
+                                                <table class="table table-bordered">
+                                                    <tr>
+                                                        <th>1</th>
+                                                        <th>2</th>
+                                                        <th>3</th>
+                                                        <th>4</th>
+                                                        <th>5</th>
+                                                        <th>6</th>
+                                                        <th>7</th>
+                                                        <th>8</th>
+                                                    </tr>
+                                                    <tr>
+                                                        {% for i in 1..8  %}
+                                                        <td>
+                                                            <label class="">
+                                                                <input type="checkbox" class="minimal" style="position: absolute; opacity: 0;" name="lanes[{{ scheduleId }}][{{ i }}]">
+                                                            </label>
+                                                        </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <p>Are you sure?</p>
+                            {% endif %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                    </form>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- iCheck 1.0.1 -->
+    <script src="{{ url('app_homepage') }}plugins/iCheck/icheck.min.js"></script>
+
+    <script>
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        })
+
+    </script>
+{% endblock %}
