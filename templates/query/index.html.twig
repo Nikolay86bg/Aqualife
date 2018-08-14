@@ -161,20 +161,25 @@
                             {% set schedule = query.account.isSetPool() %}
                             {% if schedule %}
                                 <p>Please choose pool lanes?</p>
-                                {{ dump(schedule) }}
+                                {#{{ dump(schedule) }}#}
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
                                         <th>Date</th>
+                                        <th>From</th>
+                                        <th>To</th>
                                         <th>Pool</th>
                                         <th>Total lanes</th>
                                         <th>Lane Numbers</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+
                                     {% for scheduleId, day in schedule %}
                                         <tr>
                                             <td>{{ day['date']|date('Y-m-d') }}</td>
+                                            <td>{{ day['from']|date('H:i') }}</td>
+                                            <td>{{ day['to']|date('H:i') }}</td>
                                             <td>{{ day['pool'] }}</td>
                                             <td>{{ constant('App\\Entity\\Facility::PARTS')[0][day['lanes']]  }}</td>
                                             <td>
@@ -190,10 +195,26 @@
                                                         <th>8</th>
                                                     </tr>
                                                     <tr>
+                                                        {#@var Schedule scheduleRepo #}
+                                                        {% set reservedSchedules = scheduleRepo.getReservedLanes(day) %}
+                                                        {#{{ dump(reservedSchedules) }}#}
+                                                        {% set lanes = {} %}
+                                                        {% for reserved in reservedSchedules %}
+                                                            {% set lanes = lanes|merge(reserved.lanes|unserialize|keys) %}
+                                                        {% endfor %}
+                                                        {#{{ dump(lanes) }}#}
                                                         {% for i in 1..8  %}
                                                         <td>
+
                                                             <label class="">
-                                                                <input type="checkbox" class="minimal" style="position: absolute; opacity: 0;" name="lanes[{{ scheduleId }}][{{ i }}]">
+                                                                <input
+                                                                    {#{% if reserved[i] is defined %}#}
+                                                                        {#disabled checked#}
+                                                                    {#{% endif %}#}
+                                                                    {% if i in lanes %}
+                                                                        disabled checked
+                                                                    {% endif %}
+                                                                    type="checkbox" class="minimal" style="position: absolute; opacity: 0;" name="lanes[{{ scheduleId }}][{{ i }}]">
                                                             </label>
                                                         </td>
                                                         {% endfor %}

@@ -101,13 +101,32 @@ class ScheduleRepository extends ServiceEntityRepository
         return $periodArray;
     }
 
-    public function getReservedLanes(Form $form)
+    /**
+     * @param $array
+     * @return mixed
+     */
+    public function getReservedLanes($array)
     {
         $queryBuilder = $this->createQueryBuilder('schedule');
+        $queryBuilder->andWhere('queries.status = :status');
+        $queryBuilder->join('schedule.account','account');
+        $queryBuilder->join('account.queries','queries');
+        $queryBuilder->setParameter('status',Query::STATUS_ACCEPTED);
+        $queryBuilder->andWhere('schedule.date = :date');
 
-        //Accepted queries
-        //Days in future
+        $queryBuilder->setParameter('date', $array['date']->format("Y-m-d"));
+        $queryBuilder->andWhere('
+            (
+            (schedule.timeFrom < :from AND :from < schedule.timeTo) OR
+            (schedule.timeFrom < :to AND :to < schedule.timeTo) OR
+            (:from < schedule.timeFrom AND schedule.timeFrom < :to) OR
+            (:from < schedule.timeTo AND schedule.timeTo < :to)
+            )
+        ');
 
-        return $queryBuilder->getQuery()->getArrayResult();
+        $queryBuilder->setParameter('from', $array['from']->format("H:i:s"));
+        $queryBuilder->setParameter('to', $array['to']->format("H:i:s"));
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

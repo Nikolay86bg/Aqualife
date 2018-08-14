@@ -153,6 +153,8 @@ class Account
             foreach ($schedules as $schedule) {
                 if ($schedule->getFacility()->getType() == Facility::TYPE_POOL) {
                     $return[$schedule->getId()]['date'] = $schedule->getDate();
+                    $return[$schedule->getId()]['from'] = $schedule->getTimeFrom();
+                    $return[$schedule->getId()]['to'] = $schedule->getTimeTo();
                     $return[$schedule->getId()]['lanes'] = $schedule->getParts();
                     $return[$schedule->getId()]['pool'] = $schedule->getFacility()->getName();
                 }

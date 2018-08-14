@@ -42,8 +42,7 @@ class QueryController extends Controller
             $order = $request->get('order');
         }
 
-        //Todo
-        $reservedLanes = $entityManager->getRepository('App:Schedule')->getReservedLanes($filter);
+        $scheduleRepo = $entityManager->getRepository('App:Schedule');
 
         $queries = $entityManager->getRepository('App:Query')->getListQuery($filter, $sort, $order);
 
@@ -56,6 +55,7 @@ class QueryController extends Controller
 //            'filter' => $filter->createView(),
             'queries' => $queries,
             'countries' => $countries,
+            'scheduleRepo' => $scheduleRepo
         ]);
     }
 
