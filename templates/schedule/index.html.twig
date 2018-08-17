@@ -13,67 +13,31 @@
 
 {% block content %}
      <div class="col-md-12 col-sm-6 col-xs-12">
-         <div class="box box-primary">
 
-             <div class="x_content">
-                 {% include 'schedule/filter.html.twig' %}
-                 <div class="box-body">
-                     {% if schedules|length > 0%}
-                        {{ dump(schedules) }}
-                         <table class="table table-bordered table-striped dt-responsive nowrap table-hover">
-                             <thead>
-                             <tr>
-                                 <th>Date</th>
-                                 <th>Time</th>
-                             </tr>
-                             </thead>
-                             <tbody>
-                                 {% for day,array in schedules %}
-                                 <tr>
-                                     <td>{{ day }}</td>
-                                     <td>
-                                         {% if array %}
-                                             {% for schedule in array %}
-                                                 <div class="row">
-                                                     <div class="col-md-6">
-                                                         {{ schedule.id }}
-                                                     </div>
-                                                 </div>
-                                             {% endfor %}
-                                         {% endif %}
-                                     </td>
-                                 </tr>
-                                {% endfor %}
-                             </tbody>
-                         </table>
+         <!-- Main content -->
+         <section class="content">
+             <div class="row">
 
-                     {% endif %}
+                 <div class="col-md-12">
+                     <div class="box box-primary">
+                         <div class="box-body no-padding">
+                             <!-- THE CALENDAR -->
+                             <div id="calendar"></div>
+                         </div>
+                         <!-- /.box-body -->
+                     </div>
+                     <!-- /. box -->
                  </div>
-
+                 <!-- /.col -->
              </div>
-         </div>
+             <!-- /.row -->
+         </section>
+         <!-- /.content -->
+
      </div>
 
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="row">
 
-            <div class="col-md-6">
-                <div class="box box-primary">
-                    <div class="box-body no-padding">
-                        <!-- THE CALENDAR -->
-                        <div id="calendar"></div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /. box -->
-            </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-    </section>
-    <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
@@ -86,105 +50,61 @@
       <!-- fullCalendar -->
       <script src="{{ url('app_homepage') }}bower_components/moment/moment.js"></script>
       <script src="{{ url('app_homepage') }}bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+      {#<script src='{{ url('app_homepage') }}bower_components/fullcalendar/lang-all.js'></script>#}
+      <script src='{{ url('app_homepage') }}bower_components/fullcalendar/dist/locale-all.js'></script>
 
+      <!-- fullCalendar Scheduler-->
+      <script src='{{ url('app_homepage') }}bower_components/fullcalendar-scheduler/scheduler.min.js'></script>
 
+      {#https://fullcalendar.io/docs/events-json-feed#}
       <script>
-          $(function () {
 
-              /* initialize the external events
-               -----------------------------------------------------------------*/
-              function init_events(ele) {
-                  ele.each(function () {
+          $(function() {
+              var todayDate = moment().startOf('day');
+              var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
+              var TODAY = todayDate.format('YYYY-MM-DD');
+              var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
 
-                      // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-                      // it doesn't need to have a start or end
-                      var eventObject = {
-                          title: $.trim($(this).text()) // use the element's text as the event title
-                      }
-
-                      // store the Event Object in the DOM element so we can get to it later
-                      $(this).data('eventObject', eventObject)
-
-                      // make the event draggable using jQuery UI
-                      $(this).draggable({
-                          zIndex        : 1070,
-                          revert        : true, // will cause the event to go back to its
-                          revertDuration: 0  //  original position after the drag
-                      })
-
-                  })
-              }
-
-              init_events($('#external-events div.external-event'))
-
-              /* initialize the calendar
-               -----------------------------------------------------------------*/
-              //Date for the calendar events (dummy data)
-              var date = new Date()
-              var d    = date.getDate(),
-                  m    = date.getMonth(),
-                  y    = date.getFullYear()
               $('#calendar').fullCalendar({
-                  header    : {
-                      left  : 'prev,next today',
-                      center: 'title',
-                      right : 'month,agendaWeek,agendaDay'
-                  },
-                  buttonText: {
-                      // today: 'today',
-                      // month: 'month',
-                      // week : 'week',
-                      day  : 'day'
-                  },
-                  //Random default events
-                  events    : [
-                      {
-                          title          : 'Meeting',
-                          start          : new Date(y, m, d, 10, 30),
-                          allDay         : false,
-                          backgroundColor: '#0073b7', //Blue
-                          borderColor    : '#0073b7' //Blue
-                      },
-                      {
-                          title          : 'Lunch',
-                          start          : new Date(y, m, d, 12, 0),
-                          end            : new Date(y, m, d, 14, 30),
-                          allDay         : false,
-                          backgroundColor: '#00c0ef', //Info (aqua)
-                          borderColor    : '#00c0ef' //Info (aqua)
-                      }
+                  defaultView: 'timelineDay',
+                  height: 'auto',
+                  locale: 'bg',
+                  timeFormat: 'H:mm', // uppercase H for 24-hour clock
+                  slotLabelFormat: [
+                      'D MMMM YYYY', // top level of text
+                      'H:mm', // uppercase H for 24-hour clock
                   ],
-                  editable  : false,
-                  droppable : false, // this allows things to be dropped onto the calendar !!!
-                  // drop      : function (date, allDay) { // this function is called when something is dropped
-                  //
-                  //     // retrieve the dropped element's stored Event Object
-                  //     var originalEventObject = $(this).data('eventObject')
-                  //
-                  //     // we need to copy it, so that multiple events don't have a reference to the same object
-                  //     var copiedEventObject = $.extend({}, originalEventObject)
+                  header: {
+                      left: 'prev,next',
+                      center: 'title',
+                      right: 'timelineDay,timelineWeek,timelineMonth'
+                  },
+                  resourceLabelText: 'Пътечки',
+                  // resources: 'https://fullcalendar.io/demo-resources.json',
+                  // events: 'https://fullcalendar.io/demo-events.json?with-resources'
+                  resources: [
+                      {% for i in 1..8 %}
+                      {
+                          id: '{{ i }}',
+                      },
+                      {% endfor %}
+                  ],
+                  minTime: "06:00:00",
+                  maxTime: "21:00:00",
+                  displayEventTime: true,
+                  displayEventEnd: true,
+                  events: [
+                      { id: '1', resourceId: '1', start: TODAY + 'T07:00:00', end: TODAY + 'T09:00:00', title: 'event 1' , color: '#378006',},
+                      { id: '2', resourceId: '2', start: TODAY + 'T05:00:00', end: TODAY + 'T22:00:00', title: 'event 2' , color: '#378006', },
+                      { id: '3', resourceId: '3', start: YESTERDAY, end: TOMORROW, title: 'event 3' , color: '#378006',},
+                      { id: '4', resourceId: '4', start: TODAY + 'T03:00:00', end: TODAY + 'T08:00:00', title: 'event 4' , color: 'red',},
+                      { id: '5', resourceId: '5', start: TODAY + 'T03:00:00', end: TODAY + 'T08:00:00', title: 'event 4' , color: 'red',},
+                      { id: '5', resourceId: '5', start: TODAY + 'T03:00:00', end: TODAY + 'T08:00:00', title: 'event 4' , color: '#378006',},
+                      { id: '5', resourceId: '5', start: TODAY + 'T10:30:00', end: TODAY + 'T12:30:00', title: 'event 5' , color: '#378006', }
+                  ],
+              });
 
-                      // assign it the date that was reported
-                      // copiedEventObject.start           = date
-                      // copiedEventObject.allDay          = allDay
-                      // copiedEventObject.backgroundColor = $(this).css('background-color')
-                      // copiedEventObject.borderColor     = $(this).css('border-color')
-
-                      // render the event on the calendar
-                      // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                      // $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
-
-                      // is the "remove after drop" checkbox checked?
-                      // if ($('#drop-remove').is(':checked')) {
-                      //     // if so, remove the element from the "Draggable Events" list
-                      //     $(this).remove()
-                      // }
-
-                  // }
-              })
-
-
-          })
+          });
       </script>
 
       <script>
