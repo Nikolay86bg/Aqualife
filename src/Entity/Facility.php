@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Facility
 {
-
     const TYPE_POOL = 0;
     const TYPE_HALL = 1;
     const TYPE_FOOTBALL_PLAYGROUND = 2;

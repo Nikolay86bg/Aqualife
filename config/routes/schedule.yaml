@@ -23,3 +23,10 @@ schedule_delete:
     controller: App\Controller\ScheduleController::delete
     methods:  DELETE
 
+schedule_feed:
+    path:     /feed
+    controller: App\Controller\ScheduleController::feed
+    methods:  [GET, POST]
+
+
+

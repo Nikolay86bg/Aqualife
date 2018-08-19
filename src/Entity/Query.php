@@ -45,7 +45,7 @@ class Query
     /**
      * @var Account
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Account", inversedBy="queries")
+     * @ORM\OneToOne(targetEntity="App\Entity\Account", inversedBy="query")
      */
     private $account;
 

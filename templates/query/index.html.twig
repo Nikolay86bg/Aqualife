@@ -109,7 +109,16 @@
                                         <td>{{ countries[query.account.country] }}</td>
                                         <td>{{ query.dateOfArrival|date('Y-m-d H:i') }}</td>
                                         <td>{{ query.dateOfDeparture|date('Y-m-d H:i') }}</td>
-                                        <td>{{ constant('App\\Entity\\Query::STATUSES')[query.status] }}</td>
+                                        <td>
+                                            {% if query.status == constant('App\\Entity\\Query::STATUS_ACCEPTED') %}
+                                                {% set labelClass = 'label-success' %}
+                                            {% elseif query.status == constant('App\\Entity\\Query::STATUS_REJECTED') %}
+                                                {% set labelClass =  'label-danger' %}
+                                            {% else %}
+                                                {% set labelClass =  'label-warning' %}
+                                            {% endif %}
+                                            <span class="label {{ labelClass }}">{{ constant('App\\Entity\\Query::STATUSES')[query.status] }}</span>
+                                        </td>
                                         <td class="actions">
                                             <a href="{{ path('query_show', { 'id': query.id }) }}"
                                                class="btn-sm bg-orange no-wrap">

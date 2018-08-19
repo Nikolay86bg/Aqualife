@@ -31,44 +31,24 @@
                     <div class="box-body">
 
                         {% if query.account %}
-                            <h4>{{ query.account.name }} </h4>
-                            <ul class="list-unstyled" id="curently_edited_pos_data_list">
-                                <li>
-                                    <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                    Id:
-                                    <span class="accent_data">{{ query.id }}</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                    Name:
-                                    <span class="accent_data">{% if query.account.name is defined %}{{ query.account.name }}{% else %} - {% endif %}</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                    Manager:
-                                    <span class="accent_data">{% if query.account.manager is defined %}{{ query.account.manager }}{% else %} - {% endif %}</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                    Sport:
-                                    <span class="accent_data">{% if query.account.sport is defined %}{{ query.account.sport }}{% else %} - {% endif %}</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                    Country:
-                                    <span class="accent_data">{% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                    Arrival:
-                                    <span class="accent_data">{% if query.dateOfArrival is defined %}{{ query.dateOfArrival|date('Y-m-d H:i') }}{% else %} - {% endif %}</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                    Departure:
-                                    <span class="accent_data">{% if query.dateOfDeparture is defined %}{{ query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</span>
-                                </li>
-                            </ul>
+                            <div class="box box-widget widget-user-2">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <div class="widget-user-header bg-yellow">
+                                    <h3 class="widget-user-username">{{ query.account.name }}</h3>
+                                    <h5 class="widget-user-desc">{% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}</h5>
+                                </div>
+                                <div class="box-footer no-padding">
+                                    <ul class="nav nav-stacked">
+                                        <li><a href="#">Id: <span class="pull-right badge bg-blue">{{ query.id }}</span></a></li>
+                                        <li><a href="#">Name: <span class="pull-right">{% if query.account.name is defined %}{{ query.account.name }}{% else %} - {% endif %}</span></a></li>
+                                        <li><a href="#">Manager: <span class="pull-right">{% if query.account.manager is defined %}{{ query.account.manager }}{% else %} - {% endif %}</span></a></li>
+                                        <li><a href="#">Sport: <span class="pull-right">{% if query.account.sport is defined %}{{ query.account.sport }}{% else %} - {% endif %}</span></a></li>
+                                        <li><a href="#">Country: <span class="pull-right">{% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}</span></a></li>
+                                        <li><a href="#">Arrival: <span class="pull-right">{% if query.dateOfArrival is defined %}{{ query.dateOfArrival|date('Y-m-d H:i') }}{% else %} - {% endif %}</span></a></li>
+                                        <li><a href="#">Departure: <span class="pull-right">{% if query.dateOfDeparture is defined %}{{ query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         {% endif %}
                         <div class="box-footer">
                             <div>
@@ -79,6 +59,12 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
             </div>
 
         </div>

@@ -6,6 +6,7 @@ use App\Entity\Facility;
 use App\Entity\Query;
 use App\Entity\Schedule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\Form;
 
@@ -21,47 +22,6 @@ class ScheduleRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Form $form
-     * @param null $sort
-     * @param null $order
-     * @return \Doctrine\ORM\Query
-     */
-    public function getListQuery(Form $form, $sort = null, $order = null)
-    {
-        $queryBuilder = $this->createQueryBuilder('schedule');
-
-//        if (null !== $form->get('name')->getData()) {
-//            $queryBuilder->andWhere('facility.name LIKE :name');
-//            $queryBuilder->setParameter('name', $form->get('name')->getData().'%');
-//        }
-
-        $queryBuilder->orderBy('schedule.date', $order);
-
-//        if (null !== $sort && null !== $order) {
-//            switch ($sort) {
-//                case 'id' == $sort:
-//                    $sortBy = 'schedule.id';
-//                    break;
-//
-//                case 'timeFrom' == $sort:
-//                    $sortBy = 'schedule.timeFrom';
-//                    break;
-//
-//                case 'timeTo' == $sort:
-//                    $sortBy = 'schedule.timeTo';
-//                    break;
-//
-//                default:
-//                    $queryBuilder->orderBy('schedule.date');
-//            }
-//
-//            $queryBuilder->orderBy($sortBy, $order);
-//        }
-
-        return $queryBuilder->getQuery();
-    }
-
-    /**
      * @param array $schedule
      * @return array
      */
@@ -69,7 +29,7 @@ class ScheduleRepository extends ServiceEntityRepository
     {
         $array = [];
         /** @var Schedule $event */
-        foreach($schedule as $event){
+        foreach ($schedule as $event) {
             $array[$event->getDate()->format("Y-m-d")][] = $event;
         }
 
@@ -108,10 +68,10 @@ class ScheduleRepository extends ServiceEntityRepository
     public function getReservedLanes($array)
     {
         $queryBuilder = $this->createQueryBuilder('schedule');
-        $queryBuilder->andWhere('queries.status = :status');
-        $queryBuilder->join('schedule.account','account');
-        $queryBuilder->join('account.queries','queries');
-        $queryBuilder->setParameter('status',Query::STATUS_ACCEPTED);
+        $queryBuilder->join('schedule.account', 'account');
+        $queryBuilder->join('account.query', 'query');
+        $queryBuilder->andWhere('query.status = :status');
+        $queryBuilder->setParameter('status', Query::STATUS_ACCEPTED);
         $queryBuilder->andWhere('schedule.date = :date');
 
         $queryBuilder->setParameter('date', $array['date']->format("Y-m-d"));
@@ -128,5 +88,74 @@ class ScheduleRepository extends ServiceEntityRepository
         $queryBuilder->setParameter('to', $array['to']->format("H:i:s"));
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * @param Facility $facility
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return mixed
+     */
+    public function getSchedule(Facility $facility, \DateTime $from, \DateTime $to)
+    {
+        $queryBuilder = $this->createQueryBuilder('schedule');
+        $queryBuilder->andWhere('schedule.facility = :facility');
+        $queryBuilder->andWhere('schedule.date >= :from');
+        $queryBuilder->andWhere('schedule.date <= :to');
+
+        $queryBuilder->setParameter('facility', $facility);
+        $queryBuilder->setParameter('from', $from->format("Y-m-d"));
+        $queryBuilder->setParameter('to', $to->format("Y-m-d"));
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * @param array $schedule
+     * @return array
+     */
+    public function prepareSchedule(array $schedule)
+    {
+        $return = $array = [];
+        /** @var Schedule $event */
+        foreach ($schedule as $event) {
+            if ($event->getAccount()->getQuery()->getStatus() == Query::STATUS_ACCEPTED) {
+                if ($event->getFacility()->getType() == Facility::TYPE_POOL) {
+                    $lanes = unserialize($event->getLanes());
+                    foreach ($lanes as $lane => $on) {
+                        array_push($return, $this->setScheduleArray($event, $lane, 'green'));
+                    }
+                } else {
+                    array_push($return, $this->setScheduleArray($event,  Facility::PARTS[$event->getFacility()->getType()][$event->getParts()], 'green', true));
+                }
+            } else {
+                array_push($return, $this->setScheduleArray($event, 'Неодобрени', 'red', true));
+            }
+        }
+
+        return $return;
+    }
+
+    /**
+     * @param Schedule $schedule
+     * @param string $id
+     * @param string $color
+     * @param bool|false $description
+     * @return mixed
+     */
+    private function setScheduleArray(Schedule $schedule, string $id, string $color, bool $description = false)
+    {
+        $array['id'] = $id;
+        $array['resourceId'] = $id;
+        $array['start'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeFrom()->format("H:i:s");
+        $array['end'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeTo()->format("H:i:s");
+        $array['title'] = $schedule->getAccount()->getName();
+        $array['color'] = $color;
+
+        if($description){
+            $array['description'] = 'Части: ' . Facility::PARTS[$schedule->getFacility()->getType()][$schedule->getParts()];
+        }
+
+        return $array;
     }
 }

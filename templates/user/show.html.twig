@@ -30,68 +30,38 @@
                 <div class="x_content">
                     <div class="box-body">
 
-                        <h4>{{ user }} </h4>
-                        <ul class="list-unstyled" id="curently_edited_pos_data_list">
-                            <li>
-                                <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                User Id:
-                                <span class="accent_data">{{ user.id }}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-text-width" aria-hidden="true"></i>
-                                Username:
-                                <span class="accent_data">{% if user.username is defined %}{{ user.username }}{% else %} - {% endif %}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-check" aria-hidden="true"></i>
-                                Is Active:
-                                <span class="accent_data">{% if user.isActive is defined %}Yes{% else %}No{% endif %}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-text-width" aria-hidden="true"></i>
-                                Email:
-                                <span class="accent_data">{% if user.email is defined %}{{ user.email }}{% else %} - {% endif %}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-text-width" aria-hidden="true"></i>
-                                First Name:
-                                <span class="accent_data">{% if user.firstName is defined %}{{ user.firstName }}{% else %} - {% endif %}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-text-width" aria-hidden="true"></i>
-                                Last Name:
-                                <span class="accent_data">{% if user.lastName is defined %}{{ user.lastName }}{% else %} - {% endif %}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-files-o" aria-hidden="true"></i>
-                                Roles:
-                                <span class="accent_data">{% if user.roles is defined %}{{ user.roles|join(', ') }}{% endif %}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                Created At:
-                                <span class="accent_data">{% if user.createdAt is defined %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                Updated At:
-                                <span class="accent_data">{% if user.updatedAt is defined %}{{ user.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</span>
-                            </li>
-
-                        </ul>
+                        <div class="box box-widget widget-user-2">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-yellow">
+                                <h3 class="widget-user-username">{{ user }}</h3>
+                            </div>
+                            <div class="box-footer no-padding">
+                                <ul class="nav nav-stacked">
+                                    <li><a href="#">Id: <span class="pull-right badge bg-blue">{{ user.id }}</span></a></li>
+                                    <li><a href="#">Username: <span class="pull-right">{% if user.username is defined %}{{ user.username }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">Is Active: <span class="pull-right">{% if user.isActive is defined %}Yes{% else %}No{% endif %}</span></a></li>
+                                    <li><a href="#">Email: <span class="pull-right">{% if user.email is defined %}{{ user.email }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">First Name: <span class="pull-right">{% if user.firstName is defined %}{{ user.firstName }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">Last Name: <span class="pull-right">{% if user.lastName is defined %}{{ user.lastName }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">Roles: <span class="pull-right">{% if user.roles is defined %}{{ user.roles|join(', ') }}{% endif %}</span></a></li>
+                                    <li><a href="#">Created At: <span class="pull-right">{% if user.createdAt is defined %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</span></a></li>
+                                    <li><a href="#">Updated At: <span class="pull-right">{% if user.updatedAt is defined %}{{ user.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
 
                         <div class="box-footer">
-                            <div>
+                            <div class="pull-left">
                                 <a href="{{ path('user_index') }}" class="btn bg-green">
                                     <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> Back to the list</span>
                                 </a>
                             </div>
-                            <div>
+                            <div class="pull-left">
                                 <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn bg-orange">
                                     <i class="fa fa-pencil"></i><span class="hidden-xs hidden-sm"> Edit</span>
                                 </a>
                             </div>
-                            <div>
+                            <div class="pull-left">
                                 {{ form_start(delete_form) }}
                                 <button type="submit" class="btn btn-danger">
                                     <i class="fa fa-times"></i><span class="hidden-xs hidden-sm"> Delete</span>

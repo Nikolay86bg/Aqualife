@@ -38,11 +38,11 @@ class Account
     private $country;
 
     /**
-     * @var Query[]
+     * @var Query
      *
-     * * @ORM\OneToMany(targetEntity="App\Entity\Query", mappedBy="account")
+     * * @ORM\OneToOne(targetEntity="App\Entity\Query", mappedBy="account")
      */
-    private $queries;
+    private $query;
 
     /**
      * @var Schedule[]
@@ -109,19 +109,19 @@ class Account
     }
 
     /**
-     * @return Query[]
+     * @return Query
      */
-    public function getQueries()
+    public function getQuery()
     {
-        return $this->queries;
+        return $this->query;
     }
 
     /**
-     * @param Query[] $queries
+     * @param Query $query
      */
-    public function setQueries(array $queries)
+    public function setQuery($query)
     {
-        $this->queries = $queries;
+        $this->query = $query;
     }
 
     /**

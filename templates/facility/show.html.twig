@@ -30,25 +30,20 @@
                 <div class="x_content">
                     <div class="box-body">
 
-                        <h4>{{ facility.name }} </h4>
-                        <ul class="list-unstyled" id="curently_edited_pos_data_list">
-                            <li>
-                                <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                Id:
-                                <span class="accent_data">{{ facility.id }}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                Name:
-                                <span class="accent_data">{% if facility.name is defined %}{{ facility.name }}{% else %} - {% endif %}</span>
-                            </li>
-                            <li>
-                                <i class="fa fa-asterisk" aria-hidden="true"></i>
-                                Type:
-                                <span class="accent_data">{% if facility.type is defined %}{{ constant('App\\Entity\\Facility::TYPES')[facility.type] }}{% else %} - {% endif %}</span>
-                            </li>
+                        <div class="box box-widget widget-user-2">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-yellow">
+                                <h3 class="widget-user-username">{{ facility.name }}</h3>
+                            </div>
+                            <div class="box-footer no-padding">
+                                <ul class="nav nav-stacked">
+                                    <li><a href="#">Id: <span class="pull-right badge bg-blue">{{ facility.id }}</span></a></li>
+                                    <li><a href="#">Name: <span class="pull-right">{% if facility.name is defined %}{{ facility.name }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">Type: <span class="pull-right">{% if facility.type is defined %}{{ constant('App\\Entity\\Facility::TYPES')[facility.type] }}{% else %} - {% endif %}</span></a></li>
 
-                        </ul>
+                                </ul>
+                            </div>
+                        </div>
 
                         <div class="box-footer">
                             <div>

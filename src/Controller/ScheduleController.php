@@ -10,6 +10,7 @@ use App\Form\AccountType;
 use App\Form\QueryFilterType;
 use App\Form\ScheduleFilterType;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,29 +36,37 @@ class ScheduleController extends Controller
         $filter = $this->createForm(ScheduleFilterType::class);
         $filter->handleRequest($request);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $sort = null;
-        $order = null;
-
-        $schedule = $entityManager->getRepository('App:Schedule')->getListQuery($filter, $sort, $order)->getResult();
-
-        $schedule = $entityManager->getRepository('App:Schedule')->orderByDate($schedule);
-
-        dump($schedule);
-
-//        $period = $entityManager->getRepository('App:Schedule')->getDatesBetween(
-//            $filter->get('from')->getData(),
-//            $filter->get('to')->getData()
-//        );
-
-        $facility = $entityManager->getRepository('App:Facility')->findOneBy(['id' => $request->get('facility')]);
+        if ($filter->isSubmitted() && $filter->isValid()) {
+            $facility = $filter->get('facility')->getData();
+        }else{
+            $entityManager = $this->getDoctrine()->getManager();
+            $facility = $entityManager->getRepository('App:Facility')->findOneBy(['id' => 1]);
+        }
 
         return $this->render('schedule/index.html.twig', [
             'filter' => $filter->createView(),
-            'schedules' => $schedule,
-//            'period' => $period,
             'facility' => $facility
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function feed(Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $facility = $entityManager->getRepository(Facility::class)->findOneBy([
+            'id' => $request->request->get('facility_id')
+        ]);
+
+        $start = \DateTime::createFromFormat ( 'Y-m-d\TH:i:s' ,  $request->request->get('start'));
+        $end = \DateTime::createFromFormat ( 'Y-m-d\TH:i:s' ,  $request->request->get('end'));
+
+        $schedule = $entityManager->getRepository(Schedule::class)->getSchedule($facility, $start, $end);
+        $schedule = $entityManager->getRepository(Schedule::class)->prepareSchedule($schedule);
+
+        return new JsonResponse($schedule);
     }
 
 }
