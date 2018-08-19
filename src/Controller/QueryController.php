@@ -79,6 +79,9 @@ class QueryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($request->request->all());
+            exit;
+
             $em->persist($account);
 
             foreach ($request->get('facilities') as $facilityId => $facility) {

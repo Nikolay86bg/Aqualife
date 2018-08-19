@@ -25,6 +25,28 @@ class Query
         self::HOTEL4 => "Tower"
     ];
 
+    const RESTAURANT1 = 0;
+    const RESTAURANT2 = 1;
+    const RESTAURANT3 = 2;
+
+    const RESTAURANTS = [
+        self::RESTAURANT1 => "Sport",
+        self::RESTAURANT2 => "Active",
+        self::RESTAURANT3 => "Aqualife",
+    ];
+
+    const BREAKFAST = 0;
+    const MIDDLE_BREAKFAST = 1;
+    const LUNCH = 2;
+    const DINNER = 3;
+
+    const MEALS = [
+        self::BREAKFAST => "Breakfast",
+        self::MIDDLE_BREAKFAST => "MIddle Breakfast",
+        self::LUNCH => "Lunch",
+        self::DINNER => "Dinner",
+    ];
+
     const STATUS_IN_PROGRESS = 0;
     const STATUS_ACCEPTED = 1;
     const STATUS_REJECTED = 2;
