@@ -51,6 +51,13 @@ class Account
      */
     private $schedules;
 
+    /**
+     * @var MealSchedule[]
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\MealSchedule", mappedBy="account")
+     */
+    private $mealSchedules;
+
     public function getId()
     {
         return $this->id;
@@ -139,6 +146,24 @@ class Account
     {
         $this->schedules = $schedules;
     }
+
+    /**
+     * @return MealSchedule[]
+     */
+    public function getMealSchedules()
+    {
+        return $this->mealSchedules;
+    }
+
+    /**
+     * @param MealSchedule[] $mealSchedules
+     */
+    public function setMealSchedules(array $mealSchedules)
+    {
+        $this->mealSchedules = $mealSchedules;
+    }
+
+
 
     /**
      * Get schedules information for pool query

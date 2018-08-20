@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Account;
 use App\Entity\Facility;
+use App\Entity\MealSchedule;
 use App\Entity\Query;
 use App\Entity\Schedule;
 use App\Form\AccountType;
@@ -79,8 +80,7 @@ class QueryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($request->request->all());
-            exit;
+
 
             $em->persist($account);
 
@@ -99,6 +99,29 @@ class QueryController extends Controller
 
                         $em->persist($schedule);
                     }
+                }
+            }
+
+            foreach ($request->get('meals')['date'] as $key => $value) {
+                if (!empty($value)) {
+                    $mealSchedule = new MealSchedule();
+                    $mealSchedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
+                    $mealSchedule->setAccount($account);
+
+                    if($request->get('meals')['breakfast'][$key] != "-"){
+                        $mealSchedule->setBreakfast($request->get('meals')['breakfast'][$key]);
+                    }
+                    if($request->get('meals')['middle-breakfast'][$key] != "-"){
+                        $mealSchedule->setMiddleBreakfast($request->get('meals')['middle-breakfast'][$key]);
+                    }
+                    if($request->get('meals')['lunch'][$key] != "-"){
+                        $mealSchedule->setLunch($request->get('meals')['lunch'][$key] );
+                    }
+                    if($request->get('meals')['dinner'][$key] != "-"){
+                        $mealSchedule->setDinner($request->get('meals')['dinner'][$key]);
+                    }
+
+                    $em->persist($mealSchedule);
                 }
             }
 
