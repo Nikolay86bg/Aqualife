@@ -71,6 +71,13 @@ class QueryController extends Controller
      */
     public function new(Request $request)
     {
+
+        //TODO
+        // Period m/u arrival && departure za meal i facility schedule
+        //Meal schedule 1 pole restorant, 4 polete za na4alen 4as  kato poslednoto e za middle breakfast
+        //Button za celiqt period do tozi za add date za Meal i Facility
+        //Facility schedule 4 poleta za 4as
+
 //        $this->denyAccessUnlessGranted(UserVoter::USER_ADD_ROLE);
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();

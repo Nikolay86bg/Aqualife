@@ -90,6 +90,7 @@
                                     <th>Middle Breakfast Restaurant</th>
                                     <th>Lunch Restaurant</th>
                                     <th>Dinner Restaurant</th>
+                                    <th>Delete</th>
                                 </tr>
                                 <tr class="meal_row_to_copy">
                                     <td><input type="text" class="form-control pull-right datepicker"
@@ -134,6 +135,9 @@
                                             </select>
                                         </div>
                                     </td>
+                                    <td>
+                                        <span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> Delete</small></span>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -177,6 +181,7 @@
                                             <th>Time From</th>
                                             <th>Time To</th>
                                             <th>Parts</th>
+                                            <th>Delete</th>
                                         </tr>
                                         <tr class="row_to_copy{{ facility.id }}">
                                             <td><input type="text" class="form-control pull-right datepicker"
@@ -205,6 +210,9 @@
                                                         <option value="{{ partKey }}">{{ part }}</option>
                                                     {% endfor %}
                                                 </select>
+                                            </td>
+                                            <td>
+                                                <span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> Delete</small></span>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -258,6 +266,10 @@
                     showMeridian: false,
                 });
             }
+
+            $(document).on('click', '.delete-row', function() {
+                $(this).parent().parent().remove();
+            });
 
             $(function () {
                 setDateTimePickers();
