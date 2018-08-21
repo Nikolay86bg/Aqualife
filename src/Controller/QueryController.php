@@ -98,11 +98,26 @@ class QueryController extends Controller
                         $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
                         $schedule->setFacility($facilityReference);
                         $schedule->setParts($facility['part'][$key]);
-                        $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['timeFrom'][$key]));
-                        $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['timeTo'][$key]));
+                        $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['mTimeFrom'][$key]));
+                        $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['mTimeTo'][$key]));
                         $schedule->setAccount($account);
 
                         $em->persist($schedule);
+
+                        if(isset($facility['aTimeFrom'][$key])){
+                            if($facility['aTimeFrom'][$key] != '' && $facility['aTimeTo'][$key] != '' ){
+                                $schedule = new Schedule();
+                                $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
+                                $schedule->setFacility($facilityReference);
+                                $schedule->setParts($facility['part'][$key]);
+                                $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['aTimeFrom'][$key]));
+                                $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['aTimeTo'][$key]));
+                                $schedule->setAccount($account);
+
+                                $em->persist($schedule);
+                            }
+                        }
+
                     }
                 }
             }

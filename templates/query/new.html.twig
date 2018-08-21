@@ -181,8 +181,12 @@
                                         <tbody>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Time From</th>
-                                            <th>Time To</th>
+                                            <th>Morning Time From</th>
+                                            <th>Morning Time To</th>
+                                            {% if facility.type == constant('App\\Entity\\Facility::TYPE_POOL') %}
+                                            <th>Afternoon Time From</th>
+                                            <th>Afternoon Time To</th>
+                                            {% endif %}
                                             <th>Parts</th>
                                             <th>Delete</th>
                                         </tr>
@@ -192,7 +196,7 @@
                                             <td>
                                                 <div class="input-group" style="max-width: 100px;">
                                                     <input type="text" class="form-control timepicker"
-                                                           name="facilities[{{ facility.id }}][timeFrom][]">
+                                                           name="facilities[{{ facility.id }}][mTimeFrom][]">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-clock-o"></i>
                                                     </div>
@@ -201,12 +205,32 @@
                                             <td>
                                                 <div class="input-group" style="max-width: 100px;">
                                                     <input type="text" class="form-control timepicker"
-                                                           name="facilities[{{ facility.id }}][timeTo][]">
+                                                           name="facilities[{{ facility.id }}][mTimeTo][]">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-clock-o"></i>
                                                     </div>
                                                 </div>
                                             </td>
+                                            {% if facility.type == constant('App\\Entity\\Facility::TYPE_POOL') %}
+                                            <td>
+                                                <div class="input-group" style="max-width: 100px;">
+                                                    <input type="text" class="form-control timepicker"
+                                                           name="facilities[{{ facility.id }}][aTimeFrom][]">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="max-width: 100px;">
+                                                    <input type="text" class="form-control timepicker"
+                                                           name="facilities[{{ facility.id }}][aTimeTo][]">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            {% endif %}
                                             <td>
                                                 <select class="form-control" name="facilities[{{ facility.id }}][part][]">
                                                     {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
