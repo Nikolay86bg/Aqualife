@@ -16,7 +16,7 @@
     {% block content %}
 
         {{ form_start(form, { 'attr' : { 'autocomplete': 'off' } }) }}
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Customer</h3>
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-8 col-sm-8 col-xs-12">
             <div class="box box-danger">
                 <div class="box-header with-border">
                     <h3 class="box-title">Meal Schedule</h3>
@@ -86,10 +86,11 @@
                                 <tbody>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Breakfast Restaurant</th>
-                                    <th>Middle Breakfast Restaurant</th>
-                                    <th>Lunch Restaurant</th>
-                                    <th>Dinner Restaurant</th>
+                                    <th>Restaurant</th>
+                                    <th style="width: 130px">Breakfast Time</th>
+                                    <th style="width: 130px">Lunch Time</th>
+                                    <th style="width: 130px">Dinner Time</th>
+                                    <th style="width: 130px">Middle Breakfast Time</th>
                                     <th>Delete</th>
                                 </tr>
                                 <tr class="meal_row_to_copy">
@@ -97,7 +98,7 @@
                                                name="meals[date][]"></td>
                                     <td>
                                         <div class="input-group">
-                                            <select name="meals[breakfast][]" class="form-control">
+                                            <select name="meals[restaurant][]" class="form-control">
                                                 <option value="-">No</option>
                                                 {% for resId,restaurant in constant('App\\Entity\\Query::RESTAURANTS') %}
                                                 <option value="{{ resId }}">{{ restaurant }}</option>
@@ -107,32 +108,34 @@
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <select name="meals[middle-breakfast][]" class="form-control">
-                                                <option value="-">No</option>
-                                                {% for resId,restaurant in constant('App\\Entity\\Query::RESTAURANTS') %}
-                                                <option value="{{ resId }}">{{ restaurant }}</option>
-                                                {% endfor %}#}
-                                            </select>
+                                            <input type="text" class="form-control timepicker" name="meals[breakfast][]">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <select name="meals[lunch][]" class="form-control">
-                                                <option value="-">No</option>
-                                                {% for resId,restaurant in constant('App\\Entity\\Query::RESTAURANTS') %}
-                                                <option value="{{ resId }}">{{ restaurant }}</option>
-                                                {% endfor %}#}
-                                            </select>
+                                            <input type="text" class="form-control timepicker" name="meals[lunch][]">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <select name="meals[dinner][]" class="form-control">
-                                                <option value="-">No</option>
-                                                {% for resId,restaurant in constant('App\\Entity\\Query::RESTAURANTS') %}
-                                                <option value="{{ resId }}">{{ restaurant }}</option>
-                                                {% endfor %}#}
-                                            </select>
+                                            <input type="text" class="form-control timepicker" name="meals[dinner][]">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control timepicker" name="meals[middle_breakfast][]">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>

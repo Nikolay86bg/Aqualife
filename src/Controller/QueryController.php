@@ -73,8 +73,6 @@ class QueryController extends Controller
     {
 
         //TODO
-        // Period m/u arrival && departure za meal i facility schedule
-        //Meal schedule 1 pole restorant, 4 polete za na4alen 4as  kato poslednoto e za middle breakfast
         //Button za celiqt period do tozi za add date za Meal i Facility
         //Facility schedule 4 poleta za 4as
 
@@ -115,17 +113,20 @@ class QueryController extends Controller
                     $mealSchedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
                     $mealSchedule->setAccount($account);
 
-                    if($request->get('meals')['breakfast'][$key] != "-"){
-                        $mealSchedule->setBreakfast($request->get('meals')['breakfast'][$key]);
+                    if($request->get('meals')['restaurant'][$key] != ""){
+                        $mealSchedule->setRestaurant($request->get('meals')['restaurant'][$key]);
                     }
-                    if($request->get('meals')['middle-breakfast'][$key] != "-"){
-                        $mealSchedule->setMiddleBreakfast($request->get('meals')['middle-breakfast'][$key]);
+                    if($request->get('meals')['breakfast'][$key] != ""){
+                        $mealSchedule->setBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['breakfast'][$key]));
                     }
-                    if($request->get('meals')['lunch'][$key] != "-"){
-                        $mealSchedule->setLunch($request->get('meals')['lunch'][$key] );
+                    if($request->get('meals')['middle_breakfast'][$key] != ""){
+                        $mealSchedule->setMiddleBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['middle_breakfast'][$key]));
                     }
-                    if($request->get('meals')['dinner'][$key] != "-"){
-                        $mealSchedule->setDinner($request->get('meals')['dinner'][$key]);
+                    if($request->get('meals')['lunch'][$key] != ""){
+                        $mealSchedule->setLunchTime(\DateTime::createFromFormat('H:i', $request->get('meals')['lunch'][$key]));
+                    }
+                    if($request->get('meals')['dinner'][$key] != ""){
+                        $mealSchedule->setDinnerTime(\DateTime::createFromFormat('H:i', $request->get('meals')['dinner'][$key]));
                     }
 
                     $em->persist($mealSchedule);

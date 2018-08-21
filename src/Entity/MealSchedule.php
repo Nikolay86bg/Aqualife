@@ -28,30 +28,37 @@ class MealSchedule
     /**
      * @var integer
      *
-     * @ORM\Column(name="breakfast", type="integer", nullable=true)
+     * @ORM\Column(name="restaurant", type="integer")
      */
-    private $breakfast;
+    private $restaurant;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="middle_breakfast", type="integer", nullable=true)
+     * @ORM\Column(name="breakfast_time", type="time", nullable=true)
      */
-    private $middleBreakfast;
+    private $breakfastTime;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="lunch", type="integer", nullable=true)
+     * @ORM\Column(name="middle_breakfast_time", type="time", nullable=true)
      */
-    private $lunch;
+    private $middleBreakfastTime;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="dinner", type="integer", nullable=true)
+     * @ORM\Column(name="lunch_time", type="time", nullable=true)
      */
-    private $dinner;
+    private $lunchTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dinner_time", type="time", nullable=true)
+     */
+    private $dinnerTime;
 
     /**
      * @var Account
@@ -86,73 +93,9 @@ class MealSchedule
     }
 
     /**
-     * @return int
-     */
-    public function getBreakfast()
-    {
-        return $this->breakfast;
-    }
-
-    /**
-     * @param int $breakfast
-     */
-    public function setBreakfast(int $breakfast)
-    {
-        $this->breakfast = $breakfast;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMiddleBreakfast()
-    {
-        return $this->middleBreakfast;
-    }
-
-    /**
-     * @param int $middleBreakfast
-     */
-    public function setMiddleBreakfast(int $middleBreakfast)
-    {
-        $this->middleBreakfast = $middleBreakfast;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLunch()
-    {
-        return $this->lunch;
-    }
-
-    /**
-     * @param int $lunch
-     */
-    public function setLunch(int $lunch)
-    {
-        $this->lunch = $lunch;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDinner()
-    {
-        return $this->dinner;
-    }
-
-    /**
-     * @param int $dinner
-     */
-    public function setDinner(int $dinner)
-    {
-        $this->dinner = $dinner;
-    }
-
-    /**
      * @return Account
      */
-    public function getAccount(): Account
+    public function getAccount()
     {
         return $this->account;
     }
@@ -160,14 +103,90 @@ class MealSchedule
     /**
      * @param Account $account
      */
-    public function setAccount(Account $account): void
+    public function setAccount(Account $account)
     {
         $this->account = $account;
     }
 
+    /**
+     * @return int
+     */
+    public function getRestaurant()
+    {
+        return $this->restaurant;
+    }
 
+    /**
+     * @param int $restaurant
+     */
+    public function setRestaurant($restaurant)
+    {
+        $this->restaurant = $restaurant;
+    }
 
+    /**
+     * @return \DateTime
+     */
+    public function getBreakfastTime()
+    {
+        return $this->breakfastTime;
+    }
 
+    /**
+     * @param \DateTime $breakfastTime
+     */
+    public function setBreakfastTime($breakfastTime)
+    {
+        $this->breakfastTime = $breakfastTime;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getMiddleBreakfastTime()
+    {
+        return $this->middleBreakfastTime;
+    }
+
+    /**
+     * @param \DateTime $middleBreakfastTime
+     */
+    public function setMiddleBreakfastTime($middleBreakfastTime)
+    {
+        $this->middleBreakfastTime = $middleBreakfastTime;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLunchTime()
+    {
+        return $this->lunchTime;
+    }
+
+    /**
+     * @param \DateTime $lunchTime
+     */
+    public function setLunchTime($lunchTime)
+    {
+        $this->lunchTime = $lunchTime;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDinnerTime()
+    {
+        return $this->dinnerTime;
+    }
+
+    /**
+     * @param \DateTime $dinnerTime
+     */
+    public function setDinnerTime($dinnerTime)
+    {
+        $this->dinnerTime = $dinnerTime;
+    }
 
 
 }
