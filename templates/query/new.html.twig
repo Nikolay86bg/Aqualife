@@ -58,7 +58,7 @@
                             <!-- /.input group -->
                         </div>
                         <div class="box-footer">
-                            <button id="send" type="submit" class="btn btn-primary">Submit</button>
+                            <button id="send" type="submit" class="btn btn-success">Submit</button>
                             <a href="{{ path('query_index') }}" class="btn bg-blue">Cancel</a>
                         </div>
                     </div>
@@ -146,6 +146,7 @@
                             </table>
                             <div>
                                 <span class="btn btn-sm bg-info meal-add-date">Add Date</span>
+                                <span class="btn btn-sm bg-orange whole-period-meal">Whole Period</span>
                             </div>
                         </div>
                         <!-- /.tab-content -->
@@ -246,6 +247,7 @@
                                     </table>
                                     <div>
                                         <span class="btn btn-sm bg-info add-date" id="{{ facility.id }}">Add Date</span>
+                                        <span class="btn btn-sm bg-orange whole-period" id="{{ facility.id }}">Whole Period</span>
                                     </div>
 
                                 </div>
@@ -267,6 +269,29 @@
         {{ parent() }}
 
         <script>
+            Date.prototype.ddmmyyyy = function() {
+                var mm = this.getMonth() + 1; // getMonth() is zero-based
+                var dd = this.getDate();
+
+                return [(dd>9 ? '' : '0') + dd,(mm>9 ? '' : '0') + mm,this.getFullYear()].join('/');
+            };
+
+            // Returns an array of dates between the two dates
+            var getDates = function(startDate, endDate) {
+                var dates = [],
+                        currentDate = startDate,
+                        addDays = function(days) {
+                            var date = new Date(this.valueOf());
+                            date.setDate(date.getDate() + days);
+                            return date;
+                        };
+                while (currentDate <= endDate) {
+                    dates.push(currentDate);
+                    currentDate = addDays.call(currentDate, 1);
+                }
+                return dates;
+            };
+
             function setDateTimePickers() {
                 $('input[name="datetimes"]').daterangepicker({
                     timePicker: true,
@@ -300,6 +325,50 @@
 
             $(function () {
                 setDateTimePickers();
+            });
+
+            $('.whole-period-meal').on("click", function () {
+                var startEnd = $('[name="datetimes"]').val().split(' - ');
+
+                var start = startEnd[0].slice(0,-5).split("/");
+                var end = startEnd[1].slice(0,-5).split("/");
+                var s=new Date(start[2],(start[1] -1 ),start[0]);
+                var e=new Date(end[2], (end[1] - 1),end[0]);
+
+                // Usage
+                var dates = getDates(s, e);
+                dates.forEach(function(date) {
+                    var row = $('.meal_row_to_copy');
+                    var clone = row.clone(); // copy children too
+                    console.log(clone.find('.datepicker').val(date.ddmmyyyy()));
+                    clone.removeClass(); // change id or other attributes/contents
+                    row.parent().append(clone); // add new row to end of table
+
+                    setDateTimePickers();
+                });
+
+            });
+
+            $('.whole-period').on("click", function () {
+               var startEnd = $('[name="datetimes"]').val().split(' - ');
+
+                var start = startEnd[0].slice(0,-5).split("/");
+                var end = startEnd[1].slice(0,-5).split("/");
+                var s=new Date(start[2],(start[1] -1 ),start[0]);
+                var e=new Date(end[2], (end[1] - 1),end[0]);
+                var id = this.id;
+
+                // Usage
+                var dates = getDates(s, e);
+                dates.forEach(function(date) {
+                    var row = $('.row_to_copy' + id);
+                    var clone = row.clone(); // copy children too
+                    console.log(clone.find('.datepicker').val(date.ddmmyyyy()));
+                    clone.removeClass(); // change id or other attributes/contents
+                    row.parent().append(clone); // add new row to end of table
+
+                    setDateTimePickers();
+                });
             });
 
             $('.add-date').on("click", function () {
