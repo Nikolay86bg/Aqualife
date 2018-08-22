@@ -1,0 +1,12 @@
+meal_schedule_index:
+    path:     /
+    controller: App\Controller\MealScheduleController::index
+    methods:  GET
+
+meal_schedule_feed:
+    path:     /feed
+    controller: App\Controller\MealScheduleController::feed
+    methods:  [GET, POST]
+
+
+

@@ -7,9 +7,11 @@
 namespace App\Form;
 
 use App\Entity\Facility;
+use App\Entity\Query;
 use App\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,30 +28,14 @@ class ScheduleFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('from', DatePickerType::class, [
-//                'label' => 'From:',
-//                'attr' => [
-//                    'placeholder' => 'From Date',
-//                    'class' => 'form-control datepicker'
-//                ],
-//                'data' => new \DateTime(),
-//            ])
-//            ->add('to', DatePickerType::class, [
-//                'label' => 'Until:',
-//                'attr' => [
-//                    'placeholder' => 'To Date',
-//                    'class' => 'form-control datepicker'
-//                ],
-//                'data' => new \DateTime(),
-//            ])
-            ->add('facility', EntityType::class, [
+            ->add('restaurant', ChoiceType::class, [
                 'required' => false,
-                'label' => 'Facility:',
+                'label' => 'Restaurant:',
                 'attr' => [
-                    'placeholder' => 'Facility',
+                    'placeholder' => 'Restaurant',
                     'class' => 'form-control'
                 ],
-                'class' => Facility::class
+                'choices' => array_flip(Query::RESTAURANTS)
             ])
         ;
     }

@@ -2,11 +2,11 @@
     {% block content_header %}
         <section class="content-header">
             <h1>
-                <i class="fa fa-list" aria-hidden="true"></i> List Schedule
+                <i class="fa fa-list" aria-hidden="true"></i> List Restaurant Schedule
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ url('schedule_index') }}"><i class="fa fa-dashboard"></i> Schedule</a></li>
-                <li class="active">Facility</li>
+                <li class="active">Restaurant</li>
             </ol>
         </section>
     {% endblock %}
@@ -15,9 +15,9 @@
      <div class="col-md-12 col-sm-6 col-xs-12">
          <!-- Main content -->
          <section class="content">
-             {% include 'schedule/filter.html.twig' %}
+             {% include 'meal-schedule/filter.html.twig' %}
              <div class="row">
-                 <h2>{{ facility.name }}</h2>
+                 <h2>Restaurant {{ constant('App\\Entity\\Query::RESTAURANTS')[restaurantId] }}</h2>
 
                  <div class="col-md-12">
                      <div class="box box-primary">
@@ -80,27 +80,13 @@
                       center: 'title',
                       right: 'timelineDay,timelineWeek,timelineMonth'
                   },
-                  resourceLabelText: 'Коридор',
-                  // resources: 'https://fullcalendar.io/demo-resources.json',
-                  // events: 'https://fullcalendar.io/demo-events.json?with-resources'
+                  resourceLabelText: 'Ресторант',
                   resources: [
-                      {% if facility.type == constant('App\\Entity\\Facility::TYPE_POOL') %}
-                          {% for i in 1..8 %}
-                          {
-                              id: '{{ i }}',
-                          },
-                          {% endfor %}
-                      {% else %}
-                          {
-                              id: 'All'
-                          },
-                          {
-                              id: '1/2'
-                          },
-                          {
-                              id: '1/3'
-                          },
-                      {% endif %}
+                      {% for id,rest in constant('App\\Entity\\Query::RESTAURANTS') %}
+                      {
+                          id: '{{ rest }}',
+                      },
+                      {% endfor %}
                       {
                           id: 'Неодобрени'
                       }
@@ -110,16 +96,14 @@
                   displayEventTime: true,
                   displayEventEnd: true,
                   events: {
-                      url: '/schedule/feed',
+                      url: '/meal-schedule/feed',
                       type: 'POST',
                       data: {
-                          facility_id: {{ facility.id }},
+                          restaurant_id: {{ restaurantId }},
                       },
                       error: function() {
                           alert('there was an error while fetching events!');
                       },
-//                      color: 'yellow',   // a non-ajax option
-//                      textColor: 'black' // a non-ajax option
                   }
               });
 
