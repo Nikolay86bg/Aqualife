@@ -28,3 +28,8 @@ query_accept:
     controller: App\Controller\QueryController::accept
     methods:  [GET, POST]
 
+query_payed:
+    path:     /{id}/payed
+    controller: App\Controller\QueryController::payed
+    methods:  [GET, POST]
+

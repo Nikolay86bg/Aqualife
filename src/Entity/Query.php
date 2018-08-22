@@ -57,6 +57,14 @@ class Query
       self::STATUS_REJECTED => 'Rejected',
     ];
 
+    const PAYED_NO = 0;
+    const PAYED_YES = 1;
+
+    const PAYED = [
+        self::PAYED_NO => 'NO',
+        self::PAYED_YES => 'YES'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -105,6 +113,13 @@ class Query
      * @ORM\Column(type="integer")
      */
     private $hotel;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="payed", type="integer")
+     */
+    private $payed = self::PAYED_NO;
 
     /**
      * @return User
@@ -207,6 +222,24 @@ class Query
     {
         $this->status = $status;
     }
+
+    /**
+     * @return int
+     */
+    public function getPayed()
+    {
+        return $this->payed;
+    }
+
+    /**
+     * @param int $payed
+     */
+    public function setPayed($payed)
+    {
+        $this->payed = $payed;
+    }
+
+
 
 
 

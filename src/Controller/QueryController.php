@@ -246,4 +246,16 @@ class QueryController extends Controller
 
         return $this->redirectToRoute('query_index');
     }
+
+    /**
+     * @param Query $query
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function payed(Query $query)
+    {
+        $query->setPayed(Query::PAYED_YES);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('query_index');
+    }
 }

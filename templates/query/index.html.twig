@@ -94,6 +94,17 @@
                                                 class="fa fa-fw fa-sort"></i></a></th>
                             {% endif %}
 
+                            {% if params.order is defined and params.sort == 'payed' and params.order == 'DESC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'payed',order:'ASC'})) }}">Payed <i
+                                                class="fa fa-fw fa-sort-asc"></i></a></th>
+                            {% elseif params.order is defined and params.sort == 'payed' and params.order == 'ASC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'payed', order:'DESC'})) }}">Payed <i
+                                                class="fa fa-fw fa-sort-desc"></i></a></th>
+                            {% else %}
+                                <th><a href="{{ url(route, params|merge({sort:'payed',order:'ASC'})) }}">Payed <i
+                                                class="fa fa-fw fa-sort"></i></a></th>
+                            {% endif %}
+
 
                             <th>Manage</th>
 
@@ -119,6 +130,9 @@
                                             {% endif %}
                                             <span class="label {{ labelClass }}">{{ constant('App\\Entity\\Query::STATUSES')[query.status] }}</span>
                                         </td>
+                                        <td>
+                                            {{ constant('App\\Entity\\Query::PAYED')[query.payed] }}
+                                        </td>
                                         <td class="actions">
                                             <a href="{{ path('query_show', { 'id': query.id }) }}"
                                                class="btn-sm bg-orange no-wrap">
@@ -138,6 +152,14 @@
                                                             class="hidden-xs hidden-sm"> Reject</span>
                                                 </a>
                                             {% endif %}
+
+                                           {% if query.payed == constant('App\\Entity\\Query::PAYED_NO') %}
+                                            <a href="{{ path('query_payed', { 'id': query.id }) }}"
+                                               class="btn-sm bg-primary no-wrap">
+                                                <i class="fa fa-close"></i><span
+                                                        class="hidden-xs hidden-sm"> Payed</span>
+                                            </a>
+                                           {% endif %}
                                         </td>
                                     </tr>
                                 {% endif %}
