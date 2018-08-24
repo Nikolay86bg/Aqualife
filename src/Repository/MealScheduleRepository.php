@@ -39,43 +39,56 @@ class MealScheduleRepository extends ServiceEntityRepository
         $queryBuilder->setParameter('from', $from->format("Y-m-d"));
         $queryBuilder->setParameter('to', $to->format("Y-m-d"));
 
+        $queryBuilder->orderBy('meal_schedule.date','ASC');
+
         return $queryBuilder->getQuery()->getResult();
     }
 
+
+    /**
+     * @param array $schedule
+     * @return array
+     */
     public function prepareSchedule(array $schedule)
     {
-        $return = $array = [];
-        /** @var Schedule $event */
+        $return = [];
+        /** @var MealSchedule $event */
         foreach ($schedule as $event) {
             if ($event->getAccount()->getQuery()->getStatus() == Query::STATUS_ACCEPTED) {
-                if ($event->getFacility()->getType() == Facility::TYPE_POOL) {
-                    $lanes = unserialize($event->getLanes());
-                    foreach ($lanes as $lane => $on) {
-                        array_push($return, $this->setScheduleArray($event, $lane, 'green'));
-                    }
-                } else {
-                    array_push($return, $this->setScheduleArray($event,  Facility::PARTS[$event->getFacility()->getType()][$event->getParts()], 'green'));
+                if($event->getBreakfastTime()){
+                    $return[$event->getDate()->format("Y-m-d")]['breakfast'][$event->getBreakfastTime()->format("Hi")][] = $event->getAccount()->getName().' '.$event->getAccount()->getCountry();
+                }
+                if($event->getLunchTime()) {
+                    $return[$event->getDate()->format("Y-m-d")]['lunch'][$event->getLunchTime()->format("Hi")][] = $event->getAccount()->getName() . ' ' . $event->getAccount()->getCountry();
+                }
+                if($event->getDinnerTime()) {
+                    $return[$event->getDate()->format("Y-m-d")]['dinner'][$event->getDinnerTime()->format("Hi")][] = $event->getAccount()->getName() . ' ' . $event->getAccount()->getCountry();
+                }
+                if($event->getMiddleBreakfastTime()) {
+                    $return[$event->getDate()->format("Y-m-d")]['middleBreakfast'][$event->getMiddleBreakfastTime()->format("Hi")][] = $event->getAccount()->getName() . ' ' . $event->getAccount()->getCountry();
                 }
             } else {
-                array_push($return, $this->setScheduleArray($event, 'Неодобрени', 'red', true));
+//                array_push($return, $this->setScheduleArray($event, 'Неодобрени', 'red', true));
+            }
+        }
+
+        return $this->sortArrayByKey($return);
+    }
+
+
+    /**
+     * @param $return
+     * @return mixed
+     */
+    private function sortArrayByKey($return){
+        foreach($return as $date => $meals){
+            foreach($meals as $meal => $events){
+                ksort($events, SORT_ASC);
+                $return[$date][$meal] = $events;
             }
         }
 
         return $return;
     }
-
-    private function setScheduleArray(Schedule $schedule, string $id, string $color)
-    {
-        $array['id'] = $id;
-        $array['resourceId'] = $id;
-        $array['start'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeFrom()->format("H:i:s");
-        $array['end'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeTo()->format("H:i:s");
-        $array['title'] = $schedule->getAccount()->getName();
-        $array['color'] = $color;
-
-
-        return $array;
-    }
-
 
 }

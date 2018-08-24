@@ -8,6 +8,7 @@ use App\Entity\MealSchedule;
 use App\Entity\Query;
 use App\Entity\Schedule;
 use App\Form\AccountType;
+use App\Form\MealScheduleFilterType;
 use App\Form\QueryFilterType;
 use App\Form\ScheduleFilterType;
 use Doctrine\ORM\EntityManager;
@@ -34,39 +35,29 @@ class MealScheduleController extends Controller
     {
 //        $this->denyAccessUnlessGranted(UserVoter::USER_LIST_ROLE);
 
-        $filter = $this->createForm(ScheduleFilterType::class);
+        $entityManager = $this->getDoctrine()->getManager();
+        $filter = $this->createForm(MealScheduleFilterType::class);
         $filter->handleRequest($request);
 
         if ($filter->isSubmitted() && $filter->isValid()) {
             $restaurant = $filter->get('restaurant')->getData();
+            $from = $filter->get('from')->getData();
+            $to = $filter->get('to')->getData();
         }else{
             $restaurant = Query::RESTAURANT1;
+            $from = $to = new \DateTime();
         }
+
+        $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($restaurant, $from, $to);
+        $schedule = $entityManager->getRepository(MealSchedule::class)->prepareSchedule($schedule);
+        dump($schedule);
 
         return $this->render('meal-schedule/index.html.twig', [
             'filter' => $filter->createView(),
-            'restaurantId' => $restaurant
+            'restaurantId' => $restaurant,
+            'schedule' => $schedule
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function feed(Request $request)
-    {
-
-        //todo 6te trqbva da vidq emaila i nai veroqtno nqma da polzvam fullcalendar ami vsi4ko da e custom
-        $entityManager = $this->getDoctrine()->getManager();
-        $restaurantId = $request->request->get('restaurant_id');
-
-        $start = \DateTime::createFromFormat ( 'Y-m-d\TH:i:s' ,  $request->request->get('start'));
-        $end = \DateTime::createFromFormat ( 'Y-m-d\TH:i:s' ,  $request->request->get('end'));
-
-        $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($restaurantId, $start, $end);
-        $schedule = $entityManager->getRepository(MealSchedule::class)->prepareSchedule($schedule);
-
-        return new JsonResponse($schedule);
-    }
 
 }

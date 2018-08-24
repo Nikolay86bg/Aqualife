@@ -17,9 +17,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 /**
- * Class ScheduleFilterType.
+ * Class MealScheduleFilterType.
  */
-class ScheduleFilterType extends AbstractType
+class MealScheduleFilterType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -28,30 +28,31 @@ class ScheduleFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('from', DatePickerType::class, [
-//                'label' => 'From:',
-//                'attr' => [
-//                    'placeholder' => 'From Date',
-//                    'class' => 'form-control datepicker'
-//                ],
-//                'data' => new \DateTime(),
-//            ])
-//            ->add('to', DatePickerType::class, [
-//                'label' => 'Until:',
-//                'attr' => [
-//                    'placeholder' => 'To Date',
-//                    'class' => 'form-control datepicker'
-//                ],
-//                'data' => new \DateTime(),
-//            ])
-            ->add('facility', EntityType::class, [
-                'required' => false,
-                'label' => 'Facility:',
+            ->add('from', DatePickerType::class, [
+                'label' => 'From:',
                 'attr' => [
-                    'placeholder' => 'Facility',
+                    'placeholder' => 'From Date',
+                    'class' => 'datepicker'
+                ],
+                'data' => new \DateTime(),
+            ])
+            ->add('to', DatePickerType::class, [
+                'label' => 'Until:',
+                'attr' => [
+                    'placeholder' => 'To Date',
+                    'class' => 'datepicker'
+                ],
+                'data' => new \DateTime(),
+            ])
+            ->add('restaurant', ChoiceType::class, [
+                'required' => false,
+                'label' => 'Restaurant:',
+                'placeholder' => false,
+                'attr' => [
+                    'placeholder' => 'Restaurant',
                     'class' => 'form-control'
                 ],
-                'class' => Facility::class
+                'choices' => array_flip(Query::RESTAURANTS)
             ])
         ;
     }
