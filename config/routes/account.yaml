@@ -23,3 +23,13 @@ account_delete:
     controller: App\Controller\AccountController::delete
     methods:  DELETE
 
+account_teams_schedule:
+    path:     /teams-schedule
+    controller: App\Controller\AccountController::teamsSchedule
+    methods:  [GET, POST]
+
+account_schedule:
+    path:     /{id}/schedule
+    controller: App\Controller\AccountController::schedule
+    methods:  [GET, POST]
+

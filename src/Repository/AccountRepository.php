@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Account;
+use App\Entity\Query;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\Form;
@@ -67,5 +68,25 @@ class AccountRepository extends ServiceEntityRepository
         }
 
         return $queryBuilder->getQuery();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentAccounts()
+    {
+        $queryBuilder = $this->createQueryBuilder('account');
+        $queryBuilder->join('account.query','query')
+            ->where('query.status = :status')
+            ->andWhere('DATE(query.dateOfArrival) <= DATE(:today)')
+            ->andWhere('DATE(query.dateOfDeparture) >= DATE(:today)')
+            ->setParameters([
+            'status' => Query::STATUS_ACCEPTED,
+            'today' => new \DateTime()
+        ]);
+
+        $queryBuilder->orderBy('account.name', 'ASC');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

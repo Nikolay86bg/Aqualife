@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+    {#{% block content_header %}#}
+        {#<section class="content-header">#}
+            {#<h1>#}
+                {#<i class="fa fa-list" aria-hidden="true"></i> List Accounts#}
+            {#</h1>#}
+            {#<ol class="breadcrumb">#}
+                {#<li><a href="{{ url('account_index') }}"><i class="fa fa-dashboard"></i> Accounts</a></li>#}
+                {#<li class="active">List</li>#}
+            {#</ol>#}
+        {#</section>#}
+    {#{% endblock %}#}
+
+{% block body_class %}login{% endblock %}
+{% block body %}
+    <div class="col-md-12 col-sm-12" style="margin: 5% auto;">
+     <div class="col-md-12 col-sm-12 col-xs-12">
+         <div class="box box-primary">
+
+             <div class="x_content">
+                 <div class="box-body">
+                     <div class="row">
+                         <h1 class="text-center">Choose Team</h1>
+                     {% if accounts is defined %}
+                         {% for account in accounts %}
+                             <div class="col-sm-3 col-md-3">
+                                 <div class="color-palette-set">
+                                     <a href="{{ url("account_schedule",{'id': account.id}) }}">
+                                     <div class="{{ color.getColorFromId(account.id) }} color-palette">
+                                         <h2 class="text-center">{{ account.name }}</h2>
+                                     </div>
+                                     </a>
+                                 </div>
+                             </div>
+                         {% endfor %}
+                     {% else %}
+                         No accounts
+                     {% endif %}
+                     </div>
+                </div>
+             </div>
+         </div>
+     </div>
+     </div>
+
+ {% endblock %}

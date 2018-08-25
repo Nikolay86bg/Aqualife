@@ -27,3 +27,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        dql:
+            datetime_functions:
+                date: App\Doctrine\ORM\Query\Date
+            numeric_functions:
+                Rand: App\Doctrine\ORM\Query\Rand
+        hydrators:
+            TimeEstimateHydrator: App\Doctrine\ORM\Hydration\TimeEstimateHydrator

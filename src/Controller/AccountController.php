@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Account;
 use App\Form\AccountFilterType;
 use App\Form\AccountType;
+use App\Service\ColorService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -113,6 +114,25 @@ class AccountController extends Controller
         return $this->render('account/edit.html.twig', [
             'account' => $account,
             'edit_form' => $editForm->createView(),
+        ]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function teamsSchedule()
+    {
+        return $this->render('account/current-accounts-list.html.twig', [
+            'accounts' => $this->getDoctrine()->getManager()->getRepository(Account::class)->getCurrentAccounts(),
+            'color' =>  $this->get(ColorService::class)
+        ]);
+    }
+
+    public function schedule(Account $account)
+    {
+        return $this->render('account/schedule.html.twig', [
+            'account' => $account,
+            'color' =>  $this->get(ColorService::class)
         ]);
     }
 }
