@@ -233,19 +233,15 @@
                                                         {% for reserved in reservedSchedules %}
                                                             {% set lanes = lanes|merge(reserved.lanes|unserialize|keys) %}
                                                         {% endfor %}
-                                                        {#{{ dump(lanes) }}#}
                                                         {% for i in 1..8  %}
                                                         <td>
 
                                                             <label class="">
                                                                 <input
-                                                                    {#{% if reserved[i] is defined %}#}
-                                                                        {#disabled checked#}
-                                                                    {#{% endif %}#}
                                                                     {% if i in lanes %}
                                                                         disabled checked
                                                                     {% endif %}
-                                                                    type="checkbox" class="minimal" style="position: absolute; opacity: 0;" name="lanes[{{ scheduleId }}][{{ i }}]">
+                                                                    type="checkbox" class="minimal" data-limit="{{ day['lanes'] + 1 }}" data-id="{{ scheduleId }}" style="position: absolute; opacity: 0;" name="lanes[{{ scheduleId }}][{{ i }}]">
                                                             </label>
                                                         </td>
                                                         {% endfor %}
@@ -289,6 +285,21 @@
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'iradio_minimal-blue'
         })
+
+
+
+        $(".minimal").on("ifChecked",function(e){
+            var checkboxes = $('[data-id="'+ $(this).data('id')+'"]');
+            var $this=$(this);
+            var limit = $(this).data('limit');
+
+            if (checkboxes.filter(":checked").length > limit) {
+                alert('Max lanes reached!');
+                setTimeout(function(){
+                    $this.iCheck('uncheck');
+                },1);
+            }
+        });
 
     </script>
 {% endblock %}
