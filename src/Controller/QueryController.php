@@ -71,8 +71,6 @@ class QueryController extends Controller
      */
     public function new(Request $request)
     {
-
-        //TODO
         //Button za celiqt period do tozi za add date za Meal i Facility
         //Facility schedule 4 poleta za 4as
 
@@ -190,24 +188,37 @@ class QueryController extends Controller
         ]);
     }
 
-    public function edit(Request $request, Account $account)
+    public function edit(Request $request, Query $query)
     {
 //        $this->denyAccessUnlessGranted(UserVoter::USER_EDIT_ROLE, $user);
 
-        $editForm = $this->createForm(AccountType::class, $account);
-        $editForm->handleRequest($request);
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        $account = $query->getAccount();
+        $form = $this->createForm(AccountType::class, $account);
+        $form->handleRequest($request);
 
-            $em->flush();
-
-            return $this->redirectToRoute('account_show', ['id' => $account->getId()]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump('HERE');
         }
 
-        return $this->render('account/edit.html.twig', [
-            'account' => $account,
-            'edit_form' => $editForm->createView(),
+//        if ($editForm->isSubmitted() && $editForm->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//
+//            $em->flush();
+//
+//            return $this->redirectToRoute('account_show', ['id' => $account->getId()]);
+//        }
+
+        $facilities = $em->getRepository('App:Facility')->findAll();
+
+        return $this->render('query/edit.html.twig', [
+            'query' => $query,
+            'form' => $form->createView(),
+            'facilities' => $facilities,
+            'schedules' => $query->getAccount()->getSchedules(),
+            'meal_schedules' => $query->getAccount()->getMealSchedules(),
         ]);
     }
 

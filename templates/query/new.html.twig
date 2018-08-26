@@ -182,11 +182,14 @@
                                         <tbody>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Morning Time From</th>
-                                            <th>Morning Time To</th>
                                             {% if facility.type == constant('App\\Entity\\Facility::TYPE_POOL') %}
-                                            <th>Afternoon Time From</th>
-                                            <th>Afternoon Time To</th>
+                                                <th>Morning Time From</th>
+                                                <th>Morning Time To</th>
+                                                <th>Afternoon Time From</th>
+                                                <th>Afternoon Time To</th>
+                                            {% else %}
+                                                <th>Time From</th>
+                                                <th>Time To</th>
                                             {% endif %}
                                             <th>Parts</th>
                                             <th>Delete</th>

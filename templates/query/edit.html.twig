@@ -4,40 +4,464 @@
         <section class="content-header">
             <h1>
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                Edit Account <span> - {{ account.name }} </span>
+                Edit Query <span> - {{ query.account.name }} </span>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ url('account_index') }}"><i class="fa fa-dashboard"></i> Accounts</a></li>
-                <li class="active">Edit Account</li>
+                <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> Queries</a></li>
+                <li class="active">Edit</li>
             </ol>
         </section>
     {% endblock %}
 
     {% block content %}
-        <div class="col-md-12 col-sm-6 col-xs-12">
+        {{ form_start(form, { 'attr' : { 'autocomplete': 'off' } }) }}
+        <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Customer</h3>
+                </div>
 
-                    {% for label, messages in app.flashes(['success', 'error']) %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ label }} alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                {{ message }}
-                            </div>
-                        {% endfor %}
+
+                {% for label, messages in app.flashes(['success', 'error']) %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message }}
+                        </div>
                     {% endfor %}
+                {% endfor %}
 
-                    <div class="x_content">
-                        {{ form_start(edit_form, {'role': 'form'}) }}
-                        <div class="box-body">
-                            {{ form_widget(edit_form) }}
-                            <div class="box-footer">
-                                <button id="send" type="submit" class="btn btn-primary">Submit</button>
+                <div class="x_content">
+
+                    <div class="box-body">
+                        {{ form_widget(form) }}
+
+                        <div class="form-group">
+                            <label>Hotel:</label>
+                            <select class="form-control" name="hotel">
+                                <option value="{{ query.hotel }}">{{ constant('App\\Entity\\Query::HOTELS')[query.hotel] }}</option>
+                                {% for hotelId, hotel in constant('App\\Entity\\Query::HOTELS') %}
+                                    <option value="{{ hotelId }}">{{ hotel }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Arrival - Departure:</label>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" name="datetimes" autocomplete="off">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <div class="box-footer">
+                            <button id="send" type="submit" class="btn btn-success">Edit</button>
+                            <a href="{{ path('query_index') }}" class="btn bg-blue">Cancel</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 col-sm-8 col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Meal Schedule</h3>
+                </div>
+
+                <div class="box-body">
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            {% for key,meal in constant('App\\Entity\\Query::MEALS') %}
+
+                            {% endfor %}
+                        </ul>
+                        <div class="tab-content">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Restaurant</th>
+                                    <th style="width: 130px">Breakfast Time</th>
+                                    <th style="width: 130px">Lunch Time</th>
+                                    <th style="width: 130px">Dinner Time</th>
+                                    <th style="width: 130px">Middle Breakfast Time</th>
+                                    <th>Delete</th>
+                                </tr>
+                                {#<tr class="meal_row_to_copy">#}
+                                    {#<td><input type="text" class="form-control pull-right datepicker"#}
+                                               {#name="meals[date][]"></td>#}
+                                    {#<td>#}
+                                        {#<div class="input-group">#}
+                                            {#<select name="meals[restaurant][]" class="form-control">#}
+                                                {#<option value="-">No</option>#}
+                                                {#{% for resId,restaurant in constant('App\\Entity\\Query::RESTAURANTS') %}#}
+                                                {#<option value="{{ resId }}">{{ restaurant }}</option>#}
+                                                {#{% endfor %}&#35;&#125;#}
+                                            {#</select>#}
+                                        {#</div>#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                        {#<div class="input-group">#}
+                                            {#<input type="text" class="form-control timepicker" name="meals[breakfast][]">#}
+                                            {#<div class="input-group-addon">#}
+                                                {#<i class="fa fa-clock-o"></i>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                        {#<div class="input-group">#}
+                                            {#<input type="text" class="form-control timepicker" name="meals[lunch][]">#}
+                                            {#<div class="input-group-addon">#}
+                                                {#<i class="fa fa-clock-o"></i>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                        {#<div class="input-group">#}
+                                            {#<input type="text" class="form-control timepicker" name="meals[dinner][]">#}
+                                            {#<div class="input-group-addon">#}
+                                                {#<i class="fa fa-clock-o"></i>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                        {#<div class="input-group">#}
+                                            {#<input type="text" class="form-control timepicker" name="meals[middle_breakfast][]">#}
+                                            {#<div class="input-group-addon">#}
+                                                {#<i class="fa fa-clock-o"></i>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</td>#}
+                                    {#<td>#}
+                                        {#<span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> Delete</small></span>#}
+                                    {#</td>#}
+                                {#</tr>#}
+                                {% for meal_schedule in meal_schedules %}
+                                    <tr class="meal_row_to_copy">
+                                        <td><input type="text" class="form-control pull-right datepicker"
+                                                   name="meals[date][]" value="{{ meal_schedule.date|date('d-m-Y') }}"></td>
+                                        <td>
+                                            <div class="input-group">
+                                                <select name="meals[restaurant][]" class="form-control">
+                                                    <option value="{{ meal_schedule.restaurant }}">{{ constant('App\\Entity\\Query::RESTAURANTS')[meal_schedule.restaurant] }}</option>
+                                                    {% for resId,restaurant in constant('App\\Entity\\Query::RESTAURANTS') %}
+                                                    <option value="{{ resId }}">{{ restaurant }}</option>
+                                                    {% endfor %}#}
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control timepicker" name="meals[breakfast][]" value="{{ meal_schedule.breakfastTime|date("H:i") }}">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control timepicker" name="meals[lunch][]" value="{{ meal_schedule.lunchTime|date("H:i") }}">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control timepicker" name="meals[dinner][]"  value="{{ meal_schedule.dinnerTime|date("H:i") }}">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control timepicker" name="meals[middle_breakfast][]" value="
+                                                {% if meal_schedule.middleBreakfastTime %}
+                                                    {{ meal_schedule.middleBreakfastTime|date("H:i") }}
+                                                 {% else %}
+
+                                                {% endif %}
+                                                ">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> Delete</small></span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div>
+                                {#<span class="btn btn-sm bg-info meal-add-date">Add Date</span>#}
                             </div>
                         </div>
-                        {{ form_end(edit_form) }}
+                        <!-- /.tab-content -->
                     </div>
+
+                </div>
             </div>
-
-
         </div>
+
+        <div class="col-md-12 col-sm-6 col-xs-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Facility Schedule</h3>
+                </div>
+
+                <div class="box-body">
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            {% for key,facility in facilities %}
+                                <li class="{% if key == 0 %}active{% endif %}">
+                                    <a href="#tab_{{ facility.id }}"
+                                       data-toggle="tab"
+                                       aria-expanded="true">{{ facility.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="tab-content">
+                            {% for key,facility in facilities %}
+                                <div class="tab-pane {% if key == 0 %}active{% endif %}" id="tab_{{ facility.id }}">
+
+                                    <table class="table table-bordered table{{ facility.id }}">
+                                        <tbody>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time From</th>
+                                            <th>Time To</th>
+                                            <th>Parts</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        {#<tr class="row_to_copy{{ facility.id }}">#}
+                                            {#<td><input type="text" class="form-control pull-right datepicker"#}
+                                                       {#name="facilities[{{ facility.id }}][date][]"></td>#}
+                                            {#<td>#}
+                                                {#<div class="input-group" style="max-width: 100px;">#}
+                                                    {#<input type="text" class="form-control timepicker"#}
+                                                           {#name="facilities[{{ facility.id }}][mTimeFrom][]">#}
+                                                    {#<div class="input-group-addon">#}
+                                                        {#<i class="fa fa-clock-o"></i>#}
+                                                    {#</div>#}
+                                                {#</div>#}
+                                            {#</td>#}
+                                            {#<td>#}
+                                                {#<div class="input-group" style="max-width: 100px;">#}
+                                                    {#<input type="text" class="form-control timepicker"#}
+                                                           {#name="facilities[{{ facility.id }}][mTimeTo][]">#}
+                                                    {#<div class="input-group-addon">#}
+                                                        {#<i class="fa fa-clock-o"></i>#}
+                                                    {#</div>#}
+                                                {#</div>#}
+                                            {#</td>#}
+                                            {#<td>#}
+                                                {#<select class="form-control" name="facilities[{{ facility.id }}][part][]">#}
+                                                    {#{% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}#}
+                                                        {#<option value="{{ partKey }}">{{ part }}</option>#}
+                                                    {#{% endfor %}#}
+                                                {#</select>#}
+                                            {#</td>#}
+                                            {#<td>#}
+                                                {#<span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> Delete</small></span>#}
+                                            {#</td>#}
+                                        {#</tr>#}
+                                        {% for schedule in schedules %}
+                                            {% if schedule.facility.id == facility.id %}
+                                                <tr>
+                                                    <td><input type="text" class="form-control pull-right datepicker"
+                                                               name="facilities[{{ facility.id }}][date][]" value="{{ schedule.date|date("d-m-Y") }}"></td>
+                                                    <td>
+                                                        <div class="input-group" style="max-width: 100px;">
+                                                            <input type="text" class="form-control timepicker"
+                                                                   name="facilities[{{ facility.id }}][mTimeFrom][]" value="{{ schedule.timeFrom|date("H:i") }}">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-clock-o"></i>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group" style="max-width: 100px;">
+                                                            <input type="text" class="form-control timepicker"
+                                                                   name="facilities[{{ facility.id }}][mTimeTo][]" value="{{ schedule.timeTo|date("H:i") }}">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-clock-o"></i>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="facilities[{{ facility.id }}][part][]">
+                                                            <option value="{{ schedule.parts }}">{{ constant('App\\Entity\\Facility::PARTS')[facility.type][schedule.parts] }}</option>
+                                                            {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
+                                                                <option value="{{ partKey }}">{{ part }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> Delete</small></span>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        {#<span class="btn btn-sm bg-info add-date" id="{{ facility.id }}">Add Date</span>#}
+                                    </div>
+
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        {{ form_end(form) }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+
+        <script>
+            Date.prototype.ddmmyyyy = function() {
+                var mm = this.getMonth() + 1; // getMonth() is zero-based
+                var dd = this.getDate();
+
+                return [(dd>9 ? '' : '0') + dd,(mm>9 ? '' : '0') + mm,this.getFullYear()].join('/');
+            };
+
+            $('input[name="datetimes"]').daterangepicker({
+                timePicker: true,
+                timePicker24Hour: true,
+//                startDate: moment().startOf('hour').add(1, 'day'),
+//                endDate: moment().startOf('hour').add(7, 'day'),
+//                minDate: moment(),
+                opens: "center",
+                locale: {
+                    format: 'DD/MM/YYYY HH:mm'
+                }
+            });
+
+            $('input[name="datetimes"]').data('daterangepicker').setStartDate('{{ query.dateOfArrival|date("d/m/Y H:i") }}');
+            $('input[name="datetimes"]').data('daterangepicker').setEndDate('{{ query.dateOfDeparture|date("d/m/Y H:i") }}');
+
+            // Returns an array of dates between the two dates
+            var getDates = function(startDate, endDate) {
+                var dates = [],
+                        currentDate = startDate,
+                        addDays = function(days) {
+                            var date = new Date(this.valueOf());
+                            date.setDate(date.getDate() + days);
+                            return date;
+                        };
+                while (currentDate <= endDate) {
+                    dates.push(currentDate);
+                    currentDate = addDays.call(currentDate, 1);
+                }
+                return dates;
+            };
+
+            function setDateTimePickers() {
+                $('.datepicker').datepicker({
+                    startDate: "today",
+                    setDate: new Date(),
+                    format: 'dd/mm/yyyy',
+                    orientation: "bottom auto",
+                    autoclose: true,
+                    todayHighlight: true
+                });
+
+                $('.timepicker').timepicker({
+                    showMeridian: false,
+                });
+            }
+
+            $(document).on('click', '.delete-row', function() {
+                $(this).parent().parent().remove();
+            });
+
+            $(function () {
+                setDateTimePickers();
+            });
+
+            $('.whole-period-meal').on("click", function () {
+                var startEnd = $('[name="datetimes"]').val().split(' - ');
+
+                var start = startEnd[0].slice(0,-5).split("/");
+                var end = startEnd[1].slice(0,-5).split("/");
+                var s=new Date(start[2],(start[1] -1 ),start[0]);
+                var e=new Date(end[2], (end[1] - 1),end[0]);
+
+                // Usage
+                var dates = getDates(s, e);
+                dates.forEach(function(date) {
+                    var row = $('.meal_row_to_copy');
+                    var clone = row.clone(); // copy children too
+                    console.log(clone.find('.datepicker').val(date.ddmmyyyy()));
+                    clone.removeClass(); // change id or other attributes/contents
+                    row.parent().append(clone); // add new row to end of table
+
+                    setDateTimePickers();
+                });
+
+            });
+
+            $('.whole-period').on("click", function () {
+                var startEnd = $('[name="datetimes"]').val().split(' - ');
+
+                var start = startEnd[0].slice(0,-5).split("/");
+                var end = startEnd[1].slice(0,-5).split("/");
+                var s=new Date(start[2],(start[1] -1 ),start[0]);
+                var e=new Date(end[2], (end[1] - 1),end[0]);
+                var id = this.id;
+
+                // Usage
+                var dates = getDates(s, e);
+                dates.forEach(function(date) {
+                    var row = $('.row_to_copy' + id);
+                    var clone = row.clone(); // copy children too
+                    console.log(clone.find('.datepicker').val(date.ddmmyyyy()));
+                    clone.removeClass(); // change id or other attributes/contents
+                    row.parent().append(clone); // add new row to end of table
+
+                    setDateTimePickers();
+                });
+            });
+
+            $('.add-date').on("click", function () {
+                var row = $('.row_to_copy' + this.id);
+                var clone = row.clone(); // copy children too
+                clone.removeClass(); // change id or other attributes/contents
+                row.parent().append(clone); // add new row to end of table
+
+                setDateTimePickers();
+            });
+
+            $('.meal-add-date').on("click", function () {
+                var row = $('.meal_row_to_copy');
+                var clone = row.clone(); // copy children too
+                clone.removeClass(); // change id or other attributes/contents
+                row.parent().append(clone); // add new row to end of table
+
+                setDateTimePickers();
+            });
+
+
+        </script>
+
+
     {% endblock %}
