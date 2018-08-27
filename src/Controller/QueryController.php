@@ -84,7 +84,6 @@ class QueryController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
             $em->persist($account);
 
             foreach ($request->get('facilities') as $facilityId => $facility) {
@@ -192,6 +191,7 @@ class QueryController extends Controller
     {
 //        $this->denyAccessUnlessGranted(UserVoter::USER_EDIT_ROLE, $user);
 
+
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
@@ -200,16 +200,57 @@ class QueryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump('HERE');
+            $dates = explode(' - ', $request->get('datetimes'));
+
+            $query->setHotel($request->get('hotel'));
+            $query->setDateOfArrival((\DateTime::createFromFormat("d/m/Y H:i", $dates[0])));
+            $query->setDateOfDeparture((\DateTime::createFromFormat("d/m/Y H:i", $dates[1])));
+
+            $em->persist($account);
+            $em->persist($query);
+
+            foreach ($request->get('facilities') as $facilityId => $facility) {
+                $facilityReference = $em->getReference(Facility::class, $facilityId);
+
+//                foreach ($facility['date'] as $key => $value) {
+//                    if (!empty($value)) {
+//                        $schedule = new Schedule();
+//                        $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
+//                        $schedule->setFacility($facilityReference);
+//                        $schedule->setParts($facility['part'][$key]);
+//                        $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['mTimeFrom'][$key]));
+//                        $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['mTimeTo'][$key]));
+//                        $schedule->setAccount($account);
+//
+//                        $em->persist($schedule);
+//
+//                        if(isset($facility['aTimeFrom'][$key])){
+//                            if($facility['aTimeFrom'][$key] != '' && $facility['aTimeTo'][$key] != '' ){
+//                                $schedule = new Schedule();
+//                                $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
+//                                $schedule->setFacility($facilityReference);
+//                                $schedule->setParts($facility['part'][$key]);
+//                                $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['aTimeFrom'][$key]));
+//                                $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['aTimeTo'][$key]));
+//                                $schedule->setAccount($account);
+//
+//                                $em->persist($schedule);
+//                            }
+//                        }
+//
+//                    }
+//                }
+            }
+
+            dump($request->request->all());
+
+            exit;
+
+            $em->flush();
+
+            return $this->redirectToRoute('query_index');
         }
 
-//        if ($editForm->isSubmitted() && $editForm->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//
-//            $em->flush();
-//
-//            return $this->redirectToRoute('account_show', ['id' => $account->getId()]);
-//        }
 
         $facilities = $em->getRepository('App:Facility')->findAll();
 
