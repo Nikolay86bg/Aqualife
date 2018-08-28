@@ -212,18 +212,20 @@ class QueryController extends Controller
             foreach ($request->get('facilities') as $facilityId => $facility) {
                 $facilityReference = $em->getReference(Facility::class, $facilityId);
 
-//                foreach ($facility['date'] as $key => $value) {
-//                    if (!empty($value)) {
-//                        $schedule = new Schedule();
-//                        $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
-//                        $schedule->setFacility($facilityReference);
-//                        $schedule->setParts($facility['part'][$key]);
-//                        $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['mTimeFrom'][$key]));
-//                        $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['mTimeTo'][$key]));
-//                        $schedule->setAccount($account);
-//
-//                        $em->persist($schedule);
-//
+                foreach ($facility['date'] as $key => $value) {
+                    if (!empty($value)) {
+                        $schedule =$em->getRepository(Schedule::class)->findOneBy([
+                            'id' => $key
+                        ]);
+
+                        $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
+                        $schedule->setFacility($facilityReference);
+                        $schedule->setParts($facility['part'][$key]);
+                        $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['mTimeFrom'][$key]));
+                        $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['mTimeTo'][$key]));
+                        $schedule->setAccount($account);
+
+                        $em->persist($schedule);
 //                        if(isset($facility['aTimeFrom'][$key])){
 //                            if($facility['aTimeFrom'][$key] != '' && $facility['aTimeTo'][$key] != '' ){
 //                                $schedule = new Schedule();
@@ -237,16 +239,42 @@ class QueryController extends Controller
 //                                $em->persist($schedule);
 //                            }
 //                        }
-//
-//                    }
-//                }
+
+                    }
+                }
             }
 
-            dump($request->request->all());
+            foreach ($request->get('meals')['date'] as $key => $value) {
+                if (!empty($value)) {
+                    $mealSchedule =$em->getRepository(MealSchedule::class)->findOneBy([
+                        'id' => $key
+                    ]);
+                    $mealSchedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
+                    $mealSchedule->setAccount($account);
 
-            exit;
+                    if($request->get('meals')['restaurant'][$key] != ""){
+                        $mealSchedule->setRestaurant($request->get('meals')['restaurant'][$key]);
+                    }
+                    if($request->get('meals')['breakfast'][$key] != "" && $request->get('meals')['breakfast'][$key] != "0:00"){
+                        $mealSchedule->setBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['breakfast'][$key]));
+                    }
+
+                    if($request->get('meals')['middle_breakfast'][$key] != "" && $request->get('meals')['middle_breakfast'][$key] != "0:00"){
+                        $mealSchedule->setMiddleBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['middle_breakfast'][$key]));
+                    }
+                    if($request->get('meals')['lunch'][$key] != "" && $request->get('meals')['lunch'][$key] != "0:00"){
+                        $mealSchedule->setLunchTime(\DateTime::createFromFormat('H:i', $request->get('meals')['lunch'][$key]));
+                    }
+                    if($request->get('meals')['dinner'][$key] != "" && $request->get('meals')['dinner'][$key] != "0:00"){
+                        $mealSchedule->setDinnerTime(\DateTime::createFromFormat('H:i', $request->get('meals')['dinner'][$key]));
+                    }
+
+                    $em->persist($mealSchedule);
+                }
+            }
 
             $em->flush();
+            $this->addFlash('success', 'Query was updated!');
 
             return $this->redirectToRoute('query_index');
         }

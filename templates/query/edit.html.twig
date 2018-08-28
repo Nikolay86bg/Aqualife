@@ -145,10 +145,10 @@
                                 {% for meal_schedule in meal_schedules %}
                                     <tr class="meal_row_to_copy">
                                         <td><input type="text" class="form-control pull-right datepicker"
-                                                   name="meals[date][]" value="{{ meal_schedule.date|date('d-m-Y') }}"></td>
+                                                   name="meals[date][{{ meal_schedule.id }}]" value="{{ meal_schedule.date|date('d/m/Y') }}"></td>
                                         <td>
                                             <div class="input-group">
-                                                <select name="meals[restaurant][]" class="form-control">
+                                                <select name="meals[restaurant][{{ meal_schedule.id }}]" class="form-control">
                                                     <option value="{{ meal_schedule.restaurant }}">{{ constant('App\\Entity\\Query::RESTAURANTS')[meal_schedule.restaurant] }}</option>
                                                     {% for resId,restaurant in constant('App\\Entity\\Query::RESTAURANTS') %}
                                                     <option value="{{ resId }}">{{ restaurant }}</option>
@@ -158,7 +158,7 @@
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control timepicker" name="meals[breakfast][]" value="{{ meal_schedule.breakfastTime|date("H:i") }}">
+                                                <input type="text" class="form-control timepicker" name="meals[breakfast][{{ meal_schedule.id }}]" value="{{ meal_schedule.breakfastTime|date("H:i") }}">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-clock-o"></i>
                                                 </div>
@@ -166,7 +166,7 @@
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control timepicker" name="meals[lunch][]" value="{{ meal_schedule.lunchTime|date("H:i") }}">
+                                                <input type="text" class="form-control timepicker" name="meals[lunch][{{ meal_schedule.id }}]" value="{{ meal_schedule.lunchTime|date("H:i") }}">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-clock-o"></i>
                                                 </div>
@@ -174,7 +174,7 @@
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control timepicker" name="meals[dinner][]"  value="{{ meal_schedule.dinnerTime|date("H:i") }}">
+                                                <input type="text" class="form-control timepicker" name="meals[dinner][{{ meal_schedule.id }}]"  value="{{ meal_schedule.dinnerTime|date("H:i") }}">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-clock-o"></i>
                                                 </div>
@@ -182,7 +182,7 @@
                                         </td>
                                         <td>
                                             <div class="input-group">
-                                                <input type="text" class="form-control timepicker" name="meals[middle_breakfast][]" value="
+                                                <input type="text" class="form-control timepicker" name="meals[middle_breakfast][{{ meal_schedule.id }}]" value="
                                                 {% if meal_schedule.middleBreakfastTime %}
                                                     {{ meal_schedule.middleBreakfastTime|date("H:i") }}
                                                  {% else %}
@@ -279,11 +279,11 @@
                                             {% if schedule.facility.id == facility.id %}
                                                 <tr>
                                                     <td><input type="text" class="form-control pull-right datepicker"
-                                                               name="facilities[{{ facility.id }}][date][]" value="{{ schedule.date|date("d-m-Y") }}"></td>
+                                                               name="facilities[{{ facility.id }}][date][{{ schedule.id }}]" value="{{ schedule.date|date("d/m/Y") }}"></td>
                                                     <td>
                                                         <div class="input-group" style="max-width: 100px;">
                                                             <input type="text" class="form-control timepicker"
-                                                                   name="facilities[{{ facility.id }}][mTimeFrom][]" value="{{ schedule.timeFrom|date("H:i") }}">
+                                                                   name="facilities[{{ facility.id }}][mTimeFrom][{{ schedule.id }}]" value="{{ schedule.timeFrom|date("H:i") }}">
                                                             <div class="input-group-addon">
                                                                 <i class="fa fa-clock-o"></i>
                                                             </div>
@@ -292,14 +292,14 @@
                                                     <td>
                                                         <div class="input-group" style="max-width: 100px;">
                                                             <input type="text" class="form-control timepicker"
-                                                                   name="facilities[{{ facility.id }}][mTimeTo][]" value="{{ schedule.timeTo|date("H:i") }}">
+                                                                   name="facilities[{{ facility.id }}][mTimeTo][{{ schedule.id }}]" value="{{ schedule.timeTo|date("H:i") }}">
                                                             <div class="input-group-addon">
                                                                 <i class="fa fa-clock-o"></i>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <select class="form-control" name="facilities[{{ facility.id }}][part][]">
+                                                        <select class="form-control" name="facilities[{{ facility.id }}][part][{{ schedule.id }}]">
                                                             <option value="{{ schedule.parts }}">{{ constant('App\\Entity\\Facility::PARTS')[facility.type][schedule.parts] }}</option>
                                                             {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
                                                                 <option value="{{ partKey }}">{{ part }}</option>

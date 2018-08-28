@@ -13,8 +13,17 @@
 
 {% block content %}
     <div class="col-md-12 col-sm-6 col-xs-12">
-        <div class="box box-primary">
 
+        {% for label, messages in app.flashes(['success', 'error']) %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="box box-primary">
             <div class="x_content">
                 {#{% include 'user/filter.html.twig' %}#}
                 <div class="box-body">
