@@ -9,6 +9,7 @@ use App\Entity\Query;
 use App\Entity\Schedule;
 use App\Form\AccountType;
 use App\Form\QueryFilterType;
+use App\Security\Voter\QueryVoter;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -187,10 +188,15 @@ class QueryController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Query $query
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     */
     public function edit(Request $request, Query $query)
     {
-//        $this->denyAccessUnlessGranted(UserVoter::USER_EDIT_ROLE, $user);
-
+        $this->denyAccessUnlessGranted(QueryVoter::QUERY_EDIT_ROLE);
 
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -297,6 +303,8 @@ class QueryController extends Controller
      */
     public function reject(Query $query)
     {
+        $this->denyAccessUnlessGranted(QueryVoter::QUERY_EDIT_ROLE);
+
         $query->setStatus(Query::STATUS_REJECTED);
         $this->getDoctrine()->getManager()->flush();
 
@@ -310,6 +318,8 @@ class QueryController extends Controller
      */
     public function accept(Request $request, Query $query)
     {
+        $this->denyAccessUnlessGranted(QueryVoter::QUERY_EDIT_ROLE);
+        
         $em = $this->getDoctrine()->getManager();
         $query->setStatus(Query::STATUS_ACCEPTED);
 

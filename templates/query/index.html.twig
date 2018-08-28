@@ -148,33 +148,35 @@
                                                 <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> View</span>
                                             </a>
 
+                                            {% if query.payed == constant('App\\Entity\\Query::PAYED_NO') %}
+                                                <a href="{{ path('query_payed', { 'id': query.id }) }}"
+                                                   class="btn btn-sm bg-primary no-wrap">
+                                                    <i class="fa fa-close"></i><span
+                                                            class="hidden-xs hidden-sm"> Payed</span>
+                                                </a>
+                                            {% endif %}
+
+                                            {% if (is_granted(constant('App\\Security\\Voter\\QueryVoter::QUERY_EDIT_ROLE'))) %}
+
                                             <a href="{{ path('query_edit', { 'id': query.id }) }}"
                                                class="btn btn-sm bg-purple no-wrap">
                                                 <i class="fa  fa-wrench"></i><span class="hidden-xs hidden-sm"> Edit</span>
                                             </a>
 
+                                                {% if query.status == constant('App\\Entity\\Query::STATUS_IN_PROGRESS') %}
+                                                    <a href="#" class="btn btn-sm bg-success no-wrap" data-toggle="modal"
+                                                       data-target="#modal-default{{ query.id }}">
+                                                        <i class="fa fa-check"></i><span
+                                                                class="hidden-xs hidden-sm"> Accept</span>
+                                                    </a>
 
-                                            {% if query.status == constant('App\\Entity\\Query::STATUS_IN_PROGRESS') %}
-                                                <a href="#" class="btn btn-sm bg-success no-wrap" data-toggle="modal"
-                                                   data-target="#modal-default{{ query.id }}">
-                                                    <i class="fa fa-check"></i><span
-                                                            class="hidden-xs hidden-sm"> Accept</span>
-                                                </a>
-
-                                                <a href="{{ path('query_reject', { 'id': query.id }) }}"
-                                                   class="btn btn-sm bg-danger no-wrap">
-                                                    <i class="fa fa-close"></i><span
-                                                            class="hidden-xs hidden-sm"> Reject</span>
-                                                </a>
+                                                    <a href="{{ path('query_reject', { 'id': query.id }) }}"
+                                                       class="btn btn-sm bg-danger no-wrap">
+                                                        <i class="fa fa-close"></i><span
+                                                                class="hidden-xs hidden-sm"> Reject</span>
+                                                    </a>
+                                                {% endif %}
                                             {% endif %}
-
-                                           {% if query.payed == constant('App\\Entity\\Query::PAYED_NO') %}
-                                            <a href="{{ path('query_payed', { 'id': query.id }) }}"
-                                               class="btn btn-sm bg-primary no-wrap">
-                                                <i class="fa fa-close"></i><span
-                                                        class="hidden-xs hidden-sm"> Payed</span>
-                                            </a>
-                                           {% endif %}
                                         </td>
                                     </tr>
                                 {% endif %}

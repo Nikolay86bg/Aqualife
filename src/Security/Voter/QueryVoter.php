@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Role\RoleHierarchy;
 class QueryVoter extends Voter
 {
     const MENU_ROLE = 'QUERY_MENU_ROLE'.__CLASS__;
+    const QUERY_EDIT_ROLE = 'QUERY_EDIT_ROLE'.__CLASS__;
 
     /**
      * @var RoleHierarchyVoter
@@ -62,6 +63,8 @@ class QueryVoter extends Voter
         switch ($attribute) {
             case self::MENU_ROLE:
                 return $this->getMenuPermission($user, $attribute);
+            case self::QUERY_EDIT_ROLE:
+                return $this->getQueryEditPermission($user, $attribute);
             default:
                 return false;
         }
@@ -76,6 +79,18 @@ class QueryVoter extends Voter
     private function getMenuPermission(User $user, $attribute)
     {
         return in_array(User::ROLE_MANAGER, $user->getRoles(), true);
+    }
+
+    /**
+     * @param User $user
+     * @param $attribute
+     *
+     * @return bool
+     */
+    private function getQueryEditPermission(User $user, $attribute)
+    {
+        dump($user->getRoles());
+        return in_array(User::ROLE_ADMIN, $user->getRoles(), true);
     }
 
     /**
