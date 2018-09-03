@@ -32,7 +32,8 @@ class MealScheduleFilterType extends AbstractType
                 'label' => 'From:',
                 'attr' => [
                     'placeholder' => 'From Date',
-                    'class' => 'datepicker'
+                    'class' => 'datepicker',
+                    'autocomplete' => 'off'
                 ],
                 'data' => new \DateTime(),
             ])
@@ -40,7 +41,8 @@ class MealScheduleFilterType extends AbstractType
                 'label' => 'Until:',
                 'attr' => [
                     'placeholder' => 'To Date',
-                    'class' => 'datepicker'
+                    'class' => 'datepicker',
+                    'autocomplete' => 'off'
                 ],
                 'data' => new \DateTime(),
             ])

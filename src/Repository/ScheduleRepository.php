@@ -99,13 +99,18 @@ class ScheduleRepository extends ServiceEntityRepository
     public function getSchedule(Facility $facility, \DateTime $from, \DateTime $to)
     {
         $queryBuilder = $this->createQueryBuilder('schedule');
+        $queryBuilder->join('schedule.account','account');
+        $queryBuilder->join('account.query', 'query');
         $queryBuilder->andWhere('schedule.facility = :facility');
         $queryBuilder->andWhere('schedule.date >= :from');
         $queryBuilder->andWhere('schedule.date <= :to');
+        $queryBuilder->andWhere('schedule.date <= :to');
+        $queryBuilder->andWhere('query.status != :status');
 
         $queryBuilder->setParameter('facility', $facility);
         $queryBuilder->setParameter('from', $from->format("Y-m-d"));
         $queryBuilder->setParameter('to', $to->format("Y-m-d"));
+        $queryBuilder->setParameter('status', Query::STATUS_REJECTED);
 
         return $queryBuilder->getQuery()->getResult();
     }

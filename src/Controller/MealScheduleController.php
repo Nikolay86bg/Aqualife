@@ -50,7 +50,6 @@ class MealScheduleController extends Controller
 
         $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($restaurant, $from, $to);
         $schedule = $entityManager->getRepository(MealSchedule::class)->prepareSchedule($schedule);
-        dump($schedule);
 
         return $this->render('meal-schedule/index.html.twig', [
             'filter' => $filter->createView(),

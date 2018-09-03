@@ -319,6 +319,9 @@
 
                 $('.timepicker').timepicker({
                     showMeridian: false,
+                    defaultTime: false,
+//                    maxHours: 22,
+//                    minHours: 5,
                 });
             }
 
@@ -343,7 +346,10 @@
                 dates.forEach(function(date) {
                     var row = $('.meal_row_to_copy');
                     var clone = row.clone(); // copy children too
-                    console.log(clone.find('.datepicker').val(date.ddmmyyyy()));
+
+                    clone.find('.datepicker').val(date.ddmmyyyy()); //set new date
+                    clone.find("select").val($('.meal_row_to_copy').find("select").val());//Copy select value to cloning
+
                     clone.removeClass(); // change id or other attributes/contents
                     row.parent().append(clone); // add new row to end of table
 
@@ -366,7 +372,10 @@
                 dates.forEach(function(date) {
                     var row = $('.row_to_copy' + id);
                     var clone = row.clone(); // copy children too
-                    console.log(clone.find('.datepicker').val(date.ddmmyyyy()));
+
+                    clone.find('.datepicker').val(date.ddmmyyyy()); //set new date
+                    clone.find("select").val($('.row_to_copy'+ id).find("select").val());//Copy select value to cloning
+
                     clone.removeClass(); // change id or other attributes/contents
                     row.parent().append(clone); // add new row to end of table
 
@@ -377,6 +386,7 @@
             $('.add-date').on("click", function () {
                 var row = $('.row_to_copy' + this.id);
                 var clone = row.clone(); // copy children too
+                clone.find("select").val($('.row_to_copy' + this.id).find("select").val());//Copy select value to cloning
                 clone.removeClass(); // change id or other attributes/contents
                 row.parent().append(clone); // add new row to end of table
 
@@ -386,6 +396,7 @@
             $('.meal-add-date').on("click", function () {
                 var row = $('.meal_row_to_copy');
                 var clone = row.clone(); // copy children too
+                clone.find("select").val($('.meal_row_to_copy').find("select").val());//Copy select value to cloning
                 clone.removeClass(); // change id or other attributes/contents
                 row.parent().append(clone); // add new row to end of table
 
