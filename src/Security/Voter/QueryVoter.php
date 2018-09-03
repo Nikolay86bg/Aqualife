@@ -39,6 +39,7 @@ class QueryVoter extends Voter
         // if the attribute isn't one we support, return false
         if (!in_array($attribute, [
             self::MENU_ROLE,
+            self::QUERY_EDIT_ROLE,
         ], true)) {
             return false;
         }
@@ -89,7 +90,6 @@ class QueryVoter extends Voter
      */
     private function getQueryEditPermission(User $user, $attribute)
     {
-        dump($user->getRoles());
         return in_array(User::ROLE_ADMIN, $user->getRoles(), true);
     }
 
@@ -101,10 +101,7 @@ class QueryVoter extends Voter
      */
     private function getAdvertisingAccess(User $user, $attribute)
     {
-        if (in_array(User::ROLE_MANAGER, $user->getRoles(), true) or
-            in_array(User::ROLE_SUPERVISOR, $user->getRoles(), true) or
-            in_array(User::ROLE_OPERATIONS_MANAGER, $user->getRoles(), true)
-        ) {
+        if (in_array(User::ROLE_MANAGER, $user->getRoles(), true)) {
             return true;
         }
 

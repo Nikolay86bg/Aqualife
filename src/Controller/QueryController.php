@@ -46,7 +46,7 @@ class QueryController extends Controller
 
         $scheduleRepo = $entityManager->getRepository('App:Schedule');
 
-        $queries = $entityManager->getRepository('App:Query')->getListQuery($filter, $sort, $order);
+        $queries = $entityManager->getRepository(Query::class)->getListQuery($filter, $sort, $order);
 
         $queries = (new Paginator($queries))
             ->setEntityManager($this->getDoctrine()->getManager())
@@ -319,7 +319,7 @@ class QueryController extends Controller
     public function accept(Request $request, Query $query)
     {
         $this->denyAccessUnlessGranted(QueryVoter::QUERY_EDIT_ROLE);
-        
+
         $em = $this->getDoctrine()->getManager();
         $query->setStatus(Query::STATUS_ACCEPTED);
 

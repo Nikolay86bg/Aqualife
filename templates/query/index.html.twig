@@ -37,6 +37,17 @@
 
 
 
+                            {% if params.order is defined and params.sort == 'id' and params.order == 'DESC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'id',order:'ASC'})) }}">ID <i
+                                                class="fa fa-fw fa-sort-asc"></i></a></th>
+                            {% elseif params.order is defined and params.sort == 'id' and params.order == 'ASC' %}
+                                <th><a href="{{ url(route, params|merge({sort:'id', order:'DESC'})) }}">ID <i
+                                                class="fa fa-fw fa-sort-desc"></i></a></th>
+                            {% else %}
+                                <th><a href="{{ url(route, params|merge({sort:'id',order:'ASC'})) }}">ID <i
+                                                class="fa fa-fw fa-sort"></i></a></th>
+                            {% endif %}
+
                             {% if params.order is defined and params.sort == 'name' and params.order == 'DESC' %}
                                 <th><a href="{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i
                                                 class="fa fa-fw fa-sort-asc"></i></a></th>
@@ -124,6 +135,7 @@
                             {% for query in queries %}
                                 {% if query.account %}
                                     <tr>
+                                        <td>{{ query.id }}</td>
                                         <td>{{ query.account.name }}</td>
                                         <td>{{ query.account.sport }}</td>
                                         <td>{{ countries[query.account.country] }}</td>
@@ -158,13 +170,15 @@
 
                                             {% if (is_granted(constant('App\\Security\\Voter\\QueryVoter::QUERY_EDIT_ROLE'))) %}
 
-                                            <a href="{{ path('query_edit', { 'id': query.id }) }}"
-                                               class="btn btn-sm bg-purple no-wrap">
-                                                <i class="fa  fa-wrench"></i><span class="hidden-xs hidden-sm"> Edit</span>
-                                            </a>
+                                                <a href="{{ path('query_edit', { 'id': query.id }) }}"
+                                                   class="btn btn-sm bg-purple no-wrap">
+                                                    <i class="fa  fa-wrench"></i><span
+                                                            class="hidden-xs hidden-sm"> Edit</span>
+                                                </a>
 
                                                 {% if query.status == constant('App\\Entity\\Query::STATUS_IN_PROGRESS') %}
-                                                    <a href="#" class="btn btn-sm bg-success no-wrap" data-toggle="modal"
+                                                    <a href="#" class="btn btn-sm bg-success no-wrap"
+                                                       data-toggle="modal"
                                                        data-target="#modal-default{{ query.id }}">
                                                         <i class="fa fa-check"></i><span
                                                                 class="hidden-xs hidden-sm"> Accept</span>
@@ -196,93 +210,98 @@
         {% for query in queries %}
             {% if query.status == constant('App\\Entity\\Query::STATUS_IN_PROGRESS') %}
 
-            <div class="modal fade" id="modal-default{{ query.id }}" style="display: none;">
-                <div class="modal-dialog">
-                    <form method="post" action="{{ url('query_accept', { 'id': query.id }) }}">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title">Accept</h4>
-                        </div>
-                        <div class="modal-body">
-                            {% set schedule = query.account.isSetPool() %}
-                            {% if schedule %}
-                                <p>Please choose pool lanes?</p>
-                                {#{{ dump(schedule) }}#}
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>From</th>
-                                        <th>To</th>
-                                        <th>Pool</th>
-                                        <th>Total lanes</th>
-                                        <th>Lane Numbers</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                <div class="modal fade" id="modal-default{{ query.id }}" style="display: none;">
+                    <div class="modal-dialog">
+                        <form method="post" action="{{ url('query_accept', { 'id': query.id }) }}">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title">Accept</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {% set schedule = query.account.isSetPool() %}
+                                    {% if schedule %}
+                                        <p>Please choose pool lanes?</p>
+                                        {#{{ dump(schedule) }}#}
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Pool</th>
+                                                <th>Total lanes</th>
+                                                <th>Lane Numbers</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
 
-                                    {% for scheduleId, day in schedule %}
-                                        <tr>
-                                            <td>{{ day['date']|date('Y-m-d') }}</td>
-                                            <td>{{ day['from']|date('H:i') }}</td>
-                                            <td>{{ day['to']|date('H:i') }}</td>
-                                            <td>{{ day['pool'] }}</td>
-                                            <td>{{ constant('App\\Entity\\Facility::PARTS')[0][day['lanes']]  }}</td>
-                                            <td>
-                                                <table class="table table-bordered">
-                                                    <tr>
-                                                        <th>1</th>
-                                                        <th>2</th>
-                                                        <th>3</th>
-                                                        <th>4</th>
-                                                        <th>5</th>
-                                                        <th>6</th>
-                                                        <th>7</th>
-                                                        <th>8</th>
-                                                    </tr>
-                                                    <tr>
-                                                        {#@var Schedule scheduleRepo #}
-                                                        {% set reservedSchedules = scheduleRepo.getReservedLanes(day) %}
-                                                        {#{{ dump(reservedSchedules) }}#}
-                                                        {% set lanes = {} %}
-                                                        {% for reserved in reservedSchedules %}
-                                                            {% set lanes = lanes|merge(reserved.lanes|unserialize|keys) %}
-                                                        {% endfor %}
-                                                        {% for i in 1..8  %}
-                                                        <td>
+                                            {% for scheduleId, day in schedule %}
+                                                <tr>
+                                                    <td>{{ day['date']|date('Y-m-d') }}</td>
+                                                    <td>{{ day['from']|date('H:i') }}</td>
+                                                    <td>{{ day['to']|date('H:i') }}</td>
+                                                    <td>{{ day['pool'] }}</td>
+                                                    <td>{{ constant('App\\Entity\\Facility::PARTS')[0][day['lanes']] }}</td>
+                                                    <td>
+                                                        <table class="table table-bordered">
+                                                            <tr>
+                                                                <th>1</th>
+                                                                <th>2</th>
+                                                                <th>3</th>
+                                                                <th>4</th>
+                                                                <th>5</th>
+                                                                <th>6</th>
+                                                                <th>7</th>
+                                                                <th>8</th>
+                                                            </tr>
+                                                            <tr>
+                                                                {#@var Schedule scheduleRepo #}
+                                                                {% set reservedSchedules = scheduleRepo.getReservedLanes(day) %}
+                                                                {#{{ dump(reservedSchedules) }}#}
+                                                                {% set lanes = {} %}
+                                                                {% for reserved in reservedSchedules %}
+                                                                    {% set lanes = lanes|merge(reserved.lanes|unserialize|keys) %}
+                                                                {% endfor %}
+                                                                {% for i in 1..8 %}
+                                                                    <td>
 
-                                                            <label class="">
-                                                                <input
-                                                                    {% if i in lanes %}
-                                                                        disabled checked
-                                                                    {% endif %}
-                                                                    type="checkbox" class="minimal" data-limit="{{ day['lanes'] + 1 }}" data-id="{{ scheduleId }}" style="position: absolute; opacity: 0;" name="lanes[{{ scheduleId }}][{{ i }}]">
-                                                            </label>
-                                                        </td>
-                                                        {% endfor %}
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            {% else %}
-                                <p>Are you sure?</p>
-                            {% endif %}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
+                                                                        <label class="">
+                                                                            <input
+                                                                                    {% if i in lanes %}
+                                                                                        disabled checked
+                                                                                    {% endif %}
+                                                                                    type="checkbox" class="minimal"
+                                                                                    data-limit="{{ day['lanes'] + 1 }}"
+                                                                                    data-id="{{ scheduleId }}"
+                                                                                    style="position: absolute; opacity: 0;"
+                                                                                    name="lanes[{{ scheduleId }}][{{ i }}]">
+                                                                        </label>
+                                                                    </td>
+                                                                {% endfor %}
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <p>Are you sure?</p>
+                                    {% endif %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- /.modal-content -->
                     </div>
-                    </form>
-                    <!-- /.modal-content -->
+                    <!-- /.modal-dialog -->
                 </div>
-                <!-- /.modal-dialog -->
-            </div>
 
             {% endif %}
         {% endfor %}
@@ -304,19 +323,18 @@
         })
 
 
-
-        $(".minimal").on("ifChecked",function(e){
-            var checkboxes = $('[data-id="'+ $(this).data('id')+'"]');
-            var $this=$(this);
+        $(".minimal").on("ifChecked", function (e) {
+            var checkboxes = $('[data-id="' + $(this).data('id') + '"]');
+            var $this = $(this);
             var limit = $(this).data('limit');
             var disabled_count = checkboxes.filter(":disabled").length;
             var checked_count = checkboxes.filter(":checked").length;
 
             if ((checked_count - disabled_count) > limit) {
                 alert('Max lanes reached!');
-                setTimeout(function(){
+                setTimeout(function () {
                     $this.iCheck('uncheck');
-                },1);
+                }, 1);
             }
         });
 
