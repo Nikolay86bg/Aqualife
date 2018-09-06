@@ -40,7 +40,7 @@
                                     {% for schedule in account.schedules %}
                                         <tr>
                                             <td>{{ schedule.date|date('Y-m-d') }}</td>
-                                            <td>{{ schedule.facility.name }} {{ constant('App\\Entity\\Facility::TYPES')[schedule.facility.type] }}</td>
+                                            <td>{{ schedule.facility.name }} {#{{ constant('App\\Entity\\Facility::TYPES')[schedule.facility.type] }}#}</td>
                                             <td>{{ schedule.timeFrom|date('H:i') }}</td>
                                             <td>{{ schedule.timeTo|date('H:i') }}</td>
                                             <td>{{ constant('App\\Entity\\Facility::PARTS')[schedule.facility.type][schedule.parts] }}</td>

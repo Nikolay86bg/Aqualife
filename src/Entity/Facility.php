@@ -21,7 +21,7 @@ class Facility
         self::TYPE_HALL => "Sport Hall",
         self::TYPE_FOOTBALL_PLAYGROUND => "Football Playground",
         self::TYPE_COURT => "Court",
-        self::TYPE_COURT => "Stage",
+        self::TYPE_STAGE => "Stage",
     ];
 
     const PARTS = [

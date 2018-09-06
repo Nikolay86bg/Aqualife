@@ -128,7 +128,7 @@ class ScheduleRepository extends ServiceEntityRepository
                 if ($event->getFacility()->getType() == Facility::TYPE_POOL) {
                     $lanes = unserialize($event->getLanes());
                     foreach ($lanes as $lane => $on) {
-                        array_push($return, $this->setScheduleArray($event, $lane, 'green'));
+                        array_push($return, $this->setScheduleArray($event, $lane, 'green', true));
                     }
                 } else {
                     array_push($return, $this->setScheduleArray($event,  Facility::PARTS[$event->getFacility()->getType()][$event->getParts()], 'green', true));
@@ -158,7 +158,10 @@ class ScheduleRepository extends ServiceEntityRepository
         $array['color'] = $color;
 
         if($description){
-            $array['description'] = 'Части: ' . Facility::PARTS[$schedule->getFacility()->getType()][$schedule->getParts()];
+            $array['description'] = 'Части: ' . Facility::PARTS[$schedule->getFacility()->getType()][$schedule->getParts()] .
+            " | От-До: ".
+            $schedule->getTimeFrom()->format("H:i") . " - " . $schedule->getTimeTo()->format("H:i")
+            ;
         }
 
         return $array;

@@ -182,15 +182,10 @@
                                         <tbody>
                                         <tr>
                                             <th>Date</th>
-                                            {% if facility.type == constant('App\\Entity\\Facility::TYPE_POOL') %}
-                                                <th>Morning Time From</th>
-                                                <th>Morning Time To</th>
-                                                <th>Afternoon Time From</th>
-                                                <th>Afternoon Time To</th>
-                                            {% else %}
-                                                <th>Time From</th>
-                                                <th>Time To</th>
-                                            {% endif %}
+                                            <th>Morning Time From</th>
+                                            <th>Morning Time To</th>
+                                            <th>Afternoon Time From</th>
+                                            <th>Afternoon Time To</th>
                                             <th>Parts</th>
                                             <th>Delete</th>
                                         </tr>
@@ -215,7 +210,6 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            {% if facility.type == constant('App\\Entity\\Facility::TYPE_POOL') %}
                                             <td>
                                                 <div class="input-group" style="max-width: 100px;">
                                                     <input type="text" class="form-control timepicker"
@@ -234,7 +228,6 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            {% endif %}
                                             <td>
                                                 <select class="form-control" name="facilities[{{ facility.id }}][part][]">
                                                     {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
