@@ -136,7 +136,19 @@ class Account
      */
     public function getSchedules()
     {
-        return $this->schedules;
+//        return $this->schedules;
+        //return without deleted
+        $return = [];
+        if ($schedules = $this->schedules) {
+            /** @var MealSchedule $meal */
+            foreach ($schedules as $schedule) {
+                if (!$schedule->getDeleted()) {
+                    $return[] = $schedule;
+                }
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -152,7 +164,19 @@ class Account
      */
     public function getMealSchedules()
     {
-        return $this->mealSchedules;
+//        return $this->mealSchedules;
+//return without deleted
+        $return = [];
+        if ($meals = $this->mealSchedules) {
+            /** @var MealSchedule $meal */
+            foreach ($meals as $meal) {
+                if (!$meal->getDeleted()) {
+                    $return[] = $meal;
+                }
+            }
+        }
+
+        return $return;
     }
 
     /**

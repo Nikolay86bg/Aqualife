@@ -105,6 +105,7 @@ class ScheduleRepository extends ServiceEntityRepository
         $queryBuilder->andWhere('schedule.date >= :from');
         $queryBuilder->andWhere('schedule.date <= :to');
         $queryBuilder->andWhere('schedule.date <= :to');
+        $queryBuilder->andWhere('schedule.deleted IS NULL');
         $queryBuilder->andWhere('query.status != :status');
 
         $queryBuilder->setParameter('facility', $facility);
@@ -143,12 +144,12 @@ class ScheduleRepository extends ServiceEntityRepository
 
     /**
      * @param Schedule $schedule
-     * @param string $id
-     * @param string $color
+     * @param $id
+     * @param $color
      * @param bool|false $description
      * @return mixed
      */
-    private function setScheduleArray(Schedule $schedule, string $id, string $color, bool $description = false)
+    private function setScheduleArray(Schedule $schedule, $id, $color, $description = false)
     {
         $array['id'] = $id;
         $array['resourceId'] = $id;

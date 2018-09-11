@@ -68,6 +68,13 @@ class Schedule
     private $account;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deleted", type="date", nullable=true)
+     */
+    private $deleted;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -186,6 +193,23 @@ class Schedule
     {
         $this->lanes = $lanes;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param \DateTime $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
 
 
 }

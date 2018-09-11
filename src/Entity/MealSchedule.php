@@ -67,6 +67,13 @@ class MealSchedule
      */
     private $account;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deleted", type="date", nullable=true)
+     */
+    private $deleted;
+
 
     /**
      * @return mixed
@@ -188,7 +195,20 @@ class MealSchedule
         $this->dinnerTime = $dinnerTime;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 
-
+    /**
+     * @param \DateTime $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
 
 }
