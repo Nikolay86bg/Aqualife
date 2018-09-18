@@ -37,8 +37,8 @@ class QueryController extends Controller
         $filter->handleRequest($request);
 
         $entityManager = $this->getDoctrine()->getManager();
-        $sort = null;
-        $order = null;
+        $sort = 'id';
+        $order = 'DESC';
 
         if (!empty($request->get('sort')) && !empty($request->get('order'))) {
             $sort = $request->get('sort');

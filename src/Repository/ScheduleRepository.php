@@ -78,12 +78,14 @@ class ScheduleRepository extends ServiceEntityRepository
         $queryBuilder->setParameter('date', $array['date']->format("Y-m-d"));
         $queryBuilder->andWhere('
             (
-            (schedule.timeFrom < :from AND :from < schedule.timeTo) OR
-            (schedule.timeFrom < :to AND :to < schedule.timeTo) OR
-            (:from <= schedule.timeFrom AND schedule.timeFrom <= :to) OR
-            (:from <= schedule.timeTo AND schedule.timeTo <= :to)
+             (:from <= schedule.timeFrom AND schedule.timeTo <= :to AND schedule.timeFrom < :to )
             )
         ');
+
+//        (schedule.timeFrom < :from AND :from < schedule.timeTo) OR
+//            (schedule.timeFrom < :to AND :to < schedule.timeTo) OR
+//            (:from < schedule.timeFrom AND schedule.timeFrom < :to) OR
+//            (:from <= schedule.timeTo AND schedule.timeTo <= :to)
 
         $queryBuilder->setParameter('from', $array['from']->format("H:i:s"));
         $queryBuilder->setParameter('to', $array['to']->format("H:i:s"));
