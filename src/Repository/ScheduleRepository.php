@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Facility;
 use App\Entity\Query;
 use App\Entity\Schedule;
+use App\Service\ColorService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Query\QueryException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -120,7 +121,7 @@ class ScheduleRepository extends ServiceEntityRepository
      * @param array $schedule
      * @return array
      */
-    public function prepareSchedule(array $schedule)
+    public function prepareSchedule(array $schedule, ColorService $colorService)
     {
         $return = $array = [];
         /** @var Schedule $event */
@@ -129,10 +130,10 @@ class ScheduleRepository extends ServiceEntityRepository
                 if ($event->getFacility()->getType() == Facility::TYPE_POOL) {
                     $lanes = unserialize($event->getLanes());
                     foreach ($lanes as $lane => $on) {
-                        array_push($return, $this->setScheduleArray($event, $lane, 'green', true));
+                        array_push($return, $this->setScheduleArray($event, $lane, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
                     }
                 } else {
-                    array_push($return, $this->setScheduleArray($event,  Facility::PARTS[$event->getFacility()->getType()][$event->getParts()], 'green', true));
+                    array_push($return, $this->setScheduleArray($event,  Facility::PARTS[$event->getFacility()->getType()][$event->getParts()], $colorService->getColorNameFromId($event->getAccount()->getId()), true));
                 }
             } else {
                 array_push($return, $this->setScheduleArray($event, 'Неодобрени', 'red', true));

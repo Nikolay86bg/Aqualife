@@ -9,6 +9,7 @@ use App\Entity\Schedule;
 use App\Form\AccountType;
 use App\Form\QueryFilterType;
 use App\Form\ScheduleFilterType;
+use App\Service\ColorService;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,7 +65,7 @@ class ScheduleController extends Controller
         $end = \DateTime::createFromFormat ( 'Y-m-d\TH:i:s' ,  $request->request->get('end'));
 
         $schedule = $entityManager->getRepository(Schedule::class)->getSchedule($facility, $start, $end);
-        $schedule = $entityManager->getRepository(Schedule::class)->prepareSchedule($schedule);
+        $schedule = $entityManager->getRepository(Schedule::class)->prepareSchedule($schedule, $this->get(ColorService::class));
 
         return new JsonResponse($schedule);
     }

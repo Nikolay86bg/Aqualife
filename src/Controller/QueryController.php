@@ -89,15 +89,19 @@ class QueryController extends Controller
 
                 foreach ($facility['date'] as $key => $value) {
                     if (!empty($value)) {
-                        $schedule = new Schedule();
-                        $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
-                        $schedule->setFacility($facilityReference);
-                        $schedule->setParts($facility['part'][$key]);
-                        $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['mTimeFrom'][$key]));
-                        $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['mTimeTo'][$key]));
-                        $schedule->setAccount($account);
+                        if (isset($facility['mTimeFrom'][$key])) {
+                            if ($facility['mTimeFrom'][$key] != '' && $facility['mTimeTo'][$key] != '') {
+                                $schedule = new Schedule();
+                                $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $value)));
+                                $schedule->setFacility($facilityReference);
+                                $schedule->setParts($facility['part'][$key]);
+                                $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $facility['mTimeFrom'][$key]));
+                                $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $facility['mTimeTo'][$key]));
+                                $schedule->setAccount($account);
 
-                        $em->persist($schedule);
+                                $em->persist($schedule);
+                            }
+                        }
 
                         if (isset($facility['aTimeFrom'][$key])) {
                             if ($facility['aTimeFrom'][$key] != '' && $facility['aTimeTo'][$key] != '') {
@@ -156,6 +160,8 @@ class QueryController extends Controller
             $em->persist($query);
 
             $em->flush();
+
+            $this->addFlash('success', 'Query was created!');
 
             return $this->redirectToRoute('query_show', ['id' => $query->getId()]);
         }
@@ -346,6 +352,8 @@ class QueryController extends Controller
         $query->setStatus(Query::STATUS_REJECTED);
         $this->getDoctrine()->getManager()->flush();
 
+        $this->addFlash('success', 'Query was updated!');
+
         return $this->redirectToRoute('query_index');
     }
 
@@ -372,6 +380,8 @@ class QueryController extends Controller
 
         $em->flush();
 
+        $this->addFlash('success', 'Query was updated!');
+
         return $this->redirectToRoute('query_index');
     }
 
@@ -383,6 +393,8 @@ class QueryController extends Controller
     {
         $query->setPayed(Query::PAYED_YES);
         $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('success', 'Query was updated!');
 
         return $this->redirectToRoute('query_index');
     }

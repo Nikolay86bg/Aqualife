@@ -25,6 +25,19 @@ class ColorService
 //        'bg-black-active',
     ];
 
+    const COLOR_NAMES = [
+        'light-blue',
+        'aqua',
+        'green',
+        'yellow',
+        'red',
+        'navy',
+        'teal',
+        'purple',
+        'orange',
+        'maroon',
+    ];
+
     /**
      * @param $id
      * @return array
@@ -32,5 +45,10 @@ class ColorService
     public function getColorFromId($id)
     {
         return self::COLORS[substr($id, -1)];
+    }
+
+    public function getColorNameFromId($id)
+    {
+        return self::COLOR_NAMES[substr($id, -1)];
     }
 }
