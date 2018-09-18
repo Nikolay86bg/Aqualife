@@ -80,7 +80,21 @@
                       center: 'title',
                       right: 'timelineDay,timelineWeek,timelineMonth'
                   },
+//                  businessHours: [ // specify an array instead
+//                      {
+//                          dow: [ 1, 2, 3 ], // Monday, Tuesday, Wednesday
+//                          start: '08:00', // 8am
+//                          end: '18:00' // 6pm
+//                      },
+//                      {
+//                          dow: [ 4, 5 ], // Thursday, Friday
+//                          start: '10:00', // 10am
+//                          end: '16:00' // 4pm
+//                      }
+//                  ],
                   resourceLabelText: 'Коридор',
+                  resourceAreaWidth: "10%",
+                  slotDuration: "01:00:00",
                   // resources: 'https://fullcalendar.io/demo-resources.json',
                   // events: 'https://fullcalendar.io/demo-events.json?with-resources'
                   resources: [
@@ -105,7 +119,7 @@
                           id: 'Неодобрени'
                       }
                   ],
-                  minTime: "06:00:00",
+                  minTime: "07:00:00",
                   maxTime: "21:00:00",
                   displayEventTime: true,
                   displayEventEnd: true,
