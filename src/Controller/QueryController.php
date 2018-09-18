@@ -332,12 +332,15 @@ class QueryController extends Controller
 
         $facilities = $em->getRepository('App:Facility')->findAll();
 
+        $scheduleRepo = $em->getRepository('App:Schedule');
+
         return $this->render('query/edit.html.twig', [
             'query' => $query,
             'form' => $form->createView(),
             'facilities' => $facilities,
             'schedules' => $query->getAccount()->getSchedules(),
             'meal_schedules' => $query->getAccount()->getMealSchedules(),
+            'scheduleRepo' => $scheduleRepo,
         ]);
     }
 

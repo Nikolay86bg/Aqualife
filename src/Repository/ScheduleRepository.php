@@ -80,8 +80,8 @@ class ScheduleRepository extends ServiceEntityRepository
             (
             (schedule.timeFrom < :from AND :from < schedule.timeTo) OR
             (schedule.timeFrom < :to AND :to < schedule.timeTo) OR
-            (:from < schedule.timeFrom AND schedule.timeFrom < :to) OR
-            (:from < schedule.timeTo AND schedule.timeTo < :to)
+            (:from <= schedule.timeFrom AND schedule.timeFrom <= :to) OR
+            (:from <= schedule.timeTo AND schedule.timeTo <= :to)
             )
         ');
 

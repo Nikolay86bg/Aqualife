@@ -30,7 +30,7 @@ class Paginator extends BasePaginator
     /**
      * @const RESULTS_PER_PAGE
      */
-    const RESULTS_PER_PAGE = 40;
+    const RESULTS_PER_PAGE = 20;
 
     /**
      * Paginator constructor.
