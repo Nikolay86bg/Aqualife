@@ -224,16 +224,18 @@ class QueryController extends Controller
                     $facility = $em->getReference(Facility::class, $facilityId);
 
                     foreach ($value as $key => $date) {
-                        $schedule = new Schedule();
-                        $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $date)));
-                        $schedule->setAccount($account);
-                        $schedule->setFacility($facility);
+                        if($date){
+                            $schedule = new Schedule();
+                            $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $date)));
+                            $schedule->setAccount($account);
+                            $schedule->setFacility($facility);
 
-                        $schedule->setParts($request->get('newschedules')['part'][$facilityId][$key]);
-                        $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $request->get('newschedules')['mTimeFrom'][$facilityId][$key]));
-                        $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $request->get('newschedules')['mTimeTo'][$facilityId][$key]));
+                            $schedule->setParts($request->get('newschedules')['part'][$facilityId][$key]);
+                            $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $request->get('newschedules')['mTimeFrom'][$facilityId][$key]));
+                            $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $request->get('newschedules')['mTimeTo'][$facilityId][$key]));
 
-                        $em->persist($schedule);
+                            $em->persist($schedule);
+                        }
                     }
                 }
             }
@@ -332,13 +334,23 @@ class QueryController extends Controller
 
         $facilities = $em->getRepository('App:Facility')->findAll();
 
+        $schedules = $query->getAccount()->getSchedules();
+
+        $usedFacilities = [];
+        foreach($schedules as $schedule){
+            if(!in_array($schedule->getFacility()->getId(),$usedFacilities)){
+                array_push($usedFacilities,$schedule->getFacility()->getId());
+            }
+        }
+
         $scheduleRepo = $em->getRepository('App:Schedule');
 
         return $this->render('query/edit.html.twig', [
             'query' => $query,
             'form' => $form->createView(),
             'facilities' => $facilities,
-            'schedules' => $query->getAccount()->getSchedules(),
+            'used_facilities' => $usedFacilities,
+            'schedules' => $schedules,
             'meal_schedules' => $query->getAccount()->getMealSchedules(),
             'scheduleRepo' => $scheduleRepo,
         ]);
