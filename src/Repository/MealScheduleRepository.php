@@ -28,18 +28,19 @@ class MealScheduleRepository extends ServiceEntityRepository
      * @param \DateTime $to
      * @return mixed
      */
-    public function getSchedule(string $restaurant, \DateTime $from, \DateTime $to)
+//    public function getSchedule(string $restaurant, \DateTime $from, \DateTime $to)
+    public function getSchedule( \DateTime $from, \DateTime $to)
     {
         $queryBuilder = $this->createQueryBuilder('meal_schedule');
         $queryBuilder->join('meal_schedule.account','account');
         $queryBuilder->join('account.query', 'query');
-        $queryBuilder->andWhere('meal_schedule.restaurant = :restaurant');
+//        $queryBuilder->andWhere('meal_schedule.restaurant = :restaurant');
         $queryBuilder->andWhere('meal_schedule.date >= :from');
         $queryBuilder->andWhere('meal_schedule.date <= :to');
         $queryBuilder->andWhere('meal_schedule.deleted IS NULL');
         $queryBuilder->andWhere('query.status = :status');
 
-        $queryBuilder->setParameter('restaurant', $restaurant);
+//        $queryBuilder->setParameter('restaurant', $restaurant);
         $queryBuilder->setParameter('from', $from->format("Y-m-d"));
         $queryBuilder->setParameter('to', $to->format("Y-m-d"));
         $queryBuilder->setParameter('status', Query::STATUS_ACCEPTED);
@@ -60,17 +61,18 @@ class MealScheduleRepository extends ServiceEntityRepository
         $return = [];
         /** @var MealSchedule $event */
         foreach ($schedule as $event) {
+//            dump($event->getRestaurant());exit;
             if($event->getBreakfastTime()){
-                $return[$event->getDate()->format("Y-m-d")]['breakfast'][$event->getBreakfastTime()->format("Hi")][] = $event->getAccount()->getName().' '.$event->getAccount()->getCountry();
+                $return[$event->getRestaurant()][$event->getDate()->format("Y-m-d")]['breakfast'][$event->getBreakfastTime()->format("Hi")][] = $event->getAccount()->getName().' '.$event->getAccount()->getCountry();
             }
             if($event->getLunchTime()) {
-                $return[$event->getDate()->format("Y-m-d")]['lunch'][$event->getLunchTime()->format("Hi")][] = $event->getAccount()->getName() . ' ' . $event->getAccount()->getCountry();
+                $return[$event->getRestaurant()][$event->getDate()->format("Y-m-d")]['lunch'][$event->getLunchTime()->format("Hi")][] = $event->getAccount()->getName() . ' ' . $event->getAccount()->getCountry();
             }
             if($event->getDinnerTime()) {
-                $return[$event->getDate()->format("Y-m-d")]['dinner'][$event->getDinnerTime()->format("Hi")][] = $event->getAccount()->getName() . ' ' . $event->getAccount()->getCountry();
+                $return[$event->getRestaurant()][$event->getDate()->format("Y-m-d")]['dinner'][$event->getDinnerTime()->format("Hi")][] = $event->getAccount()->getName() . ' ' . $event->getAccount()->getCountry();
             }
             if($event->getMiddleBreakfastTime()) {
-                $return[$event->getDate()->format("Y-m-d")]['middleBreakfast'][$event->getMiddleBreakfastTime()->format("Hi")][] = $event->getAccount()->getName() . ' ' . $event->getAccount()->getCountry();
+                $return[$event->getRestaurant()][$event->getDate()->format("Y-m-d")]['middleBreakfast'][$event->getMiddleBreakfastTime()->format("Hi")][] = $event->getAccount()->getName() . ' ' . $event->getAccount()->getCountry();
             }
         }
 

@@ -46,16 +46,16 @@ class MealScheduleFilterType extends AbstractType
                 ],
                 'data' => new \DateTime(),
             ])
-            ->add('restaurant', ChoiceType::class, [
-                'required' => false,
-                'label' => 'Restaurant:',
-                'placeholder' => false,
-                'attr' => [
-                    'placeholder' => 'Restaurant',
-                    'class' => 'form-control'
-                ],
-                'choices' => array_flip(Query::RESTAURANTS)
-            ])
+//            ->add('restaurant', ChoiceType::class, [
+//                'required' => false,
+//                'label' => 'Restaurant:',
+//                'placeholder' => false,
+//                'attr' => [
+//                    'placeholder' => 'Restaurant',
+//                    'class' => 'form-control'
+//                ],
+//                'choices' => array_flip(Query::RESTAURANTS)
+//            ])
         ;
     }
 

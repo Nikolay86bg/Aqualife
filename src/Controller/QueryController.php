@@ -300,16 +300,28 @@ class QueryController extends Controller
                         }
                         if ($request->get('meals')['breakfast'][$oldMeal->getId()] != "" && $request->get('meals')['breakfast'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['breakfast'][$oldMeal->getId()]));
+                        }else{
+                            $oldMeal->setBreakfastTime(null);
                         }
+
                         if ($request->get('meals')['middle_breakfast'][$oldMeal->getId()] != "" && $request->get('meals')['middle_breakfast'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setMiddleBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['middle_breakfast'][$oldMeal->getId()]));
+                        }else{
+                            $oldMeal->setMiddleBreakfastTime(null);
                         }
+
                         if ($request->get('meals')['lunch'][$oldMeal->getId()] != "" && $request->get('meals')['lunch'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setLunchTime(\DateTime::createFromFormat('H:i', $request->get('meals')['lunch'][$oldMeal->getId()]));
+                        }else{
+                            $oldMeal->setLunchTime(null);
                         }
+
                         if ($request->get('meals')['dinner'][$oldMeal->getId()] != "" && $request->get('meals')['dinner'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setDinnerTime(\DateTime::createFromFormat('H:i', $request->get('meals')['dinner'][$oldMeal->getId()]));
+                        }else{
+                            $oldMeal->setDinnerTime(null);
                         }
+
                     } else {
                         //DELETE THE OLD MEAL
                         $oldMeal->setDeleted((new \DateTime()));
