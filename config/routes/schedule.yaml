@@ -1,3 +1,8 @@
+schedule_index_old:
+    path:     /old
+    controller: App\Controller\ScheduleController::indexOld
+    methods:  GET
+
 schedule_index:
     path:     /
     controller: App\Controller\ScheduleController::index

@@ -30,6 +30,26 @@ class ScheduleController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
+    public function indexOld(Request $request)
+    {
+//        $this->denyAccessUnlessGranted(UserVoter::USER_LIST_ROLE);
+
+        $filter = $this->createForm(ScheduleFilterType::class);
+        $filter->handleRequest($request);
+
+        if ($filter->isSubmitted() && $filter->isValid()) {
+            $facility = $filter->get('facility')->getData();
+        }else{
+            $entityManager = $this->getDoctrine()->getManager();
+            $facility = $entityManager->getRepository('App:Facility')->findOneBy(['id' => 1]);
+        }
+
+        return $this->render('schedule/index_old.html.twig', [
+            'filter' => $filter->createView(),
+            'facility' => $facility
+        ]);
+    }
+
     public function index(Request $request)
     {
 //        $this->denyAccessUnlessGranted(UserVoter::USER_LIST_ROLE);
