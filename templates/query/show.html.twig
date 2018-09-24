@@ -163,8 +163,9 @@
                                                                     {% if schedule.lanes is not null %}
                                                                         Lanes number:
                                                                         {% for lane in schedule.lanes|unserialize|keys %}
-                                                                            {{ lane }}, <br>
+                                                                            {{ lane }},
                                                                         {% endfor %}
+                                                                        <br>
                                                                     {% endif %}
                                                                 {% endfor %}
                                                             </td>
