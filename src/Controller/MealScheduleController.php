@@ -11,6 +11,7 @@ use App\Form\AccountType;
 use App\Form\MealScheduleFilterType;
 use App\Form\QueryFilterType;
 use App\Form\ScheduleFilterType;
+use App\Service\ColorService;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,19 +44,40 @@ class MealScheduleController extends Controller
 //            $restaurant = $filter->get('restaurant')->getData();
             $from = $filter->get('from')->getData();
             $to = $filter->get('to')->getData();
-        }else{
+        } else {
 //            $restaurant = Query::RESTAURANT1;
             $from = $to = new \DateTime();
         }
 
-//        $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($restaurant, $from, $to);
+//        $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($from, $to, $restaurant);
         $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($from, $to);
         $schedule = $entityManager->getRepository(MealSchedule::class)->prepareSchedule($schedule);
 
         return $this->render('meal-schedule/index.html.twig', [
             'filter' => $filter->createView(),
 //            'restaurantId' => $restaurant,
-            'schedule' => $schedule
+            'from' => $from->format('d-m-Y'),
+            'to' => $to->format('d-m-Y'),
+            'schedule' => $schedule,
+            'color' => $this->get(ColorService::class),
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function printTemplate(int $id, \DateTime $from, \DateTime $to)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($from, $to, $id);
+        $schedule = $entityManager->getRepository(MealSchedule::class)->prepareSchedule($schedule);
+
+        return $this->render('meal-schedule/print.html.twig', [
+            'schedule' => $schedule,
+            'restaurantID' => $id,
         ]);
     }
 

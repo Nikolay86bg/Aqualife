@@ -20,7 +20,7 @@
 
                  {% if schedule|length > 0%}
                  {% for restaurantID,realSchedule in schedule %}
-                     <h2>Restaurant {{ constant('App\\Entity\\Query::RESTAURANTS')[restaurantID] }}</h2>
+                     <h2>Restaurant {{ constant('App\\Entity\\Query::RESTAURANTS')[restaurantID] }} - <a href="{{ url('meal_schedule_print', {'id': restaurantID, 'from': from, 'to': to}) }}" target="_blank" class="btn btn-sm btn-success">For Printing</a></h2>
                  <div class="col-md-12">
                      <div class="box box-primary">
                          <div class="box-body no-padding">
@@ -47,7 +47,7 @@
                                                      {% if meals.breakfast is defined %}
                                                          {% for time,accounts in meals.breakfast  %}
                                                              {% for account in accounts %}
-                                                                 {{ time }} <span class="label bg-primary">{{ account }}</span><br>
+                                                                 {{ time }} <span class="{{ color.getColorFromId(account.id) }} label">{{ account.name }}</span><br>
                                                              {% endfor %}
                                                          {% endfor %}
                                                      {% endif %}
@@ -56,7 +56,7 @@
                                                      {% if meals.lunch is defined %}
                                                          {% for time,accounts in meals.lunch  %}
                                                              {% for account in accounts %}
-                                                                 {{ time }} <span class="label bg-primary">{{ account }}</span><br>
+                                                                 {{ time }} <span class="{{ color.getColorFromId(account.id) }} label">{{ account.name }}</span><br>
                                                              {% endfor %}
                                                          {% endfor %}
                                                      {% endif %}
@@ -65,7 +65,7 @@
                                                      {% if meals.dinner is defined %}
                                                          {% for time,accounts in meals.dinner  %}
                                                              {% for account in accounts %}
-                                                                 {{ time }} <span class="label bg-primary">{{ account }}</span><br>
+                                                                 {{ time }} <span class="{{ color.getColorFromId(account.id) }} label">{{ account.name }}</span><br>
                                                              {% endfor %}
                                                          {% endfor %}
                                                      {% endif %}
@@ -74,7 +74,7 @@
                                                      {% if meals.middleBreakfast is defined %}
                                                          {% for time,accounts in meals.middleBreakfast  %}
                                                              {% for account in accounts %}
-                                                                 {{ time }} <span class="label bg-primary">{{ account }}</span><br>
+                                                                 {{ time }} <span class="{{ color.getColorFromId(account.id) }} label">{{ account.name }}</span><br>
                                                              {% endfor %}
                                                          {% endfor %}
                                                      {% endif %}

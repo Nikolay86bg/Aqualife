@@ -3,10 +3,10 @@ meal_schedule_index:
     controller: App\Controller\MealScheduleController::index
     methods:  GET
 
-meal_schedule_feed:
-    path:     /feed
-    controller: App\Controller\MealScheduleController::feed
-    methods:  [GET, POST]
+meal_schedule_print:
+    path:     /print/{id}/{from}/{to}
+    controller: App\Controller\MealScheduleController::printTemplate
+    methods:  GET
 
 
 
