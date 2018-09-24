@@ -185,9 +185,19 @@ class QueryController extends Controller
 
         $countries = Intl::getRegionBundle()->getCountryNames();
 
+        $scheduleArray = [];
+        if($schedules = $query->getAccount()->getSchedules()){
+            foreach($schedules as $schedule){
+                $scheduleArray[$schedule->getDate()->format('Y-m-d')][] = $schedule;
+            }
+        }
+
+        ksort($scheduleArray);
+
         return $this->render('query/show.html.twig', [
             'query' => $query,
             'countries' => $countries,
+            'scheduleArray' => $scheduleArray,
         ]);
     }
 

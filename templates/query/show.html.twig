@@ -129,37 +129,80 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {% for schedule in query.account.schedules %}
+                                                    {% for date, schedules in scheduleArray %}
                                                         <tr>
                                                             <td>
-                                                                {{ schedule.date|date('Y-m-d') }}
+                                                                {{ date }}
                                                             </td>
                                                             <td>
-                                                                {{ schedule.facility.name }}
+                                                                {% for schedule in schedules %}
+                                                                    {{ schedule.facility.name }} <br>
+                                                                {% endfor %}
                                                             </td>
                                                             <td>
-                                                                {% if schedule.timeFrom %}
-                                                                    {{ schedule.timeFrom|date('H:i') }}
-                                                                {% endif %}
+                                                                {% for schedule in schedules %}
+                                                                    {% if schedule.timeFrom %}
+                                                                        {{ schedule.timeFrom|date('H:i') }} <br>
+                                                                    {% endif %}
+                                                                {% endfor %}
                                                             </td>
                                                             <td>
-                                                                {% if schedule.timeTo %}
-                                                                    {{ schedule.timeTo|date('H:i') }}
-                                                                {% endif %}
+                                                                {% for schedule in schedules %}
+                                                                    {% if schedule.timeTo %}
+                                                                        {{ schedule.timeTo|date('H:i') }} <br>
+                                                                    {% endif %}
+                                                                {% endfor %}
                                                             </td>
-                                                            <td>{{ constant('App\\Entity\\Facility::PARTS')[schedule.facility.type][schedule.parts] }}</td>
                                                             <td>
-                                                                {% if schedule.lanes is not null %}
-                                                                    Lanes number:
-                                                                    {% for lane in schedule.lanes|unserialize|keys %}
-                                                                        {{ lane }},
-                                                                    {% endfor %}
-                                                                {% endif %}
+                                                                {% for schedule in schedules %}
+                                                                    {{ constant('App\\Entity\\Facility::PARTS')[schedule.facility.type][schedule.parts] }} <br>
+                                                                {% endfor %}
+                                                            </td>
+                                                            <td>
+                                                                {% for schedule in schedules %}
+                                                                    {% if schedule.lanes is not null %}
+                                                                        Lanes number:
+                                                                        {% for lane in schedule.lanes|unserialize|keys %}
+                                                                            {{ lane }}, <br>
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                {% endfor %}
                                                             </td>
                                                         </tr>
                                                     {% else %}
                                                         No Schedule
                                                     {% endfor %}
+                                                    {#{% for schedule in query.account.schedules %}#}
+                                                        {#<tr>#}
+                                                            {#<td>#}
+                                                                {#{{ schedule.date|date('Y-m-d') }}#}
+                                                            {#</td>#}
+                                                            {#<td>#}
+                                                                {#{{ schedule.facility.name }}#}
+                                                            {#</td>#}
+                                                            {#<td>#}
+                                                                {#{% if schedule.timeFrom %}#}
+                                                                    {#{{ schedule.timeFrom|date('H:i') }}#}
+                                                                {#{% endif %}#}
+                                                            {#</td>#}
+                                                            {#<td>#}
+                                                                {#{% if schedule.timeTo %}#}
+                                                                    {#{{ schedule.timeTo|date('H:i') }}#}
+                                                                {#{% endif %}#}
+                                                            {#</td>#}
+                                                            {#<td>{{ constant('App\\Entity\\Facility::PARTS')[schedule.facility.type][schedule.parts] }}</td>#}
+                                                            {#<td>#}
+                                                                {#{% if schedule.lanes is not null %}#}
+                                                                    {#Lanes number:#}
+                                                                    {#{% for lane in schedule.lanes|unserialize|keys %}#}
+                                                                        {#{{ lane }},#}
+                                                                    {#{% endfor %}#}
+                                                                {#{% endif %}#}
+                                                            {#</td>#}
+                                                        {#</tr>#}
+                                                    {#{% else %}#}
+                                                        {#No Schedule#}
+                                                    {#{% endfor %}#}
 
                                                     </tbody>
                                                 </table>
