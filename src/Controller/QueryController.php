@@ -55,7 +55,7 @@ class QueryController extends Controller
         $countries = Intl::getRegionBundle()->getCountryNames();
 
         return $this->render('query/index.html.twig', [
-//            'filter' => $filter->createView(),
+            'filter' => $filter->createView(),
             'queries' => $queries,
             'countries' => $countries,
             'scheduleRepo' => $scheduleRepo

@@ -8,6 +8,7 @@ namespace App\Form;
 
 use App\Entity\Department;
 use App\Entity\Position;
+use App\Entity\Query;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -24,24 +25,18 @@ class QueryFilterType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //TODO
         $builder
-            ->add('name', TextType::class, [
+            ->add('status', ChoiceType::class, [
                 'required' => false,
-                'label' => 'Name:',
+                'label' => 'Status:',
+                'choices' => array_flip(Query::STATUSES),
                 'attr' => [
-                    'placeholder' => 'Name',
-                ],
-            ])
-            ->add('manager', TextType::class, [
-                'required' => false,
-                'label' => 'Agent:',
-                'attr' => [
-                    'placeholder' => 'Agent',
+                    'placeholder' => 'Status',
+                    'class' => 'form-control'
                 ],
             ])
             ->add('sport', TextType::class, [
@@ -49,6 +44,7 @@ class QueryFilterType extends AbstractType
                 'label' => 'Sport:',
                 'attr' => [
                     'placeholder' => 'Sport',
+                    'class' => 'form-control'
                 ],
             ])
             ->add('country', CountryType::class, [
@@ -56,9 +52,9 @@ class QueryFilterType extends AbstractType
                 'label' => 'Country:',
                 'attr' => [
                     'placeholder' => 'Country',
+                    'class' => 'form-control'
                 ],
-            ])
-        ;
+            ]);
     }
 
     /**

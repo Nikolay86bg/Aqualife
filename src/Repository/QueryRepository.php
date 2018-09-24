@@ -29,10 +29,22 @@ class QueryRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('query');
 
-        if (null !== $form->get('name')->getData()) {
-            $queryBuilder->andWhere('query.name LIKE :name');
-            $queryBuilder->setParameter('name', $form->get('name')->getData().'%');
+        if (null !== $form->get('status')->getData()) {
+            $queryBuilder
+                ->andWhere('query.status LIKE :status')
+                ->setParameter('status', $form->get('status')->getData());
         }
+        if (null !== $form->get('sport')->getData()) {
+            $queryBuilder->join('query.account', 'account')
+                ->andWhere('account.sport LIKE :sport')
+                ->setParameter('sport', $form->get('sport')->getData() . '%');
+        }
+        if (null !== $form->get('country')->getData()) {
+            $queryBuilder->join('query.account', 'account')
+                ->andWhere('account.country LIKE :country')
+                ->setParameter('country', $form->get('country')->getData() . '%');
+        }
+
 
         if (null !== $sort && null !== $order) {
             switch ($sort) {
