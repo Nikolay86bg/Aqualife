@@ -44,11 +44,19 @@ class ScheduleFilterType extends AbstractType
 //                ],
 //                'data' => new \DateTime(),
 //            ])
+            ->add('date', DatePickerType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Date',
+                    'class' => 'form-control datepicker',
+                    'autocomplete' => 'off',
+                ],
+                'data' => new \DateTime(),
+            ])
             ->add('facility', EntityType::class, [
-                'required' => false,
+                'required' => true,
                 'label' => 'Facility:',
                 'attr' => [
-                    'placeholder' => 'Facility',
                     'class' => 'form-control'
                 ],
                 'class' => Facility::class

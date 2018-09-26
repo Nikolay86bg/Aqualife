@@ -158,7 +158,7 @@ class ScheduleRepository extends ServiceEntityRepository
         $array['resourceId'] = $id;
         $array['start'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeFrom()->format("H:i:s");
         $array['end'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeTo()->format("H:i:s");
-        $array['title'] = $schedule->getAccount()->getName();
+        $array['title'] = $schedule->getAccount()->getName()." | ". $schedule->getDate()->format('Y-m-d');
         $array['color'] = $color;
 
         if($description){

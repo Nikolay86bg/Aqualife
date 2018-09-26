@@ -39,34 +39,42 @@ class ScheduleController extends Controller
 
         if ($filter->isSubmitted() && $filter->isValid()) {
             $facility = $filter->get('facility')->getData();
+            $date = $filter->get('date')->getData();
         }else{
             $entityManager = $this->getDoctrine()->getManager();
             $facility = $entityManager->getRepository('App:Facility')->findOneBy(['id' => 1]);
+            $date = new \DateTime();
         }
 
         return $this->render('schedule/index_old.html.twig', [
             'filter' => $filter->createView(),
-            'facility' => $facility
+            'facility' => $facility,
+            'date' => $date,
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function index(Request $request)
     {
-//        $this->denyAccessUnlessGranted(UserVoter::USER_LIST_ROLE);
-
         $filter = $this->createForm(ScheduleFilterType::class);
         $filter->handleRequest($request);
 
         if ($filter->isSubmitted() && $filter->isValid()) {
             $facility = $filter->get('facility')->getData();
+            $date = $filter->get('date')->getData();
         }else{
             $entityManager = $this->getDoctrine()->getManager();
             $facility = $entityManager->getRepository('App:Facility')->findOneBy(['id' => 1]);
+            $date = new \DateTime();
         }
 
         return $this->render('schedule/index.html.twig', [
             'filter' => $filter->createView(),
-            'facility' => $facility
+            'facility' => $facility,
+            'date' => $date,
         ]);
     }
 

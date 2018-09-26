@@ -81,8 +81,10 @@
       <script>
 
           $(function () {
-              $('#calendar').fullCalendar({
+              var some_date = $.fullCalendar.moment('{{ date|date("Y-m-d")}}T00:00:00');
 
+              $('#calendar').fullCalendar({
+                  defaultDate: some_date,
                   defaultView: 'agendaDay',
                   groupByDateAndResource: true,
                   header: {
@@ -159,7 +161,7 @@
 
       <script>
           $('.datepicker').datepicker({
-              startDate: "today",
+//              startDate: "today",
               setDate: new Date(),
               format: 'dd-mm-yyyy',
               orientation: "bottom auto",
