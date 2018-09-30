@@ -186,7 +186,14 @@ class QueryController extends Controller
         $countries = Intl::getRegionBundle()->getCountryNames();
 
         $scheduleArray = [];
-        if($schedules = $query->getAccount()->getSchedules()){
+//        if($schedules = $query->getAccount()->getSchedules()){
+        if($schedules = $this->getDoctrine()->getManager()->getRepository(Schedule::class)->findBy([
+            'account' => $query->getAccount(),
+            'deleted' => null,
+        ],[
+            'date' => 'ASC',
+            'timeFrom' => 'ASC',
+        ])){
             foreach($schedules as $schedule){
                 $scheduleArray[$schedule->getDate()->format('Y-m-d')][] = $schedule;
             }
