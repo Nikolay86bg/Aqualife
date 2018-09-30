@@ -164,8 +164,7 @@ class Account
      */
     public function getMealSchedules()
     {
-//        return $this->mealSchedules;
-//return without deleted
+    //return without deleted
         $return = [];
         if ($meals = $this->mealSchedules) {
             /** @var MealSchedule $meal */

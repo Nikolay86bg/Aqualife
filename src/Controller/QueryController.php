@@ -353,10 +353,16 @@ class QueryController extends Controller
             return $this->redirectToRoute('query_edit',['id'=>$query->getId()]);
         }
 
-
         $facilities = $em->getRepository('App:Facility')->findAll();
 
-        $schedules = $query->getAccount()->getSchedules();
+//        $schedules = $query->getAccount()->getSchedules();
+        $schedules = $em->getRepository(Schedule::class)->findBy([
+            'account' => $query->getAccount(),
+            'deleted' => null,
+        ],[
+            'date' => 'ASC',
+            'timeFrom' => 'ASC',
+        ]);
 
         $usedFacilities = [];
         foreach($schedules as $schedule){
@@ -373,7 +379,13 @@ class QueryController extends Controller
             'facilities' => $facilities,
             'used_facilities' => $usedFacilities,
             'schedules' => $schedules,
-            'meal_schedules' => $query->getAccount()->getMealSchedules(),
+//            'meal_schedules' => $query->getAccount()->getMealSchedules(),
+            'meal_schedules' => $em->getRepository(MealSchedule::class)->findBy([
+                'account' => $query->getAccount(),
+                'deleted' => null,
+            ],[
+                'date' => 'ASC'
+            ]),
             'scheduleRepo' => $scheduleRepo,
         ]);
     }

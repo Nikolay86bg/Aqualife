@@ -476,8 +476,7 @@
         {#{% if query.status == constant('App\\Entity\\Query::STATUS_ACCEPTED') %}#}
         {% if query.status != constant('App\\Entity\\Query::STATUS_REJECTED') %}
 
-            {% include 'query/_accept.html.twig' %}
-
+            {% include 'query/_edit_lanes.html.twig' %}
 
         {% endif %}
 
