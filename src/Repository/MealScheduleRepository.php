@@ -87,10 +87,12 @@ class MealScheduleRepository extends ServiceEntityRepository
      */
     private function sortArrayByKey($return)
     {
-        foreach ($return as $date => $meals) {
-            foreach ($meals as $meal => $events) {
+        foreach ($return as $restaurant => $dates) {
+            foreach ($dates as $date => $meals) {
+                foreach ($meals as $meal => $events) {
                 ksort($events, SORT_ASC);
-                $return[$date][$meal] = $events;
+                $return[$restaurant][$date][$meal] = $events;
+                }
             }
         }
 

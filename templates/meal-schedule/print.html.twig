@@ -26,51 +26,50 @@
                                 </thead>
                                 <tbody>
                                 {% if schedule|length > 0%}
-                                    {% for realSchedule in schedule %}
-                                    {% for date,meals in realSchedule %}
-                                        <tr>
-                                            <td>
-                                                {{ date }}
-                                            </td>
-                                            <td>
-                                                {% if meals.breakfast is defined %}
-                                                    {% for time,accounts in meals.breakfast  %}
-                                                        {% for account in accounts %}
-                                                            {{ time }} <span class="">{{ account.name }}</span><br>
+                                    {% for restaurant,realSchedule in schedule %}
+                                        {% for date,meals in realSchedule %}
+                                            <tr>
+                                                <td>
+                                                    {{ date }}
+                                                </td>
+                                                <td>
+                                                    {% if meals.breakfast is defined %}
+                                                        {% for time,accounts in meals.breakfast  %}
+                                                            {% for account in accounts %}
+                                                                {{ time }} <span class="">{{ account.name }}</span><br>
+                                                            {% endfor %}
                                                         {% endfor %}
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                {% if meals.lunch is defined %}
-                                                    {% for time,accounts in meals.lunch  %}
-                                                        {% for account in accounts %}
-                                                            {{ time }} <span class="">{{ account.name }}</span><br>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if meals.lunch is defined %}
+                                                        {% for time,accounts in meals.lunch  %}
+                                                            {% for account in accounts %}
+                                                                {{ time }} <span class="">{{ account.name }}</span><br>
+                                                            {% endfor %}
                                                         {% endfor %}
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                {% if meals.dinner is defined %}
-                                                    {% for time,accounts in meals.dinner  %}
-                                                        {% for account in accounts %}
-                                                            {{ time }} <span class="">{{ account.name }}</span><br>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if meals.dinner is defined %}
+                                                        {% for time,accounts in meals.dinner  %}
+                                                            {% for account in accounts %}
+                                                                {{ time }} <span class="">{{ account.name }}</span><br>
+                                                            {% endfor %}
                                                         {% endfor %}
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                {% if meals.middleBreakfast is defined %}
-                                                    {% for time,accounts in meals.middleBreakfast  %}
-                                                        {% for account in accounts %}
-                                                            {{ time }} <span class="">{{ account.name }}</span><br>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if meals.middleBreakfast is defined %}
+                                                        {% for time,accounts in meals.middleBreakfast  %}
+                                                            {% for account in accounts %}
+                                                                {{ time }} <span class="">{{ account.name }}</span><br>
+                                                            {% endfor %}
                                                         {% endfor %}
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </td>
-
-                                        </tr>
-                                    {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
                                     {% endfor %}
                                 {% else %}
                                     <h1>No results</h1>
