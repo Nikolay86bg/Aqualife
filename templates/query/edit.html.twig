@@ -85,6 +85,13 @@
                                                 class="hidden-xs hidden-sm"> Reject</span>
                                     </a>
                                 {% endif %}
+
+                                {% if query.status == constant('App\\Entity\\Query::STATUS_REJECTED') %}
+                                    <a href="{{ path('query_in_progress', { 'id': query.id }) }}"
+                                       class="btn btn-sm bg-teal-active no-wrap">
+                                        <span class="hidden-xs hidden-sm"> Change Status to In Progress</span>
+                                    </a>
+                                {% endif %}
                             {% endif %}
 
                         </div>

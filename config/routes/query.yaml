@@ -28,6 +28,11 @@ query_accept:
     controller: App\Controller\QueryController::accept
     methods:  [GET, POST]
 
+query_in_progress:
+    path:     /{id}/in-progress
+    controller: App\Controller\QueryController::inProgress
+    methods:  [GET, POST]
+
 query_payed:
     path:     /{id}/payed
     controller: App\Controller\QueryController::payed

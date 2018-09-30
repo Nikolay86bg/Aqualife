@@ -395,6 +395,22 @@ class QueryController extends Controller
     }
 
     /**
+     * @param Query $query
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function inProgress(Query $query)
+    {
+        $this->denyAccessUnlessGranted(QueryVoter::QUERY_EDIT_ROLE);
+
+        $query->setStatus(Query::STATUS_IN_PROGRESS);
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('success', 'Query was updated!');
+
+        return $this->redirectToRoute('query_index');
+    }
+
+    /**
      * @param Request $request
      * @param Query $query
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
