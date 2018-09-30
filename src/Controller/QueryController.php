@@ -350,7 +350,7 @@ class QueryController extends Controller
             $em->flush();
             $this->addFlash('success', 'Query was updated!');
 
-            return $this->redirectToRoute('query_index');
+            return $this->redirectToRoute('query_edit',['id'=>$query->getId()]);
         }
 
 
