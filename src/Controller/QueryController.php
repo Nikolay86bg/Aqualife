@@ -185,26 +185,41 @@ class QueryController extends Controller
 
         $countries = Intl::getRegionBundle()->getCountryNames();
 
-        $scheduleArray = [];
+        $scheduleArray = $mealArray = [];
 //        if($schedules = $query->getAccount()->getSchedules()){
-        if($schedules = $this->getDoctrine()->getManager()->getRepository(Schedule::class)->findBy([
+        if ($schedules = $this->getDoctrine()->getManager()->getRepository(Schedule::class)->findBy([
             'account' => $query->getAccount(),
             'deleted' => null,
-        ],[
+        ], [
             'date' => 'ASC',
             'timeFrom' => 'ASC',
-        ])){
-            foreach($schedules as $schedule){
+        ])
+        ) {
+            foreach ($schedules as $schedule) {
                 $scheduleArray[$schedule->getDate()->format('Y-m-d')][] = $schedule;
             }
         }
 
+        if ($meals = $this->getDoctrine()->getManager()->getRepository(MealSchedule::class)->findBy([
+            'account' => $query->getAccount(),
+            'deleted' => null,
+        ], [
+            'date' => 'ASC'
+        ])
+        ) {
+            foreach ($meals as $meal) {
+                $mealArray[$meal->getDate()->format('Y-m-d')][] = $meal;
+            }
+        }
+
         ksort($scheduleArray);
+        ksort($mealArray);
 
         return $this->render('query/show.html.twig', [
             'query' => $query,
             'countries' => $countries,
             'scheduleArray' => $scheduleArray,
+            'mealArray' => $mealArray,
         ]);
     }
 
@@ -241,7 +256,7 @@ class QueryController extends Controller
                     $facility = $em->getReference(Facility::class, $facilityId);
 
                     foreach ($value as $key => $date) {
-                        if($date){
+                        if ($date) {
                             $schedule = new Schedule();
                             $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $date)));
                             $schedule->setAccount($account);
@@ -317,25 +332,25 @@ class QueryController extends Controller
                         }
                         if ($request->get('meals')['breakfast'][$oldMeal->getId()] != "" && $request->get('meals')['breakfast'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['breakfast'][$oldMeal->getId()]));
-                        }else{
+                        } else {
                             $oldMeal->setBreakfastTime(null);
                         }
 
                         if ($request->get('meals')['middle_breakfast'][$oldMeal->getId()] != "" && $request->get('meals')['middle_breakfast'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setMiddleBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['middle_breakfast'][$oldMeal->getId()]));
-                        }else{
+                        } else {
                             $oldMeal->setMiddleBreakfastTime(null);
                         }
 
                         if ($request->get('meals')['lunch'][$oldMeal->getId()] != "" && $request->get('meals')['lunch'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setLunchTime(\DateTime::createFromFormat('H:i', $request->get('meals')['lunch'][$oldMeal->getId()]));
-                        }else{
+                        } else {
                             $oldMeal->setLunchTime(null);
                         }
 
                         if ($request->get('meals')['dinner'][$oldMeal->getId()] != "" && $request->get('meals')['dinner'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setDinnerTime(\DateTime::createFromFormat('H:i', $request->get('meals')['dinner'][$oldMeal->getId()]));
-                        }else{
+                        } else {
                             $oldMeal->setDinnerTime(null);
                         }
 
@@ -357,7 +372,7 @@ class QueryController extends Controller
             $em->flush();
             $this->addFlash('success', 'Query was updated!');
 
-            return $this->redirectToRoute('query_edit',['id'=>$query->getId()]);
+            return $this->redirectToRoute('query_edit', ['id' => $query->getId()]);
         }
 
         $facilities = $em->getRepository('App:Facility')->findAll();
@@ -366,15 +381,15 @@ class QueryController extends Controller
         $schedules = $em->getRepository(Schedule::class)->findBy([
             'account' => $query->getAccount(),
             'deleted' => null,
-        ],[
+        ], [
             'date' => 'ASC',
             'timeFrom' => 'ASC',
         ]);
 
         $usedFacilities = [];
-        foreach($schedules as $schedule){
-            if(!in_array($schedule->getFacility()->getId(),$usedFacilities)){
-                array_push($usedFacilities,$schedule->getFacility()->getId());
+        foreach ($schedules as $schedule) {
+            if (!in_array($schedule->getFacility()->getId(), $usedFacilities)) {
+                array_push($usedFacilities, $schedule->getFacility()->getId());
             }
         }
 
@@ -390,7 +405,7 @@ class QueryController extends Controller
             'meal_schedules' => $em->getRepository(MealSchedule::class)->findBy([
                 'account' => $query->getAccount(),
                 'deleted' => null,
-            ],[
+            ], [
                 'date' => 'ASC'
             ]),
             'scheduleRepo' => $scheduleRepo,

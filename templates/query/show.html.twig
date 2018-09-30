@@ -71,35 +71,45 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {% for meal in query.account.mealSchedules %}
+                                                    {#{% for meal in query.account.mealSchedules %}#}
+                                                    {% for date, meals in mealArray %}
                                                             <tr>
                                                                 <td>
-                                                                    {{ meal.date|date('Y-m-d') }}
+                                                                    {{ date }}
                                                                 </td>
                                                                 <td>
-                                                                    {{ constant('App\\Entity\\Query::RESTAURANTS')[meal.restaurant] }}
+                                                                    {% for meal in meals %}
+                                                                        {{ constant('App\\Entity\\Query::RESTAURANTS')[meal.restaurant] }}<br>
+                                                                    {% endfor %}
                                                                 </td>
                                                                 <td>
-                                                                    {% if meal.breakfastTime %}
-                                                                    {{ meal.breakfastTime|date('H:i') }}
-                                                                    {% endif %}
+                                                                    {% for meal in meals %}
+                                                                        {% if meal.breakfastTime %}
+                                                                            {{ meal.breakfastTime|date('H:i') }} <br>
+                                                                        {% endif %}
+                                                                    {% endfor %}
                                                                 </td>
                                                                 <td>
-                                                                    {% if meal.lunchTime %}
-                                                                    {{ meal.lunchTime|date('H:i') }}
-                                                                    {% endif %}
+                                                                    {% for meal in meals %}
+                                                                        {% if meal.lunchTime %}
+                                                                            {{ meal.lunchTime|date('H:i') }} <br>
+                                                                        {% endif %}
+                                                                    {% endfor %}
                                                                 </td>
                                                                 <td>
-                                                                    {% if meal.dinnerTime %}
-                                                                    {{ meal.dinnerTime|date('H:i') }}
-                                                                    {% endif %}
+                                                                    {% for meal in meals %}
+                                                                        {% if meal.dinnerTime %}
+                                                                            {{ meal.dinnerTime|date('H:i') }} <br>
+                                                                        {% endif %}
+                                                                    {% endfor %}
                                                                 </td>
                                                                 <td>
-                                                                    {% if meal.middleBreakfastTime %}
-                                                                    {{ meal.middleBreakfastTime|date('H:i') }}
-                                                                    {% endif %}
+                                                                    {% for meal in meals %}
+                                                                        {% if meal.middleBreakfastTime %}
+                                                                            {{ meal.middleBreakfastTime|date('H:i') }} <br>
+                                                                        {% endif %}
+                                                                    {% endfor %}
                                                                 </td>
-
                                                             </tr>
                                                     {% else %}
                                                         No meal Schedule
@@ -173,37 +183,6 @@
                                                     {% else %}
                                                         No Schedule
                                                     {% endfor %}
-                                                    {#{% for schedule in query.account.schedules %}#}
-                                                        {#<tr>#}
-                                                            {#<td>#}
-                                                                {#{{ schedule.date|date('Y-m-d') }}#}
-                                                            {#</td>#}
-                                                            {#<td>#}
-                                                                {#{{ schedule.facility.name }}#}
-                                                            {#</td>#}
-                                                            {#<td>#}
-                                                                {#{% if schedule.timeFrom %}#}
-                                                                    {#{{ schedule.timeFrom|date('H:i') }}#}
-                                                                {#{% endif %}#}
-                                                            {#</td>#}
-                                                            {#<td>#}
-                                                                {#{% if schedule.timeTo %}#}
-                                                                    {#{{ schedule.timeTo|date('H:i') }}#}
-                                                                {#{% endif %}#}
-                                                            {#</td>#}
-                                                            {#<td>{{ constant('App\\Entity\\Facility::PARTS')[schedule.facility.type][schedule.parts] }}</td>#}
-                                                            {#<td>#}
-                                                                {#{% if schedule.lanes is not null %}#}
-                                                                    {#Lanes number:#}
-                                                                    {#{% for lane in schedule.lanes|unserialize|keys %}#}
-                                                                        {#{{ lane }},#}
-                                                                    {#{% endfor %}#}
-                                                                {#{% endif %}#}
-                                                            {#</td>#}
-                                                        {#</tr>#}
-                                                    {#{% else %}#}
-                                                        {#No Schedule#}
-                                                    {#{% endfor %}#}
 
                                                     </tbody>
                                                 </table>
