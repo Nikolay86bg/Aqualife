@@ -122,6 +122,13 @@ class Query
     private $payed = self::PAYED_NO;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+    /**
      * @return User
      */
     public function getCreatedBy()
@@ -239,8 +246,20 @@ class Query
         $this->payed = $payed;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
 
-
-
+    /**
+     * @param \DateTime $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
 
 }

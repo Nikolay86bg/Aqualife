@@ -38,3 +38,8 @@ query_payed:
     controller: App\Controller\QueryController::payed
     methods:  [GET, POST]
 
+query_delete:
+    path:     /{id}/delete
+    controller: App\Controller\QueryController::delete
+    methods:  [GET, POST]
+

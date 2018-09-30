@@ -179,6 +179,11 @@
                                                 {% endif %}
 
                                             {% endif %}
+
+                                            <a href="{{ path('query_delete', { 'id': query.id }) }}"
+                                               class="btn btn-sm bg-red-active no-wrap">
+                                                <i class="fa fa-close"></i><span class="hidden-xs hidden-sm"> Delete</span>
+                                            </a>
                                         </td>
                                     </tr>
                                 {% endif %}

@@ -45,6 +45,8 @@ class QueryRepository extends ServiceEntityRepository
                 ->setParameter('country', $form->get('country')->getData() . '%');
         }
 
+        $queryBuilder
+            ->andWhere('query.deletedAt IS NULL');
 
         if (null !== $sort && null !== $order) {
             switch ($sort) {

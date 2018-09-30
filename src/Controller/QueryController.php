@@ -451,4 +451,18 @@ class QueryController extends Controller
 
         return $this->redirectToRoute('query_index');
     }
+
+    /**
+     * @param Query $query
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Query $query)
+    {
+        $query->setDeletedAt((new \DateTime()));
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('success', 'Query was deleted successfully!');
+
+        return $this->redirectToRoute('query_index');
+    }
 }
