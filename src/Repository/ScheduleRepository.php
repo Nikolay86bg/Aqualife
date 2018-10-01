@@ -102,7 +102,7 @@ class ScheduleRepository extends ServiceEntityRepository
     public function getSchedule(Facility $facility, \DateTime $from, \DateTime $to)
     {
         $queryBuilder = $this->createQueryBuilder('schedule');
-        $queryBuilder->join('schedule.account','account');
+        $queryBuilder->join('schedule.account', 'account');
         $queryBuilder->join('account.query', 'query');
         $queryBuilder->andWhere('schedule.facility = :facility');
         $queryBuilder->andWhere('schedule.date >= :from');
@@ -131,11 +131,13 @@ class ScheduleRepository extends ServiceEntityRepository
             if ($event->getAccount()->getQuery()->getStatus() == Query::STATUS_ACCEPTED) {
                 if ($event->getFacility()->getType() == Facility::TYPE_POOL) {
                     $lanes = unserialize($event->getLanes());
-                    foreach ($lanes as $lane => $on) {
-                        array_push($return, $this->setScheduleArray($event, $lane, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                    if ($lanes) {
+                        foreach ($lanes as $lane => $on) {
+                            array_push($return, $this->setScheduleArray($event, $lane, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                        }
                     }
                 } else {
-                    array_push($return, $this->setScheduleArray($event,  Facility::PARTS[$event->getFacility()->getType()][$event->getParts()], $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                    array_push($return, $this->setScheduleArray($event, Facility::PARTS[$event->getFacility()->getType()][$event->getParts()], $colorService->getColorNameFromId($event->getAccount()->getId()), true));
                 }
             } else {
                 array_push($return, $this->setScheduleArray($event, 'Неодобрени', 'red', true));
@@ -158,14 +160,13 @@ class ScheduleRepository extends ServiceEntityRepository
         $array['resourceId'] = $id;
         $array['start'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeFrom()->format("H:i:s");
         $array['end'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeTo()->format("H:i:s");
-        $array['title'] = $schedule->getAccount()->getName()." | ". $schedule->getDate()->format('Y-m-d');
+        $array['title'] = $schedule->getAccount()->getName();
         $array['color'] = $color;
 
-        if($description){
+        if ($description) {
             $array['description'] = 'Части: ' . Facility::PARTS[$schedule->getFacility()->getType()][$schedule->getParts()] .
-            " | От-До: ".
-            $schedule->getTimeFrom()->format("H:i") . " - " . $schedule->getTimeTo()->format("H:i")
-            ;
+            " | От-До: " .
+            $schedule->getTimeFrom()->format("H:i") . " - " . $schedule->getTimeTo()->format("H:i");
         }
 
         return $array;
