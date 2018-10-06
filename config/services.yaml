@@ -31,6 +31,10 @@ services:
         autowire: true
         public: true
 
+    App\Service\MailerService:
+        autowire: true
+        public: true
+
     App\Doctrine\Listener\HashPasswordListener:
         autowire: true
         tags:

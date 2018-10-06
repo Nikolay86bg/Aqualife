@@ -9,7 +9,6 @@ use App\Entity\Query;
 use App\Entity\Schedule;
 use App\Form\AccountType;
 use App\Form\QueryFilterType;
-use App\Form\QueryType;
 use App\Security\Voter\QueryVoter;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\Intl\Intl;
+use App\Service\MailerService;
 
 /**
  * Class QueryController
@@ -162,6 +162,8 @@ class QueryController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Query was created!');
+
+            $this->get(MailerService::class)->sendMail($account);
 
             return $this->redirectToRoute('query_show', ['id' => $query->getId()]);
         }
