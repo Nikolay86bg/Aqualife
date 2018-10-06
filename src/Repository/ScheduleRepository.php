@@ -109,7 +109,6 @@ class ScheduleRepository extends ServiceEntityRepository
         $queryBuilder->andWhere('schedule.date <= :to');
         $queryBuilder->andWhere('schedule.date <= :to');
         $queryBuilder->andWhere('schedule.deleted IS NULL');
-        $queryBuilder->andWhere('query.deletedAt IS NULL');
         $queryBuilder->andWhere('query.status != :status');
 
         $queryBuilder->setParameter('facility', $facility);
@@ -163,6 +162,11 @@ class ScheduleRepository extends ServiceEntityRepository
         $array['end'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeTo()->format("H:i:s");
         $array['title'] = $schedule->getAccount()->getName();
         $array['color'] = $color;
+        if($schedule->getAccount()->getQuery()->getPayed()){
+            $array['textColor'] = 'black';
+            $array['borderColor'] = 'black';
+        }
+
 
         if ($description) {
             $array['description'] = 'Части: ' . Facility::PARTS[$schedule->getFacility()->getType()][$schedule->getParts()] .
