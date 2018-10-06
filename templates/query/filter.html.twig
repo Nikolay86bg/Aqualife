@@ -1,7 +1,13 @@
-{{ form_start(filter) }}
+{{ form_start(filter, { 'attr': {'autocomplete': 'off'} })  }}
 <div class="row filters-section">
     <div class="col-xs-12">
         <div class="row" style="margin: 15px 0 0 0;">
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                {{ form_row(filter.from) }}
+            </div>
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                {{ form_row(filter.to) }}
+            </div>
             <div class="col-md-2 col-sm-12 col-xs-12">
                 {{ form_row(filter.status) }}
             </div>

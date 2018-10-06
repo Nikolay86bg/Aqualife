@@ -25,6 +25,9 @@ class DatePickerType extends AbstractType
         $resolver->setDefaults([
             'required' => false,
             'widget' => 'single_text',
+            'attr' => [
+                'class' => 'datepicker',
+            ],
             'format' => static::DATE_FORMAT,
             'html5' => false,
         ]);

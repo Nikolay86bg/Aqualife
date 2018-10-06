@@ -7,11 +7,8 @@
 namespace App\Form;
 
 use App\Entity\Facility;
-use App\Entity\Query;
-use App\Form\Type\DatePickerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;

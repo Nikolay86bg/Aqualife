@@ -10,6 +10,7 @@ use App\Entity\Department;
 use App\Entity\Position;
 use App\Entity\Query;
 use App\Entity\User;
+use App\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -54,7 +55,24 @@ class QueryFilterType extends AbstractType
                     'placeholder' => 'Country',
                     'class' => 'form-control'
                 ],
-            ]);
+            ])
+            ->add('from', DatePickerType::class, [
+                'required' => false,
+                'label' => 'Arrival:',
+                'attr' => [
+                    'placeholder' => 'From',
+                    'class' => 'form-control datepicker'
+                ],
+            ])
+            ->add('to', DatePickerType::class, [
+                'required' => false,
+                'label' => 'Departure:',
+                'attr' => [
+                    'placeholder' => 'To',
+                    'class' => 'form-control datepicker'
+                ],
+            ])
+        ;
     }
 
     /**

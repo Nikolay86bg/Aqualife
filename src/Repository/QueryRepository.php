@@ -44,6 +44,16 @@ class QueryRepository extends ServiceEntityRepository
                 ->andWhere('account.country LIKE :country')
                 ->setParameter('country', $form->get('country')->getData() . '%');
         }
+        if (null !== $form->get('from')->getData()) {
+            $queryBuilder
+                ->andWhere('DATE(query.dateOfArrival) >= :from')
+                ->setParameter('from', $form->get('from')->getData());
+        }
+        if (null !== $form->get('to')->getData()) {
+            $queryBuilder
+                ->andWhere('DATE(query.dateOfDeparture) <= :to')
+                ->setParameter('to', $form->get('to')->getData());
+        }
 
         $queryBuilder
             ->andWhere('query.deletedAt IS NULL');
