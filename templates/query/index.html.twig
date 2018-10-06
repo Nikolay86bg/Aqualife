@@ -161,6 +161,13 @@
                                                 <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> View</span>
                                             </a>
 
+                                            {% if query.payed == constant('App\\Entity\\Query::PAYED_NO') %}
+                                                <a href="{{ path('query_payed', { 'id': query.id }) }}"
+                                                   class="btn btn-sm bg-purple-active no-wrap">
+                                                    <i class="fa fa-dollar"></i><span class="hidden-xs hidden-sm"> Payed</span>
+                                                </a>
+                                            {% endif %}
+
                                             {% if (is_granted(constant('App\\Security\\Voter\\QueryVoter::QUERY_EDIT_ROLE'))) %}
 
                                                 <a href="{{ path('query_edit', { 'id': query.id }) }}"
@@ -178,12 +185,12 @@
                                                     </a>
                                                 {% endif %}
 
-                                            {% endif %}
+                                                <a href="{{ path('query_delete', { 'id': query.id }) }}"
+                                                   class="btn btn-sm bg-red-active no-wrap">
+                                                    <i class="fa fa-close"></i><span class="hidden-xs hidden-sm"> Delete</span>
+                                                </a>
 
-                                            <a href="{{ path('query_delete', { 'id': query.id }) }}"
-                                               class="btn btn-sm bg-red-active no-wrap">
-                                                <i class="fa fa-close"></i><span class="hidden-xs hidden-sm"> Delete</span>
-                                            </a>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endif %}
