@@ -37,6 +37,7 @@ class MealScheduleRepository extends ServiceEntityRepository
         $queryBuilder->andWhere('meal_schedule.date <= :to');
         $queryBuilder->andWhere('meal_schedule.deleted IS NULL');
         $queryBuilder->andWhere('query.status = :status');
+        $queryBuilder->andWhere('query.deletedAt IS NULL');
 
         if ($restaurant) {
             $queryBuilder->andWhere('meal_schedule.restaurant = :restaurant');
