@@ -1,0 +1,72 @@
+<div class="modal fade" id="modal-add-date-{{ facility.id }}" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Add Date</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Date</th>
+                        <th>Morning Time From</th>
+                        <th>Morning Time To</th>
+                        <th>Afternoon Time From</th>
+                        <th>Afternoon Time To</th>
+                        <th>Parts</th>
+                    </tr>
+                    <tr class="schedule_info_{{ facility.id }}">
+                        <td><input type="text" class="form-control pull-right datepicker" name="facilities[{{ facility.id }}][date][]"></td>
+                        <td>
+                            <div class="input-group" style="max-width: 100px;">
+                                <input type="text" class="form-control timepicker" name="facilities[{{ facility.id }}][mTimeFrom][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group" style="max-width: 100px;">
+                                <input type="text" class="form-control timepicker" name="facilities[{{ facility.id }}][mTimeTo][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group" style="max-width: 100px;">
+                                <input type="text" class="form-control timepicker" name="facilities[{{ facility.id }}][aTimeFrom][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group" style="max-width: 100px;">
+                                <input type="text" class="form-control timepicker" name="facilities[{{ facility.id }}][aTimeTo][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <select class="form-control facility-{{ facility.id }}-part" name="facilities[{{ facility.id }}][part][]">
+                                {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
+                                    <option value="{{ partKey }}">{{ part }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close
+                </button>
+                <button type="submit" class="btn btn-primary move-date-to-schedule" data-dismiss="modal" data-facility="{{ facility.id }}">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

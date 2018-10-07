@@ -109,20 +109,53 @@
             {% include 'query/_edit_facility_schedule.html.twig' %}
         </div>
 
-
-
         {{ form_end(form) }}
 
         {% if query.status != constant('App\\Entity\\Query::STATUS_REJECTED') %}
-
             {% include 'query/_edit_lanes.html.twig' %}
-
         {% endif %}
+
+        {% for key,facility in facilities %}
+            {% include 'query/_edit_add_date.html.twig' %}
+        {% endfor %}
 
     {% endblock %}
 
     {% block javascripts %}
         {{ parent() }}
+
+        {# ADD DATE SCRIPTS #}
+        <script>
+
+            $('.move-date-to-schedule').on("click", function () {
+                var facilityId = $(this).data('facility');
+                var date = $("input[name='facilities["+facilityId+"][date][]']" ).val();
+                var mTimeFrom = $("input[name='facilities["+facilityId+"][mTimeFrom][]']" ).val();
+                var mTimeTo = $("input[name='facilities["+facilityId+"][mTimeTo][]']" ).val();
+                var aTimeFrom = $("input[name='facilities["+facilityId+"][aTimeFrom][]']" ).val();
+                var aTimeTo = $("input[name='facilities["+facilityId+"][aTimeTo][]']" ).val();
+                var part = $(".facility-"+facilityId+"-part").val();
+                console.log(facilityId);
+
+                var row = $('.row_to_copy' + facilityId);
+                var clone1 = row.clone(); // copy children too
+                var clone2 = row.clone(); // copy children too
+                clone1.find("input[name='newschedules[date]["+facilityId+"][]']").val(date);
+                clone1.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(mTimeFrom);
+                clone1.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(mTimeTo);
+                clone1.find(".facility-part").val(part);
+
+                clone2.find("input[name='newschedules[date]["+facilityId+"][]']").val(date);
+                clone2.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(aTimeFrom);
+                clone2.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(aTimeTo);
+                clone2.find(".facility-part").val(part);
+
+                clone1.removeClass();
+                clone2.removeClass();
+                $('.table'+facilityId).append(clone1); // add new row to end of table
+                $('.table'+facilityId).append(clone2); // add new row to end of table
+            });
+        </script>
 
         <script>
             Date.prototype.ddmmyyyy = function () {
@@ -183,21 +216,6 @@
             });
 
             $(function () {
-                setDateTimePickers();
-            });
-
-            $('.add-date').on("click", function () {
-                console.log('aaaaaaa');
-                var row = $('.row_to_copy' + this.id);
-                var clone = row.clone(); // copy children too
-
-                clone.find('.form-control').each(function (index) {
-                    $(this).attr('name', $(this).data('newname'));
-                });
-
-                clone.removeClass(); // change id or other attributes/contents
-                row.parent().append(clone); // add new row to end of table
-
                 setDateTimePickers();
             });
 

@@ -28,64 +28,56 @@
                                 <th>Parts</th>
                                 <th>Delete</th>
                             </tr>
-                            {% if facility.id not in used_facilities %}
-                                <tr class="hidden row_to_copy{{ facility.id }}" >
-                                    <td><input type="text" class="form-control pull-right datepicker"
-                                               name="newschedules[date][{{ facility.id }}][]"
-                                               data-newname="newschedules[date][{{ facility.id }}][]"
-                                               value=""></td>
-                                    <td>
-                                        <div class="input-group" style="max-width: 100px;">
-                                            <input type="text" class="form-control timepicker"
-                                                   name="newschedules[mTimeFrom][{{ facility.id }}][]"
-                                                   data-newname="newschedules[mTimeFrom][{{ facility.id }}][]"
-                                                   value="">
+                            <tr class="hidden row_to_copy{{ facility.id }}" >
+                                <td><input type="text" class="form-control pull-right datepicker"
+                                           name="newschedules[date][{{ facility.id }}][]"
+                                           data-newname="newschedules[date][{{ facility.id }}][]"
+                                           value=""></td>
+                                <td>
+                                    <div class="input-group" style="max-width: 100px;">
+                                        <input type="text" class="form-control timepicker"
+                                               name="newschedules[mTimeFrom][{{ facility.id }}][]"
+                                               data-newname="newschedules[mTimeFrom][{{ facility.id }}][]"
+                                               value="">
 
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-clock-o"></i>
-                                            </div>
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group" style="max-width: 100px;">
-                                            <input type="text" class="form-control timepicker"
-                                                   name="newschedules[mTimeTo][{{ facility.id }}][]"
-                                                   data-newname="newschedules[mTimeTo][{{ facility.id }}][]"
-                                                   value="">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group" style="max-width: 100px;">
+                                        <input type="text" class="form-control timepicker"
+                                               name="newschedules[mTimeTo][{{ facility.id }}][]"
+                                               data-newname="newschedules[mTimeTo][{{ facility.id }}][]"
+                                               value="">
 
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-clock-o"></i>
-                                            </div>
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <select class="form-control"
-                                                name="newschedules[part][{{ facility.id }}][]"
-                                                data-newname="newschedules[part][{{ facility.id }}][]"
-                                        >
-                                            {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
-                                                <option value="{{ partKey }}">{{ part }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </td>
-                                    <td>
+                                    </div>
+                                </td>
+                                <td>
+                                    <select class="form-control facility-part"
+                                            name="newschedules[part][{{ facility.id }}][]"
+                                            data-newname="newschedules[part][{{ facility.id }}][]"
+                                    >
+                                        {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
+                                            <option value="{{ partKey }}">{{ part }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td>
                                                         <span style="cursor: pointer;" class="delete-row"><small
                                                                     class="label label-danger"><i
                                                                         class="fa fa-fw fa-close"></i> Delete
                                                             </small></span>
-                                    </td>
-                                </tr>
-
-                            {% else %}
+                                </td>
+                            </tr>
                                 {% set counter = 0 %}
                                 {% for key,schedule in schedules %}
                                     {% if schedule.facility.id == facility.id %}
-                                        <tr
-                                                {% if counter == 0 %}
-                                                    class="row_to_copy{{ facility.id }}"
-                                                    {% set counter = 1 %}
-                                                {% endif %}
-                                        >
+                                        <tr>
                                             <td><input type="text" class="form-control pull-right datepicker"
                                                        name="facilities[date][{{ schedule.id }}]"
                                                        data-newname="newschedules[date][{{ facility.id }}][]"
@@ -134,11 +126,14 @@
                                         </tr>
                                     {% endif %}
                                 {% endfor %}
-                            {% endif %}
+
                             </tbody>
                         </table>
                         <div>
-                            <span class="btn btn-sm bg-info add-date" id="{{ facility.id }}">Add Date</span>
+                            <a class="btn btn-sm bg-info" id="{{ facility.id }}"
+                                  data-toggle="modal"
+                                  data-target="#modal-add-date-{{ facility.id }}"
+                            >Add Date</a>
                         </div>
 
                     </div>
