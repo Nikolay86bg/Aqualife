@@ -126,7 +126,6 @@
 
         {# ADD DATE SCRIPTS #}
         <script>
-
             $('.move-date-to-schedule').on("click", function () {
                 var facilityId = $(this).data('facility');
                 var date = $("input[name='facilities["+facilityId+"][date][]']" ).val();
@@ -196,9 +195,19 @@
                 return dates;
             };
 
+            $(document).on('change', 'input[name="datetimes"]', function() {
+                setDateTimePickers();
+            });
+
             function setDateTimePickers() {
+                $('.datepicker').datepicker('destroy');
+                var dates = $('input[name="datetimes"]').val().split(' - ')
+                var from = dates[0].slice(0,-5);
+                var to = dates[1].slice(0,-5);
+
                 $('.datepicker').datepicker({
-                    startDate: "today",
+                    startDate: from,
+                    endDate: to,
                     setDate: new Date(),
                     format: 'dd/mm/yyyy',
                     orientation: "bottom auto",
@@ -231,6 +240,56 @@
                 row.parent().append(clone); // add new row to end of table
 
                 setDateTimePickers();
+            });
+
+            $('.whole-period-meal').on("click", function () {
+                var startEnd = $('[name="datetimes"]').val().split(' - ');
+
+                var start = startEnd[0].slice(0,-5).split("/");
+                var end = startEnd[1].slice(0,-5).split("/");
+                var s=new Date(start[2],(start[1] -1 ),start[0]);
+                var e=new Date(end[2], (end[1] - 1),end[0]);
+
+                // Usage
+                var dates = getDates(s, e);
+                dates.forEach(function(date) {
+                    var row = $('.meal_row_to_copy');
+                    var clone = row.clone(); // copy children too
+
+                    clone.find('.datepicker').val(date.ddmmyyyy()); //set new date
+                    clone.find("select").val($('.meal_row_to_copy').find("select").val());//Copy select value to cloning
+
+                    clone.removeClass(); // change id or other attributes/contents
+                    row.parent().append(clone); // add new row to end of table
+
+                    setDateTimePickers();
+                });
+
+            });
+
+            $('.whole-period').on("click", function () {
+                var startEnd = $('[name="datetimes"]').val().split(' - ');
+
+                var start = startEnd[0].slice(0,-5).split("/");
+                var end = startEnd[1].slice(0,-5).split("/");
+                var s=new Date(start[2],(start[1] -1 ),start[0]);
+                var e=new Date(end[2], (end[1] - 1),end[0]);
+                var id = this.id;
+
+                // Usage
+                var dates = getDates(s, e);
+                dates.forEach(function(date) {
+                    var row = $('.row_to_copy' + id);
+                    var clone = row.clone(); // copy children too
+
+                    clone.find('.datepicker').val(date.ddmmyyyy()); //set new date
+                    clone.find("select").val($('.row_to_copy'+ id).find("select").val());//Copy select value to cloning
+
+                    clone.removeClass(); // change id or other attributes/contents
+                    row.parent().append(clone); // add new row to end of table
+
+                    setDateTimePickers();
+                });
             });
 
 

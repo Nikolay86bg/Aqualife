@@ -300,9 +300,19 @@
                 return dates;
             };
 
+            $(document).on('change', 'input[name="datetimes"]', function() {
+                setDateTimePickers();
+            });
+
             function setDateTimePickers() {
+                $('.datepicker').datepicker('destroy');
+                var dates = $('input[name="datetimes"]').val().split(' - ')
+                var from = dates[0].slice(0,-5);
+                var to = dates[1].slice(0,-5);
+
                 $('.datepicker').datepicker({
-                    startDate: "today",
+                    startDate: from,
+                    endDate: to,
                     setDate: new Date(),
                     format: 'dd/mm/yyyy',
                     orientation: "bottom auto",
