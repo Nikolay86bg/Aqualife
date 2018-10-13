@@ -589,7 +589,7 @@ class QueryController extends Controller
 
                 $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['dates'][] = $meal->getDate();
                 $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['restaurant'] = Query::RESTAURANTS[$meal->getRestaurant()];
-                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['breakfast'] = $meal->getBreakfastTime()->format("H:i");
+                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['breakfast'] = $meal->getBreakfastTime()?$meal->getBreakfastTime()->format("H:i"):'-';
                 $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['lunch'] = $meal->getLunchTime()?$meal->getLunchTime()->format("H:i"):'-';
                 $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['dinner'] = $meal->getDinnerTime()?$meal->getDinnerTime()->format("H:i"):'-';
                 $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['middle'] = $meal->getMiddleBreakfastTime()?$meal->getMiddleBreakfastTime()->format("H:i"):'-';
