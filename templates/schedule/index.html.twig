@@ -41,7 +41,7 @@
         <section class="content">
             {% include 'schedule/filter.html.twig' %}
             <div class="row">
-                <h2>{{ facility.name }}</h2>
+                <h2>{{ facility.name }} - <a href="{{ url('schedule_print', {'id': facility.id, 'from': date|date("d-m-Y"), 'to': date|date("d-m-Y")}) }}" target="_blank" class="btn btn-sm btn-success">For Printing</a></h2>
 
                 <div class="col-md-12">
                     <div class="box box-primary">

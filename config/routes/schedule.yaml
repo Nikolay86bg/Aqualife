@@ -13,5 +13,10 @@ schedule_feed:
     controller: App\Controller\ScheduleController::feed
     methods:  [GET, POST]
 
+schedule_print:
+    path:     /print/{id}/{from}/{to}
+    controller: App\Controller\ScheduleController::printTemplate
+    methods:  GET
+
 
 

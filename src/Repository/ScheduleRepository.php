@@ -137,7 +137,8 @@ class ScheduleRepository extends ServiceEntityRepository
                         }
                     }
                 } else {
-                    array_push($return, $this->setScheduleArray($event, Facility::PARTS[$event->getFacility()->getType()][$event->getParts()], $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                    $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
+                    array_push($return, $this->setScheduleArray($event, $Iid, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
                 }
             } else {
                 array_push($return, $this->setScheduleArray($event, 'Неодобрени', 'red', true));
@@ -176,4 +177,38 @@ class ScheduleRepository extends ServiceEntityRepository
 
         return $array;
     }
+
+    /**
+     * @param array $schedule
+     * @return array
+     */
+    public function preparePrintSchedule(array $schedule)
+    {
+        $return = $array = [];
+        /** @var Schedule $event */
+        foreach ($schedule as $event) {
+            if ($event->getAccount()->getQuery()->getStatus() == Query::STATUS_ACCEPTED) {
+                if ($event->getFacility()->getType() == Facility::TYPE_POOL) {
+                    $lanes = unserialize($event->getLanes());
+                    if ($lanes) {
+                        foreach ($lanes as $lane => $on) {
+                            $return[$lane][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
+                        }
+                    }
+                } else {
+                    $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
+                    $return[$Iid][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
+                }
+            }
+        }
+
+        //Sorting by time
+        foreach($return as $key => $arr){
+            ksort($arr, SORT_ASC);
+            $return[$key] = $arr;
+        }
+
+        return $return;
+    }
+
 }

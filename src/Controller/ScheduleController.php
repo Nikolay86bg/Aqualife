@@ -90,4 +90,23 @@ class ScheduleController extends Controller
         return new JsonResponse($schedule);
     }
 
+    /**
+     * @param Facility $facility
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function printTemplate(Facility $facility, \DateTime $from, \DateTime $to)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $schedule = $entityManager->getRepository(Schedule::class)->getSchedule($facility, $from, $to);
+        $scheduleOrdered = $entityManager->getRepository(Schedule::class)->preparePrintSchedule($schedule);
+
+        return $this->render('schedule/print.html.twig', [
+            'schedule' => $scheduleOrdered,
+            'facility' => $facility,
+            'date' => $from,
+        ]);
+    }
+
 }
