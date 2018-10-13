@@ -47,6 +47,7 @@
                                             <tr>
                                                 {#@var Schedule scheduleRepo #}
                                                 {% set reservedSchedules = scheduleRepo.getReservedLanes(day) %}
+                                                {#{{ dump(reservedSchedules) }}#}
                                                 {% set lanes = {} %}
                                                 {% set mylanes = {} %}
                                                 {% for reserved in reservedSchedules %}

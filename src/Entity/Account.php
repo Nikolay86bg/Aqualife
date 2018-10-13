@@ -205,6 +205,7 @@ class Account
                     $return[$schedule->getId()]['to'] = $schedule->getTimeTo();
                     $return[$schedule->getId()]['lanes'] = $schedule->getParts();
                     $return[$schedule->getId()]['pool'] = $schedule->getFacility()->getName();
+                    $return[$schedule->getId()]['facility'] = $schedule->getFacility();
                 }
             }
         }
