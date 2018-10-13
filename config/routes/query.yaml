@@ -23,6 +23,11 @@ query_reject:
     controller: App\Controller\QueryController::reject
     methods:  [GET, POST]
 
+query_accept_form:
+    path:     /{id}/accept-form
+    controller: App\Controller\QueryController::acceptForm
+    methods:  [GET, POST]
+
 query_accept:
     path:     /{id}/accept
     controller: App\Controller\QueryController::accept

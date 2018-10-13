@@ -1,0 +1,236 @@
+{% extends 'layout.html.twig' %}
+
+{% block content_header %}
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Query Accept Form
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> Queries</a></li>
+            <li class="active">Accept Form</li>
+        </ol>
+    </section>
+{% endblock %}
+
+{% block content %}
+        <div class="col-md-12 col-sm-6 col-xs-12">
+            <div class="box box-primary">
+
+                {% for label, messages in app.flashes(['success', 'error']) %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                <div class="x_content">
+                    <div class="box-body">
+                        {% if query.account %}
+                            <div class="box box-widget widget-user-2">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                                        <div class="widget-user-header bg-yellow">
+                                            <h3 class="widget-user-username">{{ query.account.name }} {% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}</h3>
+                                        </div>
+                                        <div class="box-footer no-padding">
+                                            <table class="table">
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>Name</th>
+                                                    <th>Manager</th>
+                                                    <th>Sport</th>
+                                                    <th>Country</th>
+                                                    <th>Arrival</th>
+                                                    <th>Departure</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ query.id }}</td>
+                                                    <td>{% if query.account.name is defined %}{{ query.account.name }}{% else %} - {% endif %}</td>
+                                                    <td>{% if query.account.manager is defined %}{{ query.account.manager }}{% else %} - {% endif %}</td>
+                                                    <td>{% if query.account.sport is defined %}{{ query.account.sport }}{% else %} - {% endif %}</td>
+                                                    <td>{% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}</td>
+                                                    <td>{% if query.dateOfArrival is defined %}{{ query.dateOfArrival|date('Y-m-d H:i') }}{% else %} - {% endif %}</td>
+                                                    <td>{% if query.dateOfDeparture is defined %}{{ query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box box-widget widget-user-2">
+                                <form method="POST" action="{{ url('query_accept', { 'id': query.id }) }}">
+                                    {% set schedule = query.account.isSetPool() %}
+                                    {% set bookedLanes = {} %}
+                                    {% if schedule %}
+                                        <h2>Please choose pool lanes?</h2>
+                                        {#{{ dump(schedule) }}#}
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Pool</th>
+                                                <th>Total lanes</th>
+                                                <th>Lane Numbers <br>
+                                                    <table class="table table-bordered">
+                                                        <tr>
+                                                            <th>All 1 lane</th>
+                                                            <th>All 2 lane</th>
+                                                            <th>All 3 lane</th>
+                                                            <th>All 4 lane</th>
+                                                            <th>All 5 lane</th>
+                                                            <th>All 6 lane</th>
+                                                            <th>All 7 lane</th>
+                                                            <th>All 8 lane</th>
+                                                        </tr>
+                                                        <tr>
+                                                            {% for i in 1..8 %}
+                                                            <td>
+                                                                <input type="checkbox" class="minimal whole_lane" style="position: absolute; opacity: 0;" id="{{ i }}" />
+                                                            </td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    </table>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {% for scheduleId, day in schedule %}
+                                                <tr>
+                                                    <td>{{ day['date']|date('Y-m-d') }}</td>
+                                                    <td>{{ day['from']|date('H:i') }}</td>
+                                                    <td>{{ day['to']|date('H:i') }}</td>
+                                                    <td>{{ day['pool'] }}</td>
+                                                    <td>{{ constant('App\\Entity\\Facility::PARTS')[0][day['lanes']] }}</td>
+                                                    <td>
+                                                        <table class="table table-bordered">
+                                                            <tr>
+                                                                <th>1</th>
+                                                                <th>2</th>
+                                                                <th>3</th>
+                                                                <th>4</th>
+                                                                <th>5</th>
+                                                                <th>6</th>
+                                                                <th>7</th>
+                                                                <th>8</th>
+                                                            </tr>
+                                                            <tr>
+                                                                {#@var Schedule scheduleRepo #}
+                                                                {% set reservedSchedules = scheduleRepo.getReservedLanes(day) %}
+                                                                {#{{ dump(reservedSchedules) }}#}
+                                                                {% set lanes = {} %}
+                                                                {% for reserved in reservedSchedules %}
+                                                                    {% set lanes = lanes|merge(reserved.lanes|unserialize|keys) %}
+                                                                {% endfor %}
+
+                                                                {#fill bookedLanes for whole lanes functionality#}
+                                                                {% for lane in lanes %}
+                                                                    {% if lane not in bookedLanes|keys %}
+                                                                        {% set bookedLanes = bookedLanes|merge([lane]) %}
+                                                                    {% endif %}
+                                                                {% endfor %}
+
+                                                                {% for i in 1..8 %}
+                                                                    <td>
+
+                                                                        <label class="">
+                                                                            <input
+                                                                                    {% if i in lanes %}
+                                                                                        disabled checked
+                                                                                    {% endif %}
+                                                                                    type="checkbox" class="minimal check_all_{{ i }}"
+                                                                                    data-limit="{{ day['lanes'] + 1 }}"
+                                                                                    data-id="{{ scheduleId }}"
+                                                                                    style="position: absolute; opacity: 0;"
+                                                                                    name="lanes[{{ scheduleId }}][{{ i }}]">
+                                                                        </label>
+                                                                    </td>
+                                                                {% endfor %}
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        {% else %}
+                            <p>Are you sure?</p>
+                        {% endif %}
+                        <div class="box-footer">
+                            <div>
+                                <a href="{{ path('query_index') }}" class="btn bg-green">
+                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> Back to the list</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var bookedLanes = {{ bookedLanes|json_encode|raw }};
+        </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- iCheck 1.0.1 -->
+    <script src="{{ url('app_homepage') }}plugins/iCheck/icheck.min.js"></script>
+
+    <script>
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+
+        $(".minimal").on("ifChecked", function (e) {
+            var checkboxes = $('[data-id="' + $(this).data('id') + '"]');
+            var $this = $(this);
+            var limit = $(this).data('limit');
+            var disabled_count = checkboxes.filter(":disabled").length;
+            var checked_count = checkboxes.filter(":checked").length;
+
+            if ((checked_count - disabled_count) > limit) {
+                alert('Max lanes reached!');
+                setTimeout(function () {
+                    $this.iCheck('uncheck');
+                }, 1);
+            }
+        });
+
+        $.each(bookedLanes, function( index, value ) {
+            $('#'+value).prop('checked', true);
+            $('#'+value).prop('disabled', true);
+            $('#'+value).iCheck('update');
+            $('#'+value).iCheck('check');
+            $('#'+value).iCheck('disabled');
+        });
+
+        $(".whole_lane").on("ifChecked", function (e) {
+            var id = $(this).attr('id');
+            if ($(this).filter(':checked').length == $(this).length) {
+                $('.check_all_'+id).iCheck('check');
+            }
+        });
+
+        $('.whole_lane').on('ifUnchecked', function (event) {
+            var id = $(this).attr('id');
+            $('.check_all_'+id).iCheck('uncheck');
+        });
+
+    </script>
+{% endblock %}

@@ -416,6 +416,23 @@ class QueryController extends Controller
         ]);
     }
 
+
+    /**
+     * @param Query $query
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function acceptForm(Query $query)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $countries = Intl::getRegionBundle()->getCountryNames();
+        $scheduleRepo = $entityManager->getRepository('App:Schedule');
+
+        return $this->render('query/accept-form.html.twig', [
+            'query' => $query,
+            'countries' => $countries,
+            'scheduleRepo' => $scheduleRepo,
+        ]);
+    }
     /**
      * @param Query $query
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
