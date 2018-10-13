@@ -520,4 +520,89 @@ class QueryController extends Controller
 
         return $this->redirectToRoute('query_index');
     }
+
+    /**
+     * @param Query $query
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function printTemplate(Query $query)
+    {
+//        $entityManager = $this->getDoctrine()->getManager();
+        $countries = Intl::getRegionBundle()->getCountryNames();
+
+        if ($schedules = $this->getDoctrine()->getManager()->getRepository(Schedule::class)->findBy([
+            'account' => $query->getAccount(),
+            'deleted' => null,
+        ], [
+            'date' => 'ASC',
+            'timeFrom' => 'ASC',
+        ])
+        ) {
+            foreach ($schedules as $schedule) {
+//                $scheduleArray[$schedule->getDate()->format('Y-m-d')][] = $schedule;
+
+                $f = $t = $p = 0;
+                if( $schedule->getTimeFrom()){
+                    $f = $schedule->getTimeFrom()->format("Hi");
+                }
+
+                if( $schedule->getTimeTo()){
+                    $t = $schedule->getTimeTo()->format("Hi");
+                }
+
+                if( $schedule->getParts()){
+                    $p = $schedule->getParts();
+                }
+
+                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['dates'][] = $schedule->getDate();
+                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['facility'] = $schedule->getFacility();
+                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['from'] = $schedule->getTimeFrom()->format("H:i");
+                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['to'] = $schedule->getTimeTo()->format("H:i");
+                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['parts'] = Facility::PARTS[$schedule->getFacility()->getType()][$schedule->getParts()];
+            }
+        }
+
+        if ($meals = $this->getDoctrine()->getManager()->getRepository(MealSchedule::class)->findBy([
+            'account' => $query->getAccount(),
+            'deleted' => null,
+        ], [
+            'date' => 'ASC'
+        ])
+        ) {
+            foreach ($meals as $meal) {
+                $b = $l = $d = $m = 0;
+                if( $meal->getBreakfastTime()){
+                    $b = $meal->getBreakfastTime()->format("Hi");
+                }
+
+                if( $meal->getLunchTime()){
+                    $l = $meal->getLunchTime()->format("Hi");
+                }
+
+                if( $meal->getDinnerTime()){
+                    $d = $meal->getDinnerTime()->format("Hi");
+                }
+
+                if( $meal->getMiddleBreakfastTime()){
+                    $m = $meal->getMiddleBreakfastTime()->format("Hi");
+                }
+
+                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['dates'][] = $meal->getDate();
+                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['restaurant'] = Query::RESTAURANTS[$meal->getRestaurant()];
+                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['breakfast'] = $meal->getBreakfastTime()->format("H:i");
+                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['lunch'] = $meal->getLunchTime()?$meal->getLunchTime()->format("H:i"):'-';
+                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['dinner'] = $meal->getDinnerTime()?$meal->getDinnerTime()->format("H:i"):'-';
+                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['middle'] = $meal->getMiddleBreakfastTime()?$meal->getMiddleBreakfastTime()->format("H:i"):'-';
+            }
+        }
+
+        return $this->render('query/print.html.twig', [
+            'query' => $query,
+            'countries' => $countries,
+            'scheduleArray' => $scheduleArray,
+            'mealArray' => $mealArray,
+        ]);
+
+
+    }
 }

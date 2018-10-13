@@ -48,3 +48,8 @@ query_delete:
     controller: App\Controller\QueryController::delete
     methods:  [GET, POST]
 
+query_print:
+    path:     /print/{id}
+    controller: App\Controller\QueryController::printTemplate
+    methods:  GET
+
