@@ -4,11 +4,11 @@
     <section class="content-header">
         <h1>
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
-            Facility <span> - {{ facility.name }} </span>
+            {{ "facility.title.facility"|trans }} <span> - {{ facility.name }} </span>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('facility_index') }}"><i class="fa fa-dashboard"></i> Facilities</a></li>
-            <li class="active">Show</li>
+            <li><a href="{{ url('facility_index') }}"><i class="fa fa-dashboard"></i> {{ "facility.title.facility"|trans }}</a></li>
+            <li class="active">{{ "general.button.view"|trans }}</li>
         </ol>
     </section>
 {% endblock %}
@@ -37,9 +37,9 @@
                             </div>
                             <div class="box-footer no-padding">
                                 <ul class="nav nav-stacked">
-                                    <li><a href="#">Id: <span class="pull-right badge bg-blue">{{ facility.id }}</span></a></li>
-                                    <li><a href="#">Name: <span class="pull-right">{% if facility.name is defined %}{{ facility.name }}{% else %} - {% endif %}</span></a></li>
-                                    <li><a href="#">Type: <span class="pull-right">{% if facility.type is defined %}{{ constant('App\\Entity\\Facility::TYPES')[facility.type] }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">{{ "label.id"|trans }}: <span class="pull-right badge bg-blue">{{ facility.id }}</span></a></li>
+                                    <li><a href="#">{{ "label.name"|trans }}: <span class="pull-right">{% if facility.name is defined %}{{ facility.name }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">{{ "label.type"|trans }}: <span class="pull-right">{% if facility.type is defined %}{{ constant('App\\Entity\\Facility::TYPES')[facility.type] }}{% else %} - {% endif %}</span></a></li>
 
                                 </ul>
                             </div>
@@ -48,7 +48,7 @@
                         <div class="box-footer">
                             <div>
                                 <a href="{{ path('facility_index') }}" class="btn bg-green">
-                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> Back to the list</span>
+                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> {{ "general.button.back"|trans }}</span>
                                 </a>
                             </div>
                         </div>

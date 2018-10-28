@@ -1,6 +1,6 @@
 <div class="box box-danger">
     <div class="box-header with-border">
-        <h3 class="box-title">Meal Schedule</h3>
+        <h3 class="box-title">{{ "label.meal_schedule"|trans }}</h3>
     </div>
 
     <div class="box-body">
@@ -15,13 +15,13 @@
                 <table class="table table-bordered">
                     <tbody>
                     <tr>
-                        <th>Date</th>
-                        <th>Restaurant</th>
-                        <th style="width: 130px">Breakfast Time</th>
-                        <th style="width: 130px">Lunch Time</th>
-                        <th style="width: 130px">Dinner Time</th>
-                        <th style="width: 130px">Middle Breakfast Time</th>
-                        <th>Delete</th>
+                        <th>{{ "label.date"|trans }}</th>
+                        <th>{{ "label.restaurant"|trans }}</th>
+                        <th style="width: 130px">{{ "label.breakfast_time"|trans }}</th>
+                        <th style="width: 130px">{{ "label.lunch_time"|trans }}</th>
+                        <th style="width: 130px">{{ "label.dinner_time"|trans }}</th>
+                        <th style="width: 130px">{{ "label.middle_breakfast_time"|trans }}</th>
+                        <th>{{ "label.delete"|trans }}</th>
                     </tr>
                     {% if meal_schedules is empty %}
                         <tr class="meal_row_to_copy">
@@ -91,7 +91,7 @@
                             <td>
                                             <span style="cursor: pointer;" class="delete-row"><small
                                                         class="label label-danger"><i class="fa fa-fw fa-close"></i>
-                                                    Delete
+                                                    {{ "general.button.delete"|trans }}
                                                 </small></span>
                             </td>
                         </tr>
@@ -192,7 +192,7 @@
                                 <td>
                                             <span style="cursor: pointer;" class="delete-row"><small
                                                         class="label label-danger"><i class="fa fa-fw fa-close"></i>
-                                                    Delete
+                                                    {{ "general.button.delete"|trans }}
                                                 </small></span>
                                 </td>
                             </tr>
@@ -201,9 +201,9 @@
                     </tbody>
                 </table>
                 <div>
-                    <span class="btn btn-sm bg-info meal-add-date">Add Date</span>
+                    <span class="btn btn-sm bg-info meal-add-date">{{ "general.button.add_date"|trans }}</span>
 
-                    <span class="btn btn-sm bg-orange whole-period-meal">Whole Period</span>
+                    <span class="btn btn-sm bg-orange whole-period-meal">{{ "general.button.whole_period"|trans }}</span>
                 </div>
             </div>
             <!-- /.tab-content -->

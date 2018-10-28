@@ -2,11 +2,11 @@
     {% block content_header %}
         <section class="content-header">
             <h1>
-                <i class="fa fa-list" aria-hidden="true"></i> List Users
+                <i class="fa fa-list" aria-hidden="true"></i> {{ "user.title.list_users"|trans }}
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ url('user_index') }}"><i class="fa fa-dashboard"></i> Users</a></li>
-                <li class="active">List Users</li>
+                <li><a href="{{ url('user_index') }}"><i class="fa fa-dashboard"></i> {{ "user.title.user"|trans }}</a></li>
+                <li class="active">{{ "user.title.list_users"|trans }}</li>
             </ol>
         </section>
     {% endblock %}
@@ -19,87 +19,18 @@
                 {#{% include 'user/filter.html.twig' %}#}
                 <div class="box-body">
 
+                    {% import "macros/macros.html.twig" as macro %}
+
                     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap table-hover" cellspacing="0">
                         <thead>
                         <tr>
-                            {% set route = app.request.attributes.get('_route') %}
-                            {% set params = app.request.attributes.get('_route_params')|merge(app.request.query.all) %}
-
-
-                            {% if params.order is defined and params.sort == 'userId' and params.order == 'DESC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'userId',order:'ASC'})) }}">User Id <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                            {% elseif params.order is defined and params.sort == 'userId' and params.order == 'ASC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'userId', order:'DESC'})) }}">User Id <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                            {% else %}
-                                <th><a href = "{{ url(route, params|merge({sort:'userId',order:'ASC'})) }}">User Id <i class="fa fa-fw fa-sort"></i></a></th>
-                            {% endif %}
-
-
-                            {% if params.order is defined and params.sort == 'user' and params.order == 'DESC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'user',order:'ASC'})) }}">User Display Name <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                            {% elseif params.order is defined and params.sort == 'user' and params.order == 'ASC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'user', order:'DESC'})) }}">User Display Name <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                            {% else %}
-                                <th><a href = "{{ url(route, params|merge({sort:'user',order:'ASC'})) }}">User Display Name <i class="fa fa-fw fa-sort"></i></a></th>
-                            {% endif %}
-
-
-                            {% if params.order is defined and params.sort == 'username' and params.order == 'DESC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'username',order:'ASC'})) }}">Username <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                            {% elseif params.order is defined and params.sort == 'username' and params.order == 'ASC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'username', order:'DESC'})) }}">Username <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                            {% else %}
-                                <th><a href = "{{ url(route, params|merge({sort:'username',order:'ASC'})) }}">Username <i class="fa fa-fw fa-sort"></i></a></th>
-                            {% endif %}
-
-
-                            {% if params.order is defined and params.sort == 'email' and params.order == 'DESC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'email',order:'ASC'})) }}">Email <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                            {% elseif params.order is defined and params.sort == 'email' and params.order == 'ASC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'email', order:'DESC'})) }}">Email <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                            {% else %}
-                                <th><a href = "{{ url(route, params|merge({sort:'email',order:'ASC'})) }}">Email <i class="fa fa-fw fa-sort"></i></a></th>
-                            {% endif %}
-
-
-                            {#{% if params.order is defined and params.sort == 'department' and params.order == 'DESC' %}#}
-                            {#<th><a href = "{{ url(route, params|merge({sort:'department',order:'ASC'})) }}">Department <i class="fa fa-fw fa-sort-asc"></i></a></th>#}
-                            {#{% elseif params.order is defined and params.sort == 'department' and params.order == 'ASC' %}#}
-                            {#<th><a href = "{{ url(route, params|merge({sort:'department', order:'DESC'})) }}">Department <i class="fa fa-fw fa-sort-desc"></i></a></th>#}
-                            {#{% else %}#}
-                            {#<th><a href = "{{ url(route, params|merge({sort:'department',order:'ASC'})) }}">Department <i class="fa fa-fw fa-sort"></i></a></th>#}
-                            {#{% endif %}#}
-
-
-                            {#{% if params.order is defined and params.sort == 'position' and params.order == 'DESC' %}#}
-                            {#<th><a href = "{{ url(route, params|merge({sort:'position',order:'ASC'})) }}">Position <i class="fa fa-fw fa-sort-asc"></i></a></th>#}
-                            {#{% elseif params.order is defined and params.sort == 'position' and params.order == 'ASC' %}#}
-                            {#<th><a href = "{{ url(route, params|merge({sort:'position', order:'DESC'})) }}">Position <i class="fa fa-fw fa-sort-desc"></i></a></th>#}
-                            {#{% else %}#}
-                            {#<th><a href = "{{ url(route, params|merge({sort:'position',order:'ASC'})) }}">Position <i class="fa fa-fw fa-sort"></i></a></th>#}
-                            {#{% endif %}#}
-
-                            <th>Position</th>
-                            <th>Is Active</th>
-
-                            {% if params.order is defined and params.sort == 'createdAt' and params.order == 'DESC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'createdAt',order:'ASC'})) }}">Created At <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                            {% elseif params.order is defined and params.sort == 'createdAt' and params.order == 'ASC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'createdAt', order:'DESC'})) }}">Created At <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                            {% else %}
-                                <th><a href = "{{ url(route, params|merge({sort:'createdAt',order:'ASC'})) }}">Created At <i class="fa fa-fw fa-sort"></i></a></th>
-                            {% endif %}
-
-
-                            {% if params.order is defined and params.sort == 'updatedAt' and params.order == 'DESC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'updatedAt',order:'ASC'})) }}">Updated At <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                            {% elseif params.order is defined and params.sort == 'updatedAt' and params.order == 'ASC' %}
-                                <th><a href = "{{ url(route, params|merge({sort:'updatedAt', order:'DESC'})) }}">Updated At <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                            {% else %}
-                                <th><a href = "{{ url(route, params|merge({sort:'updatedAt',order:'ASC'})) }}">Updated At <i class="fa fa-fw fa-sort"></i></a></th>
-                            {% endif %}
-
-                            <th>Manage</th>
+                            <th>{{ macro.sorting('userId', 'filter.id'|trans) }}</th>
+                            <th>{{ macro.sorting('user', 'filter.name'|trans) }}</th>
+                            <th>{{ macro.sorting('username', 'filter.username'|trans) }}</th>
+                            <th>{{ macro.sorting('email', 'filter.email'|trans) }}</th>
+                            <th>{{ "label.position"|trans }}</th>
+                            <th>{{ "label.is_active"|trans }}</th>
+                            <th>{{ "general.actions"|trans }}</th>
 
                         </tr>
                         </thead>
@@ -116,18 +47,16 @@
                                     {#<td>{{ user.department }}</td>#}
                                     <td>{{ user.position|replace({'ROLE_': ''}) }}</td>
                                     <td>{% if user.isActive %}Yes{% else %}No{% endif %}</td>
-                                    <td>{% if user.createdAt %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                    <td>{% if user.updatedAt %}{{ user.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                                     <td class="actions">
                                         <a href="{{ path('user_show', { 'id': user.id }) }}" class="btn-sm bg-orange no-wrap">
-                                            <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> Profile</span>
+                                            <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> {{ "general.button.view"|trans }}</span>
                                         </a>
                                         <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn-sm bg-green no-wrap">
-                                            <i class="fa fa-cog"></i><span class="hidden-xs hidden-sm"> Edit User</span>
+                                            <i class="fa fa-cog"></i><span class="hidden-xs hidden-sm"> {{ "general.button.edit"|trans }}</span>
                                         </a>
                                         {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
                                             <a href="{{ url('app_homepage', { '_switch_user': user.username }) }}" class="btn-sm bg-purple no-wrap">
-                                                <i class="fa fa-user-secret"></i><span class="hidden-xs hidden-sm"> Impersonate</span>
+                                                <i class="fa fa-user-secret"></i><span class="hidden-xs hidden-sm"> {{ "general.button.impersonate"|trans }}</span>
                                             </a>
                                         {% endif %}
                                     </td>

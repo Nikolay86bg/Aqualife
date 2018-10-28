@@ -33,42 +33,42 @@ class QueryFilterType extends AbstractType
         $builder
             ->add('status', ChoiceType::class, [
                 'required' => false,
-                'label' => 'Status:',
+                'label' => 'filter.status',
                 'choices' => array_flip(Query::STATUSES),
                 'attr' => [
-                    'placeholder' => 'Status',
+                    'placeholder' => 'filter.status',
                     'class' => 'form-control'
                 ],
             ])
             ->add('sport', TextType::class, [
                 'required' => false,
-                'label' => 'Sport:',
+                'label' => 'filter.sport',
                 'attr' => [
-                    'placeholder' => 'Sport',
+                    'placeholder' => 'filter.sport',
                     'class' => 'form-control'
                 ],
             ])
             ->add('country', CountryType::class, [
                 'required' => false,
-                'label' => 'Country:',
+                'label' => 'filter.country',
                 'attr' => [
-                    'placeholder' => 'Country',
+                    'placeholder' => 'filter.country',
                     'class' => 'form-control'
                 ],
             ])
             ->add('from', DatePickerType::class, [
                 'required' => false,
-                'label' => 'Arrival:',
+                'label' => 'filter.arrival',
                 'attr' => [
-                    'placeholder' => 'From',
+                    'placeholder' => 'filter.from',
                     'class' => 'form-control datepicker'
                 ],
             ])
             ->add('to', DatePickerType::class, [
                 'required' => false,
-                'label' => 'Departure:',
+                'label' => 'filter.departure',
                 'attr' => [
-                    'placeholder' => 'To',
+                    'placeholder' => 'filter.to',
                     'class' => 'form-control datepicker'
                 ],
             ])

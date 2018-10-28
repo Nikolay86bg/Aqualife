@@ -33,11 +33,13 @@ class FacilityType extends AbstractType
     {
         $builder
             ->add('name', null, [
+                'label' => "label.name",
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('type', ChoiceType::class, [
+                'label' => "label.type",
                 'attr' => [
                     'class' => 'form-control',
                 ],

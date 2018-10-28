@@ -5,11 +5,11 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="#"><b>Aqualife</b> Login</a>
+            <a href="#"><b>Aqualife</b> {{ 'security.form.message.login'|trans }}</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">{{ 'security.form.message.sign_in'|trans }}</p>
 
             {{ form_start(form) }}
                 {% if error %}
@@ -17,11 +17,11 @@
                 {% endif %}
 
                 <div class="form-group has-feedback">
-                    {{ form_widget(form.username, { attr: { placeholder: 'Username', class:"form-control" }, value: last_username }) }}
+                    {{ form_widget(form.username, { attr: { placeholder: 'security.form.label.username'|trans, class:"form-control" }, value: last_username }) }}
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    {{ form_widget(form.password, { attr: { placeholder: 'Password', class:"form-control" } }) }}
+                    {{ form_widget(form.password, { attr: { placeholder: 'security.form.label.password'|trans, class:"form-control" } }) }}
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
@@ -34,7 +34,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'general.button.sign_in'|trans }}</button>
                     </div>
                     <!-- /.col -->
                 </div>

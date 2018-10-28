@@ -1,0 +1,168 @@
+general:
+    dashboard: Home
+    online: "Онлайн"
+    no_records: 'No records found'
+    back_to_list: 'Back to list'
+    actions: "Действия"
+    loading: "Please wait..."
+    flashes:
+        saved: "Ваши изменения были успешно сохранены!"
+        deleted: "Удалено успешно!"
+    error:
+        403: "You Shall Not Pass!"
+        404: "This page doesn't exist"
+        500: "Internal Server Error"
+    button:
+        accept: "Согласиться"
+        cancel: "Отменить"
+        save: "Сохранить"
+        update: "Обновить"
+        delete: "Удалить"
+        edit: "Редактировать"
+        add: "Добавить"
+        view: "Осмотр"
+        list: "Список"
+        filter: "Фильтр"
+        reset: "Сброс"
+        pay: "Оплатил"
+        add_date: "Добавить дату"
+        whole_period: "Целый период"
+        for_printing: "Для печати"
+        sign_in: "Войти"
+        show_password: "Показать пароль"
+        change_password: "Изменить пароль"
+        back: "Назад"
+        edit_lanes: "Редактировать коридоры"
+        reject: "Отказать"
+        change_status_to_in_progress: "Изменить статус на In Progress"
+        impersonate: "Имперсонация"
+        sign_out: "Выход"
+        exit_impersonation: "Выход из имперсонации"
+
+menu:
+    main_navigation: "ОСНОВНАЯ НАВИГАЦИЯ"
+    users: "Пользователи"
+    facilities: "Оборудование"
+    accounts: "Клиенты"
+    schedule: "График"
+    queries: "Запросы"
+    facility_old: "Оборудование старый"
+    restaurants: "Ресторан"
+
+security:
+    form:
+        message:
+            sign_in: "Войдите, чтобы начать сессию"
+            login: "Логин"
+        label:
+            username: "Пользователь"
+            password: "Пароль"
+
+filter:
+    arrival: "Прибытие"
+    manager: "Мениджер"
+    departure: "Отъезд"
+    status: "Статус"
+    country: "Страна"
+    sport: "Спорт"
+    from: "От"
+    to: "До"
+    id: "ID"
+    name: "Имя"
+    payed: "Оплаченный"
+    hotel: "Отель"
+    type: "Тип"
+    username: Username
+    email: "Емейл"
+
+email:
+    new_query: "Новый зопрос!"
+    content: "Имя нового клиента -"
+
+query:
+    title:
+        list_query: "Список запросов"
+        create_query: "Добавить Зопрос"
+        edit_query: "Редактировать Зопрос"
+        query: "Зопрос"
+        meals: "Питания"
+        schedule: "Расписание"
+
+meal_schedule:
+    title:
+        list_restaurant_schedule: "График ресторан"
+
+schedule:
+    title:
+        list_schedule: "График"
+
+account:
+    title:
+        add_account: "Добавить Клиента"
+        list_accounts: "Список Клиентов"
+        account: "Клиент"
+        edit_account: "Редактировать Клиента"
+
+facility:
+    title:
+        add_facility: "Добавить Оборудование"
+        list_facilities: "Список Оборудование"
+        facility: "Оборудование"
+        edit_facility: "Редактировать Оборудование"
+
+user:
+    title:
+        add_user: "Добавить Пользователя"
+        list_users: "Список Пользователей"
+        user: "Пользователь"
+        edit_user: "Редактировать Пользователя"
+
+label:
+    id: ID
+    name: "Имя"
+    manager: "Мениджер"
+    hotel: "Отель"
+    sport: "Спорт"
+    type: "Тип"
+    country: "Страна"
+    arrival: "Прибытие"
+    departure: "Отъезд"
+    client: "Клиент"
+    meal_schedule: "Расписание питания"
+    facility_schedule: "Расписание"
+    date: "Дата"
+    restaurant: "Ресторан"
+    breakfast_time: "Завтрак"
+    lunch_time: "Обед"
+    dinner_time: "Ужин"
+    middle_breakfast_time: "Средний завтрак"
+    morning_time_from: "Утром - от"
+    morning_time_to: "Утром - до"
+    afternoon_time_from: "После полудня - от"
+    afternoon_time_to: "После полудня - до"
+    parts: "Части"
+    delete: "Удалять"
+    breakfast: "Завтрак"
+    lunch: "Обед"
+    dinner: "Ужин"
+    middle_breakfast: "Средний завтрак"
+    additional_info: "Дополнительная информация"
+    from: "От"
+    to: "До"
+    facility: "Оборудование"
+    accept: "Согласиться"
+    choose_pool_lanes: "Пожалуйста, выберите коридоры басейна"
+    pool: "Басейн"
+    total_lanes: "Всего коридоров"
+    lane_numbers: "Номера коридоров"
+    position: "Положение"
+    is_active: "Активно"
+    email: "Емейл"
+    username: Username
+    first_name: "Имя"
+    last_name: "Фамилия"
+    password: "Пароль"
+
+message:
+    no_meals: "Результаты не найдены"
+    no_results: "Результаты не найдены"

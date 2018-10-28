@@ -28,6 +28,7 @@ class QueryRepository extends ServiceEntityRepository
     public function getListQuery(Form $form, $sort = null, $order = null)
     {
         $queryBuilder = $this->createQueryBuilder('query');
+        $queryBuilder->join('query.account', 'account');
 
         if (null !== $form->get('status')->getData()) {
             $queryBuilder
@@ -35,12 +36,12 @@ class QueryRepository extends ServiceEntityRepository
                 ->setParameter('status', $form->get('status')->getData());
         }
         if (null !== $form->get('sport')->getData()) {
-            $queryBuilder->join('query.account', 'account')
+            $queryBuilder
                 ->andWhere('account.sport LIKE :sport')
                 ->setParameter('sport', $form->get('sport')->getData() . '%');
         }
         if (null !== $form->get('country')->getData()) {
-            $queryBuilder->join('query.account', 'account')
+            $queryBuilder
                 ->andWhere('account.country LIKE :country')
                 ->setParameter('country', $form->get('country')->getData() . '%');
         }
@@ -65,15 +66,15 @@ class QueryRepository extends ServiceEntityRepository
                     break;
 
                 case 'name' == $sort:
-                    $sortBy = 'query.name';
+                    $sortBy = 'account.name';
                     break;
 
                 case 'manager' == $sort:
-                    $sortBy = 'query.manager';
+                    $sortBy = 'account.manager';
                     break;
 
                 case 'sport' == $sort:
-                    $sortBy = 'query.sport';
+                    $sortBy = 'account.sport';
                     break;
 
                 case 'status' == $sort:
@@ -81,7 +82,7 @@ class QueryRepository extends ServiceEntityRepository
                     break;
 
                 case 'country' == $sort:
-                    $sortBy = 'query.country';
+                    $sortBy = 'account.country';
                     break;
 
                 case 'arrival' == $sort:

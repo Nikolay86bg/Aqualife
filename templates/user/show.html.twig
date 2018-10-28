@@ -4,11 +4,11 @@
     <section class="content-header">
         <h1>
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
-            User <span> - {{ user }} </span>
+            {{ "user.title.user"|trans }} <span> - {{ user }} </span>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('user_index') }}"><i class="fa fa-dashboard"></i> Users</a></li>
-            <li class="active">Show Profile</li>
+            <li><a href="{{ url('user_index') }}"><i class="fa fa-dashboard"></i> {{ "user.title.user"|trans }}</a></li>
+            <li class="active">{{ "general.button.view"|trans }}</li>
         </ol>
     </section>
 {% endblock %}
@@ -37,15 +37,13 @@
                             </div>
                             <div class="box-footer no-padding">
                                 <ul class="nav nav-stacked">
-                                    <li><a href="#">Id: <span class="pull-right badge bg-blue">{{ user.id }}</span></a></li>
-                                    <li><a href="#">Username: <span class="pull-right">{% if user.username is defined %}{{ user.username }}{% else %} - {% endif %}</span></a></li>
-                                    <li><a href="#">Is Active: <span class="pull-right">{% if user.isActive is defined %}Yes{% else %}No{% endif %}</span></a></li>
-                                    <li><a href="#">Email: <span class="pull-right">{% if user.email is defined %}{{ user.email }}{% else %} - {% endif %}</span></a></li>
-                                    <li><a href="#">First Name: <span class="pull-right">{% if user.firstName is defined %}{{ user.firstName }}{% else %} - {% endif %}</span></a></li>
-                                    <li><a href="#">Last Name: <span class="pull-right">{% if user.lastName is defined %}{{ user.lastName }}{% else %} - {% endif %}</span></a></li>
-                                    <li><a href="#">Roles: <span class="pull-right">{% if user.roles is defined %}{{ user.roles|join(', ') }}{% endif %}</span></a></li>
-                                    <li><a href="#">Created At: <span class="pull-right">{% if user.createdAt is defined %}{{ user.createdAt|date('Y-m-d H:i:s') }}{% endif %}</span></a></li>
-                                    <li><a href="#">Updated At: <span class="pull-right">{% if user.updatedAt is defined %}{{ user.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</span></a></li>
+                                    <li><a href="#">{{ "label.id"|trans }}: <span class="pull-right badge bg-blue">{{ user.id }}</span></a></li>
+                                    <li><a href="#">{{ "label.username"|trans }}: <span class="pull-right">{% if user.username is defined %}{{ user.username }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">{{ "label.is_active"|trans }}: <span class="pull-right">{% if user.isActive is defined %}Yes{% else %}No{% endif %}</span></a></li>
+                                    <li><a href="#">{{ "label.email"|trans }}: <span class="pull-right">{% if user.email is defined %}{{ user.email }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">{{ "label.first_name"|trans }}: <span class="pull-right">{% if user.firstName is defined %}{{ user.firstName }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">{{ "label.last_name"|trans }}: <span class="pull-right">{% if user.lastName is defined %}{{ user.lastName }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">{{ "label.position"|trans }}: <span class="pull-right">{% if user.roles is defined %}{{ user.roles|join(', ') }}{% endif %}</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -53,18 +51,18 @@
                         <div class="box-footer">
                             <div class="pull-left">
                                 <a href="{{ path('user_index') }}" class="btn bg-green">
-                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> Back to the list</span>
+                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> {{ "general.button.back"|trans }}</span>
                                 </a>
                             </div>
                             <div class="pull-left">
                                 <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn bg-orange">
-                                    <i class="fa fa-pencil"></i><span class="hidden-xs hidden-sm"> Edit</span>
+                                    <i class="fa fa-pencil"></i><span class="hidden-xs hidden-sm"> {{ "general.button.edit"|trans }}</span>
                                 </a>
                             </div>
                             <div class="pull-left">
                                 {{ form_start(delete_form) }}
                                 <button type="submit" class="btn btn-danger">
-                                    <i class="fa fa-times"></i><span class="hidden-xs hidden-sm"> Delete</span>
+                                    <i class="fa fa-times"></i><span class="hidden-xs hidden-sm"> {{ "general.button.delete"|trans }}</span>
                                 </button>
                                 {{ form_end(delete_form) }}
                             </div>

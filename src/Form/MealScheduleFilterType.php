@@ -25,18 +25,18 @@ class MealScheduleFilterType extends AbstractType
     {
         $builder
             ->add('from', DatePickerType::class, [
-                'label' => 'From:',
+                'label' => 'label.from',
                 'attr' => [
-                    'placeholder' => 'From Date',
+                    'placeholder' => 'label.from',
                     'class' => 'datepicker',
                     'autocomplete' => 'off'
                 ],
                 'data' => new \DateTime(),
             ])
             ->add('to', DatePickerType::class, [
-                'label' => 'Until:',
+                'label' => 'label.to',
                 'attr' => [
-                    'placeholder' => 'To Date',
+                    'placeholder' => 'label.to',
                     'class' => 'datepicker',
                     'autocomplete' => 'off'
                 ],

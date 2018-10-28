@@ -4,11 +4,11 @@
         <section class="content-header">
             <h1>
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                Create Query
+                {{ "query.title.create_query"|trans }}
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> Queries</a></li>
-                <li class="active">Create</li>
+                <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> {{ "menu.queries"|trans }}</a></li>
+                <li class="active">{{ "general.button.add"|trans }}</li>
             </ol>
         </section>
     {% endblock %}
@@ -19,9 +19,8 @@
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Customer</h3>
+                    <h3 class="box-title">{{ "label.client"|trans }}</h3>
                 </div>
-
 
                 {% for label, messages in app.flashes(['success', 'error']) %}
                     {% for message in messages %}
@@ -38,7 +37,7 @@
                         {{ form_widget(form) }}
 
                         <div class="form-group">
-                            <label>Hotel:</label>
+                            <label>{{ "filter.hotel"|trans }}</label>
                             <select class="form-control" name="hotel">
                                 {% for hotelId, hotel in constant('App\\Entity\\Query::HOTELS') %}
                                     <option value="{{ hotelId }}">{{ hotel }}</option>
@@ -47,7 +46,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Arrival - Departure:</label>
+                            <label>{{ "filter.arrival"|trans }} - {{ "filter.departure"|trans }}:</label>
 
                             <div class="input-group">
                                 <div class="input-group-addon">
@@ -58,8 +57,8 @@
                             <!-- /.input group -->
                         </div>
                         <div class="box-footer">
-                            <button id="send" type="submit" class="btn btn-success">Save</button>
-                            <a href="{{ path('query_index') }}" class="btn bg-blue">Cancel</a>
+                            <button id="send" type="submit" class="btn btn-success">{{ "general.button.save"|trans }}</button>
+                            <a href="{{ path('query_index') }}" class="btn bg-blue">{{ "general.button.cancel"|trans }}</a>
                         </div>
                     </div>
 
@@ -70,7 +69,7 @@
         <div class="col-md-8 col-sm-8 col-xs-12">
             <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Meal Schedule</h3>
+                    <h3 class="box-title">{{ "label.meal_schedule"|trans }}</h3>
                 </div>
 
                 <div class="box-body">
@@ -85,13 +84,13 @@
                             <table class="table table-bordered">
                                 <tbody>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Restaurant</th>
-                                    <th style="width: 130px">Breakfast Time</th>
-                                    <th style="width: 130px">Lunch Time</th>
-                                    <th style="width: 130px">Dinner Time</th>
-                                    <th style="width: 130px">Middle Breakfast Time</th>
-                                    <th>Delete</th>
+                                    <th>{{ "label.date"|trans }}</th>
+                                    <th>{{ "label.restaurant"|trans }}</th>
+                                    <th style="width: 130px">{{ "label.breakfast_time"|trans }}</th>
+                                    <th style="width: 130px">{{ "label.lunch_time"|trans }}</th>
+                                    <th style="width: 130px">{{ "label.dinner_time"|trans }}</th>
+                                    <th style="width: 130px">{{ "label.middle_breakfast_time"|trans }}</th>
+                                    <th>{{ "label.delete"|trans }}</th>
                                 </tr>
                                 <tr class="meal_row_to_copy">
                                     <td><input type="text" class="form-control pull-right datepicker"
@@ -139,14 +138,14 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> Delete</small></span>
+                                        <span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> {{ "general.button.delete"|trans }}</small></span>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                             <div>
-                                <span class="btn btn-sm bg-info meal-add-date">Add Date</span>
-                                <span class="btn btn-sm bg-orange whole-period-meal">Whole Period</span>
+                                <span class="btn btn-sm bg-info meal-add-date">{{ "general.button.add_date"|trans }}</span>
+                                <span class="btn btn-sm bg-orange whole-period-meal">{{ "general.button.whole_period"|trans }}</span>
                             </div>
                         </div>
                         <!-- /.tab-content -->
@@ -159,7 +158,7 @@
         <div class="col-md-12 col-sm-6 col-xs-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Facility Schedule</h3>
+                    <h3 class="box-title">{{ "label.facility_schedule"|trans }}</h3>
                 </div>
 
                 <div class="box-body">
@@ -181,13 +180,13 @@
                                     <table class="table table-bordered table{{ facility.id }}">
                                         <tbody>
                                         <tr>
-                                            <th>Date</th>
-                                            <th>Morning Time From</th>
-                                            <th>Morning Time To</th>
-                                            <th>Afternoon Time From</th>
-                                            <th>Afternoon Time To</th>
-                                            <th>Parts</th>
-                                            <th>Delete</th>
+                                            <th>{{ "label.date"|trans }}</th>
+                                            <th>{{ "label.morning_time_from"|trans }}</th>
+                                            <th>{{ "label.morning_time_to"|trans }}</th>
+                                            <th>{{ "label.afternoon_time_from"|trans }}</th>
+                                            <th>{{ "label.afternoon_time_to"|trans }}</th>
+                                            <th>{{ "label.parts"|trans }}</th>
+                                            <th>{{ "label.delete"|trans }}</th>
                                         </tr>
                                         <tr class="row_to_copy{{ facility.id }}">
                                             <td><input type="text" class="form-control pull-right datepicker"
@@ -236,14 +235,14 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> Delete</small></span>
+                                                <span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> {{ "general.button.delete"|trans }}</small></span>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <div>
-                                        <span class="btn btn-sm bg-info add-date" id="{{ facility.id }}">Add Date</span>
-                                        <span class="btn btn-sm bg-orange whole-period" id="{{ facility.id }}">Whole Period</span>
+                                        <span class="btn btn-sm bg-info add-date" id="{{ facility.id }}">{{ "general.button.add_date"|trans }}</span>
+                                        <span class="btn btn-sm bg-orange whole-period" id="{{ facility.id }}">{{ "general.button.whole_period"|trans }}</span>
                                     </div>
 
                                 </div>

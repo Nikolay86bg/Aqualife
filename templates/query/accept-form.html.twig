@@ -4,11 +4,11 @@
     <section class="content-header">
         <h1>
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
-            Query Accept Form
+            {{ "label.accept"|trans }}
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> Queries</a></li>
-            <li class="active">Accept Form</li>
+            <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> {{ "menu.queries"|trans }}</a></li>
+            <li class="active">{{ "label.accept"|trans }}</li>
         </ol>
     </section>
 {% endblock %}
@@ -39,13 +39,13 @@
                                         <div class="box-footer no-padding">
                                             <table class="table">
                                                 <tr>
-                                                    <th>Id</th>
-                                                    <th>Name</th>
-                                                    <th>Manager</th>
-                                                    <th>Sport</th>
-                                                    <th>Country</th>
-                                                    <th>Arrival</th>
-                                                    <th>Departure</th>
+                                                    <th>{{ "label.id"|trans }}</th>
+                                                    <th>{{ "label.name"|trans }}</th>
+                                                    <th>{{ "label.manager"|trans }}</th>
+                                                    <th>{{ "label.sport"|trans }}</th>
+                                                    <th>{{ "label.country"|trans }}</th>
+                                                    <th>{{ "label.arrival"|trans }}</th>
+                                                    <th>{{ "label.departure"|trans }}</th>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ query.id }}</td>
@@ -67,27 +67,27 @@
                                     {% set schedule = query.account.isSetPool() %}
                                     {% set bookedLanes = {} %}
                                     {% if schedule %}
-                                        <h2>Please choose pool lanes?</h2>
+                                        <h2>{{ "label.choose_pool_lanes"|trans }}</h2>
                                         {#{{ dump(schedule) }}#}
                                         <table class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th>Date</th>
-                                                <th>From</th>
-                                                <th>To</th>
-                                                <th>Pool</th>
-                                                <th>Total lanes</th>
-                                                <th>Lane Numbers <br>
+                                                <th>{{ "label.date"|trans }}</th>
+                                                <th>{{ "label.from"|trans }}</th>
+                                                <th>{{ "label.to"|trans }}</th>
+                                                <th>{{ "label.pool"|trans }}</th>
+                                                <th>{{ "label.total_lanes"|trans }}</th>
+                                                <th>{{ "label.lane_numbers"|trans }}<br>
                                                     <table class="table table-bordered">
                                                         <tr>
-                                                            <th>All 1 lane</th>
-                                                            <th>All 2 lane</th>
-                                                            <th>All 3 lane</th>
-                                                            <th>All 4 lane</th>
-                                                            <th>All 5 lane</th>
-                                                            <th>All 6 lane</th>
-                                                            <th>All 7 lane</th>
-                                                            <th>All 8 lane</th>
+                                                            <th>1</th>
+                                                            <th>2</th>
+                                                            <th>3</th>
+                                                            <th>4</th>
+                                                            <th>5</th>
+                                                            <th>6</th>
+                                                            <th>7</th>
+                                                            <th>8</th>
                                                         </tr>
                                                         <tr>
                                                             {% for i in 1..8 %}
@@ -160,7 +160,7 @@
                                             {% endfor %}
                                             </tbody>
                                         </table>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                        <button type="submit" class="btn btn-primary">{{ "general.button.save"|trans }}</button>
                                     {% endif %}
                                 </form>
                             </div>
@@ -170,7 +170,7 @@
                         <div class="box-footer">
                             <div>
                                 <a href="{{ path('query_index') }}" class="btn bg-green">
-                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> Back to the list</span>
+                                    <i class="fa fa-arrow-circle-left"></i><span class="hidden-xs hidden-sm"> {{ "general.button.back"|trans }}</span>
                                 </a>
                             </div>
                         </div>

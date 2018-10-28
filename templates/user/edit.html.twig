@@ -4,11 +4,11 @@
         <section class="content-header">
             <h1>
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                Edit User <span> - {{ user }} </span>
+                {{ "user.title.edit_user"|trans }} <span> - {{ user }} </span>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ url('user_index') }}"><i class="fa fa-dashboard"></i> Users</a></li>
-                <li class="active">Edit Profile</li>
+                <li><a href="{{ url('user_index') }}"><i class="fa fa-dashboard"></i> {{ "user.title.user"|trans }}</a></li>
+                <li class="active">{{ "general.button.edit"|trans }}</li>
             </ol>
         </section>
     {% endblock %}
@@ -31,7 +31,7 @@
                         <div class="box-body">
                             {{ form_widget(edit_form) }}
                             <div class="box-footer">
-                                <button id="send" type="submit" class="btn btn-primary">Submit</button>
+                                <button id="send" type="submit" class="btn btn-primary">{{ "general.button.edit"|trans }}</button>
                             </div>
                         </div>
                         {{ form_end(edit_form) }}

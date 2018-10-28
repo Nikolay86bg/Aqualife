@@ -1,6 +1,6 @@
 <div class="box box-success">
     <div class="box-header with-border">
-        <h3 class="box-title">Facility Schedule</h3>
+        <h3 class="box-title">{{ "label.facility_schedule"|trans }}</h3>
     </div>
 
     <div class="box-body">
@@ -22,11 +22,11 @@
                         <table class="table table-bordered table{{ facility.id }}">
                             <tbody>
                             <tr>
-                                <th>Date</th>
-                                <th>Time From</th>
-                                <th>Time To</th>
-                                <th>Parts</th>
-                                <th>Delete</th>
+                                <th>{{ "label.date"|trans }}</th>
+                                <th>{{ "label.from"|trans }}</th>
+                                <th>{{ "label.to"|trans }}</th>
+                                <th>{{ "label.parts"|trans }}</th>
+                                <th>{{ "label.delete"|trans }}</th>
                             </tr>
                             <tr class="hidden row_to_copy{{ facility.id }}" >
                                 <td><input type="text" class="form-control pull-right datepicker"
@@ -70,7 +70,7 @@
                                 <td>
                                                         <span style="cursor: pointer;" class="delete-row"><small
                                                                     class="label label-danger"><i
-                                                                        class="fa fa-fw fa-close"></i> Delete
+                                                                        class="fa fa-fw fa-close"></i> {{ "general.button.delete"|trans }}
                                                             </small></span>
                                 </td>
                             </tr>
@@ -120,7 +120,7 @@
                                             <td>
                                                         <span style="cursor: pointer;" class="delete-row"><small
                                                                     class="label label-danger"><i
-                                                                        class="fa fa-fw fa-close"></i> Delete
+                                                                        class="fa fa-fw fa-close"></i> {{ "general.button.delete"|trans }}
                                                             </small></span>
                                             </td>
                                         </tr>
@@ -133,9 +133,9 @@
                             <a class="btn btn-sm bg-info" id="{{ facility.id }}"
                                   data-toggle="modal"
                                   data-target="#modal-add-date-{{ facility.id }}"
-                            >Add Date</a>
+                            >{{ "general.button.add_date"|trans }}</a>
 
-                            <span class="btn btn-sm bg-orange whole-period" id="{{ facility.id }}">Whole Period</span>
+                            <span class="btn btn-sm bg-orange whole-period" id="{{ facility.id }}">{{ "general.button.whole_period"|trans }}</span>
                         </div>
 
                     </div>

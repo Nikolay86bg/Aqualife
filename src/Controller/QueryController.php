@@ -161,7 +161,7 @@ class QueryController extends Controller
 
             $em->flush();
 
-            $this->addFlash('success', 'Query was created!');
+            $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
 
             $this->get(MailerService::class)->sendMail($account);
 
@@ -374,7 +374,7 @@ class QueryController extends Controller
             }
 
             $em->flush();
-            $this->addFlash('success', 'Query was updated!');
+            $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
 
             return $this->redirectToRoute('query_edit', ['id' => $query->getId()]);
         }
@@ -444,7 +444,7 @@ class QueryController extends Controller
         $query->setStatus(Query::STATUS_REJECTED);
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', 'Query was updated!');
+        $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
 
         return $this->redirectToRoute('query_index');
     }
@@ -460,7 +460,7 @@ class QueryController extends Controller
         $query->setStatus(Query::STATUS_IN_PROGRESS);
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', 'Query was updated!');
+        $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
 
         return $this->redirectToRoute('query_index');
     }
@@ -488,7 +488,7 @@ class QueryController extends Controller
 
         $em->flush();
 
-        $this->addFlash('success', 'Query was updated!');
+        $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
 
         return $this->redirectToRoute('query_index');
     }
@@ -502,7 +502,7 @@ class QueryController extends Controller
         $query->setPayed(Query::PAYED_YES);
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', 'Query was updated!');
+        $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
 
         return $this->redirectToRoute('query_index');
     }
@@ -516,7 +516,7 @@ class QueryController extends Controller
         $query->setDeletedAt((new \DateTime()));
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', 'Query was deleted successfully!');
+        $this->addFlash('success', $this->get('translator')->trans('general.flashes.deleted'));
 
         return $this->redirectToRoute('query_index');
     }

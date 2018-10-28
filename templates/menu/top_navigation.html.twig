@@ -126,7 +126,7 @@
                         {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                             <div class="pull-left">
                                 <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({ '_switch_user': '_exit' }))) }}" class="btn-sm btn-default btn-flat">
-                                    Exit impersonation
+                                    {{ "general.button.exit_impersonation"|trans }}
                                 </a>
                             </div>
                         {% endif %}
@@ -154,7 +154,7 @@
 
                         {% if is_granted('ROLE_USER') %}
                         <div class="pull-right">
-                            <a href="{{ logout_url() }}" class="btn btn-default btn-flat">Sign out</a>
+                            <a href="{{ logout_url() }}" class="btn btn-default btn-flat">{{ "general.button.sign_out"|trans }}</a>
                         </div>
                         {% endif %}
                     </li>

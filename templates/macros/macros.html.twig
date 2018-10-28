@@ -1,0 +1,15 @@
+{% macro sorting(sortBy, name ) %}
+    {% set route = app.request.attributes.get('_route') %}
+    {% set params = app.request.attributes.get('_route_params')|merge(app.request.query.all) %}
+
+    {% if params.order is defined and params.sort == sortBy and params.order == 'DESC' %}
+        <a href="{{ url(route, params|merge({sort:sortBy,order:'ASC'})) }}">{{ name }} <i
+                    class="fa fa-fw fa-sort-asc"></i></a>
+    {% elseif params.order is defined and params.sort == sortBy and params.order == 'ASC' %}
+        <a href="{{ url(route, params|merge({sort:sortBy, order:'DESC'})) }}">{{ name }} <i
+                    class="fa fa-fw fa-sort-desc"></i></a>
+    {% else %}
+        <a href="{{ url(route, params|merge({sort:sortBy,order:'ASC'})) }}">{{ name }} <i
+                    class="fa fa-fw fa-sort"></i></a>
+    {% endif %}
+{% endmacro %}

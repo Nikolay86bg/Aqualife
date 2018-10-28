@@ -4,11 +4,11 @@
     <section class="content-header">
         <h1>
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
-            Add User
+            {{ "user.title.add_user"|trans }}
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('user_index') }}"><i class="fa fa-dashboard"></i> Users</a></li>
-            <li class="active">Add</li>
+            <li><a href="{{ url('user_index') }}"><i class="fa fa-dashboard"></i> {{ "user.title.user"|trans }}</a></li>
+            <li class="active">{{ "general.button.add"|trans }}</li>
         </ol>
     </section>
     {% endblock %}
@@ -33,8 +33,8 @@
                     <div class="box-body">
                         {{ form_widget(form) }}
                         <div class="box-footer">
-                            <button id="send" type="submit" class="btn btn-primary">Submit</button>
-                            <a href="{{ path('user_index') }}" class="btn bg-blue">Cancel</a>
+                            <button id="send" type="submit" class="btn btn-primary">{{ "general.button.add"|trans }}</button>
+                            <a href="{{ path('user_index') }}" class="btn bg-blue">{{ "general.button.cancel"|trans }}</a>
                         </div>
                     </div>
                     {{ form_end(form) }}

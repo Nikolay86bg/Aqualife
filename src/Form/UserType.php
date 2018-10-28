@@ -40,13 +40,14 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', null, [
+                'label' => 'label.username',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [
                 'required' => false,
-                'label' => 'Password',
+                'label' => 'label.password',
                 'attr' => [
                     'class' => 'form-control'
                 ]
@@ -63,16 +64,19 @@ class UserType extends AbstractType
 //                ]
 //            ])
             ->add('email',null, [
+                'label' => 'label.email',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('firstName',null, [
+                'label' => 'label.first_name',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('lastName',null, [
+                'label' => 'label.last_name',
                 'attr' => [
                     'class' => 'form-control'
                 ]
@@ -91,6 +95,7 @@ class UserType extends AbstractType
 //                ]
 //            ])
             ->add('position', ChoiceType::class, [
+                'label' => 'label.position',
                 'choices' => [
                     'User' => User::ROLE_USER,
                     'Manager' => User::ROLE_MANAGER,
@@ -154,6 +159,7 @@ class UserType extends AbstractType
 //                },
 //            ])
             ->add('isActive',null, [
+                'label' => 'label.is_active',
                 'attr' => [
                     'class' => 'checkbox'
                 ],

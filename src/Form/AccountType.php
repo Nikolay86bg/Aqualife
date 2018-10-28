@@ -32,23 +32,31 @@ class AccountType extends AbstractType
     {
         $builder
             ->add('name', null, [
+                'label' => "filter.name",
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => "filter.name",
                 ]
             ])
             ->add('manager',null, [
+                'label' => "filter.manager",
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => "filter.manager",
                 ]
             ])
             ->add('sport',null, [
+                'label' => "filter.sport",
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => "filter.sport",
                 ]
             ])
             ->add('country', CountryType::class, [
+                'label' => "filter.country",
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => "filter.sport",
                 ]
              ])
         ;

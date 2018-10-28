@@ -7,7 +7,7 @@
         </div>
         <div class="pull-left info">
             <p>{{ app.user }}</p>
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            <a href="#"><i class="fa fa-circle text-success"></i> {{ "general.online"|trans }}</a>
         </div>
     </div>
     <!-- search form -->
@@ -23,69 +23,69 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">{{ 'menu.main_navigation'|trans }}</li>
         {% if (is_granted(constant('App\\Security\\Voter\\UserVoter::USER_MENU_ROLE'))) %}
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-users"></i> <span>Users</span>
+                <i class="fa fa-users"></i> <span>{{ 'menu.users'|trans }}</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
             </a>
             <ul class="treeview-menu">
-                <li class="active"><a href="{{ url('user_index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                <li><a href="{{ url('user_new') }}"><i class="fa fa-circle-o"></i>Add</a></li>
+                <li class="active"><a href="{{ url('user_index') }}"><i class="fa fa-circle-o"></i> {{ 'general.button.list'|trans }}</a></li>
+                <li><a href="{{ url('user_new') }}"><i class="fa fa-circle-o"></i>{{ 'general.button.add'|trans }}</a></li>
             </ul>
         </li>
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-soccer-ball-o"></i> <span>Facility</span>
+                <i class="fa fa-soccer-ball-o"></i> <span>{{ 'menu.facilities'|trans }}</span>
                 <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
             </a>
             <ul class="treeview-menu">
-                <li class="active"><a href="{{ url('facility_index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                <li><a href="{{ url('facility_new') }}"><i class="fa fa-circle-o"></i>Add</a></li>
+                <li class="active"><a href="{{ url('facility_index') }}"><i class="fa fa-circle-o"></i> {{ 'general.button.list'|trans }}</a></li>
+                <li><a href="{{ url('facility_new') }}"><i class="fa fa-circle-o"></i>{{ 'general.button.add'|trans }}</a></li>
             </ul>
         </li>
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-user"></i> <span>Accounts</span>
+                <i class="fa fa-user"></i> <span>{{ 'menu.accounts'|trans }}</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
             </a>
             <ul class="treeview-menu">
-                <li class="active"><a href="{{ url('account_index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                <li><a href="{{ url('account_new') }}"><i class="fa fa-circle-o"></i>Add</a></li>
+                <li class="active"><a href="{{ url('account_index') }}"><i class="fa fa-circle-o"></i> {{ 'general.button.list'|trans }}</a></li>
+                <li><a href="{{ url('account_new') }}"><i class="fa fa-circle-o"></i>{{ 'general.button.add'|trans }}</a></li>
             </ul>
         </li>
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-calendar"></i> <span>Schedule</span>
+                <i class="fa fa-calendar"></i> <span>{{ 'menu.schedule'|trans }}</span>
             <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
             </a>
             <ul class="treeview-menu">
-                <li class="active"><a href="{{ url('schedule_index_old') }}"><i class="fa fa-circle-o"></i> Facility Old</a></li>
-                <li class="active"><a href="{{ url('schedule_index') }}"><i class="fa fa-circle-o"></i> Facility</a></li>
-                <li class="active"><a href="{{ url('meal_schedule_index') }}"><i class="fa fa-circle-o"></i> Restaurant</a></li>
+                <li class="active"><a href="{{ url('schedule_index_old') }}"><i class="fa fa-circle-o"></i> {{ 'menu.facility_old'|trans }}</a></li>
+                <li class="active"><a href="{{ url('schedule_index') }}"><i class="fa fa-circle-o"></i> {{ 'menu.facilities'|trans }}</a></li>
+                <li class="active"><a href="{{ url('meal_schedule_index') }}"><i class="fa fa-circle-o"></i> {{ 'menu.restaurants'|trans }}</a></li>
             </ul>
         </li>
         {% endif %}
         {% if (is_granted(constant('App\\Security\\Voter\\QueryVoter::MENU_ROLE'))) %}
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-envelope"></i> <span>Query</span>
+                <i class="fa fa-envelope"></i> <span>{{ 'menu.queries'|trans }}</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
             </a>
             <ul class="treeview-menu">
-                <li class="active"><a href="{{ url('query_index') }}"><i class="fa fa-circle-o"></i> List</a></li>
-                <li><a href="{{ url('query_new') }}"><i class="fa fa-circle-o"></i>Add</a></li>
+                <li class="active"><a href="{{ url('query_index') }}"><i class="fa fa-circle-o"></i> {{ 'general.button.list'|trans }}</a></li>
+                <li><a href="{{ url('query_new') }}"><i class="fa fa-circle-o"></i>{{ 'general.button.add'|trans }}</a></li>
             </ul>
         </li>
         {% endif %}

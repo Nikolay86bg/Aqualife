@@ -2,11 +2,11 @@
     {% block content_header %}
         <section class="content-header">
             <h1>
-                <i class="fa fa-list" aria-hidden="true"></i> List Facilities
+                <i class="fa fa-list" aria-hidden="true"></i> {{ "facility.title.list_facilities"|trans }}
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> Facilities</a></li>
-                <li class="active">List</li>
+                <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> {{ "facility.title.facility"|trans }}</a></li>
+                <li class="active">{{ "general.button.list"|trans }}</li>
             </ol>
         </section>
     {% endblock %}
@@ -18,42 +18,15 @@
              <div class="x_content">
                  {#{% include 'user/filter.html.twig' %}#}
                  <div class="box-body">
+                     {% import "macros/macros.html.twig" as macro %}
 
                      <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap table-hover" cellspacing="0">
                          <thead>
                          <tr>
-                             {% set route = app.request.attributes.get('_route') %}
-                             {% set params = app.request.attributes.get('_route_params')|merge(app.request.query.all) %}
-
-
-                             {% if params.order is defined and params.sort == 'id' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'id',order:'ASC'})) }}">Id <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'id' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'id', order:'DESC'})) }}">Id <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'id',order:'ASC'})) }}">Id <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
-
-                             {% if params.order is defined and params.sort == 'name' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'name' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'name', order:'DESC'})) }}">Name <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'name',order:'ASC'})) }}">Name <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
-                             {% if params.order is defined and params.sort == 'type' and params.order == 'DESC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'type',order:'ASC'})) }}">Type <i class="fa fa-fw fa-sort-asc"></i></a></th>
-                             {% elseif params.order is defined and params.sort == 'type' and params.order == 'ASC' %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'type', order:'DESC'})) }}">Type <i class="fa fa-fw fa-sort-desc"></i></a></th>
-                             {% else %}
-                                 <th><a href = "{{ url(route, params|merge({sort:'type',order:'ASC'})) }}">Type <i class="fa fa-fw fa-sort"></i></a></th>
-                             {% endif %}
-
-
-                             <th>Manage</th>
-
+                             <th>{{ macro.sorting('id', 'filter.id'|trans) }}</th>
+                             <th>{{ macro.sorting('name', 'filter.name'|trans) }}</th>
+                             <th>{{ macro.sorting('type', 'filter.type'|trans) }}</th>
+                             <th>{{ "general.actions"|trans }}</th>
                          </tr>
                          </thead>
                          <tbody>
@@ -67,7 +40,7 @@
                                      <td>{{ constant('App\\Entity\\Facility::TYPES')[facility.type] }}</td>
                                      <td class="actions">
                                          <a href="{{ path('facility_show', { 'id': facility.id }) }}" class="btn-sm bg-orange no-wrap">
-                                             <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> View</span>
+                                             <i class="fa fa-user"></i><span class="hidden-xs hidden-sm"> {{ "general.button.view"|trans }}</span>
                                          </a>
                                      </td>
                                  </tr>

@@ -1,10 +1,11 @@
 framework:
     secret: '%env(APP_SECRET)%'
-    #default_locale: en
+    default_locale: "%locale%"
+    translator:
+        fallbacks: ["%locale%"]
     #csrf_protection: true
     csrf_protection: { enabled: true }
     http_method_override: true
-    #http_method_override: true
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
@@ -24,7 +25,7 @@ framework:
     php_errors:
         log: true
 
-    translator: ~
+#    translator: ~
 
     templating:
         engines: ['twig']

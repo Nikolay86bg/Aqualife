@@ -26,11 +26,11 @@
         </style>
         <section class="content-header">
             <h1>
-                <i class="fa fa-list" aria-hidden="true"></i> List Schedule
+                <i class="fa fa-list" aria-hidden="true"></i> {{ "schedule.title.list_schedule"|trans }}
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ url('schedule_index') }}"><i class="fa fa-dashboard"></i> Schedule</a></li>
-                <li class="active">Facility</li>
+                <li><a href="{{ url('schedule_index') }}"><i class="fa fa-dashboard"></i> {{ "menu.schedule"|trans }}</a></li>
+                <li class="active">{{ "menu.facilities"|trans }}</li>
             </ol>
         </section>
     {% endblock %}
@@ -41,7 +41,7 @@
         <section class="content">
             {% include 'schedule/filter.html.twig' %}
             <div class="row">
-                <h2>{{ facility.name }} - <a href="{{ url('schedule_print', {'id': facility.id, 'from': date|date("d-m-Y"), 'to': date|date("d-m-Y")}) }}" target="_blank" class="btn btn-sm btn-success">For Printing</a></h2>
+                <h2>{{ facility.name }} - <a href="{{ url('schedule_print', {'id': facility.id, 'from': date|date("d-m-Y"), 'to': date|date("d-m-Y")}) }}" target="_blank" class="btn btn-sm btn-success">{{ "general.button.for_printing"|trans }}</a></h2>
 
                 <div class="col-md-12">
                     <div class="box box-primary">
@@ -109,7 +109,7 @@
                       });
                   },
                   height: 'auto',
-                  locale: 'bg',
+                  locale: 'ru',
                   timeFormat: 'H:mm', // uppercase H for 24-hour clock
                   columnHeaderFormat: 'D MMMM YYYY',
                   slotLabelFormat: [

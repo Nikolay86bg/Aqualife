@@ -1,0 +1,171 @@
+general:
+    dashboard: Home
+    online: Online
+    no_records: 'No records found'
+    back_to_list: 'Back to list'
+    actions: Actions
+    loading: "Please wait..."
+    flashes:
+        saved: "Your changes were saved successfully!"
+        deleted: "Removed successfully!"
+    error:
+        403: "You Shall Not Pass!"
+        404: "This page doesn't exist"
+        500: "Internal Server Error"
+    button:
+        accept: Accept
+        cancel: Cancel
+        save: Save
+        update: Update
+        delete: Delete
+        edit: Edit
+        add: Add
+        view: View
+        list: List
+        filter: Filter
+        reset: Reset
+        pay: Pay
+        add_date: "Add Date"
+        whole_period: "Whole Period"
+        for_printing: "For Printing"
+        sign_in: "Sign In"
+        show_password: "Show Password"
+        change_password: "Change Password"
+        back: "Back"
+        edit_lanes: "Edit Lanes"
+        reject: "Reject"
+        change_status_to_in_progress: "Change Status to In Progress"
+        impersonate: "Impersonate"
+        sign_out: "Sign out"
+        exit_impersonation: "Exit impersonation"
+
+menu:
+    main_navigation: "MAIN NAVIGATION"
+    users: Users
+    facilities: Facilities
+    accounts: Accounts
+    schedule: Schedule
+    queries: Queries
+    facility_old: "Facility Old"
+    restaurants: Restaurants
+
+security:
+    form:
+        message:
+            sign_in: "Sign in to start your session"
+            login: Login
+        label:
+            username: Username
+            password: Password
+
+filter:
+    arrival: "Arrival"
+    manager: "Manager"
+    departure: "Departure"
+    status: "Status"
+    country: "Country"
+    sport: "Sport"
+    from: "From"
+    to: "To"
+    id: "ID"
+    name: "Name"
+    payed: "Payed"
+    hotel: "Hotel"
+    type: Type
+    username: Username
+    email: Email
+
+email:
+    new_query: "New Query!"
+    content: "The new team is"
+
+query:
+    title:
+        list_query: "List Queries"
+        create_query: "Create Query"
+        edit_query: "Edit Query"
+        query: "Query"
+        meals: Meals
+        schedule: Schedule
+
+meal_schedule:
+    title:
+        list_restaurant_schedule: "List Restaurant Schedule"
+
+schedule:
+    title:
+        list_schedule: "List Schedule"
+
+account:
+    title:
+        add_account: "Add Account"
+        list_accounts: "List Accounts"
+        account: "Account"
+        edit_account: "Edit Account"
+
+facility:
+    title:
+        add_facility: "Add Facility"
+        list_facilities: "List Facilities"
+        facility: "Facility"
+        edit_facility: "Edit Facility"
+
+user:
+    title:
+        add_user: "Add User"
+        list_users: "List Users"
+        user: "User"
+        edit_user: "Edit User"
+
+label:
+    id: ID
+    name: Name
+    manager: Manager
+    hotel: "Hotel"
+    sport: Sport
+    type: Type
+    country: "Country"
+    arrival: "Arrival"
+    departure: "Departure"
+    client: Client
+    meal_schedule: "Meal Schedule"
+    facility_schedule: "Facility Schedule"
+    date: Date
+    restaurant: Restaurant
+    breakfast_time: "Breakfast Time"
+    lunch_time: "Lunch Time"
+    dinner_time: "Dinner Time"
+    middle_breakfast_time: "Middle Breakfast Time"
+    morning_time_from: "Morning Time From"
+    morning_time_to: "Morning Time To"
+    afternoon_time_from: "Afternoon Time From"
+    afternoon_time_to: "Afternoon Time To"
+    parts: Parts
+    delete: Delete
+    breakfast: Breakfast
+    lunch: Lunch
+    dinner: Dinner
+    middle_breakfast: "Middle Breakfast"
+    additional_info: "Additional Info"
+    from: "From"
+    to: "To"
+    facility: Facility
+    accept: Accept
+    choose_pool_lanes: "Please choose pool lanes"
+    pool: Pool
+    total_lanes: "Total lanes"
+    lane_numbers: "Lane numbers"
+    position: Position
+    is_active: "Is Active"
+    email: Email
+    username: Username
+    first_name: "First Name"
+    last_name: "Last Name"
+    password: Password
+
+message:
+    no_meals: "No meal Schedule"
+    no_results: "No results found"
+
+
+

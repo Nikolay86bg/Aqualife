@@ -115,7 +115,7 @@ class UserController extends Controller
 
             $em->flush();
 
-            $this->addFlash('success', 'Profile was updated!');
+            $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
         }
 
         return $this->render('user/edit.html.twig', [

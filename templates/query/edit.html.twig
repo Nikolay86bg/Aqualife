@@ -4,11 +4,12 @@
         <section class="content-header">
             <h1>
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                Edit Query <span> - {{ query.account.name }} </span>
+                {{ "query.title.edit_query"|trans }}
+                <span> - {{ query.account.name }} </span>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> Queries</a></li>
-                <li class="active">Edit</li>
+                <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> {{ "menu.queries"|trans }}</a></li>
+                <li class="active">{{ "general.button.edit"|trans }}</li>
             </ol>
         </section>
     {% endblock %}
@@ -28,7 +29,7 @@
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Customer</h3>
+                    <h3 class="box-title">{{ "label.client"|trans }}</h3>
                 </div>
 
                 <div class="x_content">
@@ -37,7 +38,7 @@
                         {{ form_widget(form) }}
 
                         <div class="form-group">
-                            <label>Hotel:</label>
+                            <label>{{ "label.hotel"|trans }}:</label>
                             <select class="form-control" name="hotel">
                                 <option value="{{ query.hotel }}">{{ constant('App\\Entity\\Query::HOTELS')[query.hotel] }}</option>
                                 {% for hotelId, hotel in constant('App\\Entity\\Query::HOTELS') %}
@@ -47,7 +48,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Arrival - Departure:</label>
+                            <label>{{ "label.arrival"|trans }} - {{ "label.departure"|trans }}:</label>
 
                             <div class="input-group">
                                 <div class="input-group-addon">
@@ -58,21 +59,21 @@
                             <!-- /.input group -->
                         </div>
                         <div class="box-footer">
-                            <button id="send" type="submit" class="btn btn-sm bg-green-active">Save</button>
+                            <button id="send" type="submit" class="btn btn-sm bg-green-active">{{ "general.button.save"|trans }}</button>
 
-                            <a href="{{ path('query_index') }}" class="btn btn-sm bg-warning">Cancel</a>
+                            <a href="{{ path('query_index') }}" class="btn btn-sm bg-warning">{{ "general.button.back"|trans }}</a>
 
                             {% if query.status == constant('App\\Entity\\Query::STATUS_ACCEPTED') %}
                             <a href="#" class="btn btn-sm bg-blue"
                                data-toggle="modal"
-                               data-target="#modal-default{{ query.id }}">Edit Lanes
+                               data-target="#modal-default{{ query.id }}">{{ "general.button.edit_lanes"|trans }}
                             </a>
                             {% endif %}
 
                             {% if query.payed == constant('App\\Entity\\Query::PAYED_NO') %}
                                 <a href="{{ path('query_payed', { 'id': query.id }) }}"
                                    class="btn btn-sm bg-orange-active no-wrap">
-                                   <span class="hidden-xs hidden-sm">Payed</span>
+                                   <span class="hidden-xs hidden-sm">{{ "general.button.pay"|trans }}</span>
                                 </a>
                             {% endif %}
 
@@ -82,14 +83,14 @@
                                     <a href="{{ path('query_reject', { 'id': query.id }) }}"
                                        class="btn btn-sm bg-red-active no-wrap">
                                         <i class="fa fa-close"></i><span
-                                                class="hidden-xs hidden-sm"> Reject</span>
+                                                class="hidden-xs hidden-sm"> {{ "general.button.reject"|trans }}</span>
                                     </a>
                                 {% endif %}
 
                                 {% if query.status == constant('App\\Entity\\Query::STATUS_REJECTED') %}
                                     <a href="{{ path('query_in_progress', { 'id': query.id }) }}"
                                        class="btn btn-sm bg-teal-active no-wrap">
-                                        <span class="hidden-xs hidden-sm"> Change Status to In Progress</span>
+                                        <span class="hidden-xs hidden-sm"> {{ "general.button.change_status_to_in_progress"|trans }}</span>
                                     </a>
                                 {% endif %}
                             {% endif %}
