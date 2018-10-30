@@ -166,6 +166,7 @@ label:
 message:
     no_meals: "No meal Schedule"
     no_results: "No results found"
+    choose_team: "Choose Team"
 
 sport:
     swimming: Swimming
