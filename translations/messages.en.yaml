@@ -167,5 +167,10 @@ message:
     no_meals: "No meal Schedule"
     no_results: "No results found"
 
-
+sport:
+    swimming: Swimming
+    badminton: Badminton
+    boxing: Boxing
+    wrestling: Wrestling
+    others: Others
 

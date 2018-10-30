@@ -42,7 +42,7 @@
                                     <li><a href="#">{{ "label.id"|trans }}: <span class="pull-right badge bg-blue">{{ account.id }}</span></a></li>
                                     <li><a href="#">{{ "label.name"|trans }}: <span class="pull-right">{% if account.name is defined %}{{ account.name }}{% else %} - {% endif %}</span></a></li>
                                     <li><a href="#">{{ "label.manager"|trans }}: <span class="pull-right">{% if account.manager is defined %}{{ account.manager }}{% else %} - {% endif %}</span></a></li>
-                                    <li><a href="#">{{ "label.sport"|trans }}: <span class="pull-right">{% if account.sport is defined %}{{ account.sport }}{% else %} - {% endif %}</span></a></li>
+                                    <li><a href="#">{{ "label.sport"|trans }}: <span class="pull-right">{% if account.sport is defined %}{{ constant('App\\Entity\\Account::SPORTS')[account.sport]|trans }}{% else %} - {% endif %}</span></a></li>
                                     <li><a href="#">{{ "label.country"|trans }}: <span class="pull-right">{% if account.country is defined %}{{ countries[account.country] }}{% else %} - {% endif %}</span></a></li>
                                 </ul>
                             </div>

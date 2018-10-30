@@ -10,6 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Account
 {
+
+    const SPORT_SWIMMING = 0;
+    const SPORT_BADMINTON = 1;
+    const SPORT_BOXING = 2;
+    const SPORT_WRESTLING= 3;
+    const SPORT_OTHERS= 9;
+
+    const SPORTS = [
+        self::SPORT_SWIMMING => "sport.swimming",
+        self::SPORT_BADMINTON => "sport.badminton",
+        self::SPORT_BOXING => "sport.boxing",
+        self::SPORT_WRESTLING => "sport.wrestling",
+        self::SPORT_OTHERS => "sport.others",
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -28,7 +43,7 @@ class Account
     private $manager;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $sport;
 

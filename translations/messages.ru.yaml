@@ -166,3 +166,10 @@ label:
 message:
     no_meals: "Результаты не найдены"
     no_results: "Результаты не найдены"
+
+sport:
+    swimming: "Плавание"
+    badminton: "Бадминтон"
+    boxing: "Бокс"
+    wrestling: "Борьба"
+    others: "Другие"

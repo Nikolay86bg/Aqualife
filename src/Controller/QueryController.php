@@ -529,6 +529,7 @@ class QueryController extends Controller
     {
 //        $entityManager = $this->getDoctrine()->getManager();
         $countries = Intl::getRegionBundle()->getCountryNames();
+        $scheduleArray = $mealArray = [];
 
         if ($schedules = $this->getDoctrine()->getManager()->getRepository(Schedule::class)->findBy([
             'account' => $query->getAccount(),

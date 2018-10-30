@@ -54,7 +54,7 @@
                                     <tr>
                                         <td>{{ query.id }}</td>
                                         <td>{{ query.account.name }}</td>
-                                        <td>{{ query.account.sport }}</td>
+                                        <td>{{ constant('App\\Entity\\Account::SPORTS')[query.account.sport]|trans }}</td>
                                         <td>{{ countries[query.account.country] }}</td>
                                         <td>{{ query.dateOfArrival|date('Y-m-d H:i') }}</td>
                                         <td>{{ query.dateOfDeparture|date('Y-m-d H:i') }}</td>

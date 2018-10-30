@@ -6,7 +6,9 @@
 
 namespace App\Form;
 
+use App\Entity\Account;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,8 +47,9 @@ class AccountType extends AbstractType
                     'placeholder' => "filter.manager",
                 ]
             ])
-            ->add('sport',null, [
+            ->add('sport', ChoiceType::class, [
                 'label' => "filter.sport",
+                'choices' => array_flip(Account::SPORTS),
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => "filter.sport",

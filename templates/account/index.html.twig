@@ -41,7 +41,7 @@
                                      </td>
                                      <td>{{ account.name }}</td>
                                      <td>{{ account.manager }}</td>
-                                     <td>{{ account.sport }}</td>
+                                     <td>{{ constant('App\\Entity\\Account::SPORTS')[account.sport]|trans }}</td>
                                      <td>{{ countries[account.country] }}</td>
                                      <td class="actions">
                                          <a href="{{ path('account_show', { 'id': account.id }) }}" class="btn-sm bg-orange no-wrap">
