@@ -10,19 +10,49 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Account
 {
-
     const SPORT_SWIMMING = 0;
     const SPORT_BADMINTON = 1;
     const SPORT_BOXING = 2;
-    const SPORT_WRESTLING= 3;
-    const SPORT_OTHERS= 9;
+    const SPORT_WRESTLING = 3;
+    const SPORT_DANCING = 4;
+    const SPORT_BASKETBALL = 5;
+    const SPORT_WATER_POLO = 6;
+    const SPORT_MODERN_PENTATHLON = 7;
+    const SPORT_BEACH_VOLLEYBALL = 8;
+
+    const SPORT_SYNCHRONISED_SWIMMING = 10;
+    const SPORT_TABLE_TENNIS = 11;
+    const SPORT_TRIATHLON = 12;
+    const SPORT_FENCING = 13;
+    const SPORT_FOOTBALL = 14;
+    const SPORT_RHYTHMIC_GYMNASTICS = 15;
+    const SPORT_HANDBALL = 16;
+    const SPORT_CHESS = 17;
+    const SPORT_CHECKERS = 18;
+    const SPORT_COMBAT_SPORTS = 19;
+    const SPORT_OTHERS = 20;
 
     const SPORTS = [
         self::SPORT_SWIMMING => "sport.swimming",
         self::SPORT_BADMINTON => "sport.badminton",
         self::SPORT_BOXING => "sport.boxing",
         self::SPORT_WRESTLING => "sport.wrestling",
+        self::SPORT_DANCING => "sport.dancing",
+        self::SPORT_BASKETBALL => "sport.basketball",
+        self::SPORT_WATER_POLO => "sport.water_polo",
+        self::SPORT_MODERN_PENTATHLON => "sport.modern_pentathlon",
+        self::SPORT_BEACH_VOLLEYBALL => "sport.beach_volleyball",
         self::SPORT_OTHERS => "sport.others",
+        self::SPORT_SYNCHRONISED_SWIMMING => "sport.synchronised_swimming",
+        self::SPORT_TABLE_TENNIS => "sport.table_tennis",
+        self::SPORT_TRIATHLON => "sport.triathlon",
+        self::SPORT_FENCING => "sport.fencing",
+        self::SPORT_FOOTBALL => "sport.football",
+        self::SPORT_RHYTHMIC_GYMNASTICS => "sport.rhythmic_gymnastics",
+        self::SPORT_HANDBALL => "sport.handball",
+        self::SPORT_CHESS => "sport.chess",
+        self::SPORT_CHECKERS => "sport.checkers",
+        self::SPORT_COMBAT_SPORTS => "sport.combat_sports",
     ];
 
     /**

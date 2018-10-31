@@ -174,4 +174,18 @@ sport:
     boxing: Boxing
     wrestling: Wrestling
     others: Others
+    dancing: Dancing
+    basketball: Basketball
+    water_polo: "Water Polo"
+    modern_pentathlon: "Modern Pentathlon"
+    beach_volleyball: "Beach Volleyball"
+    synchronised_swimming: "Synchronised Swimming"
+    table_tennis: "Table Tennis"
+    triathlon: Triathlon
+    fencing: Fencing
+    rhythmic_gymnastics: "Rhythmic Gymnastics"
+    handball: Handball
+    chess: Chess
+    checkers: Checkers
+    combat_sports: "Combat Sports"
 
