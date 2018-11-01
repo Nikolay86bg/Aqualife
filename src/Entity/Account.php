@@ -19,7 +19,6 @@ class Account
     const SPORT_WATER_POLO = 6;
     const SPORT_MODERN_PENTATHLON = 7;
     const SPORT_BEACH_VOLLEYBALL = 8;
-
     const SPORT_SYNCHRONISED_SWIMMING = 10;
     const SPORT_TABLE_TENNIS = 11;
     const SPORT_TRIATHLON = 12;
@@ -42,7 +41,6 @@ class Account
         self::SPORT_WATER_POLO => "sport.water_polo",
         self::SPORT_MODERN_PENTATHLON => "sport.modern_pentathlon",
         self::SPORT_BEACH_VOLLEYBALL => "sport.beach_volleyball",
-        self::SPORT_OTHERS => "sport.others",
         self::SPORT_SYNCHRONISED_SWIMMING => "sport.synchronised_swimming",
         self::SPORT_TABLE_TENNIS => "sport.table_tennis",
         self::SPORT_TRIATHLON => "sport.triathlon",
@@ -53,6 +51,7 @@ class Account
         self::SPORT_CHESS => "sport.chess",
         self::SPORT_CHECKERS => "sport.checkers",
         self::SPORT_COMBAT_SPORTS => "sport.combat_sports",
+        self::SPORT_OTHERS => "sport.others",
     ];
 
     /**
