@@ -21,7 +21,7 @@ account_edit:
 account_delete:
     path:     /{id}/delete
     controller: App\Controller\AccountController::delete
-    methods:  DELETE
+    methods:  [GET, POST]
 
 account_teams_schedule:
     path:     /teams-schedule

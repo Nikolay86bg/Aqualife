@@ -13,6 +13,16 @@
 
 {% block content %}
      <div class="col-md-12 col-sm-6 col-xs-12">
+
+         {% for label, messages in app.flashes(['success', 'error']) %}
+             {% for message in messages %}
+                 <div class="alert alert-{{ label }} alert-dismissable">
+                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                     {{ message }}
+                 </div>
+             {% endfor %}
+         {% endfor %}
+
          <div class="box box-primary">
 
              <div class="x_content">
@@ -49,6 +59,10 @@
                                          </a>
                                          <a href="{{ path('account_edit', { 'id': account.id }) }}" class="btn-sm bg-green no-wrap">
                                              <i class="fa fa-cog"></i><span class="hidden-xs hidden-sm"> {{ "general.button.edit"|trans }}</span>
+                                         </a>
+                                         <a href="{{ path('account_delete', { 'id': account.id }) }}"
+                                            class="btn btn-sm bg-red-active no-wrap">
+                                             <i class="fa fa-close"></i><span class="hidden-xs hidden-sm"> {{ "general.button.delete"|trans }}</span>
                                          </a>
                                      </td>
                                  </tr>

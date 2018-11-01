@@ -67,6 +67,9 @@ class AccountRepository extends ServiceEntityRepository
             $queryBuilder->orderBy($sortBy, $order);
         }
 
+        $queryBuilder
+            ->andWhere('account.deletedAt IS NULL');
+
         return $queryBuilder->getQuery();
     }
 

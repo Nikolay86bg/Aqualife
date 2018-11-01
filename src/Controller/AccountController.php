@@ -39,7 +39,7 @@ class AccountController extends Controller
             $order = $request->get('order');
         }
 
-        $accounts = $entityManager->getRepository('App:Account')->getListQuery($filter, $sort, $order);
+        $accounts = $entityManager->getRepository(Account::class)->getListQuery($filter, $sort, $order);
 
         $accounts = (new Paginator($accounts))
             ->setEntityManager($this->getDoctrine()->getManager())
@@ -128,11 +128,29 @@ class AccountController extends Controller
         ]);
     }
 
+    /**
+     * @param Account $account
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function schedule(Account $account)
     {
         return $this->render('account/schedule.html.twig', [
             'account' => $account,
             'color' =>  $this->get(ColorService::class)
         ]);
+    }
+
+    /**
+     * @param Account $account
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Account $account)
+    {
+        $account->setDeletedAt((new \DateTime()));
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('success', $this->get('translator')->trans('general.flashes.deleted'));
+
+        return $this->redirectToRoute('account_index');
     }
 }

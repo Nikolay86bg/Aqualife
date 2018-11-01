@@ -102,6 +102,13 @@ class Account
      */
     private $mealSchedules;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     public function getId()
     {
         return $this->id;
@@ -180,7 +187,6 @@ class Account
      */
     public function getSchedules()
     {
-//        return $this->schedules;
         //return without deleted
         $return = [];
         if ($schedules = $this->schedules) {
@@ -257,5 +263,20 @@ class Account
         return $return;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param \DateTime $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
 
 }
