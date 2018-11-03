@@ -149,8 +149,11 @@
                     <!-- Menu Footer-->
                     <li class="user-footer">
                         {#<div class="pull-left">#}
-                            {#<a href="{{ url('user_profile') }}" class="btn btn-default btn-flat">Profile</a>#}
+                        {#<a href="{{ url('user_profile') }}" class="btn btn-default btn-flat">Profile</a>#}
                         {#</div>#}
+                        <div class="pull-left">
+                        <a href="{{ url('user_change_language', {'locale': app.user.oppositeLocale(app.user.locale) }) }}" class="btn btn-default btn-flat">{{ constant('App\\Entity\\User::LANGUAGES')[app.user.oppositeLocale(app.user.locale)] }}</a>
+                        </div>
 
                         {% if is_granted('ROLE_USER') %}
                         <div class="pull-right">

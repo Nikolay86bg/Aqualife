@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 01, 2018 at 02:11 AM
+-- Generation Time: Nov 03, 2018 at 02:39 AM
 -- Server version: 5.7.23-23-log
 -- PHP Version: 5.6.30
 
@@ -33,48 +33,49 @@ CREATE TABLE `account` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `manager` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sport` int(11) NOT NULL,
-  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`id`, `name`, `manager`, `sport`, `country`) VALUES
-(22, 'BSC ROMANIA', NULL, 0, 'RO'),
-(23, 'BSC', NULL, 0, 'RO'),
-(24, 'POLONYA', NULL, 0, 'PL'),
-(25, 'EKRAN', NULL, 0, 'RU'),
-(26, 'BSC', NULL, 0, 'RO'),
-(27, 'BSC', NULL, 0, 'RO'),
-(28, 'LAHTI', NULL, 0, 'FI'),
-(29, 'LAHTI SWIMMING CLUB', NULL, 0, 'FI'),
-(30, 'ATLETA', NULL, 0, 'RU'),
-(31, 'ATLETA', NULL, 0, 'RU'),
-(32, 'IGOR', NULL, 0, 'AF'),
-(33, 'Sigma Swim', NULL, 0, 'DK'),
-(34, 'Mikk', NULL, 0, 'EE'),
-(35, 'HOVEDSTADEN SVOMMEKLUB', NULL, 0, 'DK'),
-(36, 'Sigma Swim', NULL, 0, 'DK'),
-(37, 'Sigma Swim', NULL, 0, 'DK'),
-(38, 'Mikk', NULL, 0, 'EE'),
-(39, 'Saarland', NULL, 0, 'DE'),
-(40, 'Ekran', NULL, 0, 'RU'),
-(41, 'HOVEDSTADENS SVOMMEKLUB 1', NULL, 0, 'DK'),
-(42, 'Ekran 1', NULL, 0, 'RU'),
-(43, 'Jari', NULL, 0, 'FI'),
-(44, 'Profiturs', NULL, 0, 'DE'),
-(45, 'МГФСО', NULL, 20, 'RU'),
-(46, 'Кириши', NULL, 20, 'RU'),
-(47, 'Таурас', NULL, 0, 'RU'),
-(48, 'Лицей', NULL, 0, 'RU'),
-(49, 'test', 'test', 0, 'AF'),
-(50, 'test 2', 'test 2', 0, 'AF'),
-(51, 'IDC', NULL, 20, 'RU'),
-(52, 'desi', NULL, 0, 'DZ'),
-(53, 'Лицей', NULL, 0, 'RU'),
-(54, 'Лагуна', NULL, 0, 'RU'),
-(55, 'CNSW', NULL, 0, 'BE');
+INSERT INTO `account` (`id`, `name`, `manager`, `sport`, `country`, `deleted_at`) VALUES
+(22, 'BSC ROMANIA', NULL, 0, 'RO', NULL),
+(23, 'BSC', NULL, 0, 'RO', NULL),
+(24, 'POLONYA', NULL, 0, 'PL', NULL),
+(25, 'EKRAN', NULL, 0, 'RU', NULL),
+(26, 'BSC', NULL, 0, 'RO', NULL),
+(27, 'BSC', NULL, 0, 'RO', NULL),
+(28, 'LAHTI', NULL, 0, 'FI', NULL),
+(29, 'LAHTI SWIMMING CLUB', NULL, 0, 'FI', NULL),
+(30, 'ATLETA', NULL, 0, 'RU', NULL),
+(31, 'ATLETA', NULL, 0, 'RU', NULL),
+(32, 'IGOR', NULL, 0, 'AF', NULL),
+(33, 'Sigma Swim', NULL, 0, 'DK', NULL),
+(34, 'Mikk', NULL, 0, 'EE', NULL),
+(35, 'HOVEDSTADEN SVOMMEKLUB', NULL, 0, 'DK', NULL),
+(36, 'Sigma Swim', NULL, 0, 'DK', NULL),
+(37, 'Sigma Swim', NULL, 0, 'DK', NULL),
+(38, 'Mikk', NULL, 0, 'EE', NULL),
+(39, 'Saarland', NULL, 0, 'DE', NULL),
+(40, 'Ekran', NULL, 0, 'RU', NULL),
+(41, 'HOVEDSTADENS SVOMMEKLUB 1', NULL, 0, 'DK', NULL),
+(42, 'Ekran 1', NULL, 0, 'RU', NULL),
+(43, 'Jari', NULL, 0, 'FI', NULL),
+(44, 'Profiturs', NULL, 0, 'DE', NULL),
+(45, 'МГФСО', NULL, 20, 'RU', NULL),
+(46, 'Кириши', NULL, 20, 'RU', NULL),
+(47, 'Таурас', NULL, 0, 'RU', NULL),
+(48, 'Лицей', NULL, 0, 'RU', NULL),
+(49, 'test', 'test', 0, 'AF', NULL),
+(50, 'test 2', 'test 2', 0, 'AF', NULL),
+(51, 'IDC', NULL, 20, 'RU', NULL),
+(52, 'desi', NULL, 0, 'DZ', NULL),
+(53, 'Лицей', NULL, 0, 'RU', NULL),
+(54, 'Лагуна', NULL, 0, 'RU', NULL),
+(55, 'CNSW', NULL, 0, 'BE', NULL);
 
 -- --------------------------------------------------------
 
@@ -266,7 +267,8 @@ INSERT INTO `migration_versions` (`version`) VALUES
 ('20180911183306'),
 ('20180911193515'),
 ('20180930173506'),
-('20181030111539');
+('20181030111539'),
+('20181101000913');
 
 -- --------------------------------------------------------
 

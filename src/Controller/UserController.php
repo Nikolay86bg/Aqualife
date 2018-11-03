@@ -10,8 +10,10 @@ use App\Form\UserPasswordType;
 use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Security\Voter\UserVoter;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Class UserController.
@@ -221,6 +223,26 @@ class UserController extends Controller
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @param SessionInterface $session
+     * @param EntityManagerInterface $entityManager
+     * @param string $locale
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function changeLanguage(SessionInterface $session, EntityManagerInterface $entityManager, string $locale)
+    {
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $user->setLocale($locale);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $session->set('_locale', $locale);
+
+        return $this->redirectToRoute('app_homepage');
     }
 
 }

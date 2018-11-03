@@ -27,53 +27,16 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     use TimestampableEntityTrait;
 
     const ROLE_USER = 'ROLE_USER';
-//    const ROLE_TL = 'ROLE_TL';
-//    const ROLE_SUPERVISOR = 'ROLE_SUPERVISOR';
     const ROLE_MANAGER = 'ROLE_MANAGER';
-//    const ROLE_OPERATIONS_MANAGER = 'ROLE_OPERATIONS_MANAGER';
-//    const ROLE_DIRECTOR = 'ROLE_DIRECTOR';
     const ROLE_ADMIN = 'ROLE_ADMIN';
 
+    const LANGUAGE_ENGLISH = 'en';
+    const LANGUAGE_RUSSIAN = 'ru';
 
-    /**
-     * Managers can edit and add users from this departments
-     * Key is managers department
-     * Values are array of departments they have permissions.
-     */
-//    const MANAGERS_DEPARTMENT_PERMISSIONS = [
-//        'Advertising' => [
-//            'Advertising',
-//            'Link Building',
-//            'Training Department',
-//            'Web Design',
-//            'Custom Web',
-//            'Content Writing',
-//            'Technical Support',
-//        ],
-//        'Link Building' => [
-//            'Link Building',
-//        ],
-//        'Training Department' => [
-//            'Training Department',
-//        ],
-//        'Web Design' => [
-//            'Web Design',
-//            'Custom Web',
-//        ],
-//        'Custom Web' => [
-//            'Web Design',
-//            'Custom Web',
-//        ],
-//        'Quality Assurance' => [
-//            'Quality Assurance',
-//        ],
-//        'Content Writing' => [
-//            'Content Writing',
-//        ],
-//        'Technical Support' => [
-//            'Technical Support',
-//        ],
-//    ];
+    const LANGUAGES = [
+        self::LANGUAGE_ENGLISH => 'English',
+        self::LANGUAGE_RUSSIAN => 'Руский',
+    ];
 
     /**
      * @var int
@@ -117,20 +80,6 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
      */
     private $email;
 
-//    /**
-//     * @var User
-//     *
-//     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="children")
-//     */
-//    private $parent;
-
-//    /**
-//     * @var User[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="parent")
-//     */
-//    private $children;
-
     /**
      * @var string
      *
@@ -168,6 +117,11 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     private $queries;
 
     /**
+     * @ORM\Column(name="locale", type="string", length=2)
+     */
+    private $locale = 'en';
+
+    /**
      * @return string
      */
     public function getPosition()
@@ -201,225 +155,12 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
 
 
 
-
-
-//    /**
-//     * @var Department
-//     *
-//     * @ORM\ManyToOne(targetEntity="App\Entity\Department", inversedBy="users");
-//     */
-//    private $department;
-
-//    /**
-//     * @var Position
-//     *
-//     * @ORM\ManyToOne(targetEntity="App\Entity\Position", inversedBy="users");
-//     */
-//    private $position;
-
-//    /**
-//     * @var Mistake[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\Mistake", mappedBy="createdBy")
-//     */
-//    private $mistakes;
-//
-//    /**
-//     * @var EventMistakeWeight[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\EventMistakeWeight", mappedBy="createdBy")
-//     */
-//    private $eventMistakeWeights;
-//
-//    /**
-//     * @var Account[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\Account", mappedBy="createdBy")
-//     */
-//    private $accounts;
-//
-//    /**
-//     * @var Evaluation[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\Evaluation", mappedBy="createdBy")
-//     */
-//    private $evaluations;
-//
-//    /**
-//     * @var Evaluation[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\EvaluationEventMistakeWeight", mappedBy="createdBy")
-//     */
-//    private $evaluationEventMistakeWeights;
-//
-//    /**
-//     * @var AccountEvent[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\AccountEvent", mappedBy="createdBy")
-//     */
-//    private $accountEventsCreated;
-//
-//    /**
-//     * @var AccountEvent[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\AccountEvent", mappedBy="assignedTo")
-//     */
-//    private $accountEventsAssigned;
-//
-//    /**
-//     * @var AccountEvent[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\AccountEvent", mappedBy="closedBy")
-//     */
-//    private $accountEventsClosed;
-//
-//    /**
-//     * @var Dispute[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\Dispute", mappedBy="createdBy")
-//     */
-//    private $disputes;
-//
-//    /**
-//     * @var Comment[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="createdBy")
-//     */
-//    private $comments;
-
-//    /**
-//     * @var string
-//     *
-//     * @ORM\Column(name="timezone", type="string", length=255, options={"default": "Europe/Sofia"})
-//     */
-//    private $timezone;
-
-//    /**
-//     * @var DisputeEvaluationEventMistakeWeight[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\DisputeEvaluationEventMistakeWeight", mappedBy="createdBy")
-//     */
-//    private $disputeEvaluationEventMistakeWeights;
-//
-//    /**
-//     * @var AccountEventWorkTime[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\AccountEventWorkTime", mappedBy="user")
-//     */
-//    private $accountEventWorkTimes;
-//
-//    /**
-//     * @var ParameterType[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\ParameterType", mappedBy="createdBy")
-//     */
-//    private $parameterTypes;
-//
-//    /**
-//     * @var Calendar[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\Calendar", mappedBy="createdBy")
-//     */
-//    private $holidays;
-//
-//    /**
-//     * @var QnqReport[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\QnqReport", mappedBy="user")
-//     */
-//    private $qnqReports;
-//
-//    /**
-//     * @var Account[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\Account", mappedBy="user")
-//     */
-//    private $account;
-//
-//    /**
-//     * Many Tasks have Many Employees.
-//     *
-//     * @ORM\ManyToMany(targetEntity="App\Entity\Task", mappedBy="employees")
-//     */
-//    private $tasks;
-//
-//    /**
-//     * @var AccountEventChange[]
-//     *
-//     * @ORM\OneToMany(targetEntity="AccountEventChange", mappedBy="createdBy")
-//     */
-//    private $accountEventChange;
-//
-//    /**
-//     * @var \DateTime
-//     *
-//     * @ORM\Column(name="off_work_from", type="datetime", nullable=true)
-//     */
-//    private $offWorkFrom;
-//
-//    /**
-//     * @var \DateTime
-//     *
-//     * @ORM\Column(name="off_work_until", type="datetime", nullable=true)
-//     */
-//    private $offWorkUntil;
-//
-//    /**
-//     * @var ShowPasswordLog[]
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\ShowPasswordLog", mappedBy="createdBy")
-//     */
-//    private $showPasswordLog;
-//
-//    /**
-//     * @var Task
-//     *
-//     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="completedBy")
-//     */
-//    private $taskCompletedBy;
-//
-//    /**
-//     * @return QnqReport[]
-//     */
-//    public function getQnqReports()
-//    {
-//        return $this->qnqReports;
-//    }
-//
-//    /**
-//     * @return Account[]
-//     */
-//    public function getAccount()
-//    {
-//        return $this->account;
-//    }
-//
-//    /**
-//     * @param Account[] $account
-//     */
-//    public function setAccount(array $account)
-//    {
-//        $this->account = $account;
-//    }
-//
-//    /**
-//     * @param QnqReport[] $qnqReports
-//     */
-//    public function setQnqReports(array $qnqReports)
-//    {
-//        $this->qnqReports = $qnqReports;
-//    }
-
     /**
      * User constructor.
      */
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
-//        $this->parameterTypes = new ArrayCollection();
-//        $this->holidays = new ArrayCollection();
-//        $this->tasks = new ArrayCollection();
-//        $this->accountEventChange = new ArrayCollection();
         $this->showPasswordLog = new ArrayCollection();
     }
 
@@ -429,14 +170,6 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     public function __toString()
     {
         return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
-    }
-
-    /**
-     * @return Evaluation[]
-     */
-    public function getEvaluationEventMistakeWeights()
-    {
-        return $this->evaluationEventMistakeWeights;
     }
 
     /**
@@ -565,30 +298,6 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     {
         return $this->email;
     }
-
-//    /**
-//     * Set parent.
-//     *
-//     * @param User $parent
-//     *
-//     * @return User
-//     */
-//    public function setParent($parent)
-//    {
-//        $this->parent = $parent;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get parent.
-//     *
-//     * @return User
-//     */
-//    public function getParent()
-//    {
-//        return $this->parent;
-//    }
 
     /**
      * Set `irstName.
@@ -738,370 +447,19 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     {
         return $this->getId() === $user->getId();
     }
-//
-//    /**
-//     * @param User[] $children
-//     *
-//     * @return User
-//     */
-//    public function setChildren($children)
-//    {
-//        $this->children = $children;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return User[]
-//     */
-//    public function getChildren()
-//    {
-//        return $this->children;
-//    }
 
-//    /**
-//     * @param Department $department
-//     *
-//     * @return User
-//     */
-//    public function setDepartment($department)
-//    {
-//        $this->department = $department;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Department
-//     */
-//    public function getDepartment()
-//    {
-//        return $this->department;
-//    }
+    /**
+     * @param string $locale
+     * @return string
+     */
+    public function getOppositeLocale(string $locale)
+    {
+        if($locale === self::LANGUAGE_ENGLISH){
+            return self::LANGUAGE_RUSSIAN;
+        }
 
-//    /**
-//     * @param Position $position
-//     *
-//     * @return User
-//     */
-//    public function setPosition($position)
-//    {
-//        $this->position = $position;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Position
-//     */
-//    public function getPosition()
-//    {
-//        return $this->position;
-//    }
-//
-//    /**
-//     * @param Mistake[] $mistakes
-//     *
-//     * @return User
-//     */
-//    public function setMistakes($mistakes)
-//    {
-//        $this->mistakes = $mistakes;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Mistake[]
-//     */
-//    public function getMistakes()
-//    {
-//        return $this->mistakes;
-//    }
-//
-//    /**
-//     * @param EventMistakeWeight[] $eventMistakeWeights
-//     *
-//     * @return User
-//     */
-//    public function setEventMistakeWeights($eventMistakeWeights)
-//    {
-//        $this->eventMistakeWeights = $eventMistakeWeights;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return EventMistakeWeight[]
-//     */
-//    public function getEventMistakeWeights()
-//    {
-//        return $this->eventMistakeWeights;
-//    }
-//
-//    /**
-//     * @param Account[] $accounts
-//     *
-//     * @return User
-//     */
-//    public function setAccounts($accounts)
-//    {
-//        $this->accounts = $accounts;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Account[]
-//     */
-//    public function getAccounts()
-//    {
-//        return $this->accounts;
-//    }
-//
-//    /**
-//     * @param AccountEvent[] $accountEventsCreated
-//     *
-//     * @return User
-//     */
-//    public function setAccountEventsCreated($accountEventsCreated)
-//    {
-//        $this->accountEventsCreated = $accountEventsCreated;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return AccountEvent[]
-//     */
-//    public function getAccountEventsCreated()
-//    {
-//        return $this->accountEventsCreated;
-//    }
-//
-//    /**
-//     * @param AccountEvent[] $accountEventsAssigned
-//     *
-//     * @return User
-//     */
-//    public function setAccountEventsAssigned($accountEventsAssigned)
-//    {
-//        $this->accountEventsAssigned = $accountEventsAssigned;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return AccountEvent[]
-//     */
-//    public function getAccountEventsAssigned()
-//    {
-//        return $this->accountEventsAssigned;
-//    }
-//
-//    /**
-//     * @param AccountEvent[] $accountEventsClosed
-//     *
-//     * @return User
-//     */
-//    public function setAccountEventsClosed($accountEventsClosed)
-//    {
-//        $this->accountEventsClosed = $accountEventsClosed;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return AccountEvent[]
-//     */
-//    public function getAccountEventsClosed()
-//    {
-//        return $this->accountEventsClosed;
-//    }
-//
-//    /**
-//     * @param $evaluations
-//     *
-//     * @return User
-//     */
-//    public function setEvaluations($evaluations)
-//    {
-//        $this->evaluations = $evaluations;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Evaluation[]
-//     */
-//    public function getEvaluations()
-//    {
-//        return $this->evaluations;
-//    }
-//
-//    /**
-//     * @param Dispute[] $disputes
-//     *
-//     * @return User
-//     */
-//    public function setDisputes($disputes)
-//    {
-//        $this->disputes = $disputes;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Dispute[]
-//     */
-//    public function getDisputes()
-//    {
-//        return $this->disputes;
-//    }
-//
-//    /**
-//     * @param Comment[] $comments
-//     *
-//     * @return User
-//     */
-//    public function setComments($comments)
-//    {
-//        $this->comments = $comments;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Comment[]
-//     */
-//    public function getComments()
-//    {
-//        return $this->comments;
-//    }
-//
-//    /**
-//     * @param string $timezone
-//     *
-//     * @return User
-//     */
-//    public function setTimezone($timezone)
-//    {
-//        $this->timezone = $timezone;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return string
-//     */
-//    public function getTimezone()
-//    {
-//        return $this->timezone;
-//    }
-
-//    /**
-//     * @param DisputeEvaluationEventMistakeWeight[] $disputeEvaluationEventMistakeWeights
-//     *
-//     * @return User
-//     */
-//    public function setDisputeEvaluationEventMistakeWeights($disputeEvaluationEventMistakeWeights)
-//    {
-//        $this->disputeEvaluationEventMistakeWeights = $disputeEvaluationEventMistakeWeights;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return DisputeEvaluationEventMistakeWeight[]
-//     */
-//    public function getDisputeEvaluationEventMistakeWeights()
-//    {
-//        return $this->disputeEvaluationEventMistakeWeights;
-//    }
-//
-//    /**
-//     * @param AccountEventWorkTime[] $accountEventWorkTimes
-//     *
-//     * @return User
-//     */
-//    public function setAccountEventWorkTimes($accountEventWorkTimes)
-//    {
-//        $this->accountEventWorkTimes = $accountEventWorkTimes;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return AccountEventWorkTime[]
-//     */
-//    public function getAccountEventWorkTimes()
-//    {
-//        return $this->accountEventWorkTimes;
-//    }
-//
-//    /**
-//     * @return ParameterType[]
-//     */
-//    public function getParameterTypes()
-//    {
-//        return $this->parameterTypes;
-//    }
-//
-//    /**
-//     * @return Holiday[]
-//     */
-//    public function getHolidays()
-//    {
-//        return $this->holidays;
-//    }
-//
-//    /**
-//     * @return mixed
-//     */
-//    public function getTasks()
-//    {
-//        return $this->tasks;
-//    }
-//
-//    /**
-//     * @return AccountEventChange[]
-//     */
-//    public function getAccountEventChange()
-//    {
-//        return $this->accountEventChange;
-//    }
-
-//    /**
-//     * @return \DateTime
-//     */
-//    public function getOffWorkFrom()
-//    {
-//        return $this->offWorkFrom;
-//    }
-//
-//    /**
-//     * @param \DateTime $offWorkFrom
-//     */
-//    public function setOffWorkFrom($offWorkFrom)
-//    {
-//        $this->offWorkFrom = $offWorkFrom;
-//    }
-//
-//    /**
-//     * @return \DateTime
-//     */
-//    public function getOffWorkUntil()
-//    {
-//        return $this->offWorkUntil;
-//    }
-//
-//    /**
-//     * @param \DateTime $offWorkUntil
-//     */
-//    public function setOffWorkUntil($offWorkUntil)
-//    {
-//        $this->offWorkUntil = $offWorkUntil;
-//    }
+        return self::LANGUAGE_ENGLISH;
+    }
 
     /**
      * @return ShowPasswordLog[]
@@ -1119,19 +477,22 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
         $this->showPasswordLog = $showPasswordLog;
     }
 
-//    /**
-//     * @return Task
-//     */
-//    public function getTaskCompletedBy()
-//    {
-//        return $this->taskCompletedBy;
-//    }
-//
-//    /**
-//     * @param Task $taskCompletedBy
-//     */
-//    public function setTaskCompletedBy($taskCompletedBy)
-//    {
-//        $this->taskCompletedBy = $taskCompletedBy;
-//    }
+    /**
+     * @return mixed
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param mixed $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+
+
 }
