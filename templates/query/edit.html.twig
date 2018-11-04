@@ -159,6 +159,10 @@
                 clone2.removeClass();
                 $('.table'+facilityId).append(clone1); // add new row to end of table
                 $('.table'+facilityId).append(clone2); // add new row to end of table
+
+                /** SET VALUES FOR ROW TO COPY FROM */
+                row.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(mTimeFrom);
+                row.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(mTimeTo);
             });
         </script>
 
