@@ -71,6 +71,7 @@ filter:
     name: "Имя"
     payed: "Оплаченный"
     hotel: "Отель"
+    number_of_people: "Число людей"
     type: "Тип"
     username: Username
     email: "Емейл"
@@ -162,6 +163,7 @@ label:
     first_name: "Имя"
     last_name: "Фамилия"
     password: "Пароль"
+    number_of_people: "Число людей"
 
 message:
     no_meals: "Результаты не найдены"

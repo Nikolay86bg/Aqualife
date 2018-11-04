@@ -129,6 +129,13 @@ class Query
     private $deletedAt;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="number_of_people", type="integer", nullable=true)
+     */
+    private $numberOfPeople;
+
+    /**
      * @return User
      */
     public function getCreatedBy()
@@ -261,5 +268,22 @@ class Query
     {
         $this->deletedAt = $deletedAt;
     }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfPeople()
+    {
+        return $this->numberOfPeople;
+    }
+
+    /**
+     * @param int $numberOfPeople
+     */
+    public function setNumberOfPeople($numberOfPeople)
+    {
+        $this->numberOfPeople = $numberOfPeople;
+    }
+
 
 }

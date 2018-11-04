@@ -21,6 +21,7 @@
                                     <th>{{ "label.manager"|trans }}</th>
                                     <th>{{ "label.sport"|trans }}</th>
                                     <th>{{ "label.country"|trans }}</th>
+                                    <th>{{ "label.number_of_people"|trans }}</th>
                                     <th>{{ "label.arrival"|trans }}</th>
                                     <th>{{ "label.departure"|trans }}</th>
                                 </tr>
@@ -33,6 +34,7 @@
                                     <td>{% if query.account.manager is defined %}{{ query.account.manager }}{% else %} - {% endif %}</td>
                                     <td>{% if query.account.sport is defined %}{{ constant('App\\Entity\\Account::SPORTS')[query.account.sport]|trans }}{% else %} - {% endif %}</td>
                                     <td>{% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}</td>
+                                    <td>{% if query.numberOfPeople is defined %}{{ query.numberOfPeople }}{% else %} - {% endif %}</td>
                                     <td>{% if query.dateOfArrival is defined %}{{ query.dateOfArrival|date('Y-m-d H:i') }}{% else %} - {% endif %}</td>
                                     <td>{% if query.dateOfDeparture is defined %}{{ query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</span></a</td>
                                 {% else %}

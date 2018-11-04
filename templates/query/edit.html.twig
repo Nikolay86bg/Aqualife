@@ -38,6 +38,11 @@
                         {{ form_widget(form) }}
 
                         <div class="form-group">
+                            <label>{{ "filter.number_of_people"|trans }}</label>
+                            <input type="number" class="form-control pull-right" name="number_of_people" value="{{ query.numberOfPeople }}" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
                             <label>{{ "label.hotel"|trans }}:</label>
                             <select class="form-control" name="hotel">
                                 <option value="{{ query.hotel }}">{{ constant('App\\Entity\\Query::HOTELS')[query.hotel] }}</option>

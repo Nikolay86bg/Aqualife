@@ -153,6 +153,7 @@ class QueryController extends Controller
 
             $query->setAccount($account);
             $query->setHotel($request->get('hotel'));
+            $query->setNumberOfPeople($request->get('number_of_people'));
             $query->setCreatedBy($this->getUser());
             $query->setDateOfArrival((\DateTime::createFromFormat("d/m/Y H:i", $dates[0])));
             $query->setDateOfDeparture((\DateTime::createFromFormat("d/m/Y H:i", $dates[1])));
@@ -246,6 +247,7 @@ class QueryController extends Controller
             $dates = explode(' - ', $request->get('datetimes'));
 
             $query->setHotel($request->get('hotel'));
+            $query->setNumberOfPeople($request->get('number_of_people'));
             $query->setDateOfArrival((\DateTime::createFromFormat("d/m/Y H:i", $dates[0])));
             $query->setDateOfDeparture((\DateTime::createFromFormat("d/m/Y H:i", $dates[1])));
 

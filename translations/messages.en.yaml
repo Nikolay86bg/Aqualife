@@ -71,6 +71,7 @@ filter:
     name: "Name"
     payed: "Payed"
     hotel: "Hotel"
+    number_of_people: "Number Of People"
     type: Type
     username: Username
     email: Email
@@ -162,6 +163,7 @@ label:
     first_name: "First Name"
     last_name: "Last Name"
     password: Password
+    number_of_people: "Number Of People"
 
 message:
     no_meals: "No meal Schedule"
