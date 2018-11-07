@@ -121,6 +121,7 @@ class ScheduleRepository extends ServiceEntityRepository
         $queryBuilder->andWhere('schedule.date <= :to');
         $queryBuilder->andWhere('schedule.date <= :to');
         $queryBuilder->andWhere('schedule.deleted IS NULL');
+        $queryBuilder->andWhere('query.deleted IS NULL');
         $queryBuilder->andWhere('query.status != :status');
 
         $queryBuilder->setParameter('facility', $facility);
