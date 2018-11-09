@@ -264,6 +264,31 @@ class Account
     }
 
     /**
+     * Get schedules information for non pool
+     *
+     * @return array
+     */
+    public function isNotPool()
+    {
+        $return = [];
+        if ($schedules = $this->getSchedules()) {
+            /** @var Schedule $schedule */
+            foreach ($schedules as $schedule) {
+                if ($schedule->getFacility()->getType() != Facility::TYPE_POOL) {
+                    $return[$schedule->getId()]['date'] = $schedule->getDate();
+                    $return[$schedule->getId()]['from'] = $schedule->getTimeFrom();
+                    $return[$schedule->getId()]['to'] = $schedule->getTimeTo();
+                    $return[$schedule->getId()]['lanes'] = $schedule->getParts();
+                    $return[$schedule->getId()]['facility'] = $schedule->getFacility()->getName();
+                    $return[$schedule->getId()]['facility_id'] = $schedule->getFacility()->getId();
+                }
+            }
+        }
+
+        return $return;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getDeletedAt()
