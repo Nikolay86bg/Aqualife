@@ -97,6 +97,10 @@ class QueryRepository extends ServiceEntityRepository
                     $sortBy = 'query.payed';
                     break;
 
+                case 'numberOfPeople' == $sort:
+                    $sortBy = 'query.numberOfPeople';
+                    break;
+
                 default:
 
                     $queryBuilder->orderBy('query.id');
