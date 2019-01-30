@@ -40,6 +40,11 @@ class QueryRepository extends ServiceEntityRepository
                 ->andWhere('account.sport LIKE :sport')
                 ->setParameter('sport', $form->get('sport')->getData() . '%');
         }
+        if (null !== $form->get('name')->getData()) {
+            $queryBuilder
+                ->andWhere('account.name LIKE :name')
+                ->setParameter('name', $form->get('name')->getData() . '%');
+        }
         if (null !== $form->get('country')->getData()) {
             $queryBuilder
                 ->andWhere('account.country LIKE :country')

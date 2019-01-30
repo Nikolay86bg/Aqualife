@@ -27,6 +27,7 @@ class QueryController extends Controller
     /**
      * @Route("/query", name="query")
      *
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
@@ -45,19 +46,18 @@ class QueryController extends Controller
             $order = $request->get('order');
         }
 
-        $scheduleRepo = $entityManager->getRepository('App:Schedule');
+        $scheduleRepo = $entityManager->getRepository(Schedule::class);
 
         $queries = $entityManager->getRepository(Query::class)->getListQuery($filter, $sort, $order);
 
         $queries = (new Paginator($queries))
-            ->setEntityManager($this->getDoctrine()->getManager())
+            ->setEntityManager($entityManager)
             ->paginate($request->query->get('page'));
-        $countries = Intl::getRegionBundle()->getCountryNames();
 
         return $this->render('query/index.html.twig', [
             'filter' => $filter->createView(),
             'queries' => $queries,
-            'countries' => $countries,
+            'countries' => Intl::getRegionBundle()->getCountryNames(),
             'scheduleRepo' => $scheduleRepo
         ]);
     }

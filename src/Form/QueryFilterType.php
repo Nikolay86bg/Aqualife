@@ -48,6 +48,14 @@ class QueryFilterType extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
+            ->add('name', TextType::class, [
+                'required' => false,
+                'label' => 'filter.name',
+                'attr' => [
+                    'placeholder' => 'filter.name',
+                    'class' => 'form-control'
+                ],
+            ])
             ->add('country', CountryType::class, [
                 'required' => false,
                 'label' => 'filter.country',
