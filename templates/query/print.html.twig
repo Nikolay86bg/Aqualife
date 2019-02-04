@@ -57,25 +57,24 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    {% if mealArray|length > 0%}
-                                        {% for meal in mealArray %}
-
-                                            <td>
-                                            {% for date in meal.dates%}
-                                                {{ date|date("d-m-Y") }} <br>
-                                            {% endfor %}
-                                            </td>
-                                            <td>{{ meal.restaurant }}</td>
-                                            <td>{{ meal.breakfast }}</td>
-                                            <td>{{ meal.lunch }}</td>
-                                            <td>{{ meal.dinner }}</td>
-                                            <td>{{ meal.middle }}</td>
+                                {% if mealArray|length > 0%}
+                                    {% for meal in mealArray %}
+                                     <tr>
+                                        <td>
+                                        {% for date in meal.dates%}
+                                            {{ date|date("d-m-Y") }} <br>
                                         {% endfor %}
-                                    {% else %}
-                                        <td><h2>{{ "message.no_results"|trans }}</h2></td>
-                                    {% endif %}
-                                </tr>
+                                        </td>
+                                        <td>{{ meal.restaurant }}</td>
+                                        <td>{{ meal.breakfast }}</td>
+                                        <td>{{ meal.lunch }}</td>
+                                        <td>{{ meal.dinner }}</td>
+                                        <td>{{ meal.middle }}</td>
+                                     </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr><td><h2>{{ "message.no_results"|trans }}</h2></td> </tr>
+                                {% endif %}
                                 </tbody>
                             </table>
 
