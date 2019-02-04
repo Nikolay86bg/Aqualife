@@ -83,6 +83,7 @@ class AccountRepository extends ServiceEntityRepository
             ->where('query.status = :status')
             ->andWhere('DATE(query.dateOfArrival) <= DATE(:today)')
             ->andWhere('DATE(query.dateOfDeparture) >= DATE(:today)')
+            ->andWhere('query.deletedAt IS NULL')
             ->setParameters([
             'status' => Query::STATUS_ACCEPTED,
             'today' => new \DateTime()
