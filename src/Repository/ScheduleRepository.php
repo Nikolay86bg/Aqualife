@@ -206,11 +206,13 @@ class ScheduleRepository extends ServiceEntityRepository
                     if ($lanes) {
                         foreach ($lanes as $lane => $on) {
                             $return[$lane][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
+                            $return[$lane][$event->getTimeFrom()->format("H:i")]['endTime'] = $event->getTimeTo()->format("H:i");
                         }
                     }
                 } else {
                     $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
                     $return[$Iid][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
+                    $return[$Iid][$event->getTimeFrom()->format("H:i")]['endTime'] = $event->getTimeTo()->format("H:i");
                 }
             }
         }
