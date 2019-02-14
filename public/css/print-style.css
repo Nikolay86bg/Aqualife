@@ -1,0 +1,12 @@
+section{
+    page-break-after: always;
+}
+
+@media print
+{
+    a[href]:after { content: none !important; }
+    img[src]:after { content: none !important; }
+
+    #navigation, .do-not-print, #menu {display:none}
+
+}

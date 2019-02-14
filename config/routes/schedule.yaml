@@ -14,7 +14,7 @@ schedule_feed:
     methods:  [GET, POST]
 
 schedule_print:
-    path:     /print/{id}/{from}/{to}
+    path:     /print/{id}/{from}/{until}
     controller: App\Controller\ScheduleController::printTemplate
     methods:  GET
 

@@ -205,8 +205,8 @@ class ScheduleRepository extends ServiceEntityRepository
                     $lanes = unserialize($event->getLanes());
                     if ($lanes) {
                         foreach ($lanes as $lane => $on) {
-                            $return[$lane][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
-                            $return[$lane][$event->getTimeFrom()->format("H:i")]['endTime'] = $event->getTimeTo()->format("H:i");
+                            $return[$event->getDate()->format('d.m.Y')][$lane][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
+                            $return[$event->getDate()->format('d.m.Y')][$lane][$event->getTimeFrom()->format("H:i")]['endTime'] = $event->getTimeTo()->format("H:i");
                         }
                     }
                 } else {

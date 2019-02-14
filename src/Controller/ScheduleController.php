@@ -93,19 +93,20 @@ class ScheduleController extends Controller
     /**
      * @param Facility $facility
      * @param \DateTime $from
-     * @param \DateTime $to
+     * @param \DateTime $until
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function printTemplate(Facility $facility, \DateTime $from, \DateTime $to)
+    public function printTemplate(Facility $facility, \DateTime $from, \DateTime $until)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $schedule = $entityManager->getRepository(Schedule::class)->getSchedule($facility, $from, $to);
+        $schedule = $entityManager->getRepository(Schedule::class)->getSchedule($facility, $from, $until);
         $scheduleOrdered = $entityManager->getRepository(Schedule::class)->preparePrintSchedule($schedule);
 
         return $this->render('schedule/print.html.twig', [
-            'schedule' => $scheduleOrdered,
+            'scheduleOrdered' => $scheduleOrdered,
             'facility' => $facility,
-            'date' => $from,
+            'from' => $from,
+            'until' => $until,
         ]);
     }
 
