@@ -129,6 +129,7 @@ class ScheduleRepository extends ServiceEntityRepository
         $queryBuilder->setParameter('to', $to->format("Y-m-d"));
         $queryBuilder->setParameter('status', Query::STATUS_REJECTED);
 
+        $queryBuilder->orderBy('schedule.date', 'ASC');
         return $queryBuilder->getQuery()->getResult();
     }
 
@@ -205,22 +206,26 @@ class ScheduleRepository extends ServiceEntityRepository
                     $lanes = unserialize($event->getLanes());
                     if ($lanes) {
                         foreach ($lanes as $lane => $on) {
-                            $return[$event->getDate()->format('d.m.Y')][$lane][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
-                            $return[$event->getDate()->format('d.m.Y')][$lane][$event->getTimeFrom()->format("H:i")]['endTime'] = $event->getTimeTo()->format("H:i");
+                            $return[$event->getDate()->format('Y-m-d')][$lane][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
+                            $return[$event->getDate()->format('Y-m-d')][$lane][$event->getTimeFrom()->format("H:i")]['endTime'] = $event->getTimeTo()->format("H:i");
                         }
                     }
                 } else {
-                    $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
-                    $return[$Iid][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
-                    $return[$Iid][$event->getTimeFrom()->format("H:i")]['endTime'] = $event->getTimeTo()->format("H:i");
+//                    $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
+                    $Iid = $event->getParts();
+
+                    $return[$event->getDate()->format('Y-m-d')][$Iid][$event->getTimeFrom()->format("H:i")]['desc'] = $event->getTimeFrom()->format("H:i")."-".$event->getTimeTo()->format("H:i")." ".$event->getAccount()->getName();
+                    $return[$event->getDate()->format('Y-m-d')][$Iid][$event->getTimeFrom()->format("H:i")]['endTime'] = $event->getTimeTo()->format("H:i");
                 }
             }
         }
 
         //Sorting by time
-        foreach($return as $key => $arr){
-            ksort($arr, SORT_ASC);
-            $return[$key] = $arr;
+        foreach($return as $date => $arr1){
+            foreach($arr1 as $key2 => $arr2){
+                ksort($arr2, SORT_ASC);
+                $return[$date][$key2] = $arr2;
+            }
         }
 
         return $return;

@@ -59,7 +59,7 @@ class ScheduleController extends Controller
             $date = $filter->get('date')->getData();
         }else{
             $entityManager = $this->getDoctrine()->getManager();
-            $facility = $entityManager->getRepository('App:Facility')->findOneBy(['id' => 1]);
+            $facility = $entityManager->getRepository(Facility::class)->findOneBy(['id' => 1]);
             $date = new \DateTime();
         }
 

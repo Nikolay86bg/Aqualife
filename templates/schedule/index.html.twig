@@ -41,7 +41,7 @@
         <section class="content">
             {% include 'schedule/filter.html.twig' %}
             <div class="row">
-                <h2>{{ facility.name }} - <a href="{{ url('schedule_print', {'id': facility.id, 'from': date|date("d-m-Y"), 'to': date|date("d-m-Y")}) }}" target="_blank" class="btn btn-sm btn-success">{{ "general.button.for_printing"|trans }}</a></h2>
+                <h2>{{ facility.name }} - <a href="{{ url('schedule_print', {'id': facility.id, 'from': date|date("d-m-Y"), 'until': date|date("d-m-Y")}) }}" target="_blank" class="btn btn-sm btn-success">{{ "general.button.for_printing"|trans }}</a></h2>
 
                 <div class="col-md-12">
                     <div class="box box-primary">
@@ -131,10 +131,10 @@
                           id: 'All'
                       },
                       {
-                          id: '1/2'
+                          id: '1/2 A'
                       },
                       {
-                          id: '1/3'
+                          id: '1/2 B'
                       },
                       {% endif %}
                       {

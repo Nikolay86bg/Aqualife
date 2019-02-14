@@ -15,6 +15,7 @@ class Facility
     const TYPE_FOOTBALL_PLAYGROUND = 2;
     const TYPE_COURT = 3;
     const TYPE_STAGE = 4;
+    const TYPE_DIVISIBLE_HALL = 5;
 
     const TYPES = [
         self::TYPE_POOL => "Swimming Pool",
@@ -22,7 +23,12 @@ class Facility
         self::TYPE_FOOTBALL_PLAYGROUND => "Football Playground",
         self::TYPE_COURT => "Court",
         self::TYPE_STAGE => "Stage",
+        self::TYPE_DIVISIBLE_HALL => "Divisible Sport Hall",
     ];
+
+    const TYPE_OPTION_ALL = 0;
+    const TYPE_OPTION_12A = 1;
+    const TYPE_OPTION_12B = 2;
 
     const PARTS = [
         self::TYPE_POOL => [
@@ -36,19 +42,23 @@ class Facility
             "7" => "8 lanes",
         ],
         self::TYPE_HALL => [
-            '0' => "All",
-            '1' => "1/2",
-            '2' => "1/3",
+            self::TYPE_OPTION_ALL => "All",
         ],
         self::TYPE_FOOTBALL_PLAYGROUND => [
-            '0' => "All",
-            '1' => "1/2",
+            self::TYPE_OPTION_ALL => "All",
+            self::TYPE_OPTION_12A => "1/2 A",
+            self::TYPE_OPTION_12B => "1/2 B",
         ],
         self::TYPE_COURT => [
-            '0' => "All"
+            self::TYPE_OPTION_ALL => "All",
         ],
         self::TYPE_STAGE => [
-            '0' => "All"
+            self::TYPE_OPTION_ALL => "All",
+        ],
+        self::TYPE_DIVISIBLE_HALL => [
+            self::TYPE_OPTION_ALL => "All",
+            self::TYPE_OPTION_12A => "1/2 A",
+            self::TYPE_OPTION_12B => "1/2 B",
         ]
     ];
 
