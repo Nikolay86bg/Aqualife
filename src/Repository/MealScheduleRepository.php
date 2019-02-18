@@ -64,7 +64,7 @@ class MealScheduleRepository extends ServiceEntityRepository
         /** @var MealSchedule $event */
         foreach ($schedule as $event) {
 //            dump($event->getRestaurant());exit;
-            
+
         if ($event->getBreakfastTime()) {
                 if($event->getBreakfastTimeEnd()){
                     $bTime = $event->getBreakfastTime()->format("H:i").'-'.$event->getBreakfastTimeEnd()->format("H:i");

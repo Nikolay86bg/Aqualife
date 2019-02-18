@@ -28,36 +28,36 @@ class AccountFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //TODO
         $builder
             ->add('name', TextType::class, [
                 'required' => false,
-                'label' => 'Name:',
+                'label' => 'filter.name',
                 'attr' => [
-                    'placeholder' => 'Name',
+                    'placeholder' => 'filter.name',
+                    'class' => 'form-control'
                 ],
             ])
-            ->add('agent', TextType::class, [
-                'required' => false,
-                'label' => 'Agent:',
-                'attr' => [
-                    'placeholder' => 'Agent',
-                ],
-            ])
-            ->add('sport', TextType::class, [
-                'required' => false,
-                'label' => 'Sport:',
-                'attr' => [
-                    'placeholder' => 'Sport',
-                ],
-            ])
-            ->add('country', CountryType::class, [
-                'required' => false,
-                'label' => 'Country:',
-                'attr' => [
-                    'placeholder' => 'Country',
-                ],
-            ])
+//            ->add('agent', TextType::class, [
+//                'required' => false,
+//                'label' => 'Agent:',
+//                'attr' => [
+//                    'placeholder' => 'Agent',
+//                ],
+//            ])
+//            ->add('sport', TextType::class, [
+//                'required' => false,
+//                'label' => 'Sport:',
+//                'attr' => [
+//                    'placeholder' => 'Sport',
+//                ],
+//            ])
+//            ->add('country', CountryType::class, [
+//                'required' => false,
+//                'label' => 'Country:',
+//                'attr' => [
+//                    'placeholder' => 'Country',
+//                ],
+//            ])
         ;
     }
 

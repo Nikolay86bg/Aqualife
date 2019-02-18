@@ -47,7 +47,7 @@ class AccountController extends Controller
         $countries = Intl::getRegionBundle()->getCountryNames();
 
         return $this->render('account/index.html.twig', [
-//            'filter' => $filter->createView(),
+            'filter' => $filter->createView(),
             'accounts' => $accounts,
             'countries' => $countries,
         ]);
