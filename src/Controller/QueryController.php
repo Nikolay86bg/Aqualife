@@ -133,14 +133,26 @@ class QueryController extends Controller
                     if ($request->get('meals')['breakfast'][$key] != "") {
                         $mealSchedule->setBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['breakfast'][$key]));
                     }
+                    if ($request->get('meals')['breakfast_end'][$key] != "") {
+                        $mealSchedule->setBreakfastTimeEnd(\DateTime::createFromFormat('H:i', $request->get('meals')['breakfast_end'][$key]));
+                    }
                     if ($request->get('meals')['middle_breakfast'][$key] != "") {
                         $mealSchedule->setMiddleBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['middle_breakfast'][$key]));
+                    }
+                    if ($request->get('meals')['middle_breakfast_end'][$key] != "") {
+                        $mealSchedule->setMiddleBreakfastTimeEnd(\DateTime::createFromFormat('H:i', $request->get('meals')['middle_breakfast_end'][$key]));
                     }
                     if ($request->get('meals')['lunch'][$key] != "") {
                         $mealSchedule->setLunchTime(\DateTime::createFromFormat('H:i', $request->get('meals')['lunch'][$key]));
                     }
+                    if ($request->get('meals')['lunch_end'][$key] != "") {
+                        $mealSchedule->setLunchTimeEnd(\DateTime::createFromFormat('H:i', $request->get('meals')['lunch_end'][$key]));
+                    }
                     if ($request->get('meals')['dinner'][$key] != "") {
                         $mealSchedule->setDinnerTime(\DateTime::createFromFormat('H:i', $request->get('meals')['dinner'][$key]));
+                    }
+                    if ($request->get('meals')['dinner_end'][$key] != "") {
+                        $mealSchedule->setDinnerTimeEnd(\DateTime::createFromFormat('H:i', $request->get('meals')['dinner_end'][$key]));
                     }
 
                     $em->persist($mealSchedule);
@@ -169,7 +181,7 @@ class QueryController extends Controller
             return $this->redirectToRoute('query_show', ['id' => $query->getId()]);
         }
 
-        $facilities = $em->getRepository('App:Facility')->findAll();
+        $facilities = $em->getRepository(Facility::class)->findAll();
 
         return $this->render('query/new.html.twig', [
             'account' => $account,
@@ -312,14 +324,26 @@ class QueryController extends Controller
                         if ($request->get('newmeals')['breakfast'][$key] != "" && $request->get('newmeals')['breakfast'][$key] != "0:00") {
                             $mealSchedule->setBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('newmeals')['breakfast'][$key]));
                         }
+                        if ($request->get('newmeals')['breakfast_end'][$key] != "" && $request->get('newmeals')['breakfast_end'][$key] != "0:00") {
+                            $mealSchedule->setBreakfastTimeEnd(\DateTime::createFromFormat('H:i', $request->get('newmeals')['breakfast_end'][$key]));
+                        }
                         if ($request->get('newmeals')['middle_breakfast'][$key] != "" && $request->get('newmeals')['middle_breakfast'][$key] != "0:00") {
                             $mealSchedule->setMiddleBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('newmeals')['middle_breakfast'][$key]));
+                        }
+                        if ($request->get('newmeals')['middle_breakfast_end'][$key] != "" && $request->get('newmeals')['middle_breakfast_end'][$key] != "0:00") {
+                            $mealSchedule->setMiddleBreakfastTimeEnd(\DateTime::createFromFormat('H:i', $request->get('newmeals')['middle_breakfast_end'][$key]));
                         }
                         if ($request->get('newmeals')['lunch'][$key] != "" && $request->get('newmeals')['lunch'][$key] != "0:00") {
                             $mealSchedule->setLunchTime(\DateTime::createFromFormat('H:i', $request->get('newmeals')['lunch'][$key]));
                         }
+                        if ($request->get('newmeals')['lunch_end'][$key] != "" && $request->get('newmeals')['lunch_end'][$key] != "0:00") {
+                            $mealSchedule->setLunchTimeEnd(\DateTime::createFromFormat('H:i', $request->get('newmeals')['lunch_end'][$key]));
+                        }
                         if ($request->get('newmeals')['dinner'][$key] != "" && $request->get('newmeals')['dinner'][$key] != "0:00") {
                             $mealSchedule->setDinnerTime(\DateTime::createFromFormat('H:i', $request->get('newmeals')['dinner'][$key]));
+                        }
+                        if ($request->get('newmeals')['dinner_end'][$key] != "" && $request->get('newmeals')['dinner_end'][$key] != "0:00") {
+                            $mealSchedule->setDinnerTimeEnd(\DateTime::createFromFormat('H:i', $request->get('newmeals')['dinner_end'][$key]));
                         }
                         $em->persist($mealSchedule);
                     }
@@ -342,10 +366,22 @@ class QueryController extends Controller
                             $oldMeal->setBreakfastTime(null);
                         }
 
+                        if ($request->get('meals')['breakfast_end'][$oldMeal->getId()] != "" && $request->get('meals')['breakfast_end'][$oldMeal->getId()] != "0:00") {
+                            $oldMeal->setBreakfastTimeEnd(\DateTime::createFromFormat('H:i', $request->get('meals')['breakfast_end'][$oldMeal->getId()]));
+                        } else {
+                            $oldMeal->setBreakfastTimeEnd(null);
+                        }
+
                         if ($request->get('meals')['middle_breakfast'][$oldMeal->getId()] != "" && $request->get('meals')['middle_breakfast'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setMiddleBreakfastTime(\DateTime::createFromFormat('H:i', $request->get('meals')['middle_breakfast'][$oldMeal->getId()]));
                         } else {
                             $oldMeal->setMiddleBreakfastTime(null);
+                        }
+
+                        if ($request->get('meals')['middle_breakfast_end'][$oldMeal->getId()] != "" && $request->get('meals')['middle_breakfast_end'][$oldMeal->getId()] != "0:00") {
+                            $oldMeal->setMiddleBreakfastTimeEnd(\DateTime::createFromFormat('H:i', $request->get('meals')['middle_breakfast_end'][$oldMeal->getId()]));
+                        } else {
+                            $oldMeal->setMiddleBreakfastTimeEnd(null);
                         }
 
                         if ($request->get('meals')['lunch'][$oldMeal->getId()] != "" && $request->get('meals')['lunch'][$oldMeal->getId()] != "0:00") {
@@ -354,10 +390,22 @@ class QueryController extends Controller
                             $oldMeal->setLunchTime(null);
                         }
 
+                        if ($request->get('meals')['lunch_end'][$oldMeal->getId()] != "" && $request->get('meals')['lunch_end'][$oldMeal->getId()] != "0:00") {
+                            $oldMeal->setLunchTimeEnd(\DateTime::createFromFormat('H:i', $request->get('meals')['lunch_end'][$oldMeal->getId()]));
+                        } else {
+                            $oldMeal->setLunchTimeEnd(null);
+                        }
+
                         if ($request->get('meals')['dinner'][$oldMeal->getId()] != "" && $request->get('meals')['dinner'][$oldMeal->getId()] != "0:00") {
                             $oldMeal->setDinnerTime(\DateTime::createFromFormat('H:i', $request->get('meals')['dinner'][$oldMeal->getId()]));
                         } else {
                             $oldMeal->setDinnerTime(null);
+                        }
+
+                        if ($request->get('meals')['dinner_end'][$oldMeal->getId()] != "" && $request->get('meals')['dinner_end'][$oldMeal->getId()] != "0:00") {
+                            $oldMeal->setDinnerTimeEnd(\DateTime::createFromFormat('H:i', $request->get('meals')['dinner_end'][$oldMeal->getId()]));
+                        } else {
+                            $oldMeal->setDinnerTimeEnd(null);
                         }
 
                     } else {
@@ -573,29 +621,44 @@ class QueryController extends Controller
         ])
         ) {
             foreach ($meals as $meal) {
-                $b = $l = $d = $m = 0;
+                $b = $l = $d = $m = $be = $le = $de = $me = 0;
                 if( $meal->getBreakfastTime()){
                     $b = $meal->getBreakfastTime()->format("Hi");
+                }
+                if( $meal->getBreakfastTimeEnd()){
+                    $be = $meal->getBreakfastTimeEnd()->format("Hi");
                 }
 
                 if( $meal->getLunchTime()){
                     $l = $meal->getLunchTime()->format("Hi");
                 }
 
+                if( $meal->getLunchTimeEnd()){
+                    $le = $meal->getLunchTimeEnd()->format("Hi");
+                }
+
                 if( $meal->getDinnerTime()){
                     $d = $meal->getDinnerTime()->format("Hi");
+                }
+
+                if( $meal->getDinnerTimeEnd()){
+                    $de = $meal->getDinnerTimeEnd()->format("Hi");
                 }
 
                 if( $meal->getMiddleBreakfastTime()){
                     $m = $meal->getMiddleBreakfastTime()->format("Hi");
                 }
 
-                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['dates'][] = $meal->getDate();
-                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['restaurant'] = Query::RESTAURANTS[$meal->getRestaurant()];
-                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['breakfast'] = $meal->getBreakfastTime()?$meal->getBreakfastTime()->format("H:i"):'-';
-                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['lunch'] = $meal->getLunchTime()?$meal->getLunchTime()->format("H:i"):'-';
-                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['dinner'] = $meal->getDinnerTime()?$meal->getDinnerTime()->format("H:i"):'-';
-                $mealArray[$meal->getRestaurant().'X'.$b.'X'.$l.'X'.$d.'X'.$m]['middle'] = $meal->getMiddleBreakfastTime()?$meal->getMiddleBreakfastTime()->format("H:i"):'-';
+                if( $meal->getMiddleBreakfastTimeEnd()){
+                    $me = $meal->getMiddleBreakfastTimeEnd()->format("Hi");
+                }
+
+                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['dates'][] = $meal->getDate();
+                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['restaurant'] = Query::RESTAURANTS[$meal->getRestaurant()];
+                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['breakfast'] = $meal->getBreakfastTime()?$meal->getBreakfastTime()->format("H:i").($meal->getBreakfastTimeEnd()?'-'.$meal->getBreakfastTimeEnd()->format("H:i"):''):'-';
+                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['lunch'] = $meal->getLunchTime()?$meal->getLunchTime()->format("H:i").($meal->getLunchTimeEnd()?'-'.$meal->getLunchTimeEnd()->format("H:i"):''):'-';
+                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['dinner'] = $meal->getDinnerTime()?$meal->getDinnerTime()->format("H:i").($meal->getDinnerTimeEnd()?'-'.$meal->getDinnerTimeEnd()->format("H:i"):''):'-';
+                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['middle'] = $meal->getMiddleBreakfastTime()?$meal->getMiddleBreakfastTime()->format("H:i").($meal->getMiddleBreakfastTimeEnd()?'-'.$meal->getMiddleBreakfastTimeEnd()->format("H:i"):''):'-';
             }
         }
 

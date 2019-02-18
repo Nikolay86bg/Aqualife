@@ -34,7 +34,7 @@
                             <div class="box box-widget widget-user-2">
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <!-- Add the bg color to the header using any of the bg-* classes -->
                                         <div class="widget-user-header bg-yellow">
                                             <h3 class="widget-user-username">{{ query.account.name }} {% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}
@@ -55,7 +55,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <!-- Add the bg color to the header using any of the bg-* classes -->
                                         <div class="widget-user-header bg-red">
                                             <h3 class="widget-user-username">{{ "label.meal_schedule"|trans }}</h3>
@@ -88,29 +88,46 @@
                                                                 <td>
                                                                     {% for meal in meals %}
                                                                         {% if meal.breakfastTime %}
-                                                                            {{ meal.breakfastTime|date('H:i') }} <br>
+                                                                            {{ meal.breakfastTime|date('H:i') }}
                                                                         {% endif %}
+
+                                                                        {% if meal.breakfastTimeEnd %}
+                                                                            - {{ meal.breakfastTimeEnd|date('H:i') }}
+                                                                        {% endif %}
+                                                                        <br>
                                                                     {% endfor %}
                                                                 </td>
                                                                 <td>
                                                                     {% for meal in meals %}
                                                                         {% if meal.lunchTime %}
-                                                                            {{ meal.lunchTime|date('H:i') }} <br>
+                                                                            {{ meal.lunchTime|date('H:i') }}
                                                                         {% endif %}
+                                                                        {% if meal.lunchTimeEnd %}
+                                                                            - {{ meal.lunchTimeEnd|date('H:i') }}
+                                                                        {% endif %}
+                                                                        <br>
                                                                     {% endfor %}
                                                                 </td>
                                                                 <td>
                                                                     {% for meal in meals %}
                                                                         {% if meal.dinnerTime %}
-                                                                            {{ meal.dinnerTime|date('H:i') }} <br>
+                                                                            {{ meal.dinnerTime|date('H:i') }}
                                                                         {% endif %}
+                                                                        {% if meal.dinnerTimeEnd %}
+                                                                            - {{ meal.dinnerTimeEnd|date('H:i') }}
+                                                                        {% endif %}
+                                                                        <br>
                                                                     {% endfor %}
                                                                 </td>
                                                                 <td>
                                                                     {% for meal in meals %}
                                                                         {% if meal.middleBreakfastTime %}
-                                                                            {{ meal.middleBreakfastTime|date('H:i') }} <br>
+                                                                            {{ meal.middleBreakfastTime|date('H:i') }}
                                                                         {% endif %}
+                                                                        {% if meal.middleBreakfastTimeEnd %}
+                                                                            - {{ meal.middleBreakfastTimeEnd|date('H:i') }}
+                                                                        {% endif %}
+                                                                        <br>
                                                                     {% endfor %}
                                                                 </td>
                                                             </tr>

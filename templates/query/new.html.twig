@@ -16,7 +16,7 @@
     {% block content %}
 
         {{ form_start(form, { 'attr' : { 'autocomplete': 'off' } }) }}
-        <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ "label.client"|trans }}</h3>
@@ -34,14 +34,26 @@
                 <div class="x_content">
 
                     <div class="box-body">
-                        {{ form_widget(form) }}
+                        {#{{ form_widget(form) }}#}
+                        <div class="form-group col-md-3 col-sm-3">
+                        {{ form_row(form.name) }}
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                        {{ form_row(form.manager) }}
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                        {{ form_row(form.sport) }}
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                        {{ form_row(form.country) }}
+                        </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-md-3 col-sm-3">
                             <label>{{ "filter.number_of_people"|trans }}</label>
                             <input type="number" class="form-control pull-right" name="number_of_people" autocomplete="off">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-md-3 col-sm-3">
                             <label>{{ "filter.hotel"|trans }}</label>
                             <select class="form-control" name="hotel">
                                 {% for hotelId, hotel in constant('App\\Entity\\Query::HOTELS') %}
@@ -50,10 +62,10 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-md-3 col-sm-3">
                             <label>{{ "filter.arrival"|trans }} - {{ "filter.departure"|trans }}:</label>
 
-                            <div class="input-group">
+                            <div class="input-group ">
                                 <div class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </div>
@@ -61,7 +73,8 @@
                             </div>
                             <!-- /.input group -->
                         </div>
-                        <div class="box-footer">
+
+                        <div class="box-footer col-md-3 col-sm-3">
                             <button id="send" type="submit" class="btn btn-success">{{ "general.button.save"|trans }}</button>
                             <a href="{{ path('query_index') }}" class="btn bg-blue">{{ "general.button.cancel"|trans }}</a>
                         </div>
@@ -71,7 +84,7 @@
             </div>
         </div>
 
-        <div class="col-md-8 col-sm-8 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="box box-danger">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ "label.meal_schedule"|trans }}</h3>
@@ -91,10 +104,14 @@
                                 <tr>
                                     <th>{{ "label.date"|trans }}</th>
                                     <th>{{ "label.restaurant"|trans }}</th>
-                                    <th style="width: 130px">{{ "label.breakfast_time"|trans }}</th>
-                                    <th style="width: 130px">{{ "label.lunch_time"|trans }}</th>
-                                    <th style="width: 130px">{{ "label.dinner_time"|trans }}</th>
-                                    <th style="width: 130px">{{ "label.middle_breakfast_time"|trans }}</th>
+                                    <th style="width: 115px">{{ "label.breakfast_time"|trans }}</th>
+                                    <th style="width: 115px">{{ "label.breakfast_time_end"|trans }}</th>
+                                    <th style="width: 115px">{{ "label.lunch_time"|trans }}</th>
+                                    <th style="width: 115px">{{ "label.lunch_time_end"|trans }}</th>
+                                    <th style="width: 115px">{{ "label.dinner_time"|trans }}</th>
+                                    <th style="width: 115px">{{ "label.dinner_time_end"|trans }}</th>
+                                    <th style="width: 115px">{{ "label.middle_breakfast_time"|trans }}</th>
+                                    <th style="width: 115px">{{ "label.middle_breakfast_time_end"|trans }}</th>
                                     <th>{{ "label.delete"|trans }}</th>
                                 </tr>
                                 <tr class="meal_row_to_copy">
@@ -120,7 +137,23 @@
                                     </td>
                                     <td>
                                         <div class="input-group">
+                                            <input type="text" class="form-control timepicker" name="meals[breakfast_end][]">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
                                             <input type="text" class="form-control timepicker" name="meals[lunch][]">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control timepicker" name="meals[lunch_end][]">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>
@@ -136,7 +169,23 @@
                                     </td>
                                     <td>
                                         <div class="input-group">
+                                            <input type="text" class="form-control timepicker" name="meals[dinner_end][]">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
                                             <input type="text" class="form-control timepicker" name="meals[middle_breakfast][]">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control timepicker" name="meals[middle_breakfast_end][]">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-clock-o"></i>
                                             </div>

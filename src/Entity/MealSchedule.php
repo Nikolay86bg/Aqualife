@@ -42,9 +42,23 @@ class MealSchedule
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="breakfast_time_end", type="time", nullable=true)
+     */
+    private $breakfastTimeEnd;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="middle_breakfast_time", type="time", nullable=true)
      */
     private $middleBreakfastTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="middle_breakfast_time_end", type="time", nullable=true)
+     */
+    private $middleBreakfastTimeEnd;
 
     /**
      * @var \DateTime
@@ -56,9 +70,23 @@ class MealSchedule
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="lunch_time_end", type="time", nullable=true)
+     */
+    private $lunchTimeEnd;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="dinner_time", type="time", nullable=true)
      */
     private $dinnerTime;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dinner_time_end", type="time", nullable=true)
+     */
+    private $dinnerTimeEnd;
 
     /**
      * @var Account
@@ -210,5 +238,71 @@ class MealSchedule
     {
         $this->deleted = $deleted;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBreakfastTimeEnd()
+    {
+        return $this->breakfastTimeEnd;
+    }
+
+    /**
+     * @param \DateTime $breakfastTimeEnd
+     */
+    public function setBreakfastTimeEnd($breakfastTimeEnd)
+    {
+        $this->breakfastTimeEnd = $breakfastTimeEnd;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getMiddleBreakfastTimeEnd()
+    {
+        return $this->middleBreakfastTimeEnd;
+    }
+
+    /**
+     * @param \DateTime $middleBreakfastTimeEnd
+     */
+    public function setMiddleBreakfastTimeEnd($middleBreakfastTimeEnd)
+    {
+        $this->middleBreakfastTimeEnd = $middleBreakfastTimeEnd;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLunchTimeEnd()
+    {
+        return $this->lunchTimeEnd;
+    }
+
+    /**
+     * @param \DateTime $lunchTimeEnd
+     */
+    public function setLunchTimeEnd($lunchTimeEnd)
+    {
+        $this->lunchTimeEnd = $lunchTimeEnd;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDinnerTimeEnd()
+    {
+        return $this->dinnerTimeEnd;
+    }
+
+    /**
+     * @param \DateTime $dinnerTimeEnd
+     */
+    public function setDinnerTimeEnd($dinnerTimeEnd)
+    {
+        $this->dinnerTimeEnd = $dinnerTimeEnd;
+    }
+
+
 
 }

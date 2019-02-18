@@ -26,7 +26,7 @@
         {% endfor %}
 
         {{ form_start(form, { 'attr' : { 'autocomplete': 'off' } }) }}
-        <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ "label.client"|trans }}</h3>
@@ -35,14 +35,26 @@
                 <div class="x_content">
 
                     <div class="box-body">
-                        {{ form_widget(form) }}
+                        {#{{ form_widget(form) }}#}
+                        <div class="form-group col-md-3 col-sm-3">
+                            {{ form_row(form.name) }}
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                            {{ form_row(form.manager) }}
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                            {{ form_row(form.sport) }}
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                            {{ form_row(form.country) }}
+                        </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-md-3 col-sm-3">
                             <label>{{ "filter.number_of_people"|trans }}</label>
                             <input type="number" class="form-control pull-right" name="number_of_people" value="{{ query.numberOfPeople }}" autocomplete="off">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-md-3 col-sm-3">
                             <label>{{ "label.hotel"|trans }}:</label>
                             <select class="form-control" name="hotel">
                                 <option value="{{ query.hotel }}">{{ constant('App\\Entity\\Query::HOTELS')[query.hotel] }}</option>
@@ -52,7 +64,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-md-3 col-sm-3">
                             <label>{{ "label.arrival"|trans }} - {{ "label.departure"|trans }}:</label>
 
                             <div class="input-group">
@@ -63,7 +75,7 @@
                             </div>
                             <!-- /.input group -->
                         </div>
-                        <div class="box-footer">
+                        <div class="box-footer col-md-3 col-sm-3">
                             <button id="send" type="submit" class="btn btn-sm bg-green-active">{{ "general.button.save"|trans }}</button>
 
                             <a href="{{ path('query_index') }}" class="btn btn-sm bg-warning">{{ "general.button.back"|trans }}</a>
@@ -107,7 +119,7 @@
             </div>
         </div>
 
-        <div class="col-md-8 col-sm-8 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             {% include 'query/_edit_meal_schedule.html.twig' %}
         </div>
 

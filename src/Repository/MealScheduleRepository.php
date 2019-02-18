@@ -64,17 +64,39 @@ class MealScheduleRepository extends ServiceEntityRepository
         /** @var MealSchedule $event */
         foreach ($schedule as $event) {
 //            dump($event->getRestaurant());exit;
-            if ($event->getBreakfastTime()) {
-                $return[$event->getRestaurant()][$event->getDate()->format("d.m.Y")]['breakfast'][$event->getBreakfastTime()->format("H:i")][] = ['id'=>$event->getAccount()->getId(),'name'=>$event->getAccount()->getName()];// . ' ' . $event->getAccount()->getCountry();
+            
+        if ($event->getBreakfastTime()) {
+                if($event->getBreakfastTimeEnd()){
+                    $bTime = $event->getBreakfastTime()->format("H:i").'-'.$event->getBreakfastTimeEnd()->format("H:i");
+                }else{
+                    $bTime = $event->getBreakfastTime()->format("H:i");
+                }
+
+                $return[$event->getRestaurant()][$event->getDate()->format("d.m.Y")]['breakfast'][$bTime][] = ['id'=>$event->getAccount()->getId(),'name'=>$event->getAccount()->getName()];// . ' ' . $event->getAccount()->getCountry();
             }
             if ($event->getLunchTime()) {
-                $return[$event->getRestaurant()][$event->getDate()->format("d.m.Y")]['lunch'][$event->getLunchTime()->format("H:i")][] =  ['id'=>$event->getAccount()->getId(),'name'=>$event->getAccount()->getName()];// . ' ' . $event->getAccount()->getCountry();
+                if($event->getLunchTimeEnd()){
+                    $lTime = $event->getLunchTime()->format("H:i").'-'.$event->getLunchTimeEnd()->format("H:i");
+                }else{
+                    $lTime = $event->getLunchTime()->format("H:i");
+                }
+                $return[$event->getRestaurant()][$event->getDate()->format("d.m.Y")]['lunch'][$lTime][] =  ['id'=>$event->getAccount()->getId(),'name'=>$event->getAccount()->getName()];// . ' ' . $event->getAccount()->getCountry();
             }
             if ($event->getDinnerTime()) {
-                $return[$event->getRestaurant()][$event->getDate()->format("d.m.Y")]['dinner'][$event->getDinnerTime()->format("H:i")][] =  ['id'=>$event->getAccount()->getId(),'name'=>$event->getAccount()->getName()];// . ' ' . $event->getAccount()->getCountry();
+                if($event->getDinnerTimeEnd()){
+                    $dTime = $event->getDinnerTime()->format("H:i").'-'.$event->getDinnerTimeEnd()->format("H:i");
+                }else{
+                    $dTime = $event->getDinnerTime()->format("H:i");
+                }
+                $return[$event->getRestaurant()][$event->getDate()->format("d.m.Y")]['dinner'][$dTime][] =  ['id'=>$event->getAccount()->getId(),'name'=>$event->getAccount()->getName()];// . ' ' . $event->getAccount()->getCountry();
             }
             if ($event->getMiddleBreakfastTime()) {
-                $return[$event->getRestaurant()][$event->getDate()->format("d.m.Y")]['middleBreakfast'][$event->getMiddleBreakfastTime()->format("H:i")][] =  ['id'=>$event->getAccount()->getId(),'name'=>$event->getAccount()->getName()];// . ' ' . $event->getAccount()->getCountry();
+                if($event->getMiddleBreakfastTimeEnd()){
+                    $mbTime = $event->getMiddleBreakfastTime()->format("H:i").'-'.$event->getMiddleBreakfastTimeEnd()->format("H:i");
+                }else{
+                    $mbTime = $event->getMiddleBreakfastTime()->format("H:i");
+                }
+                $return[$event->getRestaurant()][$event->getDate()->format("d.m.Y")]['middleBreakfast'][$mbTime][] =  ['id'=>$event->getAccount()->getId(),'name'=>$event->getAccount()->getName()];// . ' ' . $event->getAccount()->getCountry();
             }
         }
 

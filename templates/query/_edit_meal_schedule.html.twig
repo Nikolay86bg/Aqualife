@@ -17,10 +17,14 @@
                     <tr>
                         <th>{{ "label.date"|trans }}</th>
                         <th>{{ "label.restaurant"|trans }}</th>
-                        <th style="width: 130px">{{ "label.breakfast_time"|trans }}</th>
-                        <th style="width: 130px">{{ "label.lunch_time"|trans }}</th>
-                        <th style="width: 130px">{{ "label.dinner_time"|trans }}</th>
-                        <th style="width: 130px">{{ "label.middle_breakfast_time"|trans }}</th>
+                        <th style="width: 115px">{{ "label.breakfast_time"|trans }}</th>
+                        <th style="width: 115px">{{ "label.breakfast_time_end"|trans }}</th>
+                        <th style="width: 115px">{{ "label.lunch_time"|trans }}</th>
+                        <th style="width: 115px">{{ "label.lunch_time_end"|trans }}</th>
+                        <th style="width: 115px">{{ "label.dinner_time"|trans }}</th>
+                        <th style="width: 115px">{{ "label.dinner_time_end"|trans }}</th>
+                        <th style="width: 115px">{{ "label.middle_breakfast_time"|trans }}</th>
+                        <th style="width: 115px">{{ "label.middle_breakfast_time_end"|trans }}</th>
                         <th>{{ "label.delete"|trans }}</th>
                     </tr>
                     {% if meal_schedules is empty %}
@@ -56,8 +60,32 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control timepicker"
+                                           name="newmeals[breakfast_end][]"
+                                           data-newname="newmeals[breakfast_end][]"
+                                           value=" ">
+
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control timepicker"
                                            name="newmeals[lunch][]"
                                            data-newname="newmeals[lunch][]"
+                                           value=" ">
+
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control timepicker"
+                                           name="newmeals[lunch_end][]"
+                                           data-newname="newmeals[lunch_end][]"
                                            value=" ">
 
                                     <div class="input-group-addon">
@@ -80,8 +108,31 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control timepicker"
+                                           name="newmeals[dinner_end][]"
+                                           data-newname="newmeals[dinner_end][]"
+                                           value=" ">
+
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control timepicker"
                                            name="newmeals[middle_breakfast][]"
                                            data-newname="newmeals[middle_breakfast][]" value=" ">
+
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" class="form-control timepicker"
+                                           name="newmeals[middle_breakfast_end][]"
+                                           data-newname="newmeals[middle_breakfast_end][]" value=" ">
 
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
@@ -140,11 +191,46 @@
                                 <td>
                                     <div class="input-group">
                                         <input type="text" class="form-control timepicker"
+                                               name="meals[breakfast_end][{{ meal_schedule.id }}]"
+                                               data-newname="newmeals[breakfast_end][]"
+                                               value="
+                                                       {% if meal_schedule.breakfastTimeEnd %}
+                                                         {{ meal_schedule.breakfastTimeEnd|date("H:i") }}
+                                                       {% else %}
+
+                                                       {% endif %}
+                                                       ">
+
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control timepicker"
                                                name="meals[lunch][{{ meal_schedule.id }}]"
                                                data-newname="newmeals[lunch][]"
                                                value="
                                                        {% if meal_schedule.lunchTime %}
                                                          {{ meal_schedule.lunchTime|date("H:i") }}
+                                                       {% else %}
+
+                                                       {% endif %}">
+
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control timepicker"
+                                               name="meals[lunch_end][{{ meal_schedule.id }}]"
+                                               data-newname="newmeals[lunch_end][]"
+                                               value="
+                                                       {% if meal_schedule.lunchTimeEnd %}
+                                                         {{ meal_schedule.lunchTimeEnd|date("H:i") }}
                                                        {% else %}
 
                                                        {% endif %}">
@@ -175,10 +261,45 @@
                                 <td>
                                     <div class="input-group">
                                         <input type="text" class="form-control timepicker"
+                                               name="meals[dinner_end][{{ meal_schedule.id }}]"
+                                               data-newname="newmeals[dinner_end][]"
+                                               value="
+                                                       {% if meal_schedule.dinnerTimeEnd %}
+                                                             {{ meal_schedule.dinnerTimeEnd|date("H:i") }}
+                                                       {% else %}
+
+                                                       {% endif %}
+                                                       ">
+
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control timepicker"
                                                name="meals[middle_breakfast][{{ meal_schedule.id }}]"
                                                data-newname="newmeals[middle_breakfast][]" value="
                                                 {% if meal_schedule.middleBreakfastTime %}
                                                     {{ meal_schedule.middleBreakfastTime|date("H:i") }}
+                                                 {% else %}
+
+                                                {% endif %}
+                                                ">
+
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control timepicker"
+                                               name="meals[middle_breakfast_end][{{ meal_schedule.id }}]"
+                                               data-newname="newmeals[middle_breakfast_end][]" value="
+                                                {% if meal_schedule.middleBreakfastTimeEnd %}
+                                                    {{ meal_schedule.middleBreakfastTimeEnd|date("H:i") }}
                                                  {% else %}
 
                                                 {% endif %}

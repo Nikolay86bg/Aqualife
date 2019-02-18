@@ -36,7 +36,7 @@
                                     <td>{% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}</td>
                                     <td>{% if query.numberOfPeople is defined %}{{ query.numberOfPeople }}{% else %} - {% endif %}</td>
                                     <td>{% if query.dateOfArrival is defined %}{{ query.dateOfArrival|date('Y-m-d H:i') }}{% else %} - {% endif %}</td>
-                                    <td>{% if query.dateOfDeparture is defined %}{{ query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</span></a</td>
+                                    <td>{% if query.dateOfDeparture is defined %}{{ query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</span></td>
                                 {% else %}
                                     <td><h2>{{ "message.no_results"|trans }}</h2></td>
                                 {% endif %}
