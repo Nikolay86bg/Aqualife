@@ -565,6 +565,7 @@ class QueryController extends Controller
     public function delete(Query $query)
     {
         $query->setDeletedAt((new \DateTime()));
+        $query->getAccount()->setDeletedAt((new \DateTime()));
         $this->getDoctrine()->getManager()->flush();
 
         $this->addFlash('success', $this->get('translator')->trans('general.flashes.deleted'));
