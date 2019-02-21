@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: ru
+    locale: en
 
 services:
     # default configuration for services in *this* file
@@ -27,6 +27,9 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    App\EventSubscriber\LocaleSubscriber:
+        arguments: ['%locale%']
+
     App\Service\ColorService:
         autowire: true
         public: true
@@ -44,6 +47,8 @@ services:
         autowire: true
         tags:
             - { name: doctrine.event_subscriber }
+
+
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

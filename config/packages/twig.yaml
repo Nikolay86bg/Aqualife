@@ -1,5 +1,5 @@
 parameters:
-    locale: ru
+    locale: en
     site_name: 'Aqualife System'
     short_site_name: 'Aqualife System'
 
