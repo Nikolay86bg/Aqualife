@@ -194,7 +194,7 @@ class QueryController extends Controller
      * @param Query $query
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Query $query)
+    public function show(Query $query, Request $request)
     {
 //        $this->denyAccessUnlessGranted(UserVoter::USER_VIEW_ROLE, $user);
 
@@ -235,6 +235,7 @@ class QueryController extends Controller
             'countries' => $countries,
             'scheduleArray' => $scheduleArray,
             'mealArray' => $mealArray,
+            'backUrl' => $request->server->get('HTTP_REFERER'),
         ]);
     }
 
