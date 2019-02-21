@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Account;
+use App\Entity\MealSchedule;
 use App\Form\AccountFilterType;
 use App\Form\AccountType;
 use App\Service\ColorService;
@@ -44,12 +45,11 @@ class AccountController extends Controller
         $accounts = (new Paginator($accounts))
             ->setEntityManager($this->getDoctrine()->getManager())
             ->paginate($request->query->get('page'));
-        $countries = Intl::getRegionBundle()->getCountryNames();
 
         return $this->render('account/index.html.twig', [
             'filter' => $filter->createView(),
             'accounts' => $accounts,
-            'countries' => $countries,
+            'countries' => Intl::getRegionBundle()->getCountryNames(),
         ]);
     }
 
@@ -134,9 +134,23 @@ class AccountController extends Controller
      */
     public function schedule(Account $account)
     {
+        if ($meals = $this->getDoctrine()->getManager()->getRepository(MealSchedule::class)->findBy([
+            'account' => $account,
+            'deleted' => null,
+        ], [
+            'date' => 'ASC'
+        ])
+        ) {
+            foreach ($meals as $meal) {
+                $mealArray[$meal->getDate()->format('Y-m-d')][] = $meal;
+            }
+        }
+
         return $this->render('account/schedule.html.twig', [
             'account' => $account,
-            'color' =>  $this->get(ColorService::class)
+            'color' =>  $this->get(ColorService::class),
+            'countries' => Intl::getRegionBundle()->getCountryNames(),
+            'mealArray' => $mealArray,
         ]);
     }
 
