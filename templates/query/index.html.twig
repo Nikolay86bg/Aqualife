@@ -101,10 +101,15 @@
                                                     </a>
                                                 {% endif %}
 
-                                                <a href="{{ path('query_delete', { 'id': query.id }) }}"
-                                                   class="btn btn-sm bg-red-active no-wrap">
-                                                    <i class="fa fa-close"></i><span class="hidden-xs hidden-sm"> {{ "general.button.delete"|trans }}</span>
-                                                </a>
+                                                {#<a href="{{ path('query_delete', { 'id': query.id }) }}"#}
+                                                   {#class="btn btn-sm bg-red-active no-wrap">#}
+                                                    {#<i class="fa fa-close"></i><span class="hidden-xs hidden-sm"> {{ "general.button.delete"|trans }}</span>#}
+                                                {#</a>#}
+
+                                                <a  class="btn btn-sm bg-red-active no-wrap" href="#"
+                                                    data-href="{{ path('query_delete', { 'id': query.id }) }}" data-toggle="modal" data-target="#confirm-delete">
+                                                    <i class="fa fa-close"></i><span class="hidden-xs hidden-sm">
+                                                    {{ "general.button.delete"|trans }}</a>
 
                                             {% endif %}
                                         </td>
@@ -121,6 +126,24 @@
         </div>
     </div>
 
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">{{ "general.button.delete"|trans }}</h4>
+                </div>
+                <div class="modal-body">
+                    {{ "general.flashes.are_you_sure"|trans }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ "general.button.cancel"|trans }}</button>
+                    <a class="btn btn-danger btn-ok">{{ "general.button.delete"|trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -133,6 +156,18 @@
             orientation: "bottom auto",
             autoclose: true,
             todayHighlight: true
+        });
+
+        $('#confirm-delete').on('click', '.btn-ok', function(e) {
+            var $modalDiv = $(e.delegateTarget);
+            $modalDiv.addClass('loading');
+            setTimeout(function() {
+                $modalDiv.modal('hide').removeClass('loading');
+            }, 1500)
+        });
+
+        $('#confirm-delete').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
 
 

@@ -8,6 +8,7 @@ general:
     flashes:
         saved: "Ваши изменения были успешно сохранены!"
         deleted: "Удалено успешно!"
+        are_you_sure: "Are you sure?"
     error:
         403: "You Shall Not Pass!"
         404: "This page doesn't exist"
