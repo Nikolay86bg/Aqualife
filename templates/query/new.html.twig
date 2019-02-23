@@ -297,6 +297,7 @@
                                     <div>
                                         <span class="btn btn-sm bg-info add-date" id="{{ facility.id }}">{{ "general.button.add_date"|trans }}</span>
                                         <span class="btn btn-sm bg-orange whole-period" id="{{ facility.id }}">{{ "general.button.whole_period"|trans }}</span>
+                                        <span class="btn btn-sm bg-red delete-all" id="{{ facility.id }}">{{ "general.button.delete_all"|trans }}</span>
                                     </div>
 
                                 </div>
@@ -414,6 +415,10 @@
 
             });
 
+            $('.delete-all').on("click", function () {
+                $('.delete_row_'+$(this).attr('id')).remove();
+            });
+
             $('.whole-period').on("click", function () {
                var startEnd = $('[name="datetimes"]').val().split(' - ');
 
@@ -433,6 +438,7 @@
                     clone.find("select").val($('.row_to_copy'+ id).find("select").val());//Copy select value to cloning
 
                     clone.removeClass(); // change id or other attributes/contents
+                    clone.addClass('delete_row_'+ id); // change id or other attributes/contents
                     row.parent().append(clone); // add new row to end of table
 
                     setDateTimePickers();
@@ -444,6 +450,7 @@
                 var clone = row.clone(); // copy children too
                 clone.find("select").val($('.row_to_copy' + this.id).find("select").val());//Copy select value to cloning
                 clone.removeClass(); // change id or other attributes/contents
+                clone.addClass('delete_row_'+ this.id); // change id or other attributes/contents
                 row.parent().append(clone); // add new row to end of table
 
                 setDateTimePickers();

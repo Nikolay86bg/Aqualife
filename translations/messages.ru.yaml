@@ -27,6 +27,7 @@ general:
         pay: "Оплатил"
         add_date: "Добавить дату"
         whole_period: "Целый период"
+        delete_all: "Удалить все"
         for_printing: "Для печати"
         sign_in: "Войти"
         show_password: "Показать пароль"

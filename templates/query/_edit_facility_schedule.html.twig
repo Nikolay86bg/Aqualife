@@ -77,7 +77,7 @@
                                 {% set counter = 0 %}
                                 {% for key,schedule in schedules %}
                                     {% if schedule.facility.id == facility.id %}
-                                        <tr>
+                                        <tr class="delete_row_{{ facility.id }}">
                                             <td><input type="text" class="form-control pull-right datepicker"
                                                        name="facilities[date][{{ schedule.id }}]"
                                                        data-newname="newschedules[date][{{ facility.id }}][]"
@@ -136,6 +136,7 @@
                             >{{ "general.button.add_date"|trans }}</a>
 
                             <span class="btn btn-sm bg-orange whole-period" id="{{ facility.id }}">{{ "general.button.whole_period"|trans }}</span>
+                            <span class="btn btn-sm bg-red delete-all" id="{{ facility.id }}">{{ "general.button.delete_all"|trans }}</span>
                         </div>
 
                     </div>

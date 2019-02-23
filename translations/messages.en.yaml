@@ -27,6 +27,7 @@ general:
         pay: Pay
         add_date: "Add Date"
         whole_period: "Whole Period"
+        delete_all: "Delete All"
         for_printing: "For Printing"
         sign_in: "Sign In"
         show_password: "Show Password"
