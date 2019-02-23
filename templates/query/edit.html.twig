@@ -56,10 +56,11 @@
 
                         <div class="form-group col-md-3 col-sm-3">
                             <label>{{ "label.hotel"|trans }}:</label>
-                            <select class="form-control" name="hotel">
-                                <option value="{{ query.hotel }}">{{ constant('App\\Entity\\Query::HOTELS')[query.hotel] }}</option>
+                            {% set selectedHotels = query.hotel|split(',') %}
+
+                            <select class="form-control" name="hotel[]" multiple="multiple">
                                 {% for hotelId, hotel in constant('App\\Entity\\Query::HOTELS') %}
-                                    <option value="{{ hotelId }}">{{ hotel }}</option>
+                                    <option value="{{ hotelId }}" {% if hotelId in selectedHotels %}selected{% endif %}>{{ hotel }}</option>
                                 {% endfor %}
                             </select>
                         </div>

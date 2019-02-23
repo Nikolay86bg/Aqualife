@@ -81,7 +81,6 @@ class QueryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->persist($account);
 
             //ADD NEW DATES
@@ -186,10 +185,12 @@ class QueryController extends Controller
 
             $dates = explode(' - ', $request->get('datetimes'));
 
+            $hotels = implode(',', $request->get('hotel'));
+
             $query = new Query();
 
             $query->setAccount($account);
-            $query->setHotel($request->get('hotel'));
+            $query->setHotel($hotels);
             $query->setNumberOfPeople($request->get('number_of_people'));
             $query->setCreatedBy($this->getUser());
             $query->setDateOfArrival((\DateTime::createFromFormat("d/m/Y H:i", $dates[0])));
@@ -283,8 +284,9 @@ class QueryController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $dates = explode(' - ', $request->get('datetimes'));
+            $hotels = implode(',', $request->get('hotel'));
 
-            $query->setHotel($request->get('hotel'));
+            $query->setHotel($hotels);
             $query->setNumberOfPeople($request->get('number_of_people'));
             $query->setDateOfArrival((\DateTime::createFromFormat("d/m/Y H:i", $dates[0])));
             $query->setDateOfDeparture((\DateTime::createFromFormat("d/m/Y H:i", $dates[1])));

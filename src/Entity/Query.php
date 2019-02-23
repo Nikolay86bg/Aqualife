@@ -108,9 +108,9 @@ class Query
     private $createdBy;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $hotel;
 
@@ -190,7 +190,7 @@ class Query
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getHotel()
     {
@@ -198,9 +198,9 @@ class Query
     }
 
     /**
-     * @param int $hotel
+     * @param string $hotel
      */
-    public function setHotel(int $hotel)
+    public function setHotel(string $hotel)
     {
         $this->hotel = $hotel;
     }
