@@ -18,7 +18,14 @@
                         <th>{{ "label.parts"|trans }}</th>
                     </tr>
                     <tr class="schedule_info_{{ facility.id }}">
-                        <td><input type="text" class="form-control pull-right datepicker" name="facilities[{{ facility.id }}][date][]"></td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right add_date_range" name="facilities[{{ facility.id }}][date][]" autocomplete="off">
+                            </div>
+                        </td>
                         <td>
                             <div class="input-group" style="max-width: 100px;">
                                 <input type="text" class="form-control timepicker" name="facilities[{{ facility.id }}][mTimeFrom][]">

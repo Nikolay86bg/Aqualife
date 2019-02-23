@@ -242,13 +242,18 @@
                                             <th>{{ "label.parts"|trans }}</th>
                                             <th>{{ "label.delete"|trans }}</th>
                                         </tr>
-                                        <tr class="row_to_copy{{ facility.id }}">
+                                        <tr class="hidden row_to_copy{{ facility.id }}" >
                                             <td><input type="text" class="form-control pull-right datepicker"
-                                                       name="facilities[{{ facility.id }}][date][]"></td>
+                                                       name="newschedules[date][{{ facility.id }}][]"
+                                                       data-newname="newschedules[date][{{ facility.id }}][]"
+                                                       value=""></td>
                                             <td>
                                                 <div class="input-group" style="max-width: 100px;">
                                                     <input type="text" class="form-control timepicker"
-                                                           name="facilities[{{ facility.id }}][mTimeFrom][]">
+                                                           name="newschedules[mTimeFrom][{{ facility.id }}][]"
+                                                           data-newname="newschedules[mTimeFrom][{{ facility.id }}][]"
+                                                           value="">
+
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-clock-o"></i>
                                                     </div>
@@ -257,45 +262,39 @@
                                             <td>
                                                 <div class="input-group" style="max-width: 100px;">
                                                     <input type="text" class="form-control timepicker"
-                                                           name="facilities[{{ facility.id }}][mTimeTo][]">
+                                                           name="newschedules[mTimeTo][{{ facility.id }}][]"
+                                                           data-newname="newschedules[mTimeTo][{{ facility.id }}][]"
+                                                           value="">
+
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-clock-o"></i>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="input-group" style="max-width: 100px;">
-                                                    <input type="text" class="form-control timepicker"
-                                                           name="facilities[{{ facility.id }}][aTimeFrom][]">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-clock-o"></i>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group" style="max-width: 100px;">
-                                                    <input type="text" class="form-control timepicker"
-                                                           name="facilities[{{ facility.id }}][aTimeTo][]">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-clock-o"></i>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <select class="form-control" name="facilities[{{ facility.id }}][part][]">
+                                                <select class="form-control facility-part"
+                                                        name="newschedules[part][{{ facility.id }}][]"
+                                                        data-newname="newschedules[part][{{ facility.id }}][]"
+                                                >
                                                     {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
                                                         <option value="{{ partKey }}">{{ part }}</option>
                                                     {% endfor %}
                                                 </select>
                                             </td>
                                             <td>
-                                                <span style="cursor: pointer;" class="delete-row"><small class="label label-danger"><i class="fa fa-fw fa-close"></i> {{ "general.button.delete"|trans }}</small></span>
+                                                        <span style="cursor: pointer;" class="delete-row"><small
+                                                                    class="label label-danger"><i
+                                                                        class="fa fa-fw fa-close"></i> {{ "general.button.delete"|trans }}
+                                                            </small></span>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <div>
-                                        <span class="btn btn-sm bg-info add-date" id="{{ facility.id }}">{{ "general.button.add_date"|trans }}</span>
+                                        {#<span class="btn btn-sm bg-info add-date" id="{{ facility.id }}">{{ "general.button.add_date"|trans }}</span>#}
+
+                                        <a class="btn btn-sm bg-info" id="{{ facility.id }}" data-toggle="modal" data-target="#modal-add-date-{{ facility.id }}">{{ "general.button.add_date"|trans }}</a>
+
                                         <span class="btn btn-sm bg-orange whole-period" id="{{ facility.id }}">{{ "general.button.whole_period"|trans }}</span>
                                         <span class="btn btn-sm bg-red delete-all" id="{{ facility.id }}">{{ "general.button.delete_all"|trans }}</span>
                                     </div>
@@ -313,6 +312,10 @@
 
 
         {{ form_end(form) }}
+
+        {% for key,facility in facilities %}
+            {% include 'query/_edit_add_date.html.twig' %}
+        {% endfor %}
     {% endblock %}
 
     {% block javascripts %}
@@ -420,7 +423,7 @@
             });
 
             $('.whole-period').on("click", function () {
-               var startEnd = $('[name="datetimes"]').val().split(' - ');
+                var startEnd = $('[name="datetimes"]').val().split(' - ');
 
                 var start = startEnd[0].slice(0,-5).split("/");
                 var end = startEnd[1].slice(0,-5).split("/");
@@ -445,17 +448,6 @@
                 });
             });
 
-            $('.add-date').on("click", function () {
-                var row = $('.row_to_copy' + this.id);
-                var clone = row.clone(); // copy children too
-                clone.find("select").val($('.row_to_copy' + this.id).find("select").val());//Copy select value to cloning
-                clone.removeClass(); // change id or other attributes/contents
-                clone.addClass('delete_row_'+ this.id); // change id or other attributes/contents
-                row.parent().append(clone); // add new row to end of table
-
-                setDateTimePickers();
-            });
-
             $('.meal-add-date').on("click", function () {
                 var row = $('.meal_row_to_copy');
                 var clone = row.clone(); // copy children too
@@ -464,6 +456,59 @@
                 row.parent().append(clone); // add new row to end of table
 
                 setDateTimePickers();
+            });
+
+            {# ADD DATE SCRIPTS #}
+            $('.add_date_range').daterangepicker({
+                timePicker: false,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
+            });
+
+            $('.move-date-to-schedule').on("click", function () {
+                var facilityId = $(this).data('facility');
+                var date = $("input[name='facilities["+facilityId+"][date][]']" ).val();
+                var mTimeFrom = $("input[name='facilities["+facilityId+"][mTimeFrom][]']" ).val();
+                var mTimeTo = $("input[name='facilities["+facilityId+"][mTimeTo][]']" ).val();
+                var aTimeFrom = $("input[name='facilities["+facilityId+"][aTimeFrom][]']" ).val();
+                var aTimeTo = $("input[name='facilities["+facilityId+"][aTimeTo][]']" ).val();
+                var part = $(".facility-"+facilityId+"-part").val();
+                console.log(facilityId);
+
+                var startEnd = date.split(' - ');
+                var start = startEnd[0].split("/");
+                var end = startEnd[1].split("/");
+                var s=new Date(start[2],(start[1] -1 ),start[0]);
+                var e=new Date(end[2], (end[1] - 1),end[0]);
+                var dates = getDates(s, e);
+                dates.forEach(function(date) {
+                    var row = $('.row_to_copy' + facilityId);
+                    var clone = row.clone(); // copy children too
+                    var clone2 = row.clone(); // copy children too
+                    clone.find("input[name='newschedules[date]["+facilityId+"][]']").val(date.ddmmyyyy());
+                    clone.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(mTimeFrom);
+                    clone.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(mTimeTo);
+                    clone.find(".facility-part").val(part);
+
+                    clone2.find("input[name='newschedules[date]["+facilityId+"][]']").val(date.ddmmyyyy());
+                    clone2.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(aTimeFrom);
+                    clone2.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(aTimeTo);
+                    clone2.find(".facility-part").val(part);
+
+                    clone.removeClass(); // change id or other attributes/contents
+                    clone2.removeClass();
+                    clone.addClass('delete_row_'+ facilityId); // change id or other attributes/contents
+                    clone2.addClass('delete_row_'+ facilityId); // change id or other attributes/contents
+                    $('.table'+facilityId).append(clone); // add new row to end of table
+                    $('.table'+facilityId).append(clone2); // add new row to end of table
+                    row.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(mTimeFrom);
+                    row.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(mTimeTo);
+//
+                    setDateTimePickers();
+                });
+
+                return;
             });
 
 
