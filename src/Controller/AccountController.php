@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Account;
 use App\Entity\MealSchedule;
+use App\Entity\Schedule;
 use App\Form\AccountFilterType;
 use App\Form\AccountType;
 use App\Service\ColorService;
@@ -134,6 +135,20 @@ class AccountController extends Controller
      */
     public function schedule(Account $account)
     {
+        $scheduleArray = $mealArray = [];
+        if ($schedules = $this->getDoctrine()->getManager()->getRepository(Schedule::class)->findBy([
+            'account' => $account,
+            'deleted' => null,
+        ], [
+            'date' => 'ASC',
+            'timeFrom' => 'ASC',
+        ])
+        ) {
+            foreach ($schedules as $schedule) {
+                $scheduleArray[$schedule->getDate()->format('Y-m-d')][] = $schedule;
+            }
+        }
+
         if ($meals = $this->getDoctrine()->getManager()->getRepository(MealSchedule::class)->findBy([
             'account' => $account,
             'deleted' => null,
@@ -146,11 +161,15 @@ class AccountController extends Controller
             }
         }
 
+        ksort($scheduleArray);
+        ksort($mealArray);
+
         return $this->render('account/schedule.html.twig', [
             'account' => $account,
             'color' =>  $this->get(ColorService::class),
             'countries' => Intl::getRegionBundle()->getCountryNames(),
             'mealArray' => $mealArray,
+            'scheduleArray' => $scheduleArray,
         ]);
     }
 

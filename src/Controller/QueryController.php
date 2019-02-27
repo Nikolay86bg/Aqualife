@@ -223,9 +223,6 @@ class QueryController extends Controller
     public function show(Query $query, Request $request)
     {
 //        $this->denyAccessUnlessGranted(UserVoter::USER_VIEW_ROLE, $user);
-
-        $countries = Intl::getRegionBundle()->getCountryNames();
-
         $scheduleArray = $mealArray = [];
 //        if($schedules = $query->getAccount()->getSchedules()){
         if ($schedules = $this->getDoctrine()->getManager()->getRepository(Schedule::class)->findBy([
@@ -258,7 +255,7 @@ class QueryController extends Controller
 
         return $this->render('query/show.html.twig', [
             'query' => $query,
-            'countries' => $countries,
+            'countries' => Intl::getRegionBundle()->getCountryNames(),
             'scheduleArray' => $scheduleArray,
             'mealArray' => $mealArray,
             'backUrl' => $request->server->get('HTTP_REFERER'),
