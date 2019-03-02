@@ -55,7 +55,7 @@
 
                         <div class="form-group col-md-3 col-sm-3">
                             <label>{{ "filter.hotel"|trans }}</label>
-                            <select class="form-control" name="hotel[]" multiple="multiple">
+                            <select class="form-control" name="hotel[]" multiple="multiple" required>
                                 {% for hotelId, hotel in constant('App\\Entity\\Query::HOTELS') %}
                                     <option value="{{ hotelId }}">{{ hotel }}</option>
                                 {% endfor %}
@@ -235,10 +235,8 @@
                                         <tbody>
                                         <tr>
                                             <th>{{ "label.date"|trans }}</th>
-                                            <th>{{ "label.morning_time_from"|trans }}</th>
-                                            <th>{{ "label.morning_time_to"|trans }}</th>
-                                            <th>{{ "label.afternoon_time_from"|trans }}</th>
-                                            <th>{{ "label.afternoon_time_to"|trans }}</th>
+                                            <th>{{ "label.from"|trans }}</th>
+                                            <th>{{ "label.to"|trans }}</th>
                                             <th>{{ "label.parts"|trans }}</th>
                                             <th>{{ "label.delete"|trans }}</th>
                                         </tr>

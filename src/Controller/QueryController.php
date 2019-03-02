@@ -508,6 +508,7 @@ class QueryController extends Controller
             'scheduleRepo' => $scheduleRepo,
         ]);
     }
+
     /**
      * @param Query $query
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -570,16 +571,17 @@ class QueryController extends Controller
 
     /**
      * @param Query $query
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param Request $request
+     * @return mixed
      */
-    public function payed(Query $query)
+    public function payed(Query $query, Request $request)
     {
         $query->setPayed(Query::PAYED_YES);
         $this->getDoctrine()->getManager()->flush();
 
         $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
 
-        return $this->redirectToRoute('query_index');
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
@@ -619,23 +621,23 @@ class QueryController extends Controller
 //                $scheduleArray[$schedule->getDate()->format('Y-m-d')][] = $schedule;
 
                 $f = $t = $p = 0;
-                if( $schedule->getTimeFrom()){
+                if ($schedule->getTimeFrom()) {
                     $f = $schedule->getTimeFrom()->format("Hi");
                 }
 
-                if( $schedule->getTimeTo()){
+                if ($schedule->getTimeTo()) {
                     $t = $schedule->getTimeTo()->format("Hi");
                 }
 
-                if( $schedule->getParts()){
+                if ($schedule->getParts()) {
                     $p = $schedule->getParts();
                 }
 
-                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['dates'][] = $schedule->getDate();
-                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['facility'] = $schedule->getFacility();
-                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['from'] = $schedule->getTimeFrom()->format("H:i");
-                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['to'] = $schedule->getTimeTo()->format("H:i");
-                $scheduleArray[$schedule->getFacility().'X'.$f.'X'.$t.'X'.$p]['parts'] = Facility::PARTS[$schedule->getFacility()->getType()][$schedule->getParts()];
+                $scheduleArray[$schedule->getFacility() . 'X' . $f . 'X' . $t . 'X' . $p]['dates'][] = $schedule->getDate();
+                $scheduleArray[$schedule->getFacility() . 'X' . $f . 'X' . $t . 'X' . $p]['facility'] = $schedule->getFacility();
+                $scheduleArray[$schedule->getFacility() . 'X' . $f . 'X' . $t . 'X' . $p]['from'] = $schedule->getTimeFrom()->format("H:i");
+                $scheduleArray[$schedule->getFacility() . 'X' . $f . 'X' . $t . 'X' . $p]['to'] = $schedule->getTimeTo()->format("H:i");
+                $scheduleArray[$schedule->getFacility() . 'X' . $f . 'X' . $t . 'X' . $p]['parts'] = Facility::PARTS[$schedule->getFacility()->getType()][$schedule->getParts()];
             }
         }
 
@@ -648,43 +650,43 @@ class QueryController extends Controller
         ) {
             foreach ($meals as $meal) {
                 $b = $l = $d = $m = $be = $le = $de = $me = 0;
-                if( $meal->getBreakfastTime()){
+                if ($meal->getBreakfastTime()) {
                     $b = $meal->getBreakfastTime()->format("Hi");
                 }
-                if( $meal->getBreakfastTimeEnd()){
+                if ($meal->getBreakfastTimeEnd()) {
                     $be = $meal->getBreakfastTimeEnd()->format("Hi");
                 }
 
-                if( $meal->getLunchTime()){
+                if ($meal->getLunchTime()) {
                     $l = $meal->getLunchTime()->format("Hi");
                 }
 
-                if( $meal->getLunchTimeEnd()){
+                if ($meal->getLunchTimeEnd()) {
                     $le = $meal->getLunchTimeEnd()->format("Hi");
                 }
 
-                if( $meal->getDinnerTime()){
+                if ($meal->getDinnerTime()) {
                     $d = $meal->getDinnerTime()->format("Hi");
                 }
 
-                if( $meal->getDinnerTimeEnd()){
+                if ($meal->getDinnerTimeEnd()) {
                     $de = $meal->getDinnerTimeEnd()->format("Hi");
                 }
 
-                if( $meal->getMiddleBreakfastTime()){
+                if ($meal->getMiddleBreakfastTime()) {
                     $m = $meal->getMiddleBreakfastTime()->format("Hi");
                 }
 
-                if( $meal->getMiddleBreakfastTimeEnd()){
+                if ($meal->getMiddleBreakfastTimeEnd()) {
                     $me = $meal->getMiddleBreakfastTimeEnd()->format("Hi");
                 }
 
-                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['dates'][] = $meal->getDate();
-                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['restaurant'] = Query::RESTAURANTS[$meal->getRestaurant()];
-                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['breakfast'] = $meal->getBreakfastTime()?$meal->getBreakfastTime()->format("H:i").($meal->getBreakfastTimeEnd()?'-'.$meal->getBreakfastTimeEnd()->format("H:i"):''):'-';
-                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['lunch'] = $meal->getLunchTime()?$meal->getLunchTime()->format("H:i").($meal->getLunchTimeEnd()?'-'.$meal->getLunchTimeEnd()->format("H:i"):''):'-';
-                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['dinner'] = $meal->getDinnerTime()?$meal->getDinnerTime()->format("H:i").($meal->getDinnerTimeEnd()?'-'.$meal->getDinnerTimeEnd()->format("H:i"):''):'-';
-                $mealArray[$meal->getRestaurant().'X'.$b.$be.'X'.$l.$le.'X'.$d.$de.'X'.$m.$me]['middle'] = $meal->getMiddleBreakfastTime()?$meal->getMiddleBreakfastTime()->format("H:i").($meal->getMiddleBreakfastTimeEnd()?'-'.$meal->getMiddleBreakfastTimeEnd()->format("H:i"):''):'-';
+                $mealArray[$meal->getRestaurant() . 'X' . $b . $be . 'X' . $l . $le . 'X' . $d . $de . 'X' . $m . $me]['dates'][] = $meal->getDate();
+                $mealArray[$meal->getRestaurant() . 'X' . $b . $be . 'X' . $l . $le . 'X' . $d . $de . 'X' . $m . $me]['restaurant'] = Query::RESTAURANTS[$meal->getRestaurant()];
+                $mealArray[$meal->getRestaurant() . 'X' . $b . $be . 'X' . $l . $le . 'X' . $d . $de . 'X' . $m . $me]['breakfast'] = $meal->getBreakfastTime() ? $meal->getBreakfastTime()->format("H:i") . ($meal->getBreakfastTimeEnd() ? '-' . $meal->getBreakfastTimeEnd()->format("H:i") : '') : '-';
+                $mealArray[$meal->getRestaurant() . 'X' . $b . $be . 'X' . $l . $le . 'X' . $d . $de . 'X' . $m . $me]['lunch'] = $meal->getLunchTime() ? $meal->getLunchTime()->format("H:i") . ($meal->getLunchTimeEnd() ? '-' . $meal->getLunchTimeEnd()->format("H:i") : '') : '-';
+                $mealArray[$meal->getRestaurant() . 'X' . $b . $be . 'X' . $l . $le . 'X' . $d . $de . 'X' . $m . $me]['dinner'] = $meal->getDinnerTime() ? $meal->getDinnerTime()->format("H:i") . ($meal->getDinnerTimeEnd() ? '-' . $meal->getDinnerTimeEnd()->format("H:i") : '') : '-';
+                $mealArray[$meal->getRestaurant() . 'X' . $b . $be . 'X' . $l . $le . 'X' . $d . $de . 'X' . $m . $me]['middle'] = $meal->getMiddleBreakfastTime() ? $meal->getMiddleBreakfastTime()->format("H:i") . ($meal->getMiddleBreakfastTimeEnd() ? '-' . $meal->getMiddleBreakfastTimeEnd()->format("H:i") : '') : '-';
             }
         }
 
