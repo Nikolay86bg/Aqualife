@@ -603,7 +603,51 @@ class QueryController extends Controller
      * @param Query $query
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function printTemplate(Query $query)
+    public function printTemplate(Query $query, Request $request)
+    {
+        $scheduleArray = $mealArray = [];
+        if ($schedules = $this->getDoctrine()->getManager()->getRepository(Schedule::class)->findBy([
+            'account' => $query->getAccount(),
+            'deleted' => null,
+        ], [
+            'date' => 'ASC',
+            'timeFrom' => 'ASC',
+        ])
+        ) {
+            foreach ($schedules as $schedule) {
+                $scheduleArray[$schedule->getDate()->format('Y-m-d')][] = $schedule;
+            }
+        }
+
+        if ($meals = $this->getDoctrine()->getManager()->getRepository(MealSchedule::class)->findBy([
+            'account' => $query->getAccount(),
+            'deleted' => null,
+        ], [
+            'date' => 'ASC'
+        ])
+        ) {
+            foreach ($meals as $meal) {
+                $mealArray[$meal->getDate()->format('Y-m-d')][] = $meal;
+            }
+        }
+
+        ksort($scheduleArray);
+        ksort($mealArray);
+
+        return $this->render('query/print.html.twig', [
+            'query' => $query,
+            'countries' => Intl::getRegionBundle()->getCountryNames(),
+            'scheduleArray' => $scheduleArray,
+            'mealArray' => $mealArray,
+            'backUrl' => $request->server->get('HTTP_REFERER'),
+        ]);
+    }
+
+    /**
+     * @param Query $query
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function printTemplateOld(Query $query)
     {
 //        $entityManager = $this->getDoctrine()->getManager();
         $countries = Intl::getRegionBundle()->getCountryNames();
