@@ -129,6 +129,7 @@
         </div>
 
         {{ form_end(form) }}
+        {% set bookedLanes = {} %}
 
         {% if query.status != constant('App\\Entity\\Query::STATUS_REJECTED') %}
             {% include 'query/_edit_lanes.html.twig' %}
@@ -342,13 +343,43 @@
         <!-- iCheck 1.0.1 -->
         <script src="{{ url('app_homepage') }}plugins/iCheck/icheck.min.js"></script>
 
+        {#<script>#}
+            {#//iCheck for checkbox and radio inputs#}
+            {#$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({#}
+                {#checkboxClass: 'icheckbox_minimal-blue',#}
+                {#radioClass: 'iradio_minimal-blue'#}
+            {#})#}
+
+
+            {#$(".minimal").on("ifChecked", function (e) {#}
+                {#var checkboxes = $('[data-id="' + $(this).data('id') + '"]');#}
+                {#var $this = $(this);#}
+                {#var limit = $(this).data('limit');#}
+                {#var disabled_count = checkboxes.filter(":disabled").length;#}
+                {#var checked_count = checkboxes.filter(":checked").length;#}
+
+                {#if ((checked_count - disabled_count) > limit) {#}
+                    {#alert('Max lanes reached!');#}
+                    {#setTimeout(function () {#}
+                        {#$this.iCheck('uncheck');#}
+                    {#}, 1);#}
+                {#}#}
+            {#});#}
+
+        {#</script>#}
+
+
+        <!-- iCheck 1.0.1 -->
+        <script src="{{ url('app_homepage') }}plugins/iCheck/icheck.min.js"></script>
+
         <script>
             //iCheck for checkbox and radio inputs
             $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
                 checkboxClass: 'icheckbox_minimal-blue',
                 radioClass: 'iradio_minimal-blue'
-            })
+            });
 
+            var showedOnce = 0;
 
             $(".minimal").on("ifChecked", function (e) {
                 var checkboxes = $('[data-id="' + $(this).data('id') + '"]');
@@ -358,14 +389,39 @@
                 var checked_count = checkboxes.filter(":checked").length;
 
                 if ((checked_count - disabled_count) > limit) {
-                    alert('Max lanes reached!');
+                    if(showedOnce == 0){
+                        alert('Max lanes reached!');
+                    }
+                    showedOnce = 1;
+
                     setTimeout(function () {
                         $this.iCheck('uncheck');
+                        showedOnce = 0;
                     }, 1);
+
                 }
             });
 
-        </script>
+            $.each(bookedLanes, function( index, value ) {
+                $('.main_lane_'+value).prop('checked', true);
+                $('.main_lane_'+value).prop('disabled', true);
+                $('.main_lane_'+value).iCheck('update');
+                $('.main_lane_'+value).iCheck('check');
+                $('.main_lane_'+value).iCheck('disabled');
+            });
 
+            $(".whole_lane").on("ifChecked", function (e) {
+                var id = $(this).attr('id');
+                if ($(this).filter(':checked').length == $(this).length) {
+                    $('.check_all_'+id).iCheck('check');
+                }
+            });
+
+            $('.whole_lane').on('ifUnchecked', function (event) {
+                var id = $(this).attr('id');
+                $('.check_all_'+id).iCheck('uncheck');
+            });
+
+        </script>
 
     {% endblock %}

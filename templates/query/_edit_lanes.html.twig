@@ -19,7 +19,27 @@
                                 <th>{{ "label.to"|trans }}</th>
                                 <th>{{ "label.pool"|trans }}</th>
                                 <th>{{ "label.total_lanes"|trans }}</th>
-                                <th>{{ "label.lane_numbers"|trans }}</th>
+                                <th>{{ "label.lane_numbers"|trans }}<br>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>7</th>
+                                            <th>8</th>
+                                        </tr>
+                                        <tr>
+                                            {% for i in 1..8 %}
+                                                <td>
+                                                    <input type="checkbox" class="minimal whole_lane main_lane_{{ i }}" style="position: absolute; opacity: 0;" id="{{ i }}" />
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    </table>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -57,6 +77,14 @@
                                                     {% endif %}
 
                                                 {% endfor %}
+
+                                                {#fill bookedLanes for whole lanes functionality#}
+                                                {% for lane in lanes %}
+                                                    {% if lane not in bookedLanes|keys %}
+                                                        {% set bookedLanes = bookedLanes|merge([lane]) %}
+                                                    {% endif %}
+                                                {% endfor %}
+
                                                 {% for i in 1..8 %}
                                                     <td>
 
@@ -68,7 +96,7 @@
                                                                     {% if i in mylanes %}
                                                                         checked
                                                                     {% endif %}
-                                                                    type="checkbox" class="minimal"
+                                                                    type="checkbox" class="minimal check_all_{{ i }}"
                                                                     data-limit="{{ day['lanes'] + 1 }}"
                                                                     data-id="{{ scheduleId }}"
                                                                     style="position: absolute; opacity: 0;"
@@ -98,3 +126,6 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<script>
+    var bookedLanes = {{ bookedLanes|json_encode|raw }};
+</script>
