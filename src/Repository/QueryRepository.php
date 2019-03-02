@@ -50,14 +50,11 @@ class QueryRepository extends ServiceEntityRepository
                 ->andWhere('account.country LIKE :country')
                 ->setParameter('country', $form->get('country')->getData() . '%');
         }
-        if (null !== $form->get('from')->getData()) {
+        if (null !== $form->get('from')->getData() && null !== $form->get('to')->getData()) {
             $queryBuilder
-                ->andWhere('DATE(query.dateOfArrival) >= :from')
-                ->setParameter('from', $form->get('from')->getData());
-        }
-        if (null !== $form->get('to')->getData()) {
-            $queryBuilder
-                ->andWhere('DATE(query.dateOfDeparture) <= :to')
+                ->andWhere('DATE(query.dateOfArrival) >= :from AND DATE(query.dateOfArrival) <= :to')
+                ->orWhere('DATE(query.dateOfDeparture) >= :from AND DATE(query.dateOfDeparture) <= :to')
+                ->setParameter('from', $form->get('from')->getData())
                 ->setParameter('to', $form->get('to')->getData());
         }
 
