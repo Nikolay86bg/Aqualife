@@ -3,12 +3,9 @@
     <div class="col-xs-12">
         <div class=" box box-default color-palette-box">
             <div class="box-body">
-                {#<div class="col-md-2 col-sm-12 col-xs-12">#}
-                    {#<h4 class="box-title">Restaurant:</h4>#}
-                {#</div>#}
-                {#<div class="col-md-2 col-sm-12 col-xs-12">#}
-                    {#{{ form_widget(filter.restaurant) }}#}
-                {#</div>#}
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                    {{ form_row(filter.restaurant) }}
+                </div>
                 <div class="col-md-2 col-sm-12 col-xs-12">
                     {{ form_row(filter.from) }}
                 </div>

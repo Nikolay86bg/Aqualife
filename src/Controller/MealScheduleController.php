@@ -41,16 +41,16 @@ class MealScheduleController extends Controller
         $filter->handleRequest($request);
 
         if ($filter->isSubmitted() && $filter->isValid()) {
-//            $restaurant = $filter->get('restaurant')->getData();
+            $restaurant = $filter->get('restaurant')->getData();
             $from = $filter->get('from')->getData();
             $to = $filter->get('to')->getData();
         } else {
-//            $restaurant = Query::RESTAURANT1;
+            $restaurant = null;
             $from = $to = new \DateTime();
         }
 
-//        $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($from, $to, $restaurant);
-        $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($from, $to);
+        $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($from, $to, $restaurant);
+//        $schedule = $entityManager->getRepository(MealSchedule::class)->getSchedule($from, $to);
         $schedule = $entityManager->getRepository(MealSchedule::class)->prepareSchedule($schedule);
 
         return $this->render('meal-schedule/index.html.twig', [

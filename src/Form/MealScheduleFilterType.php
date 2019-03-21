@@ -6,8 +6,10 @@
 
 namespace App\Form;
 
+use App\Entity\Query;
 use App\Form\Type\DatePickerType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -42,16 +44,14 @@ class MealScheduleFilterType extends AbstractType
                 ],
                 'data' => new \DateTime(),
             ])
-//            ->add('restaurant', ChoiceType::class, [
-//                'required' => false,
-//                'label' => 'Restaurant:',
-//                'placeholder' => false,
-//                'attr' => [
-//                    'placeholder' => 'Restaurant',
-//                    'class' => 'form-control'
-//                ],
-//                'choices' => array_flip(Query::RESTAURANTS)
-//            ])
+            ->add('restaurant', ChoiceType::class, [
+                'required' => false,
+                'label' => 'menu.restaurants',
+                'attr' => [
+                    'placeholder' => '- ALL -',
+                ],
+                'choices' => array_flip(Query::RESTAURANTS)
+            ])
         ;
     }
 

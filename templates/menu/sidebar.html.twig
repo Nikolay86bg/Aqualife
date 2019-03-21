@@ -61,6 +61,8 @@
                 <li><a href="{{ url('account_new') }}"><i class="fa fa-circle-o"></i>{{ 'general.button.add'|trans }}</a></li>
             </ul>
         </li>
+        {% endif %}
+        {% if (is_granted(constant('App\\Security\\Voter\\ScheduleVoter::MENU_ROLE'))) %}
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-calendar"></i> <span>{{ 'menu.schedule'|trans }}</span>
