@@ -22,17 +22,19 @@ class Query
         self::HOTEL1 => "Sport",
         self::HOTEL2 => "Active",
         self::HOTEL3 => "Aqualife",
-        self::HOTEL4 => "Tower"
+        self::HOTEL4 => "Tower",
     ];
 
     const RESTAURANT1 = 0;
     const RESTAURANT2 = 1;
     const RESTAURANT3 = 2;
+    const RESTAURANT4 = 3;
 
     const RESTAURANTS = [
         self::RESTAURANT1 => "Sport",
         self::RESTAURANT2 => "Active",
         self::RESTAURANT3 => "Aqualife",
+        self::RESTAURANT4 => "Tower",
     ];
 
     const BREAKFAST = 0;
