@@ -152,7 +152,12 @@ class ScheduleRepository extends ServiceEntityRepository
                     }
                 } else {
                     $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
-                    array_push($return, $this->setScheduleArray($event, $Iid, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                    if($Iid == 'All'){
+                        array_push($return, $this->setScheduleArray($event, '1/2 A', $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                        array_push($return, $this->setScheduleArray($event, '1/2 B', $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                    }else{
+                        array_push($return, $this->setScheduleArray($event, $Iid, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                    }
                 }
             } else {
                 array_push($return, $this->setScheduleArray($event, 'Неодобрени', 'red', true));
