@@ -19,6 +19,10 @@
             .fc-agendaMonth-view > table {
               width: 18000px;
             }
+
+            .fc-agendaCustom-view > table {
+                width: {{ (differenceInDays+1) *1200 }}px;
+            }
             /*.fc-axis {*/
                 /*position: fixed;*/
                 /*z-index: 999;*/
@@ -41,7 +45,7 @@
         <section class="content">
             {% include 'schedule/filter.html.twig' %}
             <div class="row">
-                <h2>{{ facility.name }} - <a href="{{ url('schedule_print', {'id': facility.id, 'from': date|date("d-m-Y"), 'until': date|date("d-m-Y")}) }}" target="_blank" class="btn btn-sm btn-success">{{ "general.button.for_printing"|trans }}</a></h2>
+                <h2>{{ facility.name }} - <a href="{{ url('schedule_print', {'id': facility.id, 'from': from|date("d-m-Y"), 'until': to|date("d-m-Y")}) }}" target="_blank" class="btn btn-sm btn-success">{{ "general.button.for_printing"|trans }}</a></h2>
 
                 <div class="col-md-12">
                     <div class="box box-primary">
@@ -81,21 +85,34 @@
       <script>
 
           $(function () {
-              var some_date = $.fullCalendar.moment('{{ date|date("Y-m-d")}}T00:00:00');
+              var from_date = $.fullCalendar.moment('{{ from|date("Y-m-d")}}T00:00:00');
+              var to_date = $.fullCalendar.moment('{{ to|date("Y-m-d")}}T00:00:00').add(1, 'days');
 
               $('#calendar').fullCalendar({
-                  defaultDate: some_date,
-                  defaultView: 'agendaDay',
+//                  defaultDate: from_date,
+                  visibleRange: {
+                      start: from_date,
+                      end: to_date
+                  },
+                  defaultView: 'agendaCustom',
+//                  plugins: [ 'timeGrid' ],
                   groupByDateAndResource: true,
                   header: {
-                      left: 'prev,next',
+//                      left: 'prev,next',
+                      left: '',
                       center: 'title',
-                      right: 'agendaDay,agendaWeek,agendaMonth,agendaFourDay'
+                      right: '',
+//                      right: 'agendaDay,agendaWeek,agendaMonth,agendaCustom'
+//                      right: 'agendaCustom'
                   },
                   views: {
-                      agendaMonth: {
+//                      agendaMonth: {
+//                          type: 'agenda',
+//                          duration: {month: 1},
+//                      },
+                      agendaCustom: {
                           type: 'agenda',
-                          duration: {month: 1},
+//                          duration: {days: 11},
                       },
                   },
                   allDaySlot: false,

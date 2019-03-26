@@ -105,7 +105,7 @@ class QueryRepository extends ServiceEntityRepository
 
                 default:
 
-                    $queryBuilder->orderBy('query.id');
+                    $sortBy = 'query.dateOfArrival';
             }
 
             $queryBuilder->orderBy($sortBy, $order);

@@ -38,15 +38,13 @@ class QueryController extends Controller
         $filter->handleRequest($request);
 
         $entityManager = $this->getDoctrine()->getManager();
-        $sort = 'id';
+        $sort = 'dateOfArrival';
         $order = 'DESC';
 
         if (!empty($request->get('sort')) && !empty($request->get('order'))) {
             $sort = $request->get('sort');
             $order = $request->get('order');
         }
-
-        $scheduleRepo = $entityManager->getRepository(Schedule::class);
 
         $queries = $entityManager->getRepository(Query::class)->getListQuery($filter, $sort, $order);
 
@@ -58,7 +56,7 @@ class QueryController extends Controller
             'filter' => $filter->createView(),
             'queries' => $queries,
             'countries' => Intl::getRegionBundle()->getCountryNames(),
-            'scheduleRepo' => $scheduleRepo
+            'scheduleRepo' => $entityManager->getRepository(Schedule::class)
         ]);
     }
 

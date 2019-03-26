@@ -28,31 +28,31 @@ class ScheduleFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('from', DatePickerType::class, [
-//                'label' => 'From:',
-//                'attr' => [
-//                    'placeholder' => 'From Date',
-//                    'class' => 'form-control datepicker'
-//                ],
-//                'data' => new \DateTime(),
-//            ])
-//            ->add('to', DatePickerType::class, [
-//                'label' => 'Until:',
-//                'attr' => [
-//                    'placeholder' => 'To Date',
-//                    'class' => 'form-control datepicker'
-//                ],
-//                'data' => new \DateTime(),
-//            ])
-            ->add('date', DatePickerType::class, [
-                'label' => false,
+            ->add('from', DatePickerType::class, [
+                'label' => 'From:',
                 'attr' => [
-                    'placeholder' => 'Date',
-                    'class' => 'form-control datepicker',
-                    'autocomplete' => 'off',
+                    'placeholder' => 'From Date',
+                    'class' => 'form-control datepicker'
                 ],
                 'data' => new \DateTime(),
             ])
+            ->add('to', DatePickerType::class, [
+                'label' => 'Until:',
+                'attr' => [
+                    'placeholder' => 'To Date',
+                    'class' => 'form-control datepicker'
+                ],
+                'data' => new \DateTime('+1 days'),
+            ])
+//            ->add('date', DatePickerType::class, [
+//                'label' => false,
+//                'attr' => [
+//                    'placeholder' => 'Date',
+//                    'class' => 'form-control datepicker',
+//                    'autocomplete' => 'off',
+//                ],
+//                'data' => new \DateTime(),
+//            ])
             ->add('facility', EntityType::class, [
                 'required' => true,
                 'label' => 'Facility:',

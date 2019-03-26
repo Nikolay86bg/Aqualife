@@ -3,21 +3,21 @@
     <div class="col-xs-12">
         <div class=" box box-default color-palette-box">
             <div class="box-body">
-                <div class="col-md-2 col-sm-12 col-xs-12">
-                    <h4 class="box-title">{{ "label.facility"|trans }}:</h4>
-                </div>
-                <div class="col-md-2 col-sm-12 col-xs-12">
-                    {{ form_widget(filter.facility) }}
-                </div>
                 {#<div class="col-md-2 col-sm-12 col-xs-12">#}
-                    {#{{ form_row(filter.from) }}#}
-                {#</div>#}
-                {#<div class="col-md-2 col-sm-12 col-xs-12">#}
-                    {#{{ form_row(filter.to) }}#}
+                    {#<h4 class="box-title">{{ "label.facility"|trans }}:</h4>#}
                 {#</div>#}
                 <div class="col-md-2 col-sm-12 col-xs-12">
-                    {{ form_row(filter.date) }}
+                    {{ form_row(filter.facility) }}
                 </div>
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                    {{ form_row(filter.from) }}
+                </div>
+                <div class="col-md-2 col-sm-12 col-xs-12">
+                    {{ form_row(filter.to) }}
+                </div>
+                {#<div class="col-md-2 col-sm-12 col-xs-12">#}
+                    {#{{ form_row(filter.date) }}#}
+                {#</div>#}
 
 
                 <div class="col-md-2 col-sm-12 col-xs-12">

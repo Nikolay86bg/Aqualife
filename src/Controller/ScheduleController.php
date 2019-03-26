@@ -56,17 +56,17 @@ class ScheduleController extends Controller
 
         if ($filter->isSubmitted() && $filter->isValid()) {
             $facility = $filter->get('facility')->getData();
-            $date = $filter->get('date')->getData();
         }else{
             $entityManager = $this->getDoctrine()->getManager();
             $facility = $entityManager->getRepository(Facility::class)->findOneBy(['id' => 1]);
-            $date = new \DateTime();
         }
 
         return $this->render('schedule/index.html.twig', [
             'filter' => $filter->createView(),
             'facility' => $facility,
-            'date' => $date,
+            'from' =>  $filter->get('from')->getData(),
+            'to' => $filter->get('to')->getData(),
+            'differenceInDays' =>  $filter->get('from')->getData()->diff( $filter->get('to')->getData())->days,
         ]);
     }
 
