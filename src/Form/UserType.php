@@ -52,17 +52,6 @@ class UserType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-//            ->add('timezone', ChoiceType::class, [
-//                'choices' => [
-//                    'Coordinated Universal Time' => 'UTC',
-//                    'Bulgaria' => 'Europe/Sofia',
-//                    'New York' => 'America/New_York',
-//                    'PHL' => 'Asia/Manila',
-//                ],
-//                'attr' => [
-//                    'class' => 'form-control'
-//                ]
-//            ])
             ->add('email',null, [
                 'label' => 'label.email',
                 'attr' => [
@@ -98,6 +87,7 @@ class UserType extends AbstractType
                 'label' => 'label.position',
                 'choices' => [
                     'User' => User::ROLE_USER,
+                    'Reception' => User::ROLE_RECEPTION,
                     'Manager' => User::ROLE_MANAGER,
                     'Admin' => User::ROLE_ADMIN,
                 ],
@@ -165,20 +155,6 @@ class UserType extends AbstractType
                 ],
                 'data' => true,
             ])
-//            ->add('offWorkFrom', DatePickerType::class, [
-//                'label' => 'Off Work From:',
-//                'attr' => [
-//                    'placeholder' => 'Off Work From Date',
-//                ],
-//                'required' => false,
-//            ])
-//            ->add('offWorkUntil', DatePickerType::class, [
-//                'label' => 'Off Work Until:',
-//                'attr' => [
-//                    'placeholder' => 'Off Work Until Date',
-//                ],
-//                'required' => false,
-//            ])
         ;
     }
 

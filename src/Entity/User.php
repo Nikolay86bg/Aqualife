@@ -29,6 +29,7 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
     const ROLE_USER = 'ROLE_USER';
     const ROLE_MANAGER = 'ROLE_MANAGER';
     const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_RECEPTION = 'ROLE_RECEPTION';
 
     const LANGUAGE_ENGLISH = 'en';
     const LANGUAGE_RUSSIAN = 'ru';

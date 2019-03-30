@@ -79,7 +79,7 @@ class ScheduleVoter extends Voter
      */
     private function getMenuPermission(User $user, $attribute)
     {
-        return in_array(User::ROLE_MANAGER, $user->getRoles(), true);
+        return (in_array(User::ROLE_MANAGER, $user->getRoles(), true) || in_array(User::ROLE_RECEPTION, $user->getRoles(), true) );
     }
 
     /**
