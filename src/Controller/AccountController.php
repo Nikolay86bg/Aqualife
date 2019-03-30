@@ -145,7 +145,7 @@ class AccountController extends Controller
         ])
         ) {
             foreach ($schedules as $schedule) {
-                $scheduleArray[$schedule->getDate()->format('Y-m-d')][] = $schedule;
+                $scheduleArray[$schedule->getDate()->format('d-m-Y')][] = $schedule;
             }
         }
 
@@ -157,7 +157,7 @@ class AccountController extends Controller
         ])
         ) {
             foreach ($meals as $meal) {
-                $mealArray[$meal->getDate()->format('Y-m-d')][] = $meal;
+                $mealArray[$meal->getDate()->format('d-m-Y')][] = $meal;
             }
         }
 
