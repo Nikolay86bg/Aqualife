@@ -9,10 +9,8 @@ security:
             id: App\Security\User\UserProvider
 
     role_hierarchy:
-        ROLE_TL: [ROLE_USER]
-        ROLE_SUPERVISOR: [ROLE_TL]
-        ROLE_MANAGER: [ROLE_SUPERVISOR]
-        ROLE_OPERATIONS_MANAGER: [ROLE_MANAGER]
+        ROLE_RECEPTION: [ROLE_USER]
+        ROLE_MANAGER: [ROLE_RECEPTION]
         ROLE_DIRECTOR: [ROLE_MANAGER]
         ROLE_ADMIN: [ROLE_ALLOWED_TO_SWITCH, ROLE_DIRECTOR]
 
