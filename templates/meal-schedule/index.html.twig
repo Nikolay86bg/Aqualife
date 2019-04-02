@@ -109,13 +109,16 @@
      {{ parent() }}
 
      <script>
-         $('.datepicker').datepicker({
-//             startDate: "today",
-             setDate: new Date(),
+         $('#from, #to').datepicker({
              format: 'dd-mm-yyyy',
              orientation: "bottom auto",
              autoclose: true,
-             todayHighlight: true
+             todayHighlight: true,
+         }).on('changeDate', function (ev) {
+             if (this.id == 'from') {
+                 var rMin = new Date(ev.date.getFullYear(), ev.date.getMonth(), ev.date.getDate() + 1); // Min Date = Selected + 1d
+                 $('#to').datepicker("setDate", rMin);
+             }
          });
      </script>
  {% endblock %}

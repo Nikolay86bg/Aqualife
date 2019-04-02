@@ -134,13 +134,16 @@
 {% block javascripts %}
      {{ parent() }}
     <script>
-        $('.datepicker').datepicker({
-//              startDate: "today",
-            setDate: new Date(),
+        $('#from, #until').datepicker({
             format: 'dd-mm-yyyy',
             orientation: "bottom auto",
             autoclose: true,
-            todayHighlight: true
+            todayHighlight: true,
+        }).on('changeDate', function (ev) {
+            if (this.id == 'from') {
+                var rMin = new Date(ev.date.getFullYear(), ev.date.getMonth(), ev.date.getDate() + 1); // Min Date = Selected + 1d
+                $('#until').datepicker("setDate", rMin);
+            }
         });
 
         $('.filter-event-table').on('click', function (){
