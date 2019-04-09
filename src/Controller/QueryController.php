@@ -39,7 +39,7 @@ class QueryController extends Controller
 
         $entityManager = $this->getDoctrine()->getManager();
         $sort = 'dateOfArrival';
-        $order = 'DESC';
+        $order = 'ASC';
 
         if (!empty($request->get('sort')) && !empty($request->get('order'))) {
             $sort = $request->get('sort');
