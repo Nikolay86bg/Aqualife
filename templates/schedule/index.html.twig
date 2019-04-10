@@ -13,20 +13,33 @@
             }
 
             .fc-agendaWeek-view > table {
-                width: 5000px;
+                width: 6000px;
             }
 
             .fc-agendaMonth-view > table {
-              width: 18000px;
+              width: 30000px;
             }
 
             .fc-agendaCustom-view > table {
                 width: {{ (differenceInDays+1) *1200 }}px;
             }
-            /*.fc-axis {*/
-                /*position: fixed;*/
-                /*z-index: 999;*/
+
+
+
+            .fc-slats tr{
+                border: 1px solid #ddd;
+            }
+
+            .fc-slats tr td:first-child{
+                background: #fff;
+                position:fixed;
+                z-index: 10!important;
+                left: 234px;
+            }
+            /*.fc-time-grid .fc-content-skeleton {*/
+                /*z-index: 1;*/
             /*}*/
+
         </style>
         <section class="content-header">
             <h1>
