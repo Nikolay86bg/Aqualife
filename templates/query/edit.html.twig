@@ -246,9 +246,12 @@
                     var clone = row.clone(); // copy children too
 
                     clone.find('.datepicker').val(date.ddmmyyyy()); //set new date
+                    clone.find('.form-control').each(function (index) {
+                        $(this).attr('name', $(this).data('newname'));
+                    });
                     clone.find("select").val($('.meal_row_to_copy').find("select").val());//Copy select value to cloning
 
-                    clone.removeClass(); // change id or other attributes/contents
+                    clone.removeClass(); // change id or other attributes/content
                     row.parent().append(clone); // add new row to end of table
 
                     setDateTimePickers();
