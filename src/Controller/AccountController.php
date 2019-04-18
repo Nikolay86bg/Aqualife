@@ -61,7 +61,6 @@ class AccountController extends Controller
     public function new(Request $request)
     {
 //        $this->denyAccessUnlessGranted(UserVoter::USER_ADD_ROLE);
-
         $account = new Account();
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);

@@ -125,7 +125,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements Authentica
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return new RedirectResponse($this->router->generate('app_homepage'));
+        return new RedirectResponse($this->router->generate('app_dashboard'));
     }
 
     /**

@@ -29,7 +29,8 @@ class SecurityController extends Controller
         $user = $this->getUser();
 
         if ($user instanceof UserInterface) {
-            return $this->redirectToRoute('app_homepage');
+//            return $this->redirectToRoute('app_homepage');
+            return $this->redirectToRoute('app_dashboard');
         }
 
         $form = $this->createForm(LoginType::class);

@@ -33,4 +33,8 @@ app_mealschedule:
 
 app_homepage:
     path: /
+    controller: App\Controller\AccountController::teamsSchedule
+
+app_dashboard:
+    path: /dashboard
     controller: App\Controller\DefaultController::index
