@@ -378,8 +378,6 @@
                 $('.timepicker').timepicker({
                     showMeridian: false,
                     defaultTime: false,
-//                    maxHours: 22,
-//                    minHours: 5,
                 });
             }
 
@@ -472,7 +470,8 @@
                 var aTimeFrom = $("input[name='facilities["+facilityId+"][aTimeFrom][]']" ).val();
                 var aTimeTo = $("input[name='facilities["+facilityId+"][aTimeTo][]']" ).val();
                 var part = $(".facility-"+facilityId+"-part").val();
-                console.log(facilityId);
+
+
 
                 var startEnd = date.split(' - ');
                 var start = startEnd[0].split("/");
@@ -488,18 +487,20 @@
                     clone.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(mTimeFrom);
                     clone.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(mTimeTo);
                     clone.find(".facility-part").val(part);
-
-                    clone2.find("input[name='newschedules[date]["+facilityId+"][]']").val(date.ddmmyyyy());
-                    clone2.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(aTimeFrom);
-                    clone2.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(aTimeTo);
-                    clone2.find(".facility-part").val(part);
-
                     clone.removeClass(); // change id or other attributes/contents
-                    clone2.removeClass();
                     clone.addClass('delete_row_'+ facilityId); // change id or other attributes/contents
-                    clone2.addClass('delete_row_'+ facilityId); // change id or other attributes/contents
                     $('.table'+facilityId).append(clone); // add new row to end of table
-                    $('.table'+facilityId).append(clone2); // add new row to end of table
+
+                    if(aTimeFrom && aTimeTo ){
+                        clone2.find("input[name='newschedules[date]["+facilityId+"][]']").val(date.ddmmyyyy());
+                        clone2.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(aTimeFrom);
+                        clone2.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(aTimeTo);
+                        clone2.find(".facility-part").val(part);
+                        clone2.removeClass();
+                        clone2.addClass('delete_row_'+ facilityId); // change id or other attributes/contents
+                        $('.table'+facilityId).append(clone2); // add new row to end of table
+                    }
+
                     row.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(mTimeFrom);
                     row.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(mTimeTo);
 //

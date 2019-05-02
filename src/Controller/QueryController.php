@@ -103,7 +103,6 @@ class QueryController extends Controller
                 }
             }
 
-            //TODO check if there is a case when we have facilities
             if ($request->get('facilities')) {
                 foreach ($request->get('facilities') as $facilityId => $facility) {
                     $facilityReference = $em->getReference(Facility::class, $facilityId);
@@ -184,9 +183,7 @@ class QueryController extends Controller
             $dates = explode(' - ', $request->get('datetimes'));
 
             $hotels = implode(',', $request->get('hotel'));
-
             $query = new Query();
-
             $query->setAccount($account);
             $query->setHotel($hotels);
             $query->setNumberOfPeople($request->get('number_of_people'));
