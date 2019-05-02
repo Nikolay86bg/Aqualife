@@ -61,6 +61,7 @@ class ReportController extends Controller
             'filter' => $filter->createView(),
             'report' => $report,
             'lanesNeeded' => $lanesNeeded,
+            'facilityRepo' => $this->getDoctrine()->getManager()->getRepository(Facility::class)
         ]);
     }
 

@@ -58,4 +58,21 @@ class FacilityRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery();
     }
+
+    /**
+     * @param int $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getNameById(int $id)
+    {
+        $queryBuilder = $this->createQueryBuilder('facility');
+        $queryBuilder
+            ->select('facility.name')
+            ->andWhere('facility.id = :id')
+            ->setParameter('id', $id);
+
+        return $queryBuilder->getQuery()->getSingleResult();
+    }
 }

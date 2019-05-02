@@ -30,7 +30,7 @@
                 <hr/>
                 <div class="box-body">
                     {% for facilityId, dates in report %}
-                        <h2>{{ facilityId }}</h2>
+                        <h2>{{ facilityRepo.getNameById(facilityId)['name'] }}</h2>
                     <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                         <thead>
                         <tr role="row">
