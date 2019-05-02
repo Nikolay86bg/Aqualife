@@ -1,0 +1,5 @@
+report_free_lanes:
+    path:     /free-lanes
+    controller: App\Controller\ReportController::freeLanes
+    methods:  [GET, POST]
+

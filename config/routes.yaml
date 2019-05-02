@@ -30,6 +30,10 @@ app_mealschedule:
     resource: "routes/meal-schedule.yaml"
     prefix:   /meal-schedule
 
+app_report:
+    resource: "routes/report.yaml"
+    prefix:   /report
+
 
 app_homepage:
     path: /

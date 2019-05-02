@@ -1,0 +1,104 @@
+{% extends 'layout.html.twig' %}
+    {% block content_header %}
+        <section class="content-header">
+            <h1>
+                <i class="fa fa-list" aria-hidden="true"></i>
+                {{ "label.free_lanes"|trans }}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{{ url('query_index') }}"><i class="fa fa-dashboard"></i> {{ "menu.reports"|trans }}</a></li>
+                <li class="active">{{ "label.free_lanes"|trans }}</li>
+            </ol>
+        </section>
+    {% endblock %}
+
+{% block content %}
+    <div class="col-md-12 col-sm-6 col-xs-12">
+
+        {% for label, messages in app.flashes(['success', 'error']) %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="box box-primary">
+            <div class="x_content">
+                {% include 'report/filter.html.twig' %}
+                <hr/>
+                <div class="box-body">
+                    {% for facilityId, dates in report %}
+                        <h2>{{ facilityId }}</h2>
+                    <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                        <thead>
+                        <tr role="row">
+                            <th class="">Date</th>
+                            <th class="">7:00-8:00</th>
+                            <th class="">8:00-9:00</th>
+                            <th class="">9:00-10:00</th>
+                            <th class="">10:00-11:00</th>
+                            <th class="">11:00-12:00</th>
+                            <th class="">12:00-13:00</th>
+                            <th class="">13:00-14:00</th>
+                            <th class="">14:00-15:00</th>
+                            <th class="">15:00-16:00</th>
+                            <th class="">16:00-17:00</th>
+                            <th class="">17:00-18:00</th>
+                            <th class="">18:00-19:00</th>
+                            <th class="">19:00-20:00</th>
+                            <th class="">20:00-21:00</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for date, hours in dates %}
+                        <tr role="row" class="odd">
+                            <td>{{ date }}</td>
+                            <td class="{% if hours['07'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours['07'] }}</td>
+                            <td class="{% if hours['08'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours['08'] }}</td>
+                            <td class="{% if hours['09'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours['09'] }}</td>
+                            <td class="{% if hours['10'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[10] }}</td>
+                            <td class="{% if hours['11'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[11] }}</td>
+                            <td class="{% if hours['12'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[12] }}</td>
+                            <td class="{% if hours['13'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[13] }}</td>
+                            <td class="{% if hours['14'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[14] }}</td>
+                            <td class="{% if hours['15'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[15] }}</td>
+                            <td class="{% if hours['16'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[16] }}</td>
+                            <td class="{% if hours['17'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[17] }}</td>
+                            <td class="{% if hours['18'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[18] }}</td>
+                            <td class="{% if hours['19'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[19] }}</td>
+                            <td class="{% if hours['20'] < lanesNeeded %}danger{% else %}success{% endif %}">{{ hours[20] }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $('#from, #to').datepicker({
+            format: 'dd-mm-yyyy',
+            orientation: "bottom auto",
+            autoclose: true,
+            todayHighlight: true,
+        }).on('changeDate', function (ev) {
+            if (this.id == 'from') {
+                var rMin = new Date(ev.date.getFullYear(), ev.date.getMonth(), ev.date.getDate() + 1); // Min Date = Selected + 1d
+                $('#to').datepicker("setDate", rMin);
+            }
+        });
+
+    </script>
+{% endblock %}

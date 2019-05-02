@@ -1,12 +1,8 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
 
 namespace App\Security\Voter;
 
-//use App\Entity\Department;
 use App\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;

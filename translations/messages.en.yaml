@@ -50,6 +50,7 @@ menu:
     queries: Queries
     facility_old: "Facility Old"
     restaurants: Restaurants
+    reports: Reports
 
 security:
     form:
@@ -170,6 +171,7 @@ label:
     last_name: "Last Name"
     password: Password
     number_of_people: "Number Of People"
+    free_lanes: "Free Lanes"
 
 message:
     no_meals: "No meal Schedule"

@@ -1,0 +1,32 @@
+{{ form_start(filter, { 'attr': {'autocomplete': 'off'} })  }}
+<div class="row filters-section">
+    <div class="col-xs-12">
+        <div class="row" style="margin: 15px 0 0 0;">
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                {{ form_row(filter.from) }}
+            </div>
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                {{ form_row(filter.to) }}
+            </div>
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                {{ form_row(filter.lanesNeeded) }}
+            </div>
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                <button class="btn btn-block btn-sm bg-green no-wrap filter-event-table" type="submit">
+                    <i class="fa fa-filter" aria-hidden="true"></i><span class="hidden-xs hidden-sm"> {{ "general.button.filter"|trans }}</span>
+                </button>
+            </div>
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                <a class="btn btn-block btn-sm bg-orange no-wrap filter-event-table" href="{{ url(app.request.attributes.get('_route')) }}">
+                    <i class="fa fa-eraser" aria-hidden="true"></i><span class="hidden-xs hidden-sm"> {{ "general.button.reset"|trans }}</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{{ form_end(filter, {'render_rest': false}) }}

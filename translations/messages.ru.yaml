@@ -50,6 +50,7 @@ menu:
     queries: "Запросы"
     facility_old: "Оборудование старый"
     restaurants: "Ресторан"
+    reports: "Отчеты"
 
 security:
     form:
@@ -170,6 +171,7 @@ label:
     last_name: "Фамилия"
     password: "Пароль"
     number_of_people: "Число людей"
+    free_lanes: "Свободные коридоры"
 
 message:
     no_meals: "Результаты не найдены"

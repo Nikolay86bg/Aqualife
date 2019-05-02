@@ -4,16 +4,14 @@ namespace App\Security\Voter;
 
 use App\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\RoleHierarchyVoter;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Role\RoleHierarchy;
 
-class ScheduleVoter extends Voter
+class ReportVoter extends Voter
 {
     const MENU_ROLE = 'MENU_ROLE'.__CLASS__;
-    const EDIT_ROLE = 'EDIT_ROLE'.__CLASS__;
 
     /**
      * @var RoleHierarchyVoter
@@ -35,7 +33,6 @@ class ScheduleVoter extends Voter
         // if the attribute isn't one we support, return false
         if (!in_array($attribute, [
             self::MENU_ROLE,
-            self::EDIT_ROLE,
         ], true)) {
             return false;
         }
@@ -60,8 +57,6 @@ class ScheduleVoter extends Voter
         switch ($attribute) {
             case self::MENU_ROLE:
                 return $this->getMenuPermission($user, $attribute);
-            case self::EDIT_ROLE:
-                return $this->getEditPermission($user, $attribute);
             default:
                 return false;
         }
@@ -75,17 +70,9 @@ class ScheduleVoter extends Voter
      */
     private function getMenuPermission(User $user, $attribute)
     {
-        return (in_array(User::ROLE_MANAGER, $user->getRoles(), true) || in_array(User::ROLE_RECEPTION, $user->getRoles(), true) );
-    }
-
-    /**
-     * @param User $user
-     * @param $attribute
-     *
-     * @return bool
-     */
-    private function getEditPermission(User $user, $attribute)
-    {
         return in_array(User::ROLE_MANAGER, $user->getRoles(), true);
     }
+
+
+
 }
