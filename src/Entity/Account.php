@@ -281,6 +281,7 @@ class Account
                     $return[$schedule->getId()]['lanes'] = $schedule->getParts();
                     $return[$schedule->getId()]['facility'] = $schedule->getFacility()->getName();
                     $return[$schedule->getId()]['facility_id'] = $schedule->getFacility()->getId();
+                    $return[$schedule->getId()]['type'] = $schedule->getFacility()->getType();
                 }
             }
         }

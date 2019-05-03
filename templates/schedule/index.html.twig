@@ -151,21 +151,22 @@
                   slotDuration: "01:00:00",
                   resources: [
                       {% if facility.type == constant('App\\Entity\\Facility::TYPE_POOL') %}
-                      {% for i in 1..8 %}
-                      {
-                          id: '{{ i }}',
-                      },
-                      {% endfor %}
+                          {% for i in 1..8 %}
+                          {
+                              id: '{{ i }}',
+                          },
+                          {% endfor %}
+                      {% elseif (facility.type == constant('App\\Entity\\Facility::TYPE_DIVISIBLE_HALL') or facility.type == constant('App\\Entity\\Facility::TYPE_FOOTBALL_PLAYGROUND') ) %}
+                          {
+                              id: '1/2 A'
+                          },
+                          {
+                              id: '1/2 B'
+                          },
                       {% else %}
-//                      {
-//                          id: 'All'
-//                      },
-                      {
-                          id: '1/2 A'
-                      },
-                      {
-                          id: '1/2 B'
-                      },
+                          {
+                              id: 'All'
+                          },
                       {% endif %}
                       {
                           id: 'Неодобрени'

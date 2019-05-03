@@ -495,7 +495,7 @@ class QueryController extends Controller
     {
         $entityManager = $this->getDoctrine()->getManager();
         $countries = Intl::getRegionBundle()->getCountryNames();
-        $scheduleRepo = $entityManager->getRepository('App:Schedule');
+        $scheduleRepo = $entityManager->getRepository(Schedule::class);
 
         return $this->render('query/accept-form.html.twig', [
             'query' => $query,
@@ -550,7 +550,7 @@ class QueryController extends Controller
 
         if ($request->request->has('lanes')) {
             foreach ($request->request->get('lanes') as $scheduleId => $lanes) {
-                $schedule = $em->getRepository('App:Schedule')->findOneBy([
+                $schedule = $em->getRepository(Schedule::class)->findOneBy([
                     'id' => $scheduleId
                 ]);
                 $schedule->setLanes(serialize($lanes));

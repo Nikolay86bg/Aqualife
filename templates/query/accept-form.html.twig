@@ -185,7 +185,7 @@
                                                     <td>{{ day['from']|date('H:i') }}</td>
                                                     <td>{{ day['to']|date('H:i') }}</td>
                                                     <td>{{ day['facility'] }}</td>
-                                                    <td>{{ constant('App\\Entity\\Facility::PARTS')[day['facility_id']][day['lanes']] }}</td>
+                                                    <td>{{ constant('App\\Entity\\Facility::PARTS')[day['type']][day['lanes']] }}</td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>

@@ -176,7 +176,7 @@ class ScheduleRepository extends ServiceEntityRepository
                             array_push($return, $this->setScheduleArray($event, $lane, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
                         }
                     }
-                } else {
+                } elseif ($event->getFacility()->getType() == Facility::TYPE_FOOTBALL_PLAYGROUND || $event->getFacility()->getType() == Facility::TYPE_DIVISIBLE_HALL) {
                     $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
                     if($Iid == 'All'){
                         array_push($return, $this->setScheduleArray($event, '1/2 A', $colorService->getColorNameFromId($event->getAccount()->getId()), true));
@@ -184,6 +184,9 @@ class ScheduleRepository extends ServiceEntityRepository
                     }else{
                         array_push($return, $this->setScheduleArray($event, $Iid, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
                     }
+                } else {
+                    $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
+                    array_push($return, $this->setScheduleArray($event, $Iid, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
                 }
             } else {
                 array_push($return, $this->setScheduleArray($event, 'Неодобрени', 'red', true));

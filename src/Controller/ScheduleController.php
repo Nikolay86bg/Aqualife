@@ -86,7 +86,6 @@ class ScheduleController extends Controller
 
         $schedule = $entityManager->getRepository(Schedule::class)->getSchedule($facility, $start, $end);
         $schedule = $entityManager->getRepository(Schedule::class)->prepareSchedule($schedule, $this->get(ColorService::class));
-
         return new JsonResponse($schedule);
     }
 
