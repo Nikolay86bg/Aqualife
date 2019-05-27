@@ -399,7 +399,9 @@
 
                 // Usage
                 var dates = getDates(s, e);
+                var i = 0;
                 dates.forEach(function(date) {
+                    i++;
                     var row = $('.meal_row_to_copy');
                     var clone = row.clone(); // copy children too
 
@@ -409,7 +411,9 @@
                     clone.removeClass(); // change id or other attributes/contents
                     row.parent().append(clone); // add new row to end of table
 
-                    setDateTimePickers();
+                    if(i == dates.length){
+                        setDateTimePickers();
+                    }
                 });
 
             });
@@ -429,7 +433,9 @@
 
                 // Usage
                 var dates = getDates(s, e);
+                var i = 0;
                 dates.forEach(function(date) {
+                    i++;
                     var row = $('.row_to_copy' + id);
                     var clone = row.clone(); // copy children too
 
@@ -440,7 +446,9 @@
                     clone.addClass('delete_row_'+ id); // change id or other attributes/contents
                     row.parent().append(clone); // add new row to end of table
 
-                    setDateTimePickers();
+                    if(i == dates.length){
+                        setDateTimePickers();
+                    }
                 });
             });
 
