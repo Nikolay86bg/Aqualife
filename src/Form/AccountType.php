@@ -73,6 +73,7 @@ class AccountType extends AbstractType
 
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Account',
+            'csrf_protection' => false,
         ]);
     }
 
