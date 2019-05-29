@@ -311,6 +311,8 @@
             });
 
             $('.move-date-to-schedule').on("click", function () {
+                console.log('add to schedule');
+
                 var facilityId = $(this).data('facility');
                 var date = $("input[name='facilities["+facilityId+"][date][]']" ).val();
                 var mTimeFrom = $("input[name='facilities["+facilityId+"][mTimeFrom][]']" ).val();
@@ -325,7 +327,9 @@
                 var s=new Date(start[2],(start[1] -1 ),start[0]);
                 var e=new Date(end[2], (end[1] - 1),end[0]);
                 var dates = getDates(s, e);
+                var i = 0;
                 dates.forEach(function(date) {
+                    i++;
                     var row = $('.row_to_copy' + facilityId);
                     var clone = row.clone(); // copy children too
                     var clone2 = row.clone(); // copy children too
@@ -349,8 +353,10 @@
 
                     row.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(mTimeFrom);
                     row.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(mTimeTo);
-//
-                    setDateTimePickers();
+
+                    if(i == dates.length){
+                        setDateTimePickers();
+                    }
                 });
 
                 return;

@@ -274,6 +274,10 @@ class QueryController extends Controller
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);
 
+//        phpinfo();
+//        dump($request);
+//        exit;
+
         if ($form->isSubmitted() && $form->isValid()) {
             $dates = explode(' - ', $request->get('datetimes'));
             $hotels = implode(',', $request->get('hotel'));
@@ -286,28 +290,7 @@ class QueryController extends Controller
             $em->persist($account);
             $em->persist($query);
 
-            //ADD NEW DATES
-            if ($request->get('newschedules')) {
-                foreach ($request->get('newschedules')['date'] as $facilityId => $value) {
-                    $facility = $em->getReference(Facility::class, $facilityId);
-
-                    foreach ($value as $key => $date) {
-                        if ($date) {
-                            $schedule = new Schedule();
-                            $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $date)));
-                            $schedule->setAccount($account);
-                            $schedule->setFacility($facility);
-
-                            $schedule->setParts($request->get('newschedules')['part'][$facilityId][$key]);
-                            $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $request->get('newschedules')['mTimeFrom'][$facilityId][$key]));
-                            $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $request->get('newschedules')['mTimeTo'][$facilityId][$key]));
-
-                            $em->persist($schedule);
-                        }
-                    }
-                }
-            }
-
+            //Edit existing should be before adding new because here is the delete functionality
             if ($request->get('facilities')) {
                 foreach ($account->getSchedules() as $oldSchedule) {
                     if (array_key_exists($oldSchedule->getId(), $request->get('facilities')['date'])) {
@@ -330,9 +313,32 @@ class QueryController extends Controller
                 }
             }
 
+            //ADD NEW DATES
+            if ($request->get('newschedules')) {
+                foreach ($request->get('newschedules')['date'] as $facilityId => $value) {
+                    $facility = $em->getReference(Facility::class, $facilityId);
+
+                    foreach ($value as $key => $date) {
+                        if ($date) {
+                            $schedule = new Schedule();
+                            $schedule->setDate((\DateTime::createFromFormat("d/m/Y", $date)));
+                            $schedule->setAccount($account);
+                            $schedule->setFacility($facility);
+
+                            $schedule->setParts($request->get('newschedules')['part'][$facilityId][$key]);
+                            $schedule->setTimeFrom(\DateTime::createFromFormat('H:i', $request->get('newschedules')['mTimeFrom'][$facilityId][$key]));
+                            $schedule->setTimeTo(\DateTime::createFromFormat('H:i', $request->get('newschedules')['mTimeTo'][$facilityId][$key]));
+
+                            $em->persist($schedule);
+                            $em->flush();
+                        }
+                    }
+                }
+            }
+
+            //Edit existing should be before adding new because here is the delete functionality
             if ($request->get('meals')['date']) {
                 foreach ($account->getMealSchedules() as $oldMeal) {
-                    //Edit existing should be before adding new because here is the delete functionality
                     if (array_key_exists($oldMeal->getId(), $request->get('meals')['date'])) {
                         $oldMeal->setDate((\DateTime::createFromFormat("d/m/Y", $request->get('meals')['date'][$oldMeal->getId()])));
                         $oldMeal->setAccount($account);
