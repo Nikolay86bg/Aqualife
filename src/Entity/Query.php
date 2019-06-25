@@ -17,8 +17,10 @@ class Query
     const HOTEL2 = 1;
     const HOTEL3 = 2;
     const HOTEL4 = 3;
+    const NO_HOTEL = 9;
 
     const HOTELS = [
+        self::NO_HOTEL => "No Hotel",
         self::HOTEL1 => "Sport",
         self::HOTEL2 => "Active",
         self::HOTEL3 => "Aqualife",
