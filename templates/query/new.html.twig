@@ -491,13 +491,15 @@
                     var row = $('.row_to_copy' + facilityId);
                     var clone = row.clone(); // copy children too
                     var clone2 = row.clone(); // copy children too
-                    clone.find("input[name='newschedules[date]["+facilityId+"][]']").val(date.ddmmyyyy());
-                    clone.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(mTimeFrom);
-                    clone.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(mTimeTo);
-                    clone.find(".facility-part").val(part);
-                    clone.removeClass(); // change id or other attributes/contents
-                    clone.addClass('delete_row_'+ facilityId); // change id or other attributes/contents
-                    $('.table'+facilityId).append(clone); // add new row to end of table
+                    if(mTimeFrom && mTimeTo ) {
+                        clone.find("input[name='newschedules[date][" + facilityId + "][]']").val(date.ddmmyyyy());
+                        clone.find("input[name='newschedules[mTimeFrom][" + facilityId + "][]']").val(mTimeFrom);
+                        clone.find("input[name='newschedules[mTimeTo][" + facilityId + "][]']").val(mTimeTo);
+                        clone.find(".facility-part").val(part);
+                        clone.removeClass(); // change id or other attributes/contents
+                        clone.addClass('delete_row_' + facilityId); // change id or other attributes/contents
+                        $('.table' + facilityId).append(clone); // add new row to end of table
+                    }
 
                     if(aTimeFrom && aTimeTo ){
                         clone2.find("input[name='newschedules[date]["+facilityId+"][]']").val(date.ddmmyyyy());
