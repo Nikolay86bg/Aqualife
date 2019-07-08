@@ -34,8 +34,8 @@ class Query
 
     const RESTAURANTS = [
         self::RESTAURANT1 => "Sport",
-        self::RESTAURANT2 => "Active",
-        self::RESTAURANT3 => "Aqualife",
+        self::RESTAURANT2 => "Aqualife 2",
+        self::RESTAURANT3 => "Aqualife 1",
         self::RESTAURANT4 => "Tower",
     ];
 
