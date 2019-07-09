@@ -190,9 +190,20 @@
 
             function setDateTimePickers() {
                 $('.datepicker').datepicker('destroy');
+                $('.add_date_range').data('daterangepicker').remove();
+
                 var dates = $('input[name="datetimes"]').val().split(' - ')
                 var from = dates[0].slice(0,-5);
                 var to = dates[1].slice(0,-5);
+
+                $('.add_date_range').daterangepicker({
+                    timePicker: false,
+                    minDate: from,
+                    maxDate: to,
+                    locale: {
+                        format: 'DD/MM/YYYY'
+                    }
+                });
 
                 $('.datepicker').datepicker({
                     startDate: from,
@@ -305,6 +316,8 @@
         {# ADD DATE SCRIPTS #}
             $('.add_date_range').daterangepicker({
                 timePicker: false,
+                minDate: moment().startOf('hour').add(1, 'day'),
+                maxDate: moment().startOf('hour').add(7, 'day'),
                 locale: {
                     format: 'DD/MM/YYYY'
                 }
@@ -368,31 +381,6 @@
 
         <!-- iCheck 1.0.1 -->
         <script src="{{ url('app_homepage') }}plugins/iCheck/icheck.min.js"></script>
-
-        {#<script>#}
-            {#//iCheck for checkbox and radio inputs#}
-            {#$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({#}
-                {#checkboxClass: 'icheckbox_minimal-blue',#}
-                {#radioClass: 'iradio_minimal-blue'#}
-            {#})#}
-
-
-            {#$(".minimal").on("ifChecked", function (e) {#}
-                {#var checkboxes = $('[data-id="' + $(this).data('id') + '"]');#}
-                {#var $this = $(this);#}
-                {#var limit = $(this).data('limit');#}
-                {#var disabled_count = checkboxes.filter(":disabled").length;#}
-                {#var checked_count = checkboxes.filter(":checked").length;#}
-
-                {#if ((checked_count - disabled_count) > limit) {#}
-                    {#alert('Max lanes reached!');#}
-                    {#setTimeout(function () {#}
-                        {#$this.iCheck('uncheck');#}
-                    {#}, 1);#}
-                {#}#}
-            {#});#}
-
-        {#</script>#}
 
 
         <!-- iCheck 1.0.1 -->
