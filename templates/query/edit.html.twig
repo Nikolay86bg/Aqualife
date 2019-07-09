@@ -188,6 +188,29 @@
                 setDateTimePickers();
             });
 
+            //transform dates in to date object for comparing
+            function process(date){
+                var parts = date.split("/");
+                return new Date(parts[2], parts[1] - 1, parts[0]);
+            }
+
+            //compare all inserted dates in the schedule
+            function colorWrongDates() {
+                var dates = $('input[name="datetimes"]').val().split(' - ')
+                var from = dates[0].slice(0,-5);
+                var to = dates[1].slice(0,-5);
+
+                var fromDate = process(from);
+                var toDate = process(to);
+
+                $('.datepicker').each(function( index ) {
+                    // console.log( index + ": " + $( this ).val() );
+                    if(fromDate > process($( this ).val()) || toDate < process($( this ).val())){
+                        $(this).addClass('bg-red');
+                    }
+                });
+            }
+
             function setDateTimePickers() {
                 $('.datepicker').datepicker('destroy');
                 $('.add_date_range').data('daterangepicker').remove();
@@ -227,6 +250,7 @@
 
             $(function () {
                 setDateTimePickers();
+                colorWrongDates();
             });
 
             $('.meal-add-date').on("click", function () {
