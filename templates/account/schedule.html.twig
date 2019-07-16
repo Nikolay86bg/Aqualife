@@ -44,8 +44,8 @@
                                             <li><a href="#">{{ "label.sport"|trans }}: <span class="pull-right">{% if account.sport is defined %}{{ constant('App\\Entity\\Account::SPORTS')[account.sport]|trans }}{% else %} - {% endif %}</span></a></li>
                                             <li><a href="#">{{ "label.country"|trans }}: <span class="pull-right">{% if account.country is defined %}{{ countries[account.country] }}{% else %} - {% endif %}</span></a></li>
                                             <li><a href="#">{{ "label.number_of_people"|trans }}: <span class="pull-right">{% if account.query.numberOfPeople is defined %}{{ account.query.numberOfPeople }}{% else %} - {% endif %}</span></a></li>
-                                            <li><a href="#">{{ "label.arrival"|trans }}: <span class="pull-right">{% if account.query.dateOfArrival is defined %}{{ account.query.dateOfArrival|date('Y-m-d H:i') }}{% else %} - {% endif %}</span></a></li>
-                                            <li><a href="#">{{ "label.departure"|trans }}: <span class="pull-right">{% if account.query.dateOfDeparture is defined %}{{ account.query.dateOfDeparture|date('Y-m-d H:i') }}{% else %} - {% endif %}</span></a></li>
+                                            <li><a href="#">{{ "label.arrival"|trans }}: <span class="pull-right">{% if account.query.dateOfArrival is defined %}{{ account.query.dateOfArrival|date('d-m-Y H:i') }}{% else %} - {% endif %}</span></a></li>
+                                            <li><a href="#">{{ "label.departure"|trans }}: <span class="pull-right">{% if account.query.dateOfDeparture is defined %}{{ account.query.dateOfDeparture|date('d-m-Y H:i') }}{% else %} - {% endif %}</span></a></li>
                                         </ul>
                                     </div>
 
