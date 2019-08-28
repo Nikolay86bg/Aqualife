@@ -78,6 +78,7 @@ filter:
     type: Type
     username: Username
     email: Email
+    timeframe: Timeframe
 
 email:
     new_query: "New Query!"
@@ -172,6 +173,12 @@ label:
     password: Password
     number_of_people: "Number Of People"
     free_lanes: "Free Lanes"
+    in_progress: "In Progress"
+    accepted: Accepted
+    rejected: Rejected
+    future: Future
+    past: Past
+    all: All
 
 message:
     no_meals: "No meal Schedule"

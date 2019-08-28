@@ -13,7 +13,7 @@
     {% endblock %}
 
 {% block content %}
-    <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
 
         {% for label, messages in app.flashes(['success', 'error']) %}
             {% for message in messages %}
@@ -39,8 +39,8 @@
                             <th>{{ macro.sorting('id', 'filter.id'|trans) }}</th>
                             <th>{{ macro.sorting('name', 'filter.name'|trans) }}</th>
                             <th>{{ macro.sorting('sport', 'filter.sport'|trans) }}</th>
-                            <th>{{ macro.sorting('numberOfPeople', 'label.number_of_people'|trans) }}</th>
-                            <th>{{ macro.sorting('country', 'filter.country'|trans) }}</th>
+                            <th class="hidden-sm hidden-xs">{{ macro.sorting('numberOfPeople', 'label.number_of_people'|trans) }}</th>
+                            <th class="hidden-sm hidden-xs">{{ macro.sorting('country', 'filter.country'|trans) }}</th>
                             <th>{{ macro.sorting('arrival', 'filter.arrival'|trans) }}</th>
                             <th>{{ macro.sorting('departure', 'filter.departure'|trans) }}</th>
                             <th>{{ macro.sorting('status', 'filter.status'|trans) }}</th>
@@ -56,8 +56,8 @@
                                         <td>{{ query.id }}</td>
                                         <td>{{ query.account.name }}</td>
                                         <td>{{ constant('App\\Entity\\Account::SPORTS')[query.account.sport]|trans }}</td>
-                                        <td>{{ query.numberOfPeople }}</td>
-                                        <td>{{ countries[query.account.country] }}</td>
+                                        <td class="hidden-sm hidden-xs">{{ query.numberOfPeople }}</td>
+                                        <td class="hidden-sm hidden-xs">{{ countries[query.account.country] }}</td>
                                         <td>{{ query.dateOfArrival|date('Y-m-d H:i') }}</td>
                                         <td>{{ query.dateOfDeparture|date('Y-m-d H:i') }}</td>
                                         <td>
@@ -68,7 +68,7 @@
                                             {% else %}
                                                 {% set labelClass =  'label-warning' %}
                                             {% endif %}
-                                            <span class="label {{ labelClass }}">{{ constant('App\\Entity\\Query::STATUSES')[query.status] }}</span>
+                                            <span class="label {{ labelClass }}">{{ constant('App\\Entity\\Query::STATUSES')[query.status]|trans }}</span>
                                         </td>
                                         <td>
                                             {{ constant('App\\Entity\\Query::PAYED')[query.payed] }}

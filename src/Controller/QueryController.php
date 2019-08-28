@@ -46,9 +46,9 @@ class QueryController extends Controller
             $order = $request->get('order');
         }
 
-        $queries = $entityManager->getRepository(Query::class)->getListQuery($filter, $sort, $order);
+        $query = $entityManager->getRepository(Query::class)->getListQuery($filter, $sort, $order);
 
-        $queries = (new Paginator($queries))
+        $queries = (new Paginator($query))
             ->setEntityManager($entityManager)
             ->paginate($request->query->get('page'));
 

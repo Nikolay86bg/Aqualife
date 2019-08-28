@@ -78,6 +78,7 @@ filter:
     type: "Тип"
     username: Username
     email: "Емейл"
+    timeframe: "Временное ограничение"
 
 email:
     new_query: "Новый зопрос!"
@@ -172,6 +173,12 @@ label:
     password: "Пароль"
     number_of_people: "Число людей"
     free_lanes: "Свободные коридоры"
+    in_progress: "В прогрессе"
+    accepted: "Принятый"
+    rejected: "Отказаный"
+    future: "Грядущее"
+    past: "Прошедшее"
+    all: "Все"
 
 message:
     no_meals: "Результаты не найдены"

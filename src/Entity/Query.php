@@ -56,9 +56,9 @@ class Query
     const STATUS_REJECTED = 2;
 
     const STATUSES = [
-      self::STATUS_IN_PROGRESS => 'In Progress',
-      self::STATUS_ACCEPTED => 'Accepted',
-      self::STATUS_REJECTED => 'Rejected',
+      self::STATUS_IN_PROGRESS => 'label.in_progress',
+      self::STATUS_ACCEPTED => 'label.accepted',
+      self::STATUS_REJECTED => 'label.rejected',
     ];
 
     const PAYED_NO = 0;

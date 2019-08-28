@@ -24,6 +24,7 @@ class QueryRepository extends ServiceEntityRepository
      * @param null $sort
      * @param null $order
      * @return \Doctrine\ORM\Query
+     * @throws \Exception
      */
     public function getListQuery(Form $form, $sort = null, $order = null)
     {
@@ -49,6 +50,23 @@ class QueryRepository extends ServiceEntityRepository
             $queryBuilder
                 ->andWhere('account.country LIKE :country')
                 ->setParameter('country', $form->get('country')->getData() . '%');
+        }
+        if (null !== $form->get('timeframe')->getData()) {
+            $today = (new \DateTime());
+            switch ($form->get('timeframe')->getData()) {
+                case 0:
+                    $queryBuilder
+                        ->andWhere('DATE(query.dateOfDeparture) >= DATE(:timeframe)')
+                        ->setParameter('timeframe', $today);
+                    break;
+                case 1:
+                    $queryBuilder
+                        ->andWhere('DATE(query.dateOfArrival) <= DATE(:timeframe)')
+                        ->setParameter('timeframe', $today);
+                    break;
+                default:
+                    break;
+            }
         }
         if (null !== $form->get('from')->getData() && null !== $form->get('to')->getData()) {
             $queryBuilder

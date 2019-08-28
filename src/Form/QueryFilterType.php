@@ -80,7 +80,18 @@ class QueryFilterType extends AbstractType
                     'class' => 'form-control datepicker'
                 ],
             ])
-        ;
+            ->add('timeframe', ChoiceType::class, [
+                'label' => 'filter.timeframe',
+                'choices' => [
+                    'label.future' => 0,
+                    'label.past' => 1,
+                    'label.all' => 2,
+                ],
+                'attr' => [
+                    'placeholder' => 'filter.to',
+                    'class' => 'form-control datepicker'
+                ],
+            ]);
     }
 
     /**
