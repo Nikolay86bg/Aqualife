@@ -4,24 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Account;
 use App\Entity\Facility;
-use App\Entity\Query;
-use App\Form\AccountFilterType;
 use App\Form\AccountType;
 use App\Form\FacilityFilterType;
 use App\Form\FacilityType;
-use App\Form\QueryFilterType;
-use App\Form\QueryType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\Intl\Intl;
 
 /**
  * Class QueryController
  * @package App\Controller
  */
-class FacilityController extends Controller
+class FacilityController extends AbstractController
 {
     /**
      * @Route("/facility", name="facility")

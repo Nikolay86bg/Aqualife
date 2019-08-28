@@ -2,30 +2,28 @@
 
 namespace App\Controller;
 
-use App\Entity\Account;
-use App\Entity\Facility;
+
 use App\Entity\MealSchedule;
-use App\Entity\Query;
-use App\Entity\Schedule;
-use App\Form\AccountType;
 use App\Form\MealScheduleFilterType;
-use App\Form\QueryFilterType;
-use App\Form\ScheduleFilterType;
 use App\Service\ColorService;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use App\Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\Intl\Intl;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class QueryController
  * @package App\Controller
  */
-class MealScheduleController extends Controller
+class MealScheduleController extends AbstractController
 {
+    /**
+     * @var ColorService
+     */
+    private $colorService;
+
+    public function __construct(ColorService $colorService)
+    {
+        $this->colorService = $colorService;
+    }
 
     /**
      * @param Request $request
@@ -59,7 +57,7 @@ class MealScheduleController extends Controller
             'from' => $from->format('d-m-Y'),
             'to' => $to->format('d-m-Y'),
             'schedule' => $schedule,
-            'color' => $this->get(ColorService::class),
+            'color' => $this->colorService,
         ]);
     }
 

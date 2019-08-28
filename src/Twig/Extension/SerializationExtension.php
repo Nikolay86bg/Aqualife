@@ -6,10 +6,13 @@
 
 namespace App\Twig\Extension;
 
+use Twig\Extension\AbstractExtension;
+
 /**
- * Class AverageTimeExtension.
+ * Class SerializationExtension
+ * @package App\Twig\Extension
  */
-class SerializationExtension extends \Twig_Extension
+class SerializationExtension extends AbstractExtension
 {
     /**
      * @return array|\Twig_Filter[]

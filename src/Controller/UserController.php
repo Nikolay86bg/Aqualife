@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Doctrine\ORM\Tools\Pagination\Paginator;
-use App\Entity\Position;
 use App\Entity\User;
 use App\Form\UserFilterType;
 use App\Form\UserPasswordType;
@@ -11,14 +10,14 @@ use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Security\Voter\UserVoter;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Class UserController.
  */
-class UserController extends Controller
+class UserController extends AbstractController
 {
     /**
      * @param Request $request
@@ -117,7 +116,7 @@ class UserController extends Controller
 
             $em->flush();
 
-            $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
+            $this->addFlash('success', $this->translator->trans('general.flashes.saved'));
         }
 
         return $this->render('user/edit.html.twig', [

@@ -8,18 +8,39 @@ use App\Entity\Schedule;
 use App\Form\AccountFilterType;
 use App\Form\AccountType;
 use App\Service\ColorService;
+use App\Service\MailerService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\Intl\Intl;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AccountController
  * @package App\Controller
  */
-class AccountController extends Controller
+class AccountController extends AbstractController
 {
+    /**
+     * @var ColorService
+     */
+    private $colorService;
+    /**
+     * @var MailerService
+     */
+    private $mailerService;
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(ColorService $colorService, MailerService $mailerService, TranslatorInterface $translator)
+    {
+        $this->colorService = $colorService;
+        $this->mailerService = $mailerService;
+        $this->translator = $translator;
+    }
     /**
      * @Route("/account", name="account")
      *
@@ -124,7 +145,7 @@ class AccountController extends Controller
     {
         return $this->render('account/current-accounts-list.html.twig', [
             'accounts' => $this->getDoctrine()->getManager()->getRepository(Account::class)->getCurrentAccounts(),
-            'color' =>  $this->get(ColorService::class)
+            'color' =>  $this->colorService
         ]);
     }
 
@@ -165,7 +186,7 @@ class AccountController extends Controller
 
         return $this->render('account/schedule.html.twig', [
             'account' => $account,
-            'color' =>  $this->get(ColorService::class),
+            'color' =>  $this->colorService,
             'countries' => Intl::getRegionBundle()->getCountryNames(),
             'mealArray' => $mealArray,
             'scheduleArray' => $scheduleArray,
@@ -181,7 +202,7 @@ class AccountController extends Controller
         $account->setDeletedAt((new \DateTime()));
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('general.flashes.deleted'));
+        $this->addFlash('success', $this->translator->trans('general.flashes.deleted'));
 
         return $this->redirectToRoute('account_index');
     }

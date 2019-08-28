@@ -8,14 +8,24 @@ use App\Form\ScheduleFilterType;
 use App\Service\ColorService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class QueryController
  * @package App\Controller
  */
-class ScheduleController extends Controller
+class ScheduleController extends AbstractController
 {
+    /**
+     * @var ColorService
+     */
+    private $colorService;
+
+    public function __construct(ColorService $colorService)
+    {
+        $this->colorService = $colorService;
+    }
+
 
     /**
      * @param Request $request
@@ -85,7 +95,7 @@ class ScheduleController extends Controller
         $end = \DateTime::createFromFormat ( 'Y-m-d\TH:i:s' ,  $request->request->get('end'));
 
         $schedule = $entityManager->getRepository(Schedule::class)->getSchedule($facility, $start, $end);
-        $schedule = $entityManager->getRepository(Schedule::class)->prepareSchedule($schedule, $this->get(ColorService::class));
+        $schedule = $entityManager->getRepository(Schedule::class)->prepareSchedule($schedule, $this->colorService);
         return new JsonResponse($schedule);
     }
 

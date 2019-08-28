@@ -10,7 +10,6 @@ use App\Doctrine\Traits\TimestampableEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -22,7 +21,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @UniqueEntity("username")
  */
-class User implements AdvancedUserInterface, \Serializable, EquatableInterface
+class User implements UserInterface,\Serializable, EquatableInterface
 {
     use TimestampableEntityTrait;
 

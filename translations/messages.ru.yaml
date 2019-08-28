@@ -26,6 +26,7 @@ general:
         filter: "Фильтр"
         reset: "Сброс"
         pay: "Оплатил"
+        show: "Покажи"
         add_date: "Добавить дату"
         whole_period: "Целый период"
         delete_all: "Удалить все"

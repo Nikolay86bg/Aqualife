@@ -25,12 +25,12 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => 'Username:',
+                'label' => 'security.form.label.username',
                 'required' => true,
                 'constraints' => new NotBlank(),
             ])
             ->add('password', PasswordType::class, [
-                'label' => 'Password:',
+                'label' => 'security.form.label.password',
                 'required' => true,
                 'constraints' => new NotBlank(),
             ])

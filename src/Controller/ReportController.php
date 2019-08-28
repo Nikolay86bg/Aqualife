@@ -2,30 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Account;
+
 use App\Entity\Facility;
-use App\Entity\MealSchedule;
-use App\Entity\Query;
-use App\Entity\Schedule;
-use App\Form\AccountType;
 use App\Form\FreeLanesReportFilterType;
-use App\Form\QueryFilterType;
-use App\Security\Voter\QueryVoter;
 use App\Service\ReportService;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use App\Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\Intl\Intl;
-use App\Service\MailerService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * Class ReportController
  * @package App\Controller
  */
-class ReportController extends Controller
+class ReportController extends AbstractController
 {
     /**
      * @var ReportService

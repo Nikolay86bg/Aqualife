@@ -13,22 +13,39 @@ use App\Security\Voter\QueryVoter;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\Intl\Intl;
 use App\Service\MailerService;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class QueryController
  * @package App\Controller
  */
-class QueryController extends Controller
+class QueryController extends AbstractController
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+    /**
+     * @var MailerService
+     */
+    private $mailerService;
+
+    public function __construct(TranslatorInterface $translator, MailerService $mailerService)
+    {
+        $this->translator = $translator;
+        $this->mailerService = $mailerService;
+    }
+
     /**
      * @Route("/query", name="query")
      *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function index(Request $request)
     {
@@ -195,9 +212,9 @@ class QueryController extends Controller
 
             $em->flush();
 
-            $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
+            $this->addFlash('success', $this->translator->trans('general.flashes.saved'));
 
-            $this->get(MailerService::class)->sendMail($account);
+            $this->mailerService->sendMail($account);
 
             return $this->redirectToRoute('query_show', ['id' => $query->getId()]);
         }
@@ -451,7 +468,7 @@ class QueryController extends Controller
             }
 
             $em->flush();
-            $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
+            $this->addFlash('success', $this->translator->trans('general.flashes.saved'));
 
             return $this->redirectToRoute('query_edit', ['id' => $query->getId()]);
         }
@@ -522,7 +539,7 @@ class QueryController extends Controller
         $query->setStatus(Query::STATUS_REJECTED);
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
+        $this->addFlash('success', $this->translator->trans('general.flashes.saved'));
 
         return $this->redirectToRoute('query_index');
     }
@@ -538,7 +555,7 @@ class QueryController extends Controller
         $query->setStatus(Query::STATUS_IN_PROGRESS);
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
+        $this->addFlash('success', $this->translator->trans('general.flashes.saved'));
 
         return $this->redirectToRoute('query_index');
     }
@@ -566,7 +583,7 @@ class QueryController extends Controller
 
         $em->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
+        $this->addFlash('success', $this->translator->trans('general.flashes.saved'));
 
         return $this->redirectToRoute('query_index');
     }
@@ -581,7 +598,7 @@ class QueryController extends Controller
         $query->setPayed(Query::PAYED_YES);
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('general.flashes.saved'));
+        $this->addFlash('success', $this->translator->trans('general.flashes.saved'));
 
         return $this->redirect($request->headers->get('referer'));
     }
@@ -596,7 +613,7 @@ class QueryController extends Controller
         $query->getAccount()->setDeletedAt((new \DateTime()));
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('general.flashes.deleted'));
+        $this->addFlash('success', $this->translator->trans('general.flashes.deleted'));
 
         return $this->redirectToRoute('query_index');
     }

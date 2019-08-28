@@ -26,6 +26,7 @@ general:
         filter: Filter
         reset: Reset
         pay: Pay
+        show: Show
         add_date: "Add Date"
         whole_period: "Whole Period"
         delete_all: "Delete All"
