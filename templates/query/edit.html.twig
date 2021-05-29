@@ -88,6 +88,13 @@
                             </a>
                             {% endif %}
 
+                            {% if query.status == constant('App\\Entity\\Query::STATUS_IN_PROGRESS') %}
+                                <a href="{{ path('query_accept_form', { 'id': query.id }) }}" class="btn btn-sm bg-success no-wrap">
+                                    <i class="fa fa-check"></i><span
+                                            class="hidden-xs hidden-sm"> {{ "general.button.accept"|trans }}</span>
+                                </a>
+                            {% endif %}
+
                             {% if query.payed == constant('App\\Entity\\Query::PAYED_NO') %}
                                 <a href="{{ path('query_payed', { 'id': query.id }) }}"
                                    class="btn btn-sm bg-orange-active no-wrap">

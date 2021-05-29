@@ -216,7 +216,7 @@ class QueryController extends AbstractController
 
             $this->mailerService->sendMail($account);
 
-            return $this->redirectToRoute('query_show', ['id' => $query->getId()]);
+            return $this->redirectToRoute('query_edit', ['id' => $query->getId()]);
         }
 
         $facilities = $em->getRepository(Facility::class)->findAll();
@@ -585,7 +585,7 @@ class QueryController extends AbstractController
 
         $this->addFlash('success', $this->translator->trans('general.flashes.saved'));
 
-        return $this->redirectToRoute('query_index');
+        return $this->redirectToRoute('query_edit', ['id' => $query->getId()]);
     }
 
     /**
