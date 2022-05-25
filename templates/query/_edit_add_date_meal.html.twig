@@ -1,0 +1,130 @@
+<style>
+    @media (min-width: 768px) {
+        .modal-xl {
+            width: 90%;
+            max-width:1200px;
+        }
+    }
+</style>
+
+<div class="modal fade" id="modal-add-date-meal" style="display: none;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">{{ "general.button.add_date"|trans }}</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Date</th>
+                        <th>Restaurant</th>
+                        <th style="width: 115px">Breakfast Time</th>
+                        <th style="width: 115px">Breakfast Time End</th>
+                        <th style="width: 115px">Lunch Time</th>
+                        <th style="width: 115px">Lunch Time End</th>
+                        <th style="width: 115px">Dinner Time</th>
+                        <th style="width: 115px">Dinner Time End</th>
+                        <th style="width: 115px">Middle Breakfast Time</th>
+                        <th style="width: 115px">Middle Breakfast Time End</th>
+                    </tr>
+                    <tr class="schedule_info">
+                        <td>
+                            {#<input type="text" class="form-control pull-right datepicker" name="meals_new[date][]">#}
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right add_date_range" name="meals_date[date][]" autocomplete="off" style="width:170px;">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <select name="meals_new[restaurant][]" class="form-control meals_new_restaurant">
+                                    <option value="-">No</option>
+                                    <option value="0">Sport</option>
+                                    <option value="1">Aqualife 2</option>
+                                    <option value="2">Aqualife 1</option>
+                                    <option value="3">Tower</option>
+                                    #}
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control timepicker" name="meals_new[breakfast][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control timepicker" name="meals_new[breakfast_end][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control timepicker" name="meals_new[lunch][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control timepicker" name="meals_new[lunch_end][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control timepicker" name="meals_new[dinner][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control timepicker" name="meals_new[dinner_end][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control timepicker" name="meals_new[middle_breakfast][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" class="form-control timepicker" name="meals_new[middle_breakfast_end][]">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">{{ "general.button.cancel"|trans }}
+                </button>
+                <button type="submit" class="btn btn-primary move-meal-date-to-schedule" data-dismiss="modal">{{ "general.button.add"|trans }}</button>
+            </div>
+        </div>
+    </div>
+</div>

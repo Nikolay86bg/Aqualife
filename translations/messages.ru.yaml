@@ -28,6 +28,7 @@ general:
         pay: "Оплатил"
         show: "Покажи"
         add_date: "Добавить дату"
+        add_date_range: "Добавить дату за период"
         whole_period: "Целый период"
         delete_all: "Удалить все"
         for_printing: "Для печати"

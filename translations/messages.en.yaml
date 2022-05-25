@@ -28,6 +28,7 @@ general:
         pay: Pay
         show: Show
         add_date: "Add Date"
+        add_date_range: "Add Date Range"
         whole_period: "Whole Period"
         delete_all: "Delete All"
         for_printing: "Print"

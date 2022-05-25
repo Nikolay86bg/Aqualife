@@ -99,7 +99,7 @@
                             {% endfor %}
                         </ul>
                         <div class="tab-content">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered meal-table">
                                 <tbody>
                                 <tr>
                                     <th>{{ "label.date"|trans }}</th>
@@ -119,7 +119,7 @@
                                                name="meals[date][]"></td>
                                     <td>
                                         <div class="input-group">
-                                            <select name="meals[restaurant][]" class="form-control">
+                                            <select name="meals[restaurant][]" class="form-control meal-restaurant">
                                                 <option value="-">No</option>
                                                 {% for resId,restaurant in constant('App\\Entity\\Query::RESTAURANTS') %}
                                                 <option value="{{ resId }}">{{ restaurant }}</option>
@@ -198,6 +198,7 @@
                                 </tbody>
                             </table>
                             <div>
+                                <a class="btn btn-sm bg-info" data-toggle="modal" data-target="#modal-add-date-meal">{{ "general.button.add_date_range"|trans }}</a>
                                 <span class="btn btn-sm bg-info meal-add-date">{{ "general.button.add_date"|trans }}</span>
                                 <span class="btn btn-sm bg-orange whole-period-meal">{{ "general.button.whole_period"|trans }}</span>
                             </div>
@@ -314,6 +315,8 @@
         {% for key,facility in facilities %}
             {% include 'query/_edit_add_date.html.twig' %}
         {% endfor %}
+
+        {% include 'query/_edit_add_date_meal.html.twig' %}
     {% endblock %}
 
     {% block javascripts %}
@@ -492,8 +495,6 @@
                 var aTimeTo = $("input[name='facilities["+facilityId+"][aTimeTo][]']" ).val();
                 var part = $(".facility-"+facilityId+"-part").val();
 
-
-
                 var startEnd = date.split(' - ');
                 var start = startEnd[0].split("/");
                 var end = startEnd[1].split("/");
@@ -527,6 +528,52 @@
                     row.find("input[name='newschedules[mTimeFrom]["+facilityId+"][]']").val(mTimeFrom);
                     row.find("input[name='newschedules[mTimeTo]["+facilityId+"][]']").val(mTimeTo);
 //
+                    setDateTimePickers();
+                });
+
+                return;
+            });
+
+
+            ///Meal move info to schedule
+            $('.move-meal-date-to-schedule').on("click", function () {
+                var date = $("input[name='meals_date[date][]']" ).val();
+                var restaurant = $(".meals_new_restaurant" ).val();
+                var breakfast = $("input[name='meals_new[breakfast][]']" ).val();
+                var breakfast_end = $("input[name='meals_new[breakfast_end][]']" ).val();
+                var lunch = $("input[name='meals_new[lunch][]']" ).val();
+                var lunch_end = $("input[name='meals_new[lunch_end][]']" ).val();
+                var dinner = $("input[name='meals_new[dinner][]']" ).val();
+                var dinner_end = $("input[name='meals_new[dinner_end][]']" ).val();
+                var middle_breakfast = $("input[name='meals_new[middle_breakfast][]']" ).val();
+                var middle_breakfast_end = $("input[name='meals_new[middle_breakfast_end][]']" ).val();
+
+                var startEnd = date.split(' - ');
+                var start = startEnd[0].split("/");
+                var end = startEnd[1].split("/");
+                var s=new Date(start[2],(start[1] -1 ),start[0]);
+                var e=new Date(end[2], (end[1] - 1),end[0]);
+                var dates = getDates(s, e);
+
+                dates.forEach(function(date) {
+                    var row = $('.meal_row_to_copy');
+                    var clone = row.clone(); // copy children too
+                    clone.find("input[name='meals[date][]']").val(date.ddmmyyyy());
+                    clone.find(".meal-restaurant").val(restaurant);
+
+                    clone.find("input[name='meals[breakfast][]']").val(breakfast);
+                    clone.find("input[name='meals[breakfast_end][]']").val(breakfast_end);
+                    clone.find("input[name='meals[lunch][]']").val(lunch);
+                    clone.find("input[name='meals[lunch_end][]']").val(lunch_end);
+                    clone.find("input[name='meals[dinner][]']").val(dinner);
+                    clone.find("input[name='meals[dinner_end][]']").val(dinner_end);
+                    clone.find("input[name='meals[middle_breakfast][]']").val(middle_breakfast);
+                    clone.find("input[name='meals[middle_breakfast_end][]']").val(middle_breakfast_end);
+
+                    clone.removeClass(); // change id or other attributes/contents
+                    $('.meal-table').append(clone); // add new row to end of table
+
+
                     setDateTimePickers();
                 });
 
