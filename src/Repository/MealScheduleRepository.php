@@ -2,14 +2,10 @@
 
 namespace App\Repository;
 
-use App\Entity\Facility;
 use App\Entity\MealSchedule;
 use App\Entity\Query;
-use App\Entity\Schedule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\Query\QueryException;
-use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Component\Form\Form;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class ScheduleRepository
@@ -17,7 +13,7 @@ use Symfony\Component\Form\Form;
  */
 class MealScheduleRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, MealSchedule::class);
     }
