@@ -5,9 +5,11 @@
                 max-width: auto;
                 margin: 0 auto;
             }
+
             .fc-view-container {
-                  width: auto;
+                width: auto;
             }
+
             .fc-view-container .fc-view {
                 overflow-x: scroll;
             }
@@ -17,27 +19,26 @@
             }
 
             .fc-agendaMonth-view > table {
-              width: 30000px;
+                width: 30000px;
             }
 
             .fc-agendaCustom-view > table {
                 width: {{ (differenceInDays+1) *1200 }}px;
             }
 
-
-
-            .fc-slats tr{
+            .fc-slats tr {
                 border: 1px solid #ddd;
             }
 
-            .fc-slats tr td:first-child{
+            .fc-slats tr td:first-child {
                 background: #fff;
-                position:fixed;
-                z-index: 10!important;
+                position: fixed;
+                z-index: 10 !important;
                 left: 234px;
             }
+
             /*.fc-time-grid .fc-content-skeleton {*/
-                /*z-index: 1;*/
+            /*z-index: 1;*/
             /*}*/
 
         </style>
@@ -46,7 +47,8 @@
                 <i class="fa fa-list" aria-hidden="true"></i> {{ "schedule.title.list_schedule"|trans }}
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ url('schedule_index') }}"><i class="fa fa-dashboard"></i> {{ "menu.schedule"|trans }}</a></li>
+                <li><a href="{{ url('schedule_index') }}"><i class="fa fa-dashboard"></i> {{ "menu.schedule"|trans }}
+                    </a></li>
                 <li class="active">{{ "menu.facilities"|trans }}</li>
             </ol>
         </section>
@@ -58,7 +60,10 @@
         <section class="content">
             {% include 'schedule/filter.html.twig' %}
             <div class="row">
-                <h2>{{ facility.name }} - <a href="{{ url('schedule_print', {'id': facility.id, 'from': from|date("d-m-Y"), 'until': to|date("d-m-Y")}) }}" target="_blank" class="btn btn-sm btn-success">{{ "general.button.for_printing"|trans }}</a></h2>
+                <h2>{{ facility.name }} - <a
+                            href="{{ url('schedule_print', {'id': facility.id, 'from': from|date("d-m-Y"), 'until': to|date("d-m-Y")}) }}"
+                            target="_blank" class="btn btn-sm btn-success">{{ "general.button.for_printing"|trans }}</a>
+                </h2>
 
                 <div class="col-md-12">
                     <div class="box box-primary">
@@ -162,6 +167,16 @@
                           },
                           {
                               id: '1/2 B'
+                          },
+                      {% elseif (facility.type == constant('App\\Entity\\Facility::TYPE_BEACH_FIELD') ) %}
+                          {
+                              id: '1/3 A'
+                          },
+                          {
+                              id: '1/3 B'
+                          },
+                          {
+                              id: '1/3 C'
                           },
                       {% else %}
                           {
