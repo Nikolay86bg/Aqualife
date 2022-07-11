@@ -53,3 +53,7 @@ query_print:
     controller: App\Controller\QueryController::printTemplate
     methods:  GET
 
+query_pdf:
+    path:     /pdf/{id}
+    controller: App\Controller\QueryController::pdf
+    methods:  GET

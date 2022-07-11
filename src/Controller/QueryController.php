@@ -11,6 +11,7 @@ use App\Form\AccountType;
 use App\Form\QueryFilterType;
 use App\Security\Voter\QueryVoter;
 use Doctrine\ORM\EntityManager;
+use Dompdf\Dompdf;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -660,6 +661,23 @@ class QueryController extends AbstractController
             'mealArray' => $mealArray,
             'backUrl' => $request->server->get('HTTP_REFERER'),
         ]);
+    }
+
+    public function pdf(Query $query, Request $request)
+    {
+        $html = $this->printTemplate($query, $request);
+        $dompdf = new Dompdf();
+//        print_R($html);
+//        exit;
+        $dompdf->loadHtml($html->getContent());
+
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        $dompdf->stream($query->getAccount()->getName().".pdf", [
+            "Attachment" => true
+        ]);
+
     }
 
     /**

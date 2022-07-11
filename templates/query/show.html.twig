@@ -39,6 +39,7 @@
                                         <div class="widget-user-header bg-yellow">
                                             <h3 class="widget-user-username">{{ query.account.name }} {% if query.account.country is defined %}{{ countries[query.account.country] }}{% else %} - {% endif %}
                                             - <a href="{{ path('query_print', {'id': query.id}) }}" target="_blank" class="btn btn-sm btn-success">{{ "general.button.for_printing"|trans }}</a>
+                                                <a href="{{ path('query_pdf', {'id': query.id}) }}" target="_blank" class="btn btn-sm btn-primary">{{ "general.button.pdf"|trans }}</a>
                                             </h3>
                                         </div>
                                         <div class="box-footer no-padding">

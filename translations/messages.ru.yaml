@@ -32,6 +32,7 @@ general:
         whole_period: "Целый период"
         delete_all: "Удалить все"
         for_printing: "Для печати"
+        pdf: "PDF"
         sign_in: "Войти"
         show_password: "Показать пароль"
         change_password: "Изменить пароль"

@@ -32,6 +32,7 @@ general:
         whole_period: "Whole Period"
         delete_all: "Delete All"
         for_printing: "Print"
+        pdf: "PDF"
         sign_in: "Sign In"
         show_password: "Show Password"
         change_password: "Change Password"
