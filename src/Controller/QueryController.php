@@ -691,7 +691,7 @@ class QueryController extends AbstractController
         $dompdf->render();
 
         $dompdf->stream($query->getAccount()->getName() . ".pdf", [
-            "Attachment" => false
+            "Attachment" => true
         ]);
 
     }
