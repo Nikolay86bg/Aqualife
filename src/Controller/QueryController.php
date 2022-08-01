@@ -663,19 +663,35 @@ class QueryController extends AbstractController
         ]);
     }
 
+    private function getStringBetween($string, $start, $end)
+    {
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        if ($ini == 0) return '';
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
+    }
+
     public function pdf(Query $query, Request $request)
     {
         $html = $this->printTemplate($query, $request);
         $dompdf = new Dompdf();
-//        print_R($html);
-//        exit;
-        $dompdf->loadHtml($html->getContent());
 
-        $dompdf->setPaper('A4', 'landscape');
+        //DomCrawler is better but I did this in a hurry and without installing additional dependencies
+        $htmlStyle = file_get_contents('bower_components/bootstrap/dist/css/bootstrap.min.css');
+        $htmlAdminStyle = file_get_contents('dist/css/AdminLTE.min.css');
+        $htmlBody = $this->getStringBetween($html->getContent(), '<body class="hold-transition skin-blue sidebar-mini ">', '</body>');
+
+        $content = '<html><style>' . $htmlStyle . $htmlAdminStyle . '</style><body>' . $htmlBody . '</body></html>';
+
+        $dompdf->loadHtml($content);
+
+        $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
-        $dompdf->stream($query->getAccount()->getName().".pdf", [
-            "Attachment" => true
+        $dompdf->stream($query->getAccount()->getName() . ".pdf", [
+            "Attachment" => false
         ]);
 
     }
