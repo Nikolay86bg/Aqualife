@@ -12,7 +12,7 @@
         "admin-lte": "^2.4.8",
         "bootbox": "^4.4.0",
         "bootstrap": "^3.3.7",
-        "bootstrap-sass": "^3.3.7",
+        "bootstrap-sass": "^3.4.1",
         "bootstrap-timepicker": "^0.5.2",
         "daterangepicker": "^2.1.27",
         "eonasdan-bootstrap-datetimepicker": "^4.17.47",
