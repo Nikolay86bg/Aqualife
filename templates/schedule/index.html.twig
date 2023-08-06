@@ -178,6 +178,20 @@
                           {
                               id: '1/3 C'
                           },
+                      {% elseif (facility.type == constant('App\\Entity\\Facility::TYPE_DIVISIBLE_HALL_BY_4') ) %}
+                          {
+                              id: '1/4 A'
+                          },
+                          {
+                              id: '1/4 B'
+                          },
+                          {
+                              id: '1/4 C'
+                          },
+                          {
+                              id: '1/4 D'
+                          },
+
                       {% else %}
                           {
                               id: 'All'

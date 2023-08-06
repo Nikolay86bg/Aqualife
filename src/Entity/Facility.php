@@ -17,6 +17,7 @@ class Facility
     const TYPE_STAGE = 4;
     const TYPE_DIVISIBLE_HALL = 5;
     const TYPE_BEACH_FIELD = 6;
+    const TYPE_DIVISIBLE_HALL_BY_4 = 7;
 
     const TYPES = [
         self::TYPE_POOL => "Swimming Pool",
@@ -26,6 +27,7 @@ class Facility
         self::TYPE_STAGE => "Stage",
         self::TYPE_DIVISIBLE_HALL => "Divisible Sport Hall",
         self::TYPE_BEACH_FIELD => "Beach Field",
+        self::TYPE_DIVISIBLE_HALL_BY_4 => "Divisible Sport Hall By 4",
     ];
 
     const TYPE_OPTION_ALL = 0;
@@ -34,6 +36,10 @@ class Facility
     const TYPE_OPTION_13A = 3;
     const TYPE_OPTION_13B = 4;
     const TYPE_OPTION_13C = 5;
+    const TYPE_OPTION_14A = 6;
+    const TYPE_OPTION_14B = 7;
+    const TYPE_OPTION_14C = 8;
+    const TYPE_OPTION_14D = 9;
 
     const PARTS = [
         self::TYPE_POOL => [
@@ -70,7 +76,14 @@ class Facility
             self::TYPE_OPTION_13A => "1/3 A",
             self::TYPE_OPTION_13B => "1/3 B",
             self::TYPE_OPTION_13C => "1/3 C",
-        ]
+        ],
+        self::TYPE_DIVISIBLE_HALL_BY_4 => [
+            self::TYPE_OPTION_ALL => "All",
+            self::TYPE_OPTION_14A => "1/4 A",
+            self::TYPE_OPTION_14B => "1/4 B",
+            self::TYPE_OPTION_14C => "1/4 C",
+            self::TYPE_OPTION_14D => "1/4 D",
+        ],
     ];
 
 
