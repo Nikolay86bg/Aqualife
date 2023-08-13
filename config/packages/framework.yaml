@@ -13,8 +13,8 @@ framework:
 #FOR LOCALHOST save_path: "%kernel.root_dir%/sessions"
         handler_id: session.handler.native_file
         name: SFSESSID
-#        save_path: "%kernel.root_dir%/sessions"
-        save_path: "%kernel.root_dir%/../../tmp/symfony-sessions/"
+        save_path: "%kernel.root_dir%/sessions"
+#        save_path: "%kernel.root_dir%/../../tmp/symfony-sessions/"
         gc_divisor: 100
         cookie_lifetime: 33000
         gc_maxlifetime: 30000

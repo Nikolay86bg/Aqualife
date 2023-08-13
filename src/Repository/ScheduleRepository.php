@@ -2,12 +2,14 @@
 
 namespace App\Repository;
 
+use App\Entity\Account;
 use App\Entity\Facility;
 use App\Entity\Query;
 use App\Entity\Schedule;
 use App\Service\ColorService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class ScheduleRepository
@@ -15,9 +17,20 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ScheduleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * ScheduleRepository constructor.
+     * @param ManagerRegistry $registry
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(ManagerRegistry $registry, TranslatorInterface $translator)
     {
         parent::__construct($registry, Schedule::class);
+        $this->translator = $translator;
     }
 
     /**
@@ -191,6 +204,16 @@ class ScheduleRepository extends ServiceEntityRepository
                     }else{
                         array_push($return, $this->setScheduleArray($event, $Iid, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
                     }
+                } elseif ($event->getFacility()->getType() == Facility::TYPE_DIVISIBLE_HALL_BY_4) {
+                    $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
+                    if($Iid == 'All'){
+                        array_push($return, $this->setScheduleArray($event, '1/4 A', $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                        array_push($return, $this->setScheduleArray($event, '1/4 B', $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                        array_push($return, $this->setScheduleArray($event, '1/4 C', $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                        array_push($return, $this->setScheduleArray($event, '1/4 D', $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                    }else{
+                        array_push($return, $this->setScheduleArray($event, $Iid, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
+                    }
                 } else {
                     $Iid = Facility::PARTS[$event->getFacility()->getType()][$event->getParts()];
                     array_push($return, $this->setScheduleArray($event, $Iid, $colorService->getColorNameFromId($event->getAccount()->getId()), true));
@@ -216,7 +239,7 @@ class ScheduleRepository extends ServiceEntityRepository
         $array['resourceId'] = $id;
         $array['start'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeFrom()->format("H:i:s");
         $array['end'] = $schedule->getDate()->format("Y-m-d") . 'T' . $schedule->getTimeTo()->format("H:i:s");
-        $array['title'] = $schedule->getAccount()->getName();
+        $array['title'] = $schedule->getAccount()->getName(). ' - ' . $this->translator->trans(Account::SPORTS[$schedule->getAccount()->getSport()]);
         $array['color'] = $color;
         if($schedule->getAccount()->getQuery()->getPayed()){
             $array['textColor'] = 'black';

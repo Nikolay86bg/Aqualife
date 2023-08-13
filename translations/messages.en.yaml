@@ -210,4 +210,7 @@ sport:
     chess: Chess
     checkers: Checkers
     combat_sports: "Combat Sports"
+    volleyball: Volleyball
+    balley: Balley
+    sports_acrobatics: "Sports Acrobatics"
 

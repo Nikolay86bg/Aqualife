@@ -30,6 +30,9 @@ class Account
     const SPORT_CHECKERS = 18;
     const SPORT_COMBAT_SPORTS = 19;
     const SPORT_OTHERS = 20;
+    const SPORT_VOLLEYBALL = 21;
+    const SPORT_BALLEY = 22;
+    const SPORT_SPORTS_ACROBATICS = 23;
 
     const SPORTS = [
         self::SPORT_SWIMMING => "sport.swimming",
@@ -52,6 +55,9 @@ class Account
         self::SPORT_CHECKERS => "sport.checkers",
         self::SPORT_COMBAT_SPORTS => "sport.combat_sports",
         self::SPORT_OTHERS => "sport.others",
+        self::SPORT_VOLLEYBALL => "sport.volleyball",
+        self::SPORT_BALLEY => "sport.balley",
+        self::SPORT_SPORTS_ACROBATICS => "sport.sports_acrobatics",
     ];
 
     /**
