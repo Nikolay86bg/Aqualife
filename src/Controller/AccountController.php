@@ -6,6 +6,7 @@ use App\Entity\Account;
 use App\Entity\MealSchedule;
 use App\Entity\Schedule;
 use App\Form\AccountFilterType;
+use App\Form\SchedulePasswordType;
 use App\Form\AccountType;
 use App\Service\ColorService;
 use App\Service\MailerService;
@@ -41,6 +42,7 @@ class AccountController extends AbstractController
         $this->mailerService = $mailerService;
         $this->translator = $translator;
     }
+
     /**
      * @Route("/account", name="account")
      *
@@ -139,14 +141,35 @@ class AccountController extends AbstractController
     }
 
     /**
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function teamsSchedule()
+    public function teamsSchedule(Request $request)
     {
-        return $this->render('account/current-accounts-list.html.twig', [
-            'accounts' => $this->getDoctrine()->getManager()->getRepository(Account::class)->getCurrentAccounts(),
-            'color' =>  $this->colorService
+        $form = $this->createForm(SchedulePasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $activeAccounts = [];
+            foreach($this->getDoctrine()->getManager()->getRepository(Account::class)->getCurrentAccounts() as $account){
+               $activeAccounts[] = $account->getId();
+            }
+
+            if (in_array($form->get('password')->getData(),$activeAccounts)) {
+                return $this->redirectToRoute('account_schedule', ['id' =>$form->get('password')->getData()]);
+            } else {
+                $this->addFlash('error', 'Wrong Password!');
+            }
+        }
+
+        return $this->render('account/password-check.html.twig', [
+            'form' => $form->createView(),
         ]);
+
+//        return $this->render('account/current-accounts-list.html.twig', [
+//            'accounts' => $this->getDoctrine()->getManager()->getRepository(Account::class)->getCurrentAccounts(),
+//            'color' => $this->colorService
+//        ]);
     }
 
     /**
@@ -186,7 +209,7 @@ class AccountController extends AbstractController
 
         return $this->render('account/schedule.html.twig', [
             'account' => $account,
-            'color' =>  $this->colorService,
+            'color' => $this->colorService,
             'countries' => Intl::getRegionBundle()->getCountryNames(),
             'mealArray' => $mealArray,
             'scheduleArray' => $scheduleArray,
