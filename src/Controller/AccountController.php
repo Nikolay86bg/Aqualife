@@ -152,11 +152,11 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $activeAccounts = [];
             foreach($this->getDoctrine()->getManager()->getRepository(Account::class)->getCurrentAccounts() as $account){
-               $activeAccounts[] = $account->getId();
+                $activeAccounts[$account->getQuery()->getId()] = $account->getId();
             }
 
-            if (in_array($form->get('password')->getData(),$activeAccounts)) {
-                return $this->redirectToRoute('account_schedule', ['id' =>$form->get('password')->getData()]);
+            if (array_key_exists($form->get('password')->getData(),$activeAccounts)) {
+                return $this->redirectToRoute('account_schedule', ['id' =>$activeAccounts[$form->get('password')->getData()]]);
             } else {
                 $this->addFlash('error', 'Wrong Password!');
             }
