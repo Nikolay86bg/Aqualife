@@ -112,6 +112,11 @@ class Facility
     private $schedules;
 
     /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $isActive = true;
+
+    /**
      * @return mixed
      */
     public function __toString() {
@@ -166,7 +171,17 @@ class Facility
         return $this->schedules;
     }
 
+    public function isActive()
+    {
+        return $this->isActive;
+    }
 
+    public function setIsActive(bool $isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
 
 
 }

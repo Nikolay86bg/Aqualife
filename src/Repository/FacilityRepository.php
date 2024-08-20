@@ -28,6 +28,8 @@ class FacilityRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('facility');
 
+        $queryBuilder->where('facility.isActive = 1');
+
         if (null !== $form->get('name')->getData()) {
             $queryBuilder->andWhere('facility.name LIKE :name');
             $queryBuilder->setParameter('name', $form->get('name')->getData().'%');

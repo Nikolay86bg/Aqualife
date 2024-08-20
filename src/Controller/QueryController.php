@@ -220,7 +220,7 @@ class QueryController extends AbstractController
             return $this->redirectToRoute('query_edit', ['id' => $query->getId()]);
         }
 
-        $facilities = $em->getRepository(Facility::class)->findAll();
+        $facilities = $em->getRepository(Facility::class)->findBy(['isActive' => 1]);
 
         return $this->render('query/new.html.twig', [
             'account' => $account,
@@ -474,7 +474,7 @@ class QueryController extends AbstractController
             return $this->redirectToRoute('query_edit', ['id' => $query->getId()]);
         }
 
-        $facilities = $em->getRepository('App:Facility')->findAll();
+        $facilities = $em->getRepository(Facility::class)->findBy(['isActive' => 1]);
 
 //        $schedules = $query->getAccount()->getSchedules();
         $schedules = $em->getRepository(Schedule::class)->findBy([
