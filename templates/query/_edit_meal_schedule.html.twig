@@ -11,7 +11,7 @@
 
         <div class="nav-tabs-custom">
             <div class="tab-content">
-                <table class="table table-bordered">
+                <table class="table table-bordered meal-table">
                     <tbody>
                     <tr>
                         <th>{{ "label.date"|trans }}</th>
@@ -321,6 +321,7 @@
                     </tbody>
                 </table>
                 <div>
+                    <a class="btn btn-sm bg-info" data-toggle="modal" data-target="#modal-add-date-meal">{{ "general.button.add_date_range"|trans }}</a>
                     <span class="btn btn-sm bg-info meal-add-date">{{ "general.button.add_date"|trans }}</span>
 
                     <span class="btn btn-sm bg-orange whole-period-meal">{{ "general.button.whole_period"|trans }}</span>

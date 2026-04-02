@@ -148,6 +148,8 @@
             {% include 'query/_edit_add_date.html.twig' %}
         {% endfor %}
 
+        {% include 'query/_edit_add_date_meal.html.twig' %}
+
     {% endblock %}
 
     {% block javascripts %}
@@ -404,6 +406,54 @@
                     if(i == dates.length){
                         setDateTimePickers();
                     }
+                });
+
+                return;
+            });
+
+            ///Meal move date range to schedule
+            $('.move-meal-date-to-schedule').on("click", function () {
+                var date = $("input[name='meals_date[date][]']").val();
+                var restaurant = $(".meals_new_restaurant").val();
+                var breakfast = $("input[name='meals_new[breakfast][]']").val();
+                var breakfast_end = $("input[name='meals_new[breakfast_end][]']").val();
+                var lunch = $("input[name='meals_new[lunch][]']").val();
+                var lunch_end = $("input[name='meals_new[lunch_end][]']").val();
+                var dinner = $("input[name='meals_new[dinner][]']").val();
+                var dinner_end = $("input[name='meals_new[dinner_end][]']").val();
+                var middle_breakfast = $("input[name='meals_new[middle_breakfast][]']").val();
+                var middle_breakfast_end = $("input[name='meals_new[middle_breakfast_end][]']").val();
+
+                var startEnd = date.split(' - ');
+                var start = startEnd[0].split("/");
+                var end = startEnd[1].split("/");
+                var s = new Date(start[2], (start[1] - 1), start[0]);
+                var e = new Date(end[2], (end[1] - 1), end[0]);
+                var dates = getDates(s, e);
+
+                dates.forEach(function (date) {
+                    var row = $('.meal_row_to_copy');
+                    var clone = row.clone();
+
+                    clone.find('.form-control').each(function () {
+                        $(this).attr('name', $(this).data('newname'));
+                    });
+
+                    clone.find("input[name='newmeals[date][]']").val(date.ddmmyyyy());
+                    clone.find("select[name='newmeals[restaurant][]']").val(restaurant);
+                    clone.find("input[name='newmeals[breakfast][]']").val(breakfast);
+                    clone.find("input[name='newmeals[breakfast_end][]']").val(breakfast_end);
+                    clone.find("input[name='newmeals[lunch][]']").val(lunch);
+                    clone.find("input[name='newmeals[lunch_end][]']").val(lunch_end);
+                    clone.find("input[name='newmeals[dinner][]']").val(dinner);
+                    clone.find("input[name='newmeals[dinner_end][]']").val(dinner_end);
+                    clone.find("input[name='newmeals[middle_breakfast][]']").val(middle_breakfast);
+                    clone.find("input[name='newmeals[middle_breakfast_end][]']").val(middle_breakfast_end);
+
+                    clone.removeClass();
+                    $('.meal-table tbody').append(clone);
+
+                    setDateTimePickers();
                 });
 
                 return;

@@ -31,12 +31,14 @@ class Query
     const RESTAURANT2 = 1;
     const RESTAURANT3 = 2;
     const RESTAURANT4 = 3;
+    const RESTAURANT5 = 4;
 
     const RESTAURANTS = [
         self::RESTAURANT1 => "Sport",
+        self::RESTAURANT5 => "Aqualife 3",
         self::RESTAURANT2 => "Aqualife 2",
         self::RESTAURANT3 => "Aqualife 1",
-        self::RESTAURANT4 => "Tower",
+        self::RESTAURANT4 => "Tower",        
     ];
 
     const BREAKFAST = 0;

@@ -44,11 +44,9 @@
                             <div class="input-group">
                                 <select name="meals_new[restaurant][]" class="form-control meals_new_restaurant">
                                     <option value="-">No</option>
-                                    <option value="0">Sport</option>
-                                    <option value="1">Aqualife 2</option>
-                                    <option value="2">Aqualife 1</option>
-                                    <option value="3">Tower</option>
-                                    #}
+                                    {% for resId, restaurant in constant('App\\Entity\\Query::RESTAURANTS') %}
+                                        <option value="{{ resId }}">{{ restaurant }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </td>
