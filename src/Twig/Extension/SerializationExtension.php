@@ -7,6 +7,7 @@
 namespace App\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 /**
  * Class SerializationExtension
@@ -14,13 +15,10 @@ use Twig\Extension\AbstractExtension;
  */
 class SerializationExtension extends AbstractExtension
 {
-    /**
-     * @return array|\Twig_Filter[]
-     */
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('unserialize', [$this, 'unserialize']),
+            new TwigFilter('unserialize', [$this, 'unserialize']),
         ];
     }
 
