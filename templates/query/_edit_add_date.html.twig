@@ -59,7 +59,7 @@
                             </div>
                         </td>
                         <td>
-                            <select class="form-control facility-{{ facility.id }}-part" name="facilities[{{ facility.id }}][part][]">
+                            <select class="form-control facility-{{ facility.id }}-part" name="facilities[{{ facility.id }}][part][]" multiple size="{{ constant('App\\Entity\\Facility::PARTS')[facility.type]|length }}">
                                 {% for partKey,part in constant('App\\Entity\\Facility::PARTS')[facility.type] %}
                                     <option value="{{ partKey }}">{{ part }}</option>
                                 {% endfor %}
