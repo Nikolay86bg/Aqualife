@@ -41,10 +41,10 @@ class ScheduleController extends AbstractController
 
         if ($filter->isSubmitted() && $filter->isValid()) {
             $facility = $filter->get('facility')->getData();
-            $date = $filter->get('date')->getData();
+            $date = $filter->get('from')->getData() ?: new \DateTime();
         }else{
             $entityManager = $this->getDoctrine()->getManager();
-            $facility = $entityManager->getRepository('App:Facility')->findOneBy(['id' => 1]);
+            $facility = $entityManager->getRepository(Facility::class)->findOneBy(['id' => 1]);
             $date = new \DateTime();
         }
 
