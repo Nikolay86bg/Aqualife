@@ -1,9 +1,5 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
-
 namespace App\Doctrine\ORM\Tools\Pagination;
 
 use Doctrine\ORM\EntityManager;

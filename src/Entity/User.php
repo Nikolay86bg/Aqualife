@@ -1,9 +1,5 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
-
 namespace App\Entity;
 
 use App\Doctrine\Traits\TimestampableEntityTrait;

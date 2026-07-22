@@ -1,9 +1,5 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
-
 namespace App\Doctrine\ORM\Hydration;
 
 use App\Tools\WorkTime;

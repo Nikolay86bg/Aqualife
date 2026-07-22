@@ -1,9 +1,5 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
-
 namespace App\Form\Type;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;

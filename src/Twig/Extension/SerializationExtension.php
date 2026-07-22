@@ -1,9 +1,5 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
-
 namespace App\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;

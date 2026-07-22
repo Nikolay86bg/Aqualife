@@ -57,10 +57,14 @@
       <script>
 
           $(function() {
-              var some_date = $.fullCalendar.moment('{{ date|date("Y-m-d")}}T00:00:00');
+              var from_date = $.fullCalendar.moment('{{ from|date("Y-m-d")}}T00:00:00');
+              var to_date = $.fullCalendar.moment('{{ to|date("Y-m-d")}}T00:00:00').add(1, 'days');
 
               $('#calendar').fullCalendar({
-                  defaultDate: some_date,
+                  visibleRange: {
+                      start: from_date,
+                      end: to_date
+                  },
                   eventRender: function(eventObj, $el) {
                       $el.popover({
                           title: eventObj.title,
@@ -70,7 +74,12 @@
                           container: 'body'
                       });
                   },
-                  defaultView: 'timelineDay',
+                  defaultView: 'timelineCustom',
+                  views: {
+                      timelineCustom: {
+                          type: 'timeline',
+                      },
+                  },
                   height: 'auto',
                   locale: 'ru',
                   timeFormat: 'H:mm', // uppercase H for 24-hour clock
@@ -79,7 +88,7 @@
                       'H:mm', // uppercase H for 24-hour clock
                   ],
                   header: {
-                      left: 'prev,next',
+                      left: '',
                       center: 'title',
                       right: 'timelineDay,timelineWeek,timelineMonth'
                   },
@@ -107,15 +116,39 @@
                               id: '{{ i }}',
                           },
                           {% endfor %}
+                      {% elseif (facility.type == constant('App\\Entity\\Facility::TYPE_DIVISIBLE_HALL') or facility.type == constant('App\\Entity\\Facility::TYPE_FOOTBALL_PLAYGROUND') ) %}
+                          {
+                              id: '1/2 A'
+                          },
+                          {
+                              id: '1/2 B'
+                          },
+                      {% elseif (facility.type == constant('App\\Entity\\Facility::TYPE_BEACH_FIELD') ) %}
+                          {
+                              id: '1/3 A'
+                          },
+                          {
+                              id: '1/3 B'
+                          },
+                          {
+                              id: '1/3 C'
+                          },
+                      {% elseif (facility.type == constant('App\\Entity\\Facility::TYPE_DIVISIBLE_HALL_BY_4') ) %}
+                          {
+                              id: '1/4 A'
+                          },
+                          {
+                              id: '1/4 B'
+                          },
+                          {
+                              id: '1/4 C'
+                          },
+                          {
+                              id: '1/4 D'
+                          },
                       {% else %}
                           {
                               id: 'All'
-                          },
-                          {
-                              id: '1/2'
-                          },
-                          {
-                              id: '1/3'
                           },
                       {% endif %}
                       {

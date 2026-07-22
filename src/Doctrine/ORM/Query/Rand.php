@@ -1,9 +1,5 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
-
 namespace App\Doctrine\ORM\Query;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;

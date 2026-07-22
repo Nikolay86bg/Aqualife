@@ -1,9 +1,5 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
-
 namespace App\Doctrine\Listener;
 
 use App\Entity\User;

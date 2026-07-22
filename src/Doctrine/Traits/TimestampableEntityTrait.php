@@ -1,9 +1,5 @@
 <?php
 
-/*
- * (c) 411 Marketing
- */
-
 namespace App\Doctrine\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
